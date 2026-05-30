@@ -502,27 +502,7 @@
     }
 
     .device-lock {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: #000;
-      color: #fff;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 28px;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-    @media (max-width: 760px) {
-      .device-lock {
-        display: flex;
-      }
-      body {
-        overflow: hidden;
-      }
+      display: none !important;
     }
 
   </style>
@@ -531,10 +511,10 @@
   <script>
     (function () {
       var ua = navigator.userAgent || "";
-      var isPhoneUA = /iPhone|iPod|Windows Phone|Android.+Mobile|Mobile/i.test(ua);
       var isTabletUA = /iPad|Tablet|Nexus 7|Nexus 10|SM-T|Tab/i.test(ua);
       var isNarrow = window.matchMedia("(max-width: 760px)").matches;
-      var isPhone = isPhoneUA && !isTabletUA && isNarrow;
+      var isPhoneUA = /iPhone|iPod|Windows Phone|Android|Mobile/i.test(ua);
+      var isPhone = isNarrow && isPhoneUA && !isTabletUA;
       if (isPhone) {
         window.location.replace("./V17.html");
       }
