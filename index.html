@@ -528,6 +528,18 @@
   </style>
 </head>
 <body>
+  <script>
+    (function () {
+      var ua = navigator.userAgent || "";
+      var isPhoneUA = /iPhone|iPod|Windows Phone|Android.+Mobile|Mobile/i.test(ua);
+      var isTabletUA = /iPad|Tablet|Nexus 7|Nexus 10|SM-T|Tab/i.test(ua);
+      var isNarrow = window.matchMedia("(max-width: 760px)").matches;
+      var isPhone = isPhoneUA && !isTabletUA && isNarrow;
+      if (isPhone) {
+        window.location.replace("./V17.html");
+      }
+    })();
+  </script>
   <div class="device-lock">Starter page is for laptop and tablet mode only</div>
 
   <div class="ambient-bg"></div>
