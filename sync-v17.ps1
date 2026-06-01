@@ -33,6 +33,7 @@ if (-not $latestVersion) {
 
 Copy-Item -Path (Join-Path $htmlDir "index.html") -Destination (Join-Path $RepoDir "index.html") -Force
 Copy-Item -Path $latestVersion.FullName -Destination (Join-Path $RepoDir "V17.html") -Force
+Copy-Item -Path $latestVersion.FullName -Destination (Join-Path $RepoDir "app.html") -Force
 
 $destAssets = Join-Path $RepoDir "assets"
 if (Test-Path $destAssets) {
