@@ -2204,7 +2204,49 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     font-size:18px!important;
   }
 }
+
+.ads-rail{
+  display:none;
+}
+@media (min-width:1280px){
+  .ads-rail{
+    display:block;
+    position:fixed;
+    top:96px;
+    right:18px;
+    width:300px;
+    z-index:120;
+  }
+  .ads-rail-card{
+    min-height:250px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.14);
+    background:linear-gradient(180deg,rgba(20,20,24,.96),rgba(12,12,15,.9));
+    box-shadow:0 18px 42px rgba(0,0,0,.28);
+    overflow:hidden;
+    padding:12px;
+  }
+  body[data-t="light"] .ads-rail-card{
+    background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(245,246,250,.94));
+    border-color:rgba(0,0,0,.08);
+  }
+  .ads-rail-label{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin:0 0 10px;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    background:rgba(255,255,255,.06);
+  }
+}
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596" crossorigin="anonymous"></script>
 </head>
 <body>
 <script>
@@ -2241,6 +2283,20 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </aside>
 <div id="app">
+  <div class="ads-rail" aria-label="Advertisement">
+    <div class="ads-rail-card">
+      <div class="ads-rail-label">Ad</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6365346135619596"
+           data-ad-slot="YOUR_AD_SLOT_ID"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
   <div class="topbar"><button type="button" class="brand" onclick="goHome({direction:-1})">CALVERSE</button><div class="tbtns"><div class="icb calc-fav" id="calcFavBtn" onclick="toggleCurrentCalcFavorite()" title="Favorite">☆</div><div class="icb" id="sndBtn" onclick="togSnd()">🔊</div><div class="icb" id="thmBtn" onclick="cycleTheme()">🌙</div></div></div>
 
   <!-- HOME -->

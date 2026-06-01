@@ -1,14 +1,19 @@
 param(
-  [string]$SourceDir = "X:\Calverse\Versions\html",
+  [string]$SourceRoot = "X:\Calverse\Versions",
   [string]$RepoDir = "X:\Calverse\thecalverse"
 )
 
 $ErrorActionPreference = "Stop"
 
+$htmlDir = Join-Path $SourceRoot "html"
+$apkDir = Join-Path $SourceRoot "apk"
+$aabDir = Join-Path $SourceRoot "aab"
+
 $required = @(
-  (Join-Path $SourceDir "index.html"),
-  (Join-Path $SourceDir "V17.html"),
-  (Join-Path $SourceDir "assets")
+  (Join-Path $htmlDir "index.html"),
+  (Join-Path $htmlDir "assets"),
+  $apkDir,
+  $aabDir
 )
 
 foreach ($path in $required) {
@@ -17,13 +22,34 @@ foreach ($path in $required) {
   }
 }
 
-Copy-Item -Path (Join-Path $SourceDir "index.html") -Destination (Join-Path $RepoDir "index.html") -Force
-Copy-Item -Path (Join-Path $SourceDir "V17.html") -Destination (Join-Path $RepoDir "V17.html") -Force
+$latestVersion = Get-ChildItem -Path $htmlDir -File -Filter "V*.html" |
+  Where-Object { $_.BaseName -match '^V\d+$' } |
+  Sort-Object { [int]($_.BaseName -replace '^V', '') } -Descending |
+  Select-Object -First 1
+
+if (-not $latestVersion) {
+  throw "No versioned HTML files found in $htmlDir (expected names like V17.html, V18.html)."
+}
+
+Copy-Item -Path (Join-Path $htmlDir "index.html") -Destination (Join-Path $RepoDir "index.html") -Force
+Copy-Item -Path $latestVersion.FullName -Destination (Join-Path $RepoDir "V17.html") -Force
 
 $destAssets = Join-Path $RepoDir "assets"
 if (Test-Path $destAssets) {
   Remove-Item -LiteralPath $destAssets -Recurse -Force
 }
-Copy-Item -Path (Join-Path $SourceDir "assets") -Destination $destAssets -Recurse -Force
+Copy-Item -Path (Join-Path $htmlDir "assets") -Destination $destAssets -Recurse -Force
 
-Write-Host "Sync complete: index.html, V17.html, assets/"
+$destApks = Join-Path $RepoDir "apks"
+if (Test-Path $destApks) {
+  Remove-Item -LiteralPath $destApks -Recurse -Force
+}
+Copy-Item -Path $apkDir -Destination $destApks -Recurse -Force
+
+$destAabb = Join-Path $RepoDir "aabb"
+if (Test-Path $destAabb) {
+  Remove-Item -LiteralPath $destAabb -Recurse -Force
+}
+Copy-Item -Path $aabDir -Destination $destAabb -Recurse -Force
+
+Write-Host "Sync complete from $($latestVersion.Name): index.html -> index.html, $($latestVersion.Name) -> V17.html, assets/, apks/, aabb/"
