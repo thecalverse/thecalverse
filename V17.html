@@ -2232,11 +2232,12 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
   <div class="sn-head">Info</div>
   <div class="lsnav">
-    <div class="sni" onclick="goInfo('about')"><span class="snico">&#9432;</span><span>About Calverse</span></div>
-    <div class="sni" onclick="goInfo('privacy')"><span class="snico">&#128737;</span><span>Privacy Policy</span></div>
-    <div class="sni" onclick="goInfo('terms')"><span class="snico">&#9878;</span><span>Terms &amp; Conditions</span></div>
-    <div class="sni" onclick="goInfo('disclaimer')"><span class="snico">&#9888;</span><span>Disclaimer</span></div>
-    <div class="sni" onclick="goInfo('contact')"><span class="snico">&#9993;</span><span>Contact Us</span></div>
+    <div class="lsnav-ind" id="lsnav-ind-info"></div>
+    <div class="sni" id="sn-about" onclick="goInfo('about')"><span class="snico">&#9432;</span><span>About Calverse</span></div>
+    <div class="sni" id="sn-privacy" onclick="goInfo('privacy')"><span class="snico">&#128737;</span><span>Privacy Policy</span></div>
+    <div class="sni" id="sn-terms" onclick="goInfo('terms')"><span class="snico">&#9878;</span><span>Terms &amp; Conditions</span></div>
+    <div class="sni" id="sn-disclaimer" onclick="goInfo('disclaimer')"><span class="snico">&#9888;</span><span>Disclaimer</span></div>
+    <div class="sni" id="sn-contact" onclick="goInfo('contact')"><span class="snico">&#9993;</span><span>Contact Us</span></div>
   </div>
 </aside>
 <div id="app">
@@ -7348,23 +7349,36 @@ function setBottomTab(tab){
   syncSideNavIndicator();
 }
 function syncSideNavIndicator(immediate=false){
-  const rail=document.getElementById('lsnav-main');
-  const ind=document.getElementById('lsnav-ind');
-  const active=rail?.querySelector('.sni.on')||document.getElementById('sn-home');
-  if(!rail||!ind||!active)return;
-  const y=active.offsetTop;
-  const h=active.offsetHeight;
-  if(immediate){
-    const prev=ind.style.transition;
-    ind.style.transition='none';
+  const moveIndicator=(ind,active)=>{
+    if(!ind)return;
+    if(!active){
+      ind.style.opacity='0';
+      return;
+    }
+    const y=active.offsetTop;
+    const h=active.offsetHeight;
+    ind.style.opacity='.96';
+    if(immediate){
+      const prev=ind.style.transition;
+      ind.style.transition='none';
+      ind.style.height=`${h}px`;
+      ind.style.transform=`translate3d(0,${y}px,0)`;
+      ind.offsetHeight;
+      ind.style.transition=prev;
+      return;
+    }
     ind.style.height=`${h}px`;
     ind.style.transform=`translate3d(0,${y}px,0)`;
-    ind.offsetHeight;
-    ind.style.transition=prev;
-    return;
-  }
-  ind.style.height=`${h}px`;
-  ind.style.transform=`translate3d(0,${y}px,0)`;
+  };
+  const mainRail=document.getElementById('lsnav-main');
+  const mainInd=document.getElementById('lsnav-ind');
+  const infoRail=document.querySelector('.landscape-nav > .lsnav:last-child');
+  const infoInd=document.getElementById('lsnav-ind-info');
+  const infoKeys=new Set(['about','privacy','terms','disclaimer','contact']);
+  const mainActive=mainRail?.querySelector('.sni.on')||document.getElementById('sn-home');
+  const infoActive=infoKeys.has(currentTab)?(infoRail?.querySelector('.sni.on')||document.getElementById(`sn-${currentTab}`)):null;
+  moveIndicator(mainInd, infoKeys.has(currentTab) ? null : mainActive);
+  moveIndicator(infoInd, infoActive);
 }
 function syncBottomIndicator(immediate=false){
   const nav=document.querySelector('.bnav');
@@ -7423,7 +7437,8 @@ function getTabForScreen(name,id){
   if(id==='sNotes'||name==='Notes')return notesPane==='library'?'library':'notes';
   if(id==='sNoteEdit'||name==='NoteEdit')return 'notes';
   if(id==='sHist'||name==='Hist')return 'hist';
-  if(id==='sSettings'||id==='sInfo'||name==='Settings'||name==='Info')return 'sett';
+  if(id==='sInfo'||name==='Info')return currentInfoKey||'about';
+  if(id==='sSettings'||name==='Settings')return 'sett';
   const nonCalcScreens=new Set(['Home','Hist','Timer','Tracker','Notes','NoteEdit','Settings','Info','Calcs','Folder','C11']);
   if(name && !nonCalcScreens.has(name))return 'calcs';
   return 'home';
@@ -11386,8 +11401,8 @@ function reH(id){
 /* ── INFO PAGES ── */
 const INFO={
   about:{title:'About Calverse',html:`<div class="info-section"><h3>About Calverse</h3><p>Calverse is a study workspace designed to bring solving, revising, writing, and tracking into one place that feels focused and calm.</p><p>Instead of moving between separate calculator apps, note apps, timers, and scattered saved results, Calverse keeps the full study flow together in one cleaner system.</p></div><div class="info-section"><h3>Built for Students</h3><p>Every part of Calverse is shaped around real study use: quick calculator access, organized notes, saved documents, revision-friendly steps, focus timing, progress tracking, and easy reuse of old work.</p></div><div class="info-section"><h3>More Than a Calculator App</h3><p>Calverse is not meant to feel like a loose bundle of tools. The goal is to make it feel like one connected academic companion where your formulas, history, files, habits, and study sessions all belong to the same space.</p></div><div class="info-section"><h3>Design Direction</h3><p>The app is built around clarity, speed, and smoother everyday use. That means faster navigation, less friction between tasks, and an interface that tries to stay useful without feeling heavy.</p></div><div class="info-section"><h3>Why It Matters</h3><p>Good study tools should not waste your attention. Calverse is being shaped to help you spend less time managing apps and more time actually learning, solving, revising, and staying consistent.</p></div><div class="info-section"><h3>Vision</h3><p>The long-term vision for Calverse is a polished all-in-one learning environment: strong calculators, strong explanation quality, better organization, reliable memory, and a study experience that genuinely feels personal and well-made.</p></div>`},
-privacy:{title:'Privacy Policy',html:`<div class="info-section"><h3>Your Privacy Matters</h3><p>Calverse does not collect any personal information. Calculation history is stored locally on your device only and is never shared or sent to any server.</p></div><div class="info-section"><h3>Agreement</h3><p>By using Calverse, you agree to this privacy policy. Contact: <a href="mailto:thecalverse@gmail.com">thecalverse@gmail.com</a></p></div>`},
-  terms:{title:'Terms & Conditions',html:`<div class="info-section"><h3>Agreement to Terms</h3><p>By using Calverse, you agree to use the app for general calculation and educational purposes only. We do not guarantee 100% accuracy. Always verify important calculations independently.</p></div>`},
+privacy:{title:'Privacy Policy',html:`<div class="info-section"><h3>Your Privacy Matters</h3><p>Calverse is designed to keep your study data as private as possible. In normal use, your notes, calculation history, habits, preferences, and other personal study data are stored locally on your device and are not intended to be sent to our servers.</p><p>We do not ask for personal information unless you choose to contact us directly. If you send an email, message, or support request, we may use the details you provide only to respond and improve the app experience. We do not sell your personal information.</p></div><div class="info-section"><h3>Local Data</h3><p>Some features may save information in your browser or app storage so Calverse can remember your progress after refresh or reopen. This may include saved notes, calculator history, theme settings, favorites, and similar app preferences. You can clear this data from your device at any time using your browser or device settings.</p></div><div class="info-section"><h3>Third-Party Services</h3><p>If Calverse uses third-party services such as hosting, analytics, or advertising, those services may collect limited technical information according to their own policies. We do not control how those providers handle their systems, so you should review their policies if you want full details.</p></div><div class="info-section"><h3>Children and Safety</h3><p>Calverse is meant for general educational and productivity use. If you are under the age required by your local laws to manage online services independently, please use the app with the help of a parent, guardian, or responsible adult.</p></div><div class="info-section"><h3>Changes to This Policy</h3><p>We may update this Privacy Policy from time to time as Calverse grows or features change. When that happens, the updated version will appear here inside the app. Continued use of Calverse means you accept the current policy.</p></div><div class="info-section"><h3>Contact</h3><p>If you have privacy questions or want us to review anything related to your data, contact us at <a href="mailto:thecalverse@gmail.com">thecalverse@gmail.com</a>.</p></div>`},
+  terms:{title:'Terms & Conditions',html:`<div class="info-section"><h3>Agreement to Terms</h3><p>By using Calverse, you agree to follow these Terms &amp; Conditions. Calverse is provided as a study and productivity tool for personal, educational, and general use.</p></div><div class="info-section"><h3>Use of the App</h3><p>You agree not to misuse the app, attempt to break its features, reverse-engineer it, interfere with its operation, or use it in a way that harms other users, the service, or the integrity of the app.</p><p>You are responsible for the content you create, save, upload, or share through Calverse. Keep your own copies of important notes, files, and study materials if they matter to you.</p></div><div class="info-section"><h3>Accuracy and Responsibility</h3><p>Calverse includes calculators, note tools, study helpers, and other utilities intended to assist learning. We try to make the app reliable, but we do not promise that every answer, conversion, formula, or result will always be perfect or suitable for every situation.</p><p>You should independently verify any important calculation, academic answer, or decision before relying on it.</p></div><div class="info-section"><h3>Availability and Changes</h3><p>We may update, remove, improve, or change features at any time. Some parts of the app may be unavailable temporarily because of maintenance, bugs, hosting issues, or future version changes.</p></div><div class="info-section"><h3>Intellectual Property</h3><p>The Calverse name, branding, layout, and app content belong to the project owner unless stated otherwise. You may use the app for normal personal use, but you should not copy or redistribute protected parts of the app as your own product.</p></div><div class="info-section"><h3>Contact and Acceptance</h3><p>If you do not agree with these Terms &amp; Conditions, please do not use the app. If you have questions, reach out at <a href="mailto:thecalverse@gmail.com">thecalverse@gmail.com</a>.</p></div>`},
   disclaimer:{title:'Disclaimer',html:`<div class="info-section"><h3>Purpose</h3><p>Calverse is intended for educational and general calculation purposes only. We are not responsible for any losses or damages resulting from the use of this app.</p></div>`},
 contact:{title:'Contact Us',html:`<div class="info-section"><h3>Get in Touch</h3><p>Email: <a href="mailto:thecalverse@gmail.com">thecalverse@gmail.com</a></p><p>We will try to respond as soon as possible. Thank you for using Calverse.</p></div>`}
 };
