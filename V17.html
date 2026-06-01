@@ -987,8 +987,7 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notes-pane-seg{display:flex;gap:10px;align-items:center;height:auto;border:none;background:transparent;box-shadow:none;overflow:visible;}
 .notes-pane-btn{height:42px;padding:0 14px;border:none;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));color:var(--t2);font-size:12px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.2px;border:1px solid var(--glb);box-shadow:0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06);transform:translateZ(0);}
 .notes-pane-btn.on{background:var(--acc);border-color:var(--acb);color:var(--t1);box-shadow:0 0 0 1px rgba(140,126,255,.16),0 0 18px color-mix(in srgb,var(--act) 12%,transparent),0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06);}
-.notes-controls{display:grid;grid-template-columns:minmax(0,1fr) 124px auto;gap:10px;margin-bottom:12px;align-items:center;}
-#notes-search{height:44px;padding:0 var(--space-2);}
+.notes-controls{display:grid;grid-template-columns:124px auto;gap:10px;margin-bottom:12px;align-items:center;}
 #notes-sort{height:44px;padding:0 30px 0 var(--space-2);background-position:right 12px center;}
 .notes-list{display:grid;gap:12px;}
 .notes-list.view-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;grid-auto-rows:1fr;gap:10px;}
@@ -3201,7 +3200,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       </div>
       <div class="gp note-surface">
         <div class="notes-controls">
-          <input type="text" id="notes-search" placeholder="Search notes..." oninput="updateNotesSearch(this.value)">
           <select id="notes-sort" onchange="setNotesSort(this.value)">
             <option value="edited">Last Edited</option>
             <option value="created">Newest</option>
@@ -3384,7 +3382,7 @@ let AX;
 let countAnimTimers={};
 let currentInfoKey='about',navReady=false,navLock=false;
 let historySaveTimer=0,historyRenderTimer=0,layoutSyncTimer=0,homeClockTicker=0;
-let NOTES=[],notesTrash=[],notesSort='edited',notesView='grid',notesQuery='',notesPane='notes',currentNoteId='',noteSaveTimer=0,noteUntitledSeed=1,noteEditMode=false,lastDeletedNote=null,lastRedoDelete=null,noteActionToastTimer=null,notePaperSyncRaf=0,libraryFolders=[],libraryItems=[],libraryTrashFolders=[],libraryTrashItems=[],currentLibraryFolderId='',currentLibraryTrashFolderId='',libraryView='folders';
+let NOTES=[],notesTrash=[],notesSort='edited',notesView='grid',notesPane='notes',currentNoteId='',noteSaveTimer=0,noteUntitledSeed=1,noteEditMode=false,lastDeletedNote=null,lastRedoDelete=null,noteActionToastTimer=null,notePaperSyncRaf=0,libraryFolders=[],libraryItems=[],libraryTrashFolders=[],libraryTrashItems=[],currentLibraryFolderId='',currentLibraryTrashFolderId='',libraryView='folders';
 let TRACKER=[],trackerMonthOffset=0,trackerSaveTimer=0;
 let SEARCH_CARD_INDEX=null;
 let SEARCH_FORMULA_INDEX=null;
@@ -4818,22 +4816,13 @@ function deleteLibraryItem(id){
 function renderLibraryPane(){
   const pane=document.getElementById('library-pane');
   if(!pane)return;
-  const q=(notesQuery||'').toLowerCase().trim();
-  const terms=q.split(/\s+/).filter(Boolean);
-  const hit=(text)=>terms.every(t=>String(text||'').toLowerCase().includes(t));
-  const filteredFolders=libraryFolders.filter(folder=>{
-    if(!terms.length)return true;
-    const folderHay=`${folder.name} ${(folder.tags||[]).join(' ')}`;
-    if(hit(folderHay))return true;
-    return getLibraryFilesForFolder(folder.id).some(file=>hit(`${file.name} ${file.mimeType||''} ${file.linkUrl||''} ${(file.tags||[]).join(' ')}`));
-  });
-  const activeFolder=getLibraryFolderById(currentLibraryFolderId)||filteredFolders[0]||libraryFolders[0]||null;
+  const activeFolder=getLibraryFolderById(currentLibraryFolderId)||libraryFolders[0]||null;
   if(activeFolder && currentLibraryFolderId!==activeFolder.id)currentLibraryFolderId=activeFolder.id;
   if(!libraryFolders.length){
     pane.innerHTML=`<div class="library-toolbar"><div class="library-toolbar-copy"><div class="lib-title">Library</div><div class="lib-sub">Create folders first, then upload into that folder.</div></div><button class="library-file-btn acc" onclick="createLibraryFolder()">+ Folder</button></div><div class="library-empty"><div class="notes-empty-ico">📚</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No folders yet.</div><div style="font-size:12px">Create subject folders like Physics or Chemistry, then upload photos, PDFs, and study files into them.</div></div>`;
     return;
   }
-  const folderCards=filteredFolders.map(folder=>{
+  const folderCards=libraryFolders.map(folder=>{
     const count=getLibraryFilesForFolder(folder.id).length;
     return `<div class="library-folder-card" onclick="setLibraryFolder('${folder.id}')"><div class="library-folder-top"><div><div class="library-folder-name">${escapeHtml(folder.name)}</div><div class="library-folder-meta">${count} file${count===1?'':'s'}</div></div><div class="folder-icon">📁</div></div><div class="library-folder-actions"><button class="library-folder-btn" onclick="event.stopPropagation();renameLibraryFolder('${folder.id}')">Rename</button><button class="library-folder-btn del" onclick="event.stopPropagation();deleteLibraryFolder('${folder.id}')">Delete</button></div></div>`;
   }).join('');
@@ -4842,7 +4831,7 @@ function renderLibraryPane(){
     requestAnimationFrame(()=>applyLiquidStagger(pane,'.library-folder-card'));
     return;
   }
-    const files=getLibraryFilesForFolder(activeFolder.id).filter(item=>!terms.length||hit(`${item.name} ${item.mimeType||''} ${item.linkUrl||''} ${(item.tags||[]).join(' ')} ${activeFolder.name} ${(activeFolder.tags||[]).join(' ')}`));
+    const files=getLibraryFilesForFolder(activeFolder.id);
   const fileCards=files.length?files.map(item=>{
     const meta=`${formatFileSize(item.size)} · ${escapeHtml(formatNoteStamp(item.updatedAt))}`;
     if(canInlineThumb(item)){
@@ -4953,9 +4942,7 @@ function deleteAllLibraryTrash(){
 function renderLibraryTrashPane(){
   const pane=document.getElementById('library-pane');
   if(!pane)return;
-  const q=(notesQuery||'').toLowerCase().trim();
   const folders=libraryTrashFolders
-    .filter(folder=>!q||folder.name.toLowerCase().includes(q)||getLibraryTrashFilesForFolder(folder.id).some(file=>file.name.toLowerCase().includes(q)))
     .sort((a,b)=>(b.deletedAt||0)-(a.deletedAt||0));
   const active=folders.find(f=>f.id===currentLibraryTrashFolderId)||folders[0]||null;
   if(active && currentLibraryTrashFolderId!==active.id)currentLibraryTrashFolderId=active.id;
@@ -5037,15 +5024,7 @@ function loadNotesData(){
   })();
 }
 function getFilteredNotes(){
-  const q=(notesQuery||'').toLowerCase().trim();
-  const terms=q.split(/\s+/).filter(Boolean);
   let list=[...NOTES];
-  if(q){
-    list=list.filter(note=>{
-      const hay=`${getNoteDisplayTitle(note)} ${notePreview(note)} ${notePlainText(note.content)} ${(note.tags||[]).join(' ')}`.toLowerCase();
-      return terms.every(t=>hay.includes(t));
-    });
-  }
   if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   else if(notesSort==='title')list.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
   else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
@@ -5087,10 +5066,6 @@ function setNotesPane(next){
   syncNotesPaneUI();
   renderNotesList();
 }
-function updateNotesSearch(val){
-  notesQuery=String(val||'');
-  renderNotesList();
-}
 function setNotesSort(val){
   notesSort=val||'edited';
   renderNotesList();
@@ -5110,10 +5085,8 @@ function renderNoteCard(note){
 }
 function renderNotesList(){
   const listEl=document.getElementById('notes-list');
-  const searchEl=document.getElementById('notes-search');
   const sortEl=document.getElementById('notes-sort');
   syncNotesPaneUI();
-  if(searchEl&&searchEl.value!==notesQuery)searchEl.value=notesQuery;
   if(sortEl&&sortEl.value!==notesSort)sortEl.value=notesSort;
   if(notesPane==='library'){
     renderLibraryPane();
@@ -5145,12 +5118,7 @@ function renderTrashPane(){
   const pane=document.getElementById('library-pane');
   if(listEl){
     listEl.className=`notes-list view-${notesView}`;
-    const q=(notesQuery||'').toLowerCase().trim();
-    const noteList=[...notesTrash].filter(n=>{
-      if(!q)return true;
-      const hay=`${getNoteDisplayTitle(n)} ${notePreview(n)} ${notePlainText(n.content)}`.toLowerCase();
-      return hay.includes(q);
-    });
+    const noteList=[...notesTrash];
     if(!noteList.length){
       listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗑️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No deleted notes.</div><div style="font-size:12px">Delete a note to see it here.</div></div>`;
     }else{
