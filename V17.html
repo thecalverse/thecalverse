@@ -1432,6 +1432,9 @@ canvas#gc{display:block;width:100%;height:240px;}
   font-weight:900!important;
   letter-spacing:.4px!important;
 }
+@media (min-width:900px){
+  .timer-focus-actions .timer-land-btn{display:none!important;}
+}
 /* control icons are set from JS */
 [data-t=black] .timer-focus{--timer-pair-bg1:#17181b;--timer-pair-bg2:#0a0a0b;--timer-pair-text:#d3d3d5;--timer-pair-line:#050506;--timer-pair-line-glow:rgba(255,255,255,.03);--timer-pair-shadow:rgba(0,0,0,.24);background:radial-gradient(circle at 18% 14%,rgba(166,139,108,.12),transparent 26%),linear-gradient(180deg,#131316,#030304);}
 [data-t=light] .timer-focus{--timer-pair-bg1:#141414;--timer-pair-bg2:#090909;--timer-pair-text:#6d4933;--timer-pair-line:#050505;--timer-pair-line-glow:rgba(255,255,255,.05);--timer-pair-shadow:rgba(0,0,0,.24);background:radial-gradient(circle at 18% 14%,rgba(255,246,232,.42),transparent 28%),radial-gradient(circle at 86% 78%,rgba(176,123,87,.16),transparent 34%),linear-gradient(180deg,#ead8c8,#ccb29a);}
@@ -3125,6 +3128,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="go timer-main" id="timer-start" onclick="toggleTimer()">Start</button>
           <button class="go timer-reset" onclick="resetTimer()">Reset</button>
         </div>
+        <div class="timer-banner-ad" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6365346135619596" data-ad-slot="2268025555" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
       </div>
     </div>
   </div>
