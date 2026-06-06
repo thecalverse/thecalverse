@@ -5,12 +5,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$landingDir = Join-Path $SourceRoot "Landing Pages"
 $htmlDir = Join-Path $SourceRoot "html"
 $apkDir = Join-Path $SourceRoot "apk"
 $aabDir = Join-Path $SourceRoot "aab"
 
 $required = @(
-  (Join-Path $htmlDir "index.html"),
+  (Join-Path $landingDir "index-2.html"),
   (Join-Path $htmlDir "assets"),
   $apkDir,
   $aabDir
@@ -31,7 +32,7 @@ if (-not $latestVersion) {
   throw "No versioned HTML files found in $htmlDir (expected names like V17.html, V18.html)."
 }
 
-Copy-Item -Path (Join-Path $htmlDir "index.html") -Destination (Join-Path $RepoDir "index.html") -Force
+Copy-Item -Path (Join-Path $landingDir "index-2.html") -Destination (Join-Path $RepoDir "index.html") -Force
 Copy-Item -Path $latestVersion.FullName -Destination (Join-Path $RepoDir "V17.html") -Force
 Copy-Item -Path $latestVersion.FullName -Destination (Join-Path $RepoDir "app.html") -Force
 
@@ -53,4 +54,4 @@ if (Test-Path $destAabb) {
 }
 Copy-Item -Path $aabDir -Destination $destAabb -Recurse -Force
 
-Write-Host "Sync complete from $($latestVersion.Name): index.html -> index.html, $($latestVersion.Name) -> V17.html, assets/, apks/, aabb/"
+Write-Host "Sync complete from landing index-2 and $($latestVersion.Name): index.html -> index.html, $($latestVersion.Name) -> V17.html, assets/, apks/, aabb/"
