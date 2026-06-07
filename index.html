@@ -583,21 +583,19 @@
 
   <script>
     // Force scroll to top on load to prevent auto-scrolling
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.onload = function() {
-      window.scrollTo(0, 0);
-      const curtain = document.getElementById('curtain-reveal');
-      if (curtain) {
-        requestAnimationFrame(() => {
-          curtain.classList.add('open');
-        });
-        setTimeout(() => {
-          curtain.classList.add('done');
-        }, 1250);
-      }
-    };
+   window.addEventListener('load', () => {
+  const curtain = document.getElementById('curtain-reveal');
+
+  if (!curtain) return;
+
+  setTimeout(() => {
+    curtain.classList.add('open');
+  }, 200);
+
+  setTimeout(() => {
+    curtain.classList.add('done');
+  }, 1600);
+});
 
     // Reveal Observer for standard CSS animations
     const revealOptions = {
