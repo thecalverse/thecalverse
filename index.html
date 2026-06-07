@@ -44,37 +44,6 @@
       pointer-events: none;
     }
 
-    /* Opening Curtain Reveal */
-    .curtain-reveal {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      display: flex;
-    }
-    .curtain-panel {
-      flex: 1;
-      background: linear-gradient(180deg, #0b0c10 0%, #12141c 100%);
-      transform: translateX(0);
-      will-change: transform;
-      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .curtain-panel.left {
-      box-shadow: inset -1px 0 0 rgba(255,255,255,0.06);
-    }
-    .curtain-panel.right {
-      box-shadow: inset 1px 0 0 rgba(255,255,255,0.06);
-    }
-    .curtain-reveal.open .curtain-panel.left {
-      transform: translateX(-102%);
-    }
-    .curtain-reveal.open .curtain-panel.right {
-      transform: translateX(102%);
-    }
-    .curtain-reveal.done {
-      display: none;
-    }
-
     /* Scroll Animation Utility Classes */
     .reveal-up {
       opacity: 0;
@@ -522,12 +491,6 @@
   </script>
   <div class="device-lock">Starter page is for laptop and tablet mode only</div>
 
-  <div class="ambient-bg"></div>
-  <div class="curtain-reveal" id="curtain-reveal" aria-hidden="true">
-    <div class="curtain-panel left"></div>
-    <div class="curtain-panel right"></div>
-  </div>
-
     <!-- Hero Section -->
   <section class="hero">
     <div class="hero-layout">
@@ -588,15 +551,7 @@
     }
     window.onload = function() {
       window.scrollTo(0, 0);
-      const curtain = document.getElementById('curtain-reveal');
-      if (curtain) {
-        requestAnimationFrame(() => {
-          curtain.classList.add('open');
-        });
-        setTimeout(() => {
-          curtain.classList.add('done');
-        }, 1250);
-      }
+
     };
 
     // Reveal Observer for standard CSS animations
