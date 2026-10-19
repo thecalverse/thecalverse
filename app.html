@@ -969,9 +969,9 @@ canvas#gc{display:block;width:100%;height:240px;}
 .chem-formula-surface{background:linear-gradient(135deg,rgba(22,76,52,.94),rgba(20,68,88,.92));border-color:rgba(102,220,152,.34);color:#effff3;}
 .chem-go{background:linear-gradient(135deg,rgba(36,171,116,.96),rgba(34,129,196,.92));border-color:rgba(112,216,170,.28);box-shadow:0 10px 18px rgba(18,128,92,.2),inset 0 1px 0 rgba(255,255,255,.18);}
 .notes-shell{display:grid;gap:14px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
-.notes-top{display:grid;align-items:flex-start;gap:10px;margin-bottom:2px;position:sticky;top:74px;z-index:6;padding:2px 0 8px;background:transparent!important;box-shadow:none!important;border:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.notes-top{display:grid;align-items:flex-start;gap:10px;margin-bottom:2px;position:static;top:auto;z-index:1;padding:2px 0 8px;background:transparent!important;box-shadow:none!important;border:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
 .notes-top-copy{display:grid;gap:5px;}
-.notes-shell.library-mode .notes-top{position:static;top:auto;z-index:1;padding-bottom:4px;}
+.notes-shell.library-mode .notes-top{padding-bottom:4px;}
 .notes-shell.library-mode .notes-sub{display:none;}
 .notes-top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-start;width:100%;}
 .notes-top-btn{height:42px;padding:0 14px;border:none;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));color:var(--t1);font-size:13px;font-weight:800;cursor:pointer;border:1px solid var(--glb);box-shadow:0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06);transform:translateZ(0);}
@@ -1296,7 +1296,7 @@ canvas#gc{display:block;width:100%;height:240px;}
     .notes-controls{grid-template-columns:1fr;}
     .notes-list.view-list .note-card{grid-template-columns:1fr;}
     .notes-list.view-list .note-card-actions{grid-column:1;grid-row:auto;flex-direction:row;}
-    .notes-top,.note-editor-head{top:68px;padding-bottom:6px;}
+    .note-editor-head{top:68px;padding-bottom:6px;}
     .note-title-input{font-size:21px;}
     .note-toolbar{gap:7px;padding:9px;}
     .note-tool-group{width:100%;}
@@ -5147,6 +5147,7 @@ function openNotes(opts={}){
   setActiveScreen('sNotes','Notes',opts||{});
   syncNotesPaneUI();
   renderNotesList();
+  resetViewportTop();
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
 }
 function openLibrary(opts={}){
