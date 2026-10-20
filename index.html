@@ -1774,24 +1774,162 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 .journal-photo-card.frame-gold img{width:100%;border-radius:4px;display:block;}
 
-/* Floating Washi Tape */
+/* Floating Washi Tape (Writable & Freely Movable) */
 .canvas-item.canvas-washi{
-  min-width:60px;
-  height:28px;
+  min-width:130px;
+  min-height:38px;
   cursor:grab;
 }
 .canvas-item.canvas-washi:active{cursor:grabbing;}
 .canvas-item.canvas-washi .washi-tape-strip{
   width:100%;
-  height:24px;
+  min-height:36px;
+  height:auto;
   margin:0;
+  padding:4px 14px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+  cursor:grab;
+}
+.canvas-item.canvas-washi .washi-tape-strip:active{cursor:grabbing;}
+
+/* Editable Text Inside Washi Tape */
+.washi-tape-label{
+  position:relative;
+  z-index:4;
+  width:100%;
+  text-align:center;
+  font-family:'Patrick Hand','Caveat',cursive,sans-serif;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.6px;
+  line-height:1.3;
+  outline:none;
+  word-break:break-word;
+  user-select:text;
+  cursor:text;
+  padding:2px 4px;
+  transition:color .15s ease;
+}
+.washi-tape-label:empty::before{
+  content:attr(data-placeholder);
+  opacity:.5;
   pointer-events:none;
+  font-style:italic;
+}
+.canvas-item.canvas-washi[data-text-color="dark"] .washi-tape-label{
+  color:#2b221a;
+  text-shadow:0 1px 1px rgba(255,255,255,.5);
+}
+.canvas-item.canvas-washi[data-text-color="white"] .washi-tape-label{
+  color:#ffffff;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+.canvas-item.canvas-washi[data-text-color="gold"] .washi-tape-label{
+  color:#ffd54f;
+  text-shadow:0 1px 2px rgba(0,0,0,.7);
+}
+.canvas-item.canvas-washi[data-text-color="plum"] .washi-tape-label{
+  color:#4a2233;
+  text-shadow:0 1px 1px rgba(255,255,255,.4);
+}
+
+.washi-tape-label[data-font-size="s"]{font-size:12px;}
+.washi-tape-label[data-font-size="m"]{font-size:15px;}
+.washi-tape-label[data-font-size="l"]{font-size:19px;}
+.washi-tape-label[data-font-size="xl"]{font-size:24px;font-weight:900;}
+
+/* Free Rotation Handle Knob */
+.canvas-rotate-handle{
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%) scale(.7);
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#fff;
+  border:2px solid var(--act);
+  color:var(--act);
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  display:grid;
+  place-items:center;
+  cursor:grab;
+  touch-action:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+  z-index:92;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-rotate-handle:active{cursor:grabbing;}
+.canvas-item:hover .canvas-rotate-handle,
+.canvas-item.is-selected .canvas-rotate-handle{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) scale(1);
+}
+
+/* Angle Presets Popover */
+.cbar-angles-popover{
+  position:absolute;
+  top:32px;
+  right:0;
+  background:rgba(18,24,38,.98);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  padding:6px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(92px,1fr));
+  gap:4px;
+  box-shadow:0 12px 32px rgba(0,0,0,.45);
+  z-index:120;
+}
+[data-t=light] .cbar-angles-popover{
+  background:rgba(255,250,244,.98);
+  border-color:rgba(131,98,74,.3);
+  box-shadow:0 10px 26px rgba(104,76,56,.2);
+}
+.cbar-angle-btn{
+  height:26px;
+  padding:0 8px;
+  border-radius:8px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.06);
+  color:var(--t1);
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .12s ease;
+}
+[data-t=light] .cbar-angle-btn{
+  background:rgba(255,255,255,.7);
+  border-color:rgba(131,98,74,.18);
+  color:#3b281c;
+}
+.cbar-angle-btn:hover{
+  background:var(--accg);
+  border-color:var(--acb);
+  color:#fff;
 }
 
 /* Additional Washi Patterns */
 .washi-dots{background:#fff9c4;background-image:radial-gradient(#fbc02d 1.5px,transparent 1.5px);background-size:8px 8px;}
 .washi-grid{background:#e8eaf6;background-image:linear-gradient(to right,rgba(63,81,181,.2) 1px,transparent 1px),linear-gradient(to bottom,rgba(63,81,181,.2) 1px,transparent 1px);background-size:10px 10px;}
 .washi-sky{background:repeating-linear-gradient(45deg,#b3e5fc,#b3e5fc 8px,#81d4fa 8px,#81d4fa 16px);}
+.washi-noir{background:#1e222d;background-image:linear-gradient(to right,rgba(255,255,255,.08) 1px,transparent 1px);background-size:12px 12px;color:#fff;}
+.washi-amber{background:linear-gradient(90deg,#ffb74d,#ffa726);box-shadow:0 2px 8px rgba(255,167,38,.2);}
 
 /* Floating Stickers */
 .canvas-item.canvas-sticker{
@@ -6764,18 +6902,51 @@ let ipadCanvasEngineInitialized = false;
 let canvasMaxZIndex = 50;
 let activeDragState = null;
 let activeResizeState = null;
+let activeRotateState = null;
 
 function cleanCanvasHtmlBeforeSave(editorEl){
   if(!editorEl) return "";
   const clone = editorEl.cloneNode(true);
   clone.querySelectorAll(".canvas-item").forEach(el => {
-    el.classList.remove("is-selected", "is-dragging", "is-resizing");
+    el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
+  });
+  clone.querySelectorAll(".cbar-angles-popover").forEach(p => {
+    p.style.display = "none";
   });
   return clone.innerHTML;
 }
 
 function upgradeLegacyIpadElements(editorEl){
   if(!editorEl) return;
+  // Upgrade washi tape to have inner editable label and rotation handle
+  editorEl.querySelectorAll(".canvas-item.canvas-washi").forEach(tape => {
+    const strip = tape.querySelector(".washi-tape-strip");
+    if(strip && !strip.querySelector(".washi-tape-label")){
+      strip.innerHTML = '<div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape ✨</div>';
+    }
+    if(!tape.querySelector(".canvas-rotate-handle")){
+      tape.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
+    }
+    if(!tape.querySelector(".cbar-angles-popover")){
+      const bar = tape.querySelector(".canvas-item-bar");
+      if(bar){
+        bar.insertAdjacentHTML("beforeend", `
+          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 0)">0° Flat</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -5)">-5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 5)">+5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -15)">-15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 15)">+15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -30)">-30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 30)">+30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -45)">-45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 45)">+45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 90)">90° Vertical ↕</button>
+          </div>
+        `);
+      }
+    }
+  });
   editorEl.querySelectorAll(".journal-photo-wrap:not(.canvas-item)").forEach((wrap, i) => {
     const id = wrap.id || ("cphoto_" + Date.now() + "_" + i);
     wrap.id = id;
@@ -6896,25 +7067,59 @@ function insertIpadWashiTape(pattern="washi-blush"){
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "cwashi_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
-  const pos = getNextCanvasItemPosition(180, 36);
+  const pos = getNextCanvasItemPosition(220, 44);
   const html = `
-    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-rotation="-6" style="left:${pos.left}px;top:${pos.top}px;width:180px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar mini">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Tape</span>
+    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar">
+        <span class="canvas-drag-handle" title="Drag to move tape">⋮⋮ Move</span>
         <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Pattern">🎨 Pattern</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate Angle">↻</button>
+          <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Tape Pattern">🎨 Pattern</button>
+          <button type="button" class="cbar-btn" data-action="washi-text-color" title="Toggle Text Ink">✒️ Ink</button>
+          <button type="button" class="cbar-btn" data-action="washi-font-size" title="Text Size">🔠 Size</button>
+          <button type="button" class="cbar-btn" data-action="rotate-step" title="Step Angle (+5°)">↻ <span class="cbar-angle-val">-6°</span></button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Specific Angles">📐 Angle ▾</button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
         </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -5)">-5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 5)">+5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -15)">-15° Scrapbook</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 15)">+15° Scrapbook</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -30)">-30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 30)">+30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -45)">-45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 45)">+45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 90)">90° Vertical ↕</button>
+        </div>
       </div>
-      <div class="washi-tape-strip ${pattern}"></div>
-      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+      <div class="washi-tape-strip ${pattern}">
+        <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape Label ✨</div>
+      </div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
+      <div class="canvas-resize-handle" title="Drag corner to stretch or resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast("Washi tape placed! Drag over photos or headers 📌");
+  showToast("Washi tape placed! Click inside to type, drag to move 📌");
+  const box = document.getElementById(id);
+  const label = box?.querySelector(".washi-tape-label");
+  if(label) setTimeout(() => label.focus(), 60);
+}
+
+function applySpecificWashiAngle(itemId, angle){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  item.dataset.rotation = "" + angle;
+  item.style.transform = (angle !== 0) ? ("rotate(" + angle + "deg)") : "none";
+  const valEl = item.querySelector(".cbar-angle-val");
+  if(valEl) valEl.textContent = angle + "°";
+  const popover = item.querySelector(".cbar-angles-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Washi angle: " + angle + "° 📐");
 }
 
 function insertIpadPhotoFromDataUrl(dataUrl){
@@ -7098,7 +7303,7 @@ function handleCanvasAction(btn, e){
   if(action === "washi-pattern"){
     const strip = item.querySelector(".washi-tape-strip");
     if(!strip) return;
-    const patterns = ["washi-blush", "washi-matcha", "washi-lavender", "washi-kraft", "washi-foil", "washi-dots", "washi-grid", "washi-sky"];
+    const patterns = ["washi-blush", "washi-matcha", "washi-lavender", "washi-kraft", "washi-foil", "washi-dots", "washi-grid", "washi-sky", "washi-noir", "washi-amber"];
     let idx = patterns.findIndex(p => strip.classList.contains(p));
     if(idx === -1) idx = 0;
     patterns.forEach(p => strip.classList.remove(p));
@@ -7107,6 +7312,55 @@ function handleCanvasAction(btn, e){
     item.dataset.washiPattern = next;
     queueIpadSave();
     showToast("Washi pattern 🎨");
+    return;
+  }
+
+  if(action === "washi-text-color"){
+    const colors = ["dark", "white", "gold", "plum"];
+    const cur = item.dataset.textColor || "dark";
+    let idx = colors.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = colors[(idx + 1) % colors.length];
+    item.dataset.textColor = next;
+    queueIpadSave();
+    showToast("Text ink: " + next + " ✒️");
+    return;
+  }
+
+  if(action === "washi-font-size"){
+    const label = item.querySelector(".washi-tape-label");
+    if(!label) return;
+    const sizes = ["s", "m", "l", "xl"];
+    const cur = label.dataset.fontSize || "m";
+    let idx = sizes.indexOf(cur);
+    if(idx === -1) idx = 1;
+    const next = sizes[(idx + 1) % sizes.length];
+    label.dataset.fontSize = next;
+    queueIpadSave();
+    showToast("Text size: " + next.toUpperCase() + " 🔠");
+    return;
+  }
+
+  if(action === "rotate-step"){
+    const angles = [0, 5, 15, 30, 45, 90, -45, -30, -15, -5];
+    const cur = Number(item.dataset.rotation || 0);
+    let idx = angles.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = angles[(idx + 1) % angles.length];
+    item.dataset.rotation = "" + next;
+    item.style.transform = (next !== 0) ? ("rotate(" + next + "deg)") : "none";
+    const valEl = item.querySelector(".cbar-angle-val");
+    if(valEl) valEl.textContent = next + "°";
+    queueIpadSave();
+    showToast("Angle: " + next + "° ↻");
+    return;
+  }
+
+  if(action === "toggle-angles"){
+    const popover = item.querySelector(".cbar-angles-popover");
+    if(popover){
+      popover.style.display = (popover.style.display === "grid") ? "none" : "grid";
+    }
     return;
   }
 
@@ -7141,6 +7395,27 @@ function initIpadCanvasEngine(){
       return;
     }
 
+    const rotateHandle = e.target.closest(".canvas-rotate-handle");
+    if(rotateHandle){
+      const item = rotateHandle.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { rotateHandle.setPointerCapture(e.pointerId); } catch(_){}
+        const rect = item.getBoundingClientRect();
+        activeRotateState = {
+          pointerId: e.pointerId,
+          handle: rotateHandle,
+          item: item,
+          centerX: rect.left + rect.width / 2,
+          centerY: rect.top + rect.height / 2
+        };
+        item.classList.add("is-rotating");
+      }
+      return;
+    }
+
     const resizeHandle = e.target.closest(".canvas-resize-handle");
     if(resizeHandle){
       const item = resizeHandle.closest(".canvas-item");
@@ -7164,7 +7439,7 @@ function initIpadCanvasEngine(){
       return;
     }
 
-    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body");
+    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body, .washi-tape-label");
     if(editable){
       const item = editable.closest(".canvas-item");
       if(item) selectCanvasItem(item);
@@ -7203,6 +7478,25 @@ function initIpadCanvasEngine(){
   });
 
   sheet.addEventListener("pointermove", (e) => {
+    if(activeRotateState && activeRotateState.pointerId === e.pointerId){
+      e.preventDefault();
+      const s = activeRotateState;
+      const radians = Math.atan2(e.clientY - s.centerY, e.clientX - s.centerX);
+      let degrees = Math.round(radians * (180 / Math.PI)) + 90;
+      while(degrees > 180) degrees -= 360;
+      while(degrees < -180) degrees += 360;
+      // Snap to 0, 5, 15, 30, 45, 90 if within 3 degrees
+      const snapPoints = [0, 5, -5, 15, -15, 30, -30, 45, -45, 90, -90];
+      for(let p of snapPoints){
+        if(Math.abs(degrees - p) <= 3){ degrees = p; break; }
+      }
+      s.item.dataset.rotation = "" + degrees;
+      s.item.style.transform = (degrees !== 0) ? ("rotate(" + degrees + "deg)") : "none";
+      const valEl = s.item.querySelector(".cbar-angle-val");
+      if(valEl) valEl.textContent = degrees + "°";
+      return;
+    }
+
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       e.preventDefault();
       const s = activeResizeState;
@@ -7238,6 +7532,12 @@ function initIpadCanvasEngine(){
   });
 
   function endPointerInteractions(e){
+    if(activeRotateState && activeRotateState.pointerId === e.pointerId){
+      try { activeRotateState.handle.releasePointerCapture(e.pointerId); } catch(_){}
+      activeRotateState.item.classList.remove("is-rotating");
+      activeRotateState = null;
+      queueIpadSave();
+    }
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       try { activeResizeState.handle.releasePointerCapture(e.pointerId); } catch(_){}
       activeResizeState.item.classList.remove("is-resizing");
