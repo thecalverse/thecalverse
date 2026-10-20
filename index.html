@@ -4893,6 +4893,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <div class="notes-top-actions">
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
           <button class="notes-top-btn ghost warn" id="notes-delete-all" onclick="deleteAllTrash()">Delete All</button>
+          <button class="notes-top-btn vault-only" id="notes-vault-back" onclick="exitVaultToNotes()" type="button" style="display:none;align-items:center;gap:4px;">← Notes</button>
           <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
           <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
@@ -5180,7 +5181,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
   <!-- JOURNAL EDITOR -->
   <div class="screen" id="sNoteEdit">
-    <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Journal</div>
+    <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Notes</div>
     <div class="note-editor-wrap view-mode" id="note-editor-wrap">
       <div class="note-editor-head">
       <input type="text" id="note-title" class="note-title-input" placeholder="Title (e.g. Oct 20 Reflection, Chapter 3...)" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
@@ -7362,6 +7363,7 @@ function syncNotesPaneUI(){
   const tplBtn=document.getElementById('notes-tpl-btn');
   const lockBtn=document.getElementById('notes-vault-lock');
   const passBtn=document.getElementById('notes-vault-change-pass');
+  const vaultBackBtn=document.getElementById('notes-vault-back');
   const paneSeg=document.querySelector('#sNotes .notes-pane-seg');
   const controls=document.querySelector('#sNotes .notes-controls');
   const notesList=document.getElementById('notes-list');
@@ -7371,7 +7373,7 @@ function syncNotesPaneUI(){
 
   if(notesPane==='vault'){
     if(title)title.textContent='🔒 Hidden Notes';
-    if(sub)sub.textContent='Private hidden notebook · Tap Lock to exit';
+    if(sub)sub.textContent='Private hidden notebook · Tap Lock or ← Notes to exit';
     if(trashBtn)trashBtn.classList.remove('on');
     if(notesBtn)notesBtn.classList.remove('on');
     if(booksBtn)booksBtn.classList.remove('on');
@@ -7380,6 +7382,7 @@ function syncNotesPaneUI(){
     if(restoreAllBtn)restoreAllBtn.classList.remove('show');
     if(deleteAllBtn)deleteAllBtn.classList.remove('show');
     if(paneSeg)paneSeg.style.display='none';
+    if(vaultBackBtn)vaultBackBtn.classList.add('show');
     if(lockBtn)lockBtn.classList.add('show');
     if(passBtn)passBtn.classList.add('show');
     if(addNoteBtn)addNoteBtn.style.display='flex';
@@ -7393,6 +7396,7 @@ function syncNotesPaneUI(){
     return;
   }
 
+  if(vaultBackBtn)vaultBackBtn.classList.remove('show');
   if(lockBtn)lockBtn.classList.remove('show');
   if(passBtn)passBtn.classList.remove('show');
 
@@ -7785,10 +7789,18 @@ function deleteBookPrompt(bookId){
   });
 }
 
-function syncNoteBookAssignSelect(selectedBookId=''){
+function syncNoteBookAssignSelect(selectedBookId='', isVault=false){
   const sel=document.getElementById('note-book-assign');
+  const convertBtn=document.getElementById('note-act-convert');
+  if(isVault){
+    if(sel)sel.style.display='none';
+    if(convertBtn)convertBtn.style.display='none';
+    return;
+  }
+  if(convertBtn)convertBtn.style.display='inline-flex';
   if(!sel)return;
-  const targetId=selectedBookId||currentJournalBookId||'';
+  sel.style.display='inline-block';
+  const targetId=selectedBookId||((notesPane==='books'||curScr==='Journal')?currentJournalBookId:'')||'';
   const opts=['<option value="">📚 No Book</option>'];
   JOURNAL_BOOKS.forEach(b=>{
     const isSel=(b.id===targetId)?'selected':'';
@@ -10301,18 +10313,25 @@ function openVaultNotes(opts={}){
   isVaultActive=true;
   loadVaultNotesData();
   setBottomTab('notes');
-  setActiveScreen('sNotes','Notes',opts||{});
+  setActiveScreen('sNotes','Notes',{...(opts||{}),tab:'notes'});
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
+  if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
+}
+
+function exitVaultToNotes(){
+  isVaultActive=false;
+  notesPane='notes';
+  currentJournalBookId='';
+  openNotes();
 }
 
 function lockVault(){
   isVaultActive=false;
   notesPane='notes';
   currentJournalBookId='';
-  syncNotesPaneUI();
-  renderNotesList();
+  openNotes();
   showToast('Vault locked 🔒');
 }
 
@@ -11167,7 +11186,7 @@ function createNote(initialFields={}){
   const now=Date.now();
   const bookId=(initialFields&&typeof initialFields.bookId==='string')
     ?initialFields.bookId
-    :(currentJournalBookId||'');
+    :((notesPane==='books'||curScr==='Journal')?(currentJournalBookId||''):'');
   const note={
     id:`note_${now}_${Math.random().toString(36).slice(2,7)}`,
     title:initialFields?.title||'',
@@ -11521,8 +11540,12 @@ function openNoteEditor(id,opts={}){
   setBottomTab('notes');
   setActiveScreen('sNoteEdit','NoteEdit',opts||{});
   const backBtn=document.getElementById('note-edit-back');
-  if(backBtn)backBtn.textContent=note.isVault?'← Vault':(notesPane==='books'?'← Journal':'← Notes');
-  syncNoteBookAssignSelect(note.bookId);
+  const isVaultNote = !!(note.isVault || (note.id && note.id.startsWith('vault_')) || isVaultActive);
+  if(backBtn){
+    backBtn.onclick=handleNoteEditBack;
+    backBtn.textContent=isVaultNote?'← Notes':(notesPane==='books'?'← Journal':'← Notes');
+  }
+  syncNoteBookAssignSelect(note.bookId, isVaultNote);
   initJournalMediaListeners();
   const titleEl=document.getElementById('note-title');
   const editor=document.getElementById('note-editor');
@@ -11549,7 +11572,13 @@ function openNoteEditor(id,opts={}){
   syncNoteEditorPlaceholder();
   refreshNoteFormatState();
   if(opts?.edit)setNoteEditMode(true,true);
-  if(opts?.push!==false && !note.isVault)rememberView({type:'note-edit',id},!!opts?.replace);
+  if(opts?.push!==false){
+    if(isVaultNote){
+      rememberView({type:'notes'},!!opts?.replace);
+    }else{
+      rememberView({type:'note-edit',id},!!opts?.replace);
+    }
+  }
 }
 function saveCurrentNote(showFeedback=false){
   const note=getNoteById(currentNoteId);
@@ -11889,7 +11918,7 @@ function handleNoteEditBack(){
   if(wasVault){
     openVaultNotes();
   }else{
-    if(notesPane==='books' || (note && note.bookId)){
+    if(notesPane==='books' || (note && note.bookId && notesPane!=='notes' && notesPane!=='study')){
       openJournal();
     }else{
       openNotes();
@@ -12143,7 +12172,7 @@ function writeFromCurrentPromptSpark(){
       fontSize: 'medium',
       textColor: getDefaultNoteTextColor(),
       textColorMode: 'auto',
-      bookId: (!isVault && currentJournalBookId) ? currentJournalBookId : '',
+      bookId: (!isVault && (notesPane === 'books' || curScr === 'Journal') && currentJournalBookId) ? currentJournalBookId : '',
       tags: ['journal', 'inner-voice', 'spark', 'reflection'],
       isVault: isVault
     };
@@ -12794,7 +12823,7 @@ function createNoteFromTemplate(tpl){
     fontSize:'medium',
     textColor:getDefaultNoteTextColor(),
     textColorMode:'auto',
-    bookId:(!isVault && currentJournalBookId)?currentJournalBookId:'',
+    bookId:(!isVault && (notesPane === 'books' || curScr === 'Journal') && currentJournalBookId)?currentJournalBookId:'',
     tags:[...(tpl.tags||[])],
     isVault:isVault
   };
@@ -14428,7 +14457,10 @@ function getTabForScreen(name,id){
   if(id==='sTracker'||name==='Tracker')return 'tracker';
   if(id==='sNotes'||name==='Notes')return notesPane==='library'?'library':'notes';
   if(id==='sJournal'||name==='Journal')return 'journal';
-  if(id==='sNoteEdit'||name==='NoteEdit')return (notesPane==='books'||currentJournalBookId)?'journal':'notes';
+  if(id==='sNoteEdit'||name==='NoteEdit'){
+    if(isVaultActive||(currentNoteId&&currentNoteId.startsWith('vault_')))return 'notes';
+    return (notesPane==='books'||(currentJournalBookId&&notesPane!=='notes'&&notesPane!=='study'))?'journal':'notes';
+  }
   if(id==='sHist'||name==='Hist')return 'hist';
   if(id==='sInfo'||name==='Info')return currentInfoKey||'about';
   if(id==='sSettings'||name==='Settings')return 'sett';
@@ -14645,10 +14677,17 @@ function restoreView(view,dir=-1){
     if(view.type==='home')goHome({direction:dir,push:false});
     else if(view.type==='timer')openTimer({direction:dir,push:false});
     else if(view.type==='tracker')openTracker({direction:dir,push:false});
-    else if(view.type==='notes')openNotes({direction:dir,push:false});
+    else if(view.type==='notes'||view.type==='vault')openNotes({direction:dir,push:false});
     else if(view.type==='journal')openJournal({direction:dir,push:false});
     else if(view.type==='library')openLibrary({direction:dir,push:false});
-    else if(view.type==='note-edit')openNoteEditor(view.id,{direction:dir,push:false});
+    else if(view.type==='note-edit'){
+      const note=getNoteById(view.id);
+      if(note?.isVault||(view.id&&view.id.startsWith('vault_'))){
+        openNotes({direction:dir,push:false});
+      }else{
+        openNoteEditor(view.id,{direction:dir,push:false});
+      }
+    }
     else if(view.type==='folder')openFolderPage(view.folderKey,{direction:dir,push:false});
     else if(view.type==='calcs')openCalculatorsPanel();
     else if(view.type==='info')goInfo(view.key||'about',{direction:dir,push:false});
@@ -14662,7 +14701,9 @@ function restoreView(view,dir=-1){
 window.addEventListener('popstate',e=>restoreView(e.state||{type:'home'},-1));
 document.addEventListener('DOMContentLoaded',()=>{
     loadCalcFavs();
-    document.querySelectorAll('.sbk').forEach(el=>el.setAttribute('onclick','goBack()'));
+    document.querySelectorAll('.sbk:not(#note-edit-back)').forEach(el=>el.setAttribute('onclick','goBack()'));
+    const noteBackBtn=document.getElementById('note-edit-back');
+    if(noteBackBtn)noteBackBtn.onclick=handleNoteEditBack;
     navReady=true;
     rememberView({type:'home'},true);
     initNotesFeature();
