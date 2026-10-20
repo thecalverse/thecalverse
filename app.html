@@ -2443,6 +2443,509 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .sbs-eq{background:rgba(92,64,47,.06);}
 [data-t=light] .sbs-step{background:linear-gradient(180deg,rgba(255,248,240,.9),rgba(240,226,211,.72));border-color:rgba(131,98,74,.12);box-shadow:0 10px 20px rgba(91,63,46,.08),inset 0 1px 0 rgba(255,255,255,.32);}
 
+/* ── ULTIMATE NOTES & JOURNALING ECOSYSTEM STYLES ── */
+.journal-view-tabs{
+  display:inline-flex;
+  gap:6px;
+  background:rgba(255,255,255,.05);
+  padding:4px;
+  border-radius:14px;
+  border:1px solid var(--glb);
+  margin-bottom:12px;
+  max-width:100%;
+  overflow-x:auto;
+}
+.jview-tab-btn{
+  height:34px;
+  padding:0 14px;
+  border-radius:10px;
+  border:none;
+  background:transparent;
+  color:var(--t2);
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+  transition:all .2s ease;
+}
+.jview-tab-btn:hover{color:var(--t1);}
+.jview-tab-btn.on{
+  background:var(--acc);
+  color:var(--t1);
+  border:1px solid var(--acb);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+/* Journal Calendar View */
+.journal-calendar-view{
+  display:grid;
+  gap:16px;
+  max-width:960px;
+  margin:0 auto;
+  width:100%;
+}
+.jcal-card{
+  background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:18px 20px;
+  box-shadow:0 18px 36px rgba(0,0,0,.15);
+}
+.jcal-top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.jcal-month-title{
+  font-size:18px;
+  font-weight:900;
+  color:var(--t1);
+  letter-spacing:.3px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.jcal-nav-btns{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.jcal-nav-btn{
+  height:32px;
+  min-width:32px;
+  padding:0 10px;
+  border-radius:9px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.06);
+  color:var(--t1);
+  font-size:12.5px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.jcal-nav-btn:hover{filter:brightness(1.1);}
+
+.jcal-weekdays{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  text-align:center;
+  margin-bottom:8px;
+}
+.jcal-weekday{
+  font-size:11px;
+  font-weight:800;
+  color:var(--t3);
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  padding:4px 0;
+}
+.jcal-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+.jcal-day{
+  aspect-ratio:1 / 1;
+  min-height:44px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.05);
+  background:rgba(255,255,255,.03);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  position:relative;
+  transition:all .18s ease;
+  padding:4px;
+}
+.jcal-day:hover{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.15);
+}
+.jcal-day.is-other-month{opacity:.35;pointer-events:none;}
+.jcal-day.is-today{
+  border-color:var(--act);
+  background:color-mix(in srgb,var(--act) 15%,transparent);
+}
+.jcal-day.is-selected{
+  border-color:var(--act);
+  background:var(--acc);
+  box-shadow:0 0 0 1px var(--acb),0 6px 14px rgba(0,0,0,.2);
+}
+.jcal-day-num{
+  font-size:13px;
+  font-weight:800;
+  color:var(--t1);
+  line-height:1;
+}
+.jcal-day.is-selected .jcal-day-num{color:var(--t1);}
+.jcal-day-dots{
+  display:flex;
+  gap:2px;
+  align-items:center;
+  margin-top:3px;
+  min-height:5px;
+}
+.jcal-dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--act);
+}
+
+/* Journal Entries Timeline */
+.jtimeline-wrap{
+  display:grid;
+  gap:12px;
+}
+.jtimeline-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:4px 2px;
+  flex-wrap:wrap;
+}
+.jtimeline-date-label{
+  font-size:15px;
+  font-weight:900;
+  color:var(--t1);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.jentry-card{
+  background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  padding:16px 18px;
+  display:grid;
+  gap:10px;
+  cursor:pointer;
+  transition:all .2s ease;
+  position:relative;
+}
+.jentry-card:hover{
+  border-color:color-mix(in srgb,var(--act) 40%,var(--glb));
+  transform:translateY(-1px);
+}
+.jentry-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.jentry-mood-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+}
+.jentry-title{
+  font-size:16px;
+  font-weight:900;
+  color:var(--t1);
+}
+.jentry-snippet{
+  font-size:13px;
+  color:var(--t2);
+  line-height:1.55;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.jentry-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  font-size:11.5px;
+  color:var(--t3);
+  padding-top:4px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* Personality Prompts Sparks Stage */
+.journal-sparks-view{
+  max-width:820px;
+  margin:0 auto;
+  width:100%;
+  display:grid;
+  gap:16px;
+}
+.jspark-deck-card{
+  background:linear-gradient(175deg,rgba(24,30,48,.96),rgba(15,20,34,.94));
+  border:1px solid rgba(140,126,255,.25);
+  border-radius:28px;
+  padding:32px 28px;
+  display:grid;
+  gap:20px;
+  text-align:center;
+  box-shadow:0 24px 48px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.08);
+  position:relative;
+  overflow:hidden;
+}
+.jspark-deck-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(140,126,255,.15),transparent 70%);
+  pointer-events:none;
+}
+.jspark-voice-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin:0 auto;
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  background:rgba(140,126,255,.16);
+  border:1px solid rgba(140,126,255,.3);
+  color:var(--act);
+}
+.jspark-deck-quote{
+  font-family:'Patrick Hand','Caveat',Georgia,serif;
+  font-size:clamp(20px,3.8vw,28px);
+  line-height:1.45;
+  color:var(--t1);
+  min-height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 12px;
+  transition:opacity .15s ease;
+}
+.jspark-voice-filters{
+  display:flex;
+  gap:6px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:4px;
+}
+.jspark-voice-btn{
+  height:30px;
+  padding:0 12px;
+  border-radius:999px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.05);
+  color:var(--t2);
+  font-size:11.5px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.jspark-voice-btn.on{
+  background:var(--acc);
+  border-color:var(--acb);
+  color:var(--t1);
+}
+.jspark-deck-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+/* Notebooks Bookshelf View */
+.notebooks-shelf-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:18px;
+  padding:8px 0;
+}
+.notebook-cover-card{
+  aspect-ratio:3 / 4;
+  border-radius:18px;
+  padding:20px 18px 16px 26px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:0 18px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);
+  cursor:pointer;
+  transition:all .22s cubic-bezier(.2,.8,.2,1);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+}
+.notebook-cover-card:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 24px 40px rgba(0,0,0,.35);
+}
+.notebook-cover-card::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:16px;
+  background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.1) 50%,rgba(0,0,0,.3));
+  box-shadow:inset -1px 0 2px rgba(0,0,0,.4);
+}
+.notebook-cover-card::after{
+  content:'';
+  position:absolute;
+  left:18px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:rgba(255,255,255,.15);
+}
+.notebook-cover-emblem{
+  font-size:36px;
+  margin-bottom:8px;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.3));
+}
+.notebook-cover-title{
+  font-size:18px;
+  font-weight:900;
+  color:#fff;
+  line-height:1.25;
+  letter-spacing:.3px;
+  text-shadow:0 2px 4px rgba(0,0,0,.4);
+  word-break:break-word;
+}
+.notebook-cover-desc{
+  font-size:11.5px;
+  color:rgba(255,255,255,.8);
+  line-height:1.4;
+  margin-top:6px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.notebook-cover-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:rgba(255,255,255,.9);
+  font-size:11px;
+  font-weight:800;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.15);
+}
+.notebook-pages-pill{
+  background:rgba(0,0,0,.25);
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+/* Notebook Cover Color Themes */
+.theme-blush{background:linear-gradient(135deg,#a83c65,#681f3e)!important;}
+.theme-matcha{background:linear-gradient(135deg,#3f6b4a,#1e3b26)!important;}
+.theme-latte{background:linear-gradient(135deg,#8c5d3b,#4e2f18)!important;}
+.theme-obsidian{background:linear-gradient(135deg,#1f2536,#0f131c)!important;}
+.theme-lavender{background:linear-gradient(135deg,#654499,#361f5c)!important;}
+.theme-honey{background:linear-gradient(135deg,#9e6a1f,#583508)!important;}
+.theme-ocean{background:linear-gradient(135deg,#245d88,#0f2d45)!important;}
+.theme-sage{background:linear-gradient(135deg,#547565,#2c4237)!important;}
+.theme-terracotta{background:linear-gradient(135deg,#a64b2a,#5e240f)!important;}
+.theme-navy{background:linear-gradient(135deg,#1c2d52,#0b152b)!important;}
+
+/* Math Symbol Palette */
+.math-symbol-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(42px,1fr));
+  gap:6px;
+  max-height:48vh;
+  overflow-y:auto;
+  padding:8px 0;
+}
+.math-sym-btn{
+  height:44px;
+  border-radius:11px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.05);
+  color:var(--t1);
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:all .15s ease;
+  user-select:none;
+}
+.math-sym-btn:hover{
+  background:rgba(255,255,255,.12);
+  transform:scale(1.08);
+}
+.math-sym-btn:active{transform:scale(.95);}
+
+/* Interactive Checklist Items */
+.note-checklist-item{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:4px 0;
+  line-height:1.5;
+}
+.note-check-input{
+  width:17px;
+  height:17px;
+  margin-top:3px;
+  accent-color:var(--act);
+  cursor:pointer;
+}
+.note-check-text{flex:1;outline:none;}
+.note-check-input:checked + .note-check-text{
+  text-decoration:line-through;
+  opacity:.6;
+}
+
+/* Light Theme overrides for Calendar, Notebooks & Sparks */
+[data-t=light] .jcal-card,
+[data-t=light] .jentry-card{
+  background:linear-gradient(165deg,rgba(255,249,241,.98),rgba(245,231,216,.94));
+  border-color:rgba(131,98,74,.15);
+  box-shadow:0 14px 28px rgba(104,76,56,.1);
+}
+[data-t=light] .jspark-deck-card{
+  background:linear-gradient(175deg,rgba(255,248,240,.98),rgba(242,228,212,.96));
+  border-color:rgba(140,105,75,.2);
+  box-shadow:0 20px 40px rgba(104,76,56,.12);
+}
+[data-t=light] .jspark-voice-badge{
+  background:rgba(176,126,86,.14);
+  border-color:rgba(176,126,86,.25);
+}
+[data-t=light] .jcal-day{
+  background:rgba(148,104,76,.05);
+  border-color:rgba(148,104,76,.1);
+}
+[data-t=light] .jcal-day:hover{
+  background:rgba(148,104,76,.12);
+}
+[data-t=light] .math-sym-btn{
+  background:rgba(148,104,76,.06);
+  border-color:rgba(148,104,76,.14);
+}
+[data-t=light] .math-sym-btn:hover{
+  background:rgba(148,104,76,.14);
+}
+
 @media (hover:none),(max-width:1024px){
   .topbar,.bnav,.gp,.folder-btn,.mc,.ic,.rb,.info-section,.slist,.sbk{
     backdrop-filter:none!important;
@@ -4379,12 +4882,13 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 
   <!-- STUDY NOTES -->
+  <!-- STUDY NOTES -->
   <div class="screen" id="sNotes">
     <div class="notes-shell">
       <div class="notes-top">
         <div class="notes-top-copy" onclick="handleNotesHeaderTap()">
-          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes</div>
-          <div class="notes-sub" id="notes-page-sub">Your study notebook for formulas, concepts & revision notes.</div>
+          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes &amp; Workspaces</div>
+          <div class="notes-sub" id="notes-page-sub">Your study notebook, quick thoughts, formula sheets &amp; digital notebooks.</div>
         </div>
         <div class="notes-top-actions">
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
@@ -4393,15 +4897,19 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
           <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
             <button class="notes-pane-btn on" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 Notes</button>
+            <button class="notes-pane-btn" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Notebooks</button>
+            <button class="notes-pane-btn" id="notes-pane-study" onclick="setNotesPane('study')" type="button">🎓 Study</button>
             <button class="notes-pane-btn" id="notes-pane-library" onclick="setNotesPane('library')" type="button">📁 Library</button>
             <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">🗑️ Trash</button>
           </div>
+          <button class="notes-top-btn" id="notes-backup-btn" onclick="openNotesBackupModal()" type="button" style="display:inline-flex;align-items:center;gap:6px;" title="Backup &amp; Export">💾 Backup</button>
           <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
           <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
       </div>
       <div class="gp note-surface">
-        <div class="notes-controls">
+        <div class="notes-controls" style="grid-template-columns:1fr auto auto;gap:8px;">
+          <input type="text" id="notes-search-input" class="app-dialog-input" placeholder="🔍 Search notes, tags (#math, #revision), notebooks..." oninput="handleNotesSearch(this.value)" style="height:44px;font-size:13px;border-radius:14px;padding:0 14px;background:rgba(255,255,255,.05);border:1px solid var(--glb);">
           <select id="notes-sort" onchange="setNotesSort(this.value)">
             <option value="edited">Last Edited</option>
             <option value="created">Newest</option>
@@ -4411,6 +4919,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         </div>
         <input type="file" id="library-file-input" multiple style="display:none" onchange="handleLibraryFileInput(event)">
         <div class="notes-list" id="notes-list"></div>
+        <div class="notebooks-pane" id="notebooks-pane" style="display:none"></div>
+        <div class="study-pane" id="study-pane" style="display:none"></div>
         <div class="library-pane" id="library-pane" style="display:none"></div>
       </div>
     </div>
@@ -4418,7 +4928,19 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
   <!-- AESTHETIC IPAD DIGITAL NOTEBOOK -->
   <div class="screen" id="sJournal">
-    <div class="ipad-stage">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 10px 0;">
+      <div class="journal-view-tabs" role="tablist">
+        <button type="button" class="jview-tab-btn on" id="jview-tab-notebook" onclick="switchJournalMainView('notebook')">📓 Digital Notebook</button>
+        <button type="button" class="jview-tab-btn" id="jview-tab-calendar" onclick="switchJournalMainView('calendar')">📅 Daily Journal &amp; Calendar</button>
+        <button type="button" class="jview-tab-btn" id="jview-tab-sparks" onclick="switchJournalMainView('sparks')">💭 Thought Sparks</button>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">+ Write Entry</button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: AUTHENTIC IPAD STAGE -->
+    <div class="ipad-stage" id="journal-notebook-view">
       <div class="ipad-frame">
         <div class="ipad-pencil-dock" title="Apple Pencil Ready"></div>
         
@@ -4472,6 +4994,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             <button type="button" class="note-tool-btn" onclick="insertIpadWashiTape()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert writable washi tape strip">📌 Washi</button>
             <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable planner stickers">🎀 Stickers</button>
             <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert photo or diagram">🖼️ Photo</button>
+            <button type="button" class="note-tool-btn" onclick="openMathSymbolsPalette('ipad')" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Mathematical &amp; STEM Symbols">🔢 Math</button>
+            <button type="button" class="note-tool-btn" onclick="insertCalculatorResult('ipad')" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert calculation result">➗ Calc</button>
             <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Study callouts & formula blocks">📦 Blocks ▾</button>
 
             <!-- Freeform Shapes Menu Popover -->
@@ -4572,6 +5096,86 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         </div>
       </div>
     </div>
+
+    <!-- VIEW 2: JOURNAL CALENDAR & ENTRIES VIEW -->
+    <div id="journal-calendar-view" class="journal-calendar-view" style="display:none;">
+      <div class="jcal-card">
+        <div class="jcal-top-bar">
+          <div class="jcal-month-title">
+            <span>📅</span> <span id="jcal-month-label">October 2026</span>
+          </div>
+          <div class="jcal-nav-btns">
+            <button type="button" class="jcal-nav-btn" onclick="shiftJournalMonth(-1)" title="Previous Month">‹</button>
+            <button type="button" class="jcal-nav-btn" onclick="jumpJournalToday()" title="Current Month / Today">Today</button>
+            <button type="button" class="jcal-nav-btn" onclick="shiftJournalMonth(1)" title="Next Month">›</button>
+          </div>
+        </div>
+        <div class="jcal-weekdays">
+          <div class="jcal-weekday">Sun</div>
+          <div class="jcal-weekday">Mon</div>
+          <div class="jcal-weekday">Tue</div>
+          <div class="jcal-weekday">Wed</div>
+          <div class="jcal-weekday">Thu</div>
+          <div class="jcal-weekday">Fri</div>
+          <div class="jcal-weekday">Sat</div>
+        </div>
+        <div class="jcal-grid" id="jcal-days-grid">
+          <!-- Populated by renderJournalCalendar -->
+        </div>
+      </div>
+
+      <!-- Selected Date Banner & Timeline -->
+      <div class="jtimeline-wrap">
+        <div class="jtimeline-head">
+          <div class="jtimeline-date-label" id="jtimeline-date-header">
+            <span>✨</span> <span id="jtimeline-date-text">Entries for Selected Date</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="jentry-mood-filter" class="note-tool-select" onchange="filterJournalMood(this.value)" style="height:32px;font-size:11.5px;">
+              <option value="all">All Moods</option>
+              <option value="☀️ Radiant">☀️ Radiant</option>
+              <option value="🌿 Calm">🌿 Calm</option>
+              <option value="⚡ Energized">⚡ Energized</option>
+              <option value="🌸 Grateful">🌸 Grateful</option>
+              <option value="🥱 Tired">🥱 Tired</option>
+              <option value="🌧️ Stressed">🌧️ Stressed</option>
+              <option value="🌙 Reflective">🌙 Reflective</option>
+              <option value="💭 Mixed">💭 Mixed</option>
+            </select>
+            <button type="button" class="note-card-btn acc" onclick="openNewJournalEntryModal()">+ New Entry</button>
+          </div>
+        </div>
+        <div id="jtimeline-entries-list" class="notes-list view-grid">
+          <!-- Populated by renderJournalEntriesTimeline -->
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: PERSONALITY THOUGHT SPARKS DECK -->
+    <div id="journal-sparks-view" class="journal-sparks-view" style="display:none;">
+      <div class="jspark-deck-card">
+        <div class="jspark-voice-badge" id="jspark-badge-voice">💭 THOUGHT SPARK</div>
+        <div class="jspark-deck-quote" id="jspark-main-quote">
+          “I have so much on my mind, and somehow none of it makes sense when I try to explain it.”
+        </div>
+        <div class="jspark-voice-filters">
+          <button type="button" class="jspark-voice-btn on" onclick="filterSparkCategory('all',this)">All Voices</button>
+          <button type="button" class="jspark-voice-btn" onclick="filterSparkCategory('messy',this)">Messy &amp; Honest</button>
+          <button type="button" class="jspark-voice-btn" onclick="filterSparkCategory('poetic',this)">Poetic &amp; Reflective</button>
+          <button type="button" class="jspark-voice-btn" onclick="filterSparkCategory('blunt',this)">Blunt &amp; Raw</button>
+          <button type="button" class="jspark-voice-btn" onclick="filterSparkCategory('contradictory',this)">Contradictory</button>
+          <button type="button" class="jspark-voice-btn" onclick="filterSparkCategory('curious',this)">Curious &amp; Mundane</button>
+        </div>
+        <div class="jspark-deck-controls">
+          <button type="button" class="note-card-btn" onclick="cyclePromptSpark(-1)">‹ Prev Spark</button>
+          <button type="button" class="note-card-btn" onclick="shufflePromptSpark()">🎲 Shuffle</button>
+          <button type="button" class="note-card-btn" onclick="cyclePromptSpark(1)">Next Spark ›</button>
+          <button type="button" class="note-card-btn acc" onclick="writeFromCurrentPromptSpark()" style="font-weight:900;">✍️ Start Writing With This Prompt</button>
+          <button type="button" class="note-card-btn" onclick="copyPromptSparkText()">📋 Copy</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--t3);margin-top:2px;" id="jspark-deck-counter">Spark 1 of 48</div>
+      </div>
+    </div>
   </div>
 
   <!-- JOURNAL EDITOR -->
@@ -4588,6 +5192,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           </select>
         </div>
         <div class="note-editor-actions">
+          <button class="note-card-btn" id="note-act-convert" onclick="promptConvertNoteToBookPage()" style="display:inline-flex;align-items:center;gap:4px;" title="Convert to Notebook Page">📚 To Page</button>
+          <button class="note-card-btn" id="note-act-backup" onclick="openNotesBackupModal()" style="display:inline-flex;align-items:center;gap:4px;" title="Export / Backup">📥 Export</button>
           <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
           <button class="note-card-btn acc" id="note-act-done" onclick="setNoteEditMode(false,false)">Done</button>
@@ -4632,6 +5238,9 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="note-tool-btn" id="note-underline" onmousedown="event.preventDefault()" onclick="noteCommand('underline')"><u>U</u></button>
         </div>
         <div class="note-tool-group" style="position:relative;">
+          <button class="note-tool-btn" type="button" onclick="insertChecklistItem('editor')" title="Interactive Checklist" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">☑️ Check</button>
+          <button class="note-tool-btn" type="button" onclick="openMathSymbolsPalette('editor')" title="Math &amp; STEM Symbols" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🔢 Math</button>
+          <button class="note-tool-btn" type="button" onclick="insertCalculatorResult('editor')" title="Insert from Calculator" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">➗ Calc</button>
           <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🎀 Stickers</button>
           <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🖼️ Photo</button>
           <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📝 Sticky</button>
@@ -4955,6 +5564,115 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <button type="button" class="app-dialog-btn" onclick="closeCropModal()">Cancel</button>
         <button type="button" class="app-dialog-btn acc" onclick="applyPhotoCrop()">Apply Crop ✨</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATHEMATICAL & STEM SYMBOLS MODAL -->
+<div id="math-symbols-modal" class="app-dialog" onclick="if(event.target===this)closeMathSymbolsPalette()">
+  <div class="stickers-drawer-card" style="max-width:620px;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:var(--t1);">📐 Mathematical &amp; STEM Symbols</div>
+        <div style="font-size:12px;color:var(--t2);">Tap any symbol to insert it directly into your active note or canvas.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeMathSymbolsPalette()">✕</button>
+    </div>
+    <div class="tpl-modal-tabs">
+      <button type="button" class="tpl-tab-btn on" onclick="filterMathSymbols('greek',this)">Greek Letters</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterMathSymbols('operators',this)">Operators &amp; Roots</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterMathSymbols('calculus',this)">Calculus &amp; Sets</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterMathSymbols('chem',this)">Chem &amp; Physics</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterMathSymbols('arrows',this)">Arrows &amp; Logic</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterMathSymbols('scripts',this)">Sub / Super</button>
+    </div>
+    <div id="math-symbols-content-box" class="math-symbol-grid"></div>
+  </div>
+</div>
+
+<!-- BACKUP, EXPORT & RESTORE MODAL -->
+<div id="notes-backup-modal" class="app-dialog" onclick="if(event.target===this)closeNotesBackupModal()">
+  <div class="app-dialog-card" style="width:min(100%,500px);" onclick="event.stopPropagation()">
+    <div class="app-dialog-title">💾 Backup, Export &amp; Restore</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">All your notes, notebooks, and journal entries are private and stored locally on your device.</div>
+    <div style="display:grid;gap:12px;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--glb);border-radius:14px;padding:12px;">
+        <div style="font-size:13px;font-weight:800;color:var(--t1);margin-bottom:4px;">📦 Full Local Archive (JSON)</div>
+        <div style="font-size:11.5px;color:var(--t3);margin-bottom:10px;">Downloads a complete snapshot of all notes, notebooks, journal entries, and drawing strokes.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="note-card-btn acc" onclick="exportNotesAsJson()">Export JSON Backup</button>
+          <button type="button" class="note-card-btn" onclick="triggerJsonImport()">Restore from JSON</button>
+          <input type="file" id="notes-json-import-input" accept=".json" style="display:none;" onchange="handleJsonImport(event)">
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--glb);border-radius:14px;padding:12px;">
+        <div style="font-size:13px;font-weight:800;color:var(--t1);margin-bottom:4px;">📄 Active Note Export (Markdown / Text)</div>
+        <div style="font-size:11.5px;color:var(--t3);margin-bottom:10px;">Export the currently opened note as clean Markdown (`.md`) or copy plain text.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="note-card-btn" onclick="exportCurrentNoteMarkdown()">Download Markdown (.md)</button>
+          <button type="button" class="note-card-btn" onclick="copyCurrentNoteText()">Copy Clean Text</button>
+        </div>
+      </div>
+    </div>
+    <div class="app-dialog-actions" style="margin-top:16px;">
+      <button type="button" class="app-dialog-btn" onclick="closeNotesBackupModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW JOURNAL ENTRY MODAL -->
+<div id="journal-entry-modal" class="app-dialog" onclick="if(event.target===this)closeJournalEntryModal()">
+  <div class="stickers-drawer-card" style="max-width:640px;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:var(--t1);" id="jentry-modal-header">📖 New Journal Entry</div>
+        <div style="font-size:12px;color:var(--t2);">Record a thought, moment, gratitude, or daily reflection.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeJournalEntryModal()">✕</button>
+    </div>
+    <div style="display:grid;gap:12px;max-height:68vh;overflow-y:auto;padding-right:4px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div>
+          <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Journal Date</label>
+          <input type="date" id="jentry-input-date" class="app-dialog-input" style="height:40px;">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Notebook / Binder</label>
+          <select id="jentry-input-book" class="note-tool-select" style="height:40px;width:100%;">
+            <!-- Populated dynamically with books -->
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Today's Vibe / Mood (Optional)</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;" id="jentry-mood-picker">
+          <button type="button" class="note-mood-pill on" onclick="selectEntryMood('☀️ Radiant',this)">☀️ Radiant</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('🌿 Calm',this)">🌿 Calm</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('⚡ Energized',this)">⚡ Energized</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('🌸 Grateful',this)">🌸 Grateful</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('🥱 Tired',this)">🥱 Tired</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('🌧️ Stressed',this)">🌧️ Stressed</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('🌙 Reflective',this)">🌙 Reflective</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('💭 Mixed',this)">💭 Mixed</button>
+          <button type="button" class="note-mood-pill" onclick="selectEntryMood('',this)">None</button>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Title (Optional)</label>
+        <input type="text" id="jentry-input-title" class="app-dialog-input" placeholder="Title (e.g. Quiet afternoon thoughts...)" maxlength="70">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Entry</label>
+        <textarea id="jentry-input-body" class="app-dialog-input" rows="7" placeholder="Write freely here... No judgment, no rules."></textarea>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Tags (Optional, separated by commas or #tags)</label>
+        <input type="text" id="jentry-input-tags" class="app-dialog-input" placeholder="#reflection, #gratitude, #reading" maxlength="80">
+      </div>
+    </div>
+    <div class="app-dialog-actions" style="margin-top:14px;">
+      <button type="button" class="app-dialog-btn" onclick="closeJournalEntryModal()">Cancel</button>
+      <button type="button" class="app-dialog-btn acc" onclick="saveNewJournalEntryModal()">Save Entry ✨</button>
     </div>
   </div>
 </div>
@@ -6605,8 +7323,25 @@ function loadNotesData(){
     }
   })();
 }
+let notesSearchQuery = '';
+
+function handleNotesSearch(val){
+  notesSearchQuery = String(val||'').toLowerCase().trim();
+  renderNotesList();
+}
+
 function getFilteredNotes(){
   let list=(notesPane==='vault')?[...VAULT_NOTES]:[...NOTES];
+  if(notesSearchQuery){
+    list = list.filter(n => {
+      const title = getNoteDisplayTitle(n).toLowerCase();
+      const content = (n.content || '').toLowerCase();
+      const tags = (n.tags || []).join(' ').toLowerCase();
+      const book = getJournalBookById(n.bookId);
+      const bookTitle = (book ? book.title : '').toLowerCase();
+      return title.includes(notesSearchQuery) || content.includes(notesSearchQuery) || tags.includes(notesSearchQuery) || bookTitle.includes(notesSearchQuery);
+    });
+  }
   if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   else if(notesSort==='title')list.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
   else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
@@ -6618,6 +7353,8 @@ function syncNotesPaneUI(){
   const sub=document.getElementById('notes-page-sub');
   const trashBtn=document.getElementById('notes-pane-trash');
   const notesBtn=document.getElementById('notes-pane-notes');
+  const booksBtn=document.getElementById('notes-pane-books');
+  const studyBtn=document.getElementById('notes-pane-study');
   const libBtn=document.getElementById('notes-pane-library');
   const restoreAllBtn=document.getElementById('notes-restore-all');
   const deleteAllBtn=document.getElementById('notes-delete-all');
@@ -6629,12 +7366,16 @@ function syncNotesPaneUI(){
   const controls=document.querySelector('#sNotes .notes-controls');
   const notesList=document.getElementById('notes-list');
   const libraryPane=document.getElementById('library-pane');
+  const notebooksPane=document.getElementById('notebooks-pane');
+  const studyPane=document.getElementById('study-pane');
 
   if(notesPane==='vault'){
     if(title)title.textContent='🔒 Hidden Notes';
     if(sub)sub.textContent='Private hidden notebook · Tap Lock to exit';
     if(trashBtn)trashBtn.classList.remove('on');
     if(notesBtn)notesBtn.classList.remove('on');
+    if(booksBtn)booksBtn.classList.remove('on');
+    if(studyBtn)studyBtn.classList.remove('on');
     if(libBtn)libBtn.classList.remove('on');
     if(restoreAllBtn)restoreAllBtn.classList.remove('show');
     if(deleteAllBtn)deleteAllBtn.classList.remove('show');
@@ -6646,6 +7387,8 @@ function syncNotesPaneUI(){
     if(controls)controls.style.display='grid';
     if(notesList)notesList.style.display='grid';
     if(libraryPane)libraryPane.style.display='none';
+    if(notebooksPane)notebooksPane.style.display='none';
+    if(studyPane)studyPane.style.display='none';
     if(notesShell)notesShell.classList.remove('library-mode');
     return;
   }
@@ -6654,17 +7397,56 @@ function syncNotesPaneUI(){
   if(passBtn)passBtn.classList.remove('show');
 
   if(notesBtn)notesBtn.classList.toggle('on',notesPane==='notes');
+  if(booksBtn)booksBtn.classList.toggle('on',notesPane==='books');
+  if(studyBtn)studyBtn.classList.toggle('on',notesPane==='study');
   if(libBtn)libBtn.classList.toggle('on',notesPane==='library');
   if(trashBtn)trashBtn.classList.toggle('on',notesPane==='trash');
 
   if(notesPane==='notes'){
-    if(title)title.textContent='Notes';
-    if(sub)sub.textContent='Your study notebook for formulas, concepts & revision notes.';
+    if(title)title.textContent='Notes & Workspaces';
+    if(sub)sub.textContent='Your study notebook, quick thoughts, formula sheets & digital notebooks.';
     if(controls)controls.style.display='grid';
-    if(addNoteBtn)addNoteBtn.style.display='flex';
+    if(addNoteBtn){
+      addNoteBtn.style.display='flex';
+      addNoteBtn.onclick=()=>requestNewNote();
+      const lbl = addNoteBtn.querySelector('.notes-add-label');
+      if(lbl) lbl.textContent = 'New Note';
+    }
     if(tplBtn)tplBtn.style.display='inline-flex';
     if(notesList)notesList.style.display='grid';
     if(libraryPane)libraryPane.style.display='none';
+    if(notebooksPane)notebooksPane.style.display='none';
+    if(studyPane)studyPane.style.display='none';
+  }else if(notesPane==='books'){
+    if(title)title.textContent='📚 Digital Notebooks & Binders';
+    if(sub)sub.textContent='Structured multipage notebooks with custom covers and paper templates.';
+    if(controls)controls.style.display='none';
+    if(addNoteBtn){
+      addNoteBtn.style.display='flex';
+      addNoteBtn.onclick=()=>openCreateBookModal();
+      const lbl = addNoteBtn.querySelector('.notes-add-label');
+      if(lbl) lbl.textContent = 'New Book';
+    }
+    if(tplBtn)tplBtn.style.display='none';
+    if(notesList)notesList.style.display='none';
+    if(libraryPane)libraryPane.style.display='none';
+    if(notebooksPane)notebooksPane.style.display='block';
+    if(studyPane)studyPane.style.display='none';
+  }else if(notesPane==='study'){
+    if(title)title.textContent='🎓 Study & STEM Workspace';
+    if(sub)sub.textContent='Formula sheets, Cornell notes, active recall & mathematical scratchpad.';
+    if(controls)controls.style.display='none';
+    if(addNoteBtn){
+      addNoteBtn.style.display='flex';
+      addNoteBtn.onclick=()=>createNote({tags:['#study','#formula']});
+      const lbl = addNoteBtn.querySelector('.notes-add-label');
+      if(lbl) lbl.textContent = 'Study Note';
+    }
+    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(notesList)notesList.style.display='none';
+    if(libraryPane)libraryPane.style.display='none';
+    if(notebooksPane)notebooksPane.style.display='none';
+    if(studyPane)studyPane.style.display='block';
   }else if(notesPane==='trash'){
     if(title)title.textContent='Trash';
     if(sub)sub.textContent='Trash shows deleted notes and deleted files.';
@@ -6673,6 +7455,8 @@ function syncNotesPaneUI(){
     if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='grid';
     if(libraryPane)libraryPane.style.display='none';
+    if(notebooksPane)notebooksPane.style.display='none';
+    if(studyPane)studyPane.style.display='none';
   }else if(notesPane==='library'){
     if(title)title.textContent='Library';
     if(sub)sub.textContent='Subject folders and uploaded study files.';
@@ -6681,6 +7465,8 @@ function syncNotesPaneUI(){
     if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='none';
     if(libraryPane)libraryPane.style.display='grid';
+    if(notebooksPane)notebooksPane.style.display='none';
+    if(studyPane)studyPane.style.display='none';
   }
 
   if(restoreAllBtn)restoreAllBtn.classList.toggle('show',notesPane==='trash');
@@ -6690,11 +7476,122 @@ function syncNotesPaneUI(){
 }
 
 function setNotesPane(next){
-  const target=['notes','library','trash'].includes(next)?next:'notes';
+  const target=['notes','books','study','library','trash'].includes(next)?next:'notes';
   notesPane=target;
   if(notesPane==='library')libraryView='folders';
   syncNotesPaneUI();
-  renderNotesList();
+  if(notesPane==='books'){
+    renderNotebooksShelf();
+  }else if(notesPane==='study'){
+    renderStudyWorkspace();
+  }else{
+    renderNotesList();
+  }
+}
+
+function renderNotebooksShelf(){
+  const shelf = document.getElementById('notebooks-pane');
+  if(!shelf) return;
+  shelf.style.display = 'block';
+  const listEl = document.getElementById('notes-list');
+  if(listEl) listEl.style.display = 'none';
+
+  if(!JOURNAL_BOOKS.length){
+    shelf.innerHTML = `
+      <div class="notes-empty">
+        <div class="notes-empty-ico">📚</div>
+        <div style="font-size:16px;font-weight:800;color:var(--t1);">No digital notebooks yet</div>
+        <div style="font-size:12px;color:var(--t2);">Create your first multipage notebook with custom cover and paper style.</div>
+        <button type="button" class="note-card-btn acc" onclick="openCreateBookModal()" style="margin-top:8px;">+ Create Notebook</button>
+      </div>
+    `;
+    return;
+  }
+
+  const cardsHtml = JOURNAL_BOOKS.map(book => {
+    const pages = NOTES.filter(n => n.bookId === book.id);
+    const pageCount = pages.length;
+    const themeClass = book.coverTheme || 'theme-blush';
+    const emblem = book.emblem || '📖';
+    return `
+      <div class="notebook-cover-card ${escapeHtml(themeClass)}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
+        <div>
+          <div class="notebook-cover-emblem">${escapeHtml(emblem)}</div>
+          <div class="notebook-cover-title">${escapeHtml(book.title)}</div>
+          <div class="notebook-cover-desc">${escapeHtml(book.desc || 'Multipage notebook')}</div>
+        </div>
+        <div class="notebook-cover-footer">
+          <span class="notebook-pages-pill">📑 ${pageCount} page${pageCount === 1 ? '' : 's'}</span>
+          <div style="display:flex;gap:4px;" onclick="event.stopPropagation()">
+            <button type="button" class="note-card-btn" onclick="openEditBookModal('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.2);color:#fff;" title="Edit Cover">Edit</button>
+            <button type="button" class="note-card-btn del" onclick="deleteJournalBook('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(255,80,80,.25);border-color:rgba(255,80,80,.4);color:#fff;" title="Delete Book">✕</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  shelf.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="font-size:17px;font-weight:900;color:var(--t1);">📚 Your Digital Notebooks &amp; Binders</div>
+        <div style="font-size:12px;color:var(--t2);">Tap any notebook to open its authentic iPad handwriting &amp; study canvas.</div>
+      </div>
+      <button type="button" class="note-card-btn acc" onclick="openCreateBookModal()">+ New Notebook</button>
+    </div>
+    <div class="notebooks-shelf-grid">${cardsHtml}</div>
+  `;
+}
+
+function openNotebookInJournal(bookId){
+  currentJournalBookId = bookId;
+  currentJournalPageIndex = 0;
+  bnav('journal');
+  switchJournalMainView('notebook');
+  loadIpadActivePage();
+  showToast(`Opened "${getJournalBookById(bookId)?.title || 'Notebook'}" 📓`);
+}
+
+function renderStudyWorkspace(){
+  const pane = document.getElementById('study-pane');
+  if(!pane) return;
+  pane.style.display = 'block';
+  const listEl = document.getElementById('notes-list');
+  if(listEl) listEl.style.display = 'none';
+
+  const studyNotes = NOTES.filter(n => {
+    const text = (n.title + ' ' + (n.tags||[]).join(' ') + ' ' + (n.content||'')).toLowerCase();
+    return text.includes('#study') || text.includes('#math') || text.includes('#physics') || text.includes('#chem') || text.includes('formula') || text.includes('cornell') || text.includes('lecture') || text.includes('exam');
+  });
+
+  const cardsHtml = studyNotes.length ? studyNotes.map(renderNoteCard).join('') : `
+    <div class="notes-empty" style="grid-column:1/-1;">
+      <div class="notes-empty-ico">🎓</div>
+      <div style="font-size:15px;font-weight:800;color:var(--t1);">No study notes tagged yet</div>
+      <div style="font-size:12px;color:var(--t2);">Tag your notes with #study, #math, #physics, or #exam, or start with a STEM template below!</div>
+    </div>
+  `;
+
+  pane.innerHTML = `
+    <div style="display:grid;gap:14px;">
+      <div style="background:linear-gradient(165deg,rgba(140,126,255,.12),rgba(255,255,255,.03));border:1px solid rgba(140,126,255,.2);border-radius:20px;padding:16px 18px;">
+        <div style="font-size:16px;font-weight:900;color:var(--t1);margin-bottom:4px;">🔬 Academic &amp; STEM Scratchpad</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:12px;">One-click shortcuts to insert calculations, math formulas, Greek symbols, and Cornell notes.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="note-card-btn acc" onclick="insertCalculatorResult('new')">➗ From Calculator Result</button>
+          <button type="button" class="note-card-btn" onclick="openMathSymbolsPalette('study')">🔢 Math Symbol Palette</button>
+          <button type="button" class="note-card-btn" onclick="selectTemplate('cornell_notes')">🎓 Cornell Notes</button>
+          <button type="button" class="note-card-btn" onclick="selectTemplate('physics_mechanics')">⚛️ Physics Formula Sheet</button>
+          <button type="button" class="note-card-btn" onclick="selectTemplate('stem_calculus')">📐 Calculus Breakdown</button>
+          <button type="button" class="note-card-btn" onclick="selectTemplate('chem_kinetics')">🧪 Chemistry Kinetics</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:900;color:var(--t1);margin-bottom:8px;">Study &amp; Academic Notes</div>
+        <div class="notes-list view-grid">${cardsHtml}</div>
+      </div>
+    </div>
+  `;
 }
 
 function setNotesSort(val){
@@ -6909,6 +7806,81 @@ function assignCurrentNoteToBook(bookId){
   showToast(book?`Moved to "${book.title}"`:'Removed from book');
 }
 
+function promptConvertNoteToBookPage(){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  if(!JOURNAL_BOOKS.length){
+    showToast('Please create a notebook first!');
+    openCreateBookModal();
+    return;
+  }
+  const opts = JOURNAL_BOOKS.map(b => `<option value="${escapeHtml(b.id)}" ${note.bookId===b.id?'selected':''}>${escapeHtml(b.emblem||'📖')} ${escapeHtml(b.title)}</option>`).join('');
+  showAppDialog({
+    title: 'Convert to Notebook Page',
+    message: `Assign "${note.title || 'this note'}" to a Digital Notebook so it appears inside the iPad canvas and notebook binder.`,
+    confirmText: 'Move to Notebook',
+    cancelText: 'Cancel',
+    onConfirm: () => {
+      const sel = document.getElementById('convert-book-target-select');
+      if(sel && sel.value){
+        note.bookId = sel.value;
+        saveCurrentNote(false);
+        const book = getJournalBookById(sel.value);
+        showToast(`Converted note to page in "${book?.title || 'Notebook'}" 📓`);
+        syncNoteBookAssignSelect(note.bookId);
+      }
+    }
+  });
+  setTimeout(() => {
+    const body = document.getElementById('app-dialog-body');
+    if(body){
+      body.insertAdjacentHTML('beforeend', `
+        <div style="margin-top:10px;">
+          <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:4px;">Select Destination Notebook</label>
+          <select id="convert-book-target-select" class="note-tool-select" style="width:100%;height:38px;">${opts}</select>
+        </div>
+      `);
+    }
+  }, 20);
+}
+
+function insertChecklistItem(target='editor'){
+  const itemHtml = `<div class="note-checklist-item" contenteditable="false"><input type="checkbox" class="note-check-input" onclick="toggleNoteCheckItem(this,event)"><span class="note-check-text" contenteditable="true">Checklist item...</span></div><p><br></p>`;
+  if(target === 'ipad'){
+    const editor = document.getElementById('ipad-page-editor');
+    if(editor){
+      insertHtmlAtCursor(itemHtml, editor);
+      queueIpadSave();
+      showToast('Checklist item added ☑️');
+    }
+  } else {
+    const editor = document.getElementById('note-editor');
+    if(editor){
+      setNoteEditMode(true, false);
+      insertHtmlAtCursor(itemHtml, editor);
+      queueNoteSave();
+      showToast('Checklist item added ☑️');
+    }
+  }
+}
+
+function toggleNoteCheckItem(cb, e){
+  e?.stopPropagation();
+  const parent = cb?.closest('.note-checklist-item');
+  if(parent){
+    if(cb.checked){
+      parent.setAttribute('data-checked', 'true');
+    } else {
+      parent.removeAttribute('data-checked');
+    }
+  }
+  if(curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+    queueIpadSave();
+  } else {
+    queueNoteSave();
+  }
+}
+
 function renderNoteCard(note){
   const title=escapeHtml(getNoteDisplayTitle(note));
   const snippet=renderNotePreviewHtml(note);
@@ -6928,6 +7900,14 @@ function renderNotesList(){
   }
   if(notesPane==='trash'){
     renderTrashPane();
+    return;
+  }
+  if(notesPane==='books'){
+    renderNotebooksShelf();
+    return;
+  }
+  if(notesPane==='study'){
+    renderStudyWorkspace();
     return;
   }
   syncViewToggle('notes-view-toggle',notesView);
@@ -6989,10 +7969,545 @@ function openJournal(opts={}){
   isVaultActive=false;
   setBottomTab('journal');
   setActiveScreen('sJournal','Journal',{...opts,tab:'journal'});
-  loadIpadActivePage();
+  if(currentJournalMainView === 'calendar'){
+    renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+    renderJournalEntriesTimeline();
+  } else if(currentJournalMainView === 'sparks'){
+    updatePromptSparkUI();
+  } else {
+    loadIpadActivePage();
+  }
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'journal'},!!opts?.replace);
 }
+
+/* ── ULTIMATE JOURNAL, CALENDAR & MATH SUITE CONTROLLER ── */
+let currentJournalMainView = 'notebook';
+let currentJournalCalendarYear = new Date().getFullYear();
+let currentJournalCalendarMonth = new Date().getMonth();
+let currentSelectedJournalDate = new Date().toISOString().slice(0, 10);
+let currentJournalMoodFilter = 'all';
+
+function switchJournalMainView(viewName){
+  currentJournalMainView = viewName;
+  document.querySelectorAll('#sJournal .jview-tab-btn').forEach(btn => {
+    btn.classList.toggle('on', btn.id === `jview-tab-${viewName}`);
+  });
+
+  const notebookView = document.getElementById('journal-notebook-view');
+  const calendarView = document.getElementById('journal-calendar-view');
+  const sparksView = document.getElementById('journal-sparks-view');
+
+  if(notebookView) notebookView.style.display = (viewName === 'notebook') ? 'block' : 'none';
+  if(calendarView) calendarView.style.display = (viewName === 'calendar') ? 'grid' : 'none';
+  if(sparksView) sparksView.style.display = (viewName === 'sparks') ? 'grid' : 'none';
+
+  if(viewName === 'calendar'){
+    renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+    renderJournalEntriesTimeline();
+  } else if(viewName === 'sparks'){
+    updatePromptSparkUI();
+  } else if(viewName === 'notebook'){
+    loadIpadActivePage();
+  }
+}
+
+function shiftJournalMonth(delta){
+  currentJournalCalendarMonth += delta;
+  if(currentJournalCalendarMonth < 0){
+    currentJournalCalendarMonth = 11;
+    currentJournalCalendarYear--;
+  } else if(currentJournalCalendarMonth > 11){
+    currentJournalCalendarMonth = 0;
+    currentJournalCalendarYear++;
+  }
+  renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+}
+
+function jumpJournalToday(){
+  const now = new Date();
+  currentJournalCalendarYear = now.getFullYear();
+  currentJournalCalendarMonth = now.getMonth();
+  currentSelectedJournalDate = now.toISOString().slice(0, 10);
+  renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+  renderJournalEntriesTimeline();
+}
+
+function selectJournalDate(dateStr){
+  currentSelectedJournalDate = dateStr;
+  renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+  renderJournalEntriesTimeline();
+}
+
+function filterJournalMood(mood){
+  currentJournalMoodFilter = mood;
+  renderJournalEntriesTimeline();
+}
+
+function getJournalEntriesForDate(dateStr){
+  return NOTES.filter(n => {
+    const d = n.journalDate || (n.createdAt ? new Date(n.createdAt).toISOString().slice(0, 10) : '');
+    return d === dateStr;
+  });
+}
+
+function renderJournalCalendar(year, month){
+  const label = document.getElementById('jcal-month-label');
+  const grid = document.getElementById('jcal-days-grid');
+  if(!label || !grid) return;
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  label.textContent = `${monthNames[month]} ${year}`;
+
+  const firstDayIndex = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const prevMonthDays = new Date(year, month, 0).getDate();
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  let html = '';
+
+  for(let i = firstDayIndex - 1; i >= 0; i--){
+    const d = prevMonthDays - i;
+    html += `<div class="jcal-day is-other-month"><span class="jcal-day-num">${d}</span></div>`;
+  }
+
+  for(let day = 1; day <= daysInMonth; day++){
+    const mm = String(month + 1).padStart(2, '0');
+    const dd = String(day).padStart(2, '0');
+    const dateStr = `${year}-${mm}-${dd}`;
+    const entries = getJournalEntriesForDate(dateStr);
+    const hasEntries = entries.length > 0;
+    const isToday = (dateStr === todayStr);
+    const isSelected = (dateStr === currentSelectedJournalDate);
+
+    let dotsHtml = '';
+    if(hasEntries){
+      const count = Math.min(entries.length, 3);
+      for(let k = 0; k < count; k++){
+        dotsHtml += '<span class="jcal-dot"></span>';
+      }
+    }
+
+    html += `
+      <div class="jcal-day ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}" onclick="selectJournalDate('${dateStr}')">
+        <span class="jcal-day-num">${day}</span>
+        <div class="jcal-day-dots">${dotsHtml}</div>
+      </div>
+    `;
+  }
+
+  const totalCells = firstDayIndex + daysInMonth;
+  const nextDays = (totalCells > 35) ? (42 - totalCells) : (35 - totalCells);
+  for(let j = 1; j <= nextDays; j++){
+    html += `<div class="jcal-day is-other-month"><span class="jcal-day-num">${j}</span></div>`;
+  }
+
+  grid.innerHTML = html;
+}
+
+function renderJournalEntriesTimeline(){
+  const dateHeader = document.getElementById('jtimeline-date-text');
+  const listEl = document.getElementById('jtimeline-entries-list');
+  if(!listEl) return;
+
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isToday = (currentSelectedJournalDate === todayStr);
+
+  const parsedDate = new Date(currentSelectedJournalDate + 'T12:00:00');
+  const formatted = parsedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+
+  if(dateHeader){
+    dateHeader.textContent = isToday ? `Today — ${formatted}` : formatted;
+  }
+
+  let entries = getJournalEntriesForDate(currentSelectedJournalDate);
+
+  if(currentJournalMoodFilter !== 'all'){
+    entries = entries.filter(e => e.journalMood === currentJournalMoodFilter);
+  }
+
+  if(!entries.length){
+    listEl.innerHTML = `
+      <div class="notes-empty" style="grid-column:1/-1;">
+        <div class="notes-empty-ico">📖</div>
+        <div style="font-size:15px;font-weight:800;color:var(--t1);">No entries recorded for ${formatted}</div>
+        <div style="font-size:12px;color:var(--t2);">Write a quiet thought, morning intention, gratitude, or memory for this day.</div>
+        <button type="button" class="note-card-btn acc" onclick="openNewJournalEntryModal('${currentSelectedJournalDate}')" style="margin-top:8px;">+ Write Entry for This Date</button>
+      </div>
+    `;
+    return;
+  }
+
+  listEl.innerHTML = entries.map(entry => {
+    const title = escapeHtml(entry.title || 'Journal Entry');
+    const snippet = renderNotePreviewHtml(entry);
+    const moodTag = entry.journalMood ? `<span class="jentry-mood-tag">${escapeHtml(entry.journalMood)}</span>` : '';
+    const book = getJournalBookById(entry.bookId);
+    const bookTag = book ? `<span class="note-book-tag ${escapeHtml(book.coverTheme||'theme-blush')}">${escapeHtml(book.emblem||'📖')} ${escapeHtml(book.title)}</span>` : '';
+    const timeStr = entry.createdAt ? new Date(entry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+    return `
+      <div class="jentry-card" onclick="openNoteEditor('${entry.id}')">
+        <div class="jentry-card-top">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            ${moodTag}
+            ${bookTag}
+          </div>
+          <span style="font-size:11px;color:var(--t3);">${escapeHtml(timeStr)}</span>
+        </div>
+        <div class="jentry-title">${title}</div>
+        <div class="jentry-snippet">${snippet}</div>
+        <div class="jentry-footer">
+          <span>${escapeHtml(formatNoteStamp(entry.updatedAt))}</span>
+          <div style="display:flex;gap:6px;" onclick="event.stopPropagation()">
+            <button type="button" class="note-card-btn acc" onclick="openNoteEditor('${entry.id}',{edit:true})">Edit</button>
+            <button type="button" class="note-card-btn del" onclick="deleteNote('${entry.id}')">Delete</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+let newEntrySelectedMood = '☀️ Radiant';
+
+function selectEntryMood(mood, btn){
+  newEntrySelectedMood = mood;
+  document.querySelectorAll('#jentry-mood-picker .note-mood-pill').forEach(p => p.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+}
+
+function openNewJournalEntryModal(dateStr=''){
+  const targetDate = dateStr || currentSelectedJournalDate || new Date().toISOString().slice(0, 10);
+  const dateInput = document.getElementById('jentry-input-date');
+  const titleInput = document.getElementById('jentry-input-title');
+  const bodyInput = document.getElementById('jentry-input-body');
+  const tagsInput = document.getElementById('jentry-input-tags');
+  const bookSelect = document.getElementById('jentry-input-book');
+
+  if(dateInput) dateInput.value = targetDate;
+  if(titleInput) titleInput.value = '';
+  if(bodyInput) bodyInput.value = '';
+  if(tagsInput) tagsInput.value = '#journal, #reflection';
+
+  if(bookSelect){
+    let opts = '<option value="">📖 Personal Journal (Default)</option>';
+    JOURNAL_BOOKS.forEach(b => {
+      opts += `<option value="${escapeHtml(b.id)}">${escapeHtml(b.emblem||'📖')} ${escapeHtml(b.title)}</option>`;
+    });
+    bookSelect.innerHTML = opts;
+  }
+
+  const modal = document.getElementById('journal-entry-modal');
+  if(modal) modal.classList.add('show');
+}
+
+function closeJournalEntryModal(){
+  const modal = document.getElementById('journal-entry-modal');
+  if(modal) modal.classList.remove('show');
+}
+
+function saveNewJournalEntryModal(){
+  const dateInput = document.getElementById('jentry-input-date');
+  const titleInput = document.getElementById('jentry-input-title');
+  const bodyInput = document.getElementById('jentry-input-body');
+  const tagsInput = document.getElementById('jentry-input-tags');
+  const bookSelect = document.getElementById('jentry-input-book');
+
+  const journalDate = dateInput?.value || new Date().toISOString().slice(0, 10);
+  let title = titleInput?.value.trim() || '';
+  const bodyText = bodyInput?.value.trim() || '';
+  const tagsRaw = tagsInput?.value.trim() || '';
+
+  if(!title && bodyText){
+    title = bodyText.split('\n')[0].slice(0, 48);
+  }
+  if(!title){
+    title = 'Journal Entry — ' + new Date(journalDate + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  const tags = [...new Set((tagsRaw.match(/#[a-z0-9_]{2,24}/gi) || []).map(v => v.slice(1).toLowerCase()))];
+  if(!tags.includes('journal')) tags.unshift('journal');
+
+  const now = Date.now();
+  const bookId = bookSelect?.value || currentJournalBookId || '';
+
+  const newEntry = {
+    id: `note_${now}_${Math.random().toString(36).slice(2, 7)}`,
+    title: title,
+    content: `<p>${escapeHtml(bodyText).replace(/\n/g, '<br>')}</p>`,
+    createdAt: now,
+    updatedAt: now,
+    untitledIndex: noteUntitledSeed++,
+    fontFamily: 'caveat',
+    fontSize: 'medium',
+    textColor: getDefaultNoteTextColor(),
+    textColorMode: 'auto',
+    bookId: bookId,
+    journalDate: journalDate,
+    journalMood: newEntrySelectedMood,
+    isJournalEntry: true,
+    tags: tags
+  };
+
+  NOTES.unshift(newEntry);
+  saveNotesData();
+
+  closeJournalEntryModal();
+  currentSelectedJournalDate = journalDate;
+  renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
+  renderJournalEntriesTimeline();
+  showToast('Journal entry saved ✨');
+}
+
+/* ── MATHEMATICAL & STEM SYMBOLS PALETTE ── */
+let activeMathSymbolSource = 'editor';
+const MATH_SYMBOLS_DATA = {
+  greek: [
+    'α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ','ν','ξ','π','ρ','σ','τ','υ','φ','χ','ψ','ω',
+    'Γ','Δ','Θ','Λ','Ξ','Π','Σ','Φ','Ψ','Ω'
+  ],
+  operators: [
+    '+','−','±','∓','×','÷','·','*','/','=','≠','≈','≡','∼','∝','<','>','≤','≥','≪','≫','√','∛','∜','∞','%'
+  ],
+  calculus: [
+    '∫','∬','∭','∮','∯','∂','∇','d/dx','lim','∑','∏','∈','∉','⊂','⊆','⊃','⊇','∪','∩','∅','ℝ','ℂ','ℕ','ℤ','ℚ'
+  ],
+  chem: [
+    '→','←','⇌','⇄','↑','↓','∆H','°C','K','mol','M','atm','Pa','eV','J','ħ','c','λ','pH','pKa','[H+]','[OH−]'
+  ],
+  arrows: [
+    '→','←','↔','⇒','⇐','⇔','↑','↓','↗','↘','↖','↙','∴','∵','∀','∃','¬','∧','∨','⊢','⊨'
+  ],
+  scripts: [
+    'x⁰','x¹','x²','x³','x⁴','xⁿ','x⁺','x⁻','x₀','x₁','x₂','x₃','x₄','xₙ','xᵢ','xₘₐₓ','xₘᵢₙ'
+  ]
+};
+
+function openMathSymbolsPalette(source='editor'){
+  activeMathSymbolSource = source;
+  filterMathSymbols('greek');
+  const modal = document.getElementById('math-symbols-modal');
+  if(modal) modal.classList.add('show');
+}
+
+function closeMathSymbolsPalette(){
+  const modal = document.getElementById('math-symbols-modal');
+  if(modal) modal.classList.remove('show');
+}
+
+function filterMathSymbols(cat, btn){
+  const box = document.getElementById('math-symbols-content-box');
+  if(!box) return;
+  const tabs = document.querySelectorAll('#math-symbols-modal .tpl-tab-btn');
+  tabs.forEach(t => t.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+
+  const symbols = MATH_SYMBOLS_DATA[cat] || MATH_SYMBOLS_DATA.greek;
+  box.innerHTML = symbols.map(s => {
+    return `<button type="button" class="math-sym-btn" onclick="insertMathSymbol('${escapeHtml(s)}')">${escapeHtml(s)}</button>`;
+  }).join('');
+}
+
+function insertMathSymbol(sym){
+  if(activeMathSymbolSource === 'ipad'){
+    const editor = document.getElementById('ipad-page-editor');
+    if(editor){
+      insertHtmlAtCursor(`<span>${sym}</span>`, editor);
+      queueIpadSave();
+      showToast(`Inserted ${sym}`);
+    }
+  } else {
+    const editor = document.getElementById('note-editor');
+    if(editor){
+      setNoteEditMode(true, false);
+      insertHtmlAtCursor(`<span>${sym}</span>`, editor);
+      queueNoteSave();
+      showToast(`Inserted ${sym}`);
+    }
+  }
+}
+
+/* ── CALCULATOR BRIDGE (DIRECT INTEGRATION) ── */
+function insertCalculatorResult(source='editor'){
+  const lastCalc = (Array.isArray(H) && H.length > 0) ? H[0] : null;
+  if(!lastCalc || (!lastCalc.res && !lastCalc.result)){
+    showToast('No recent calculation found in Calverse — calculate first! ➗');
+    return;
+  }
+  const expr = lastCalc.expr || lastCalc.equation || '';
+  const res = lastCalc.res || lastCalc.result || '';
+  const text = expr ? `${expr} = ${res}` : String(res);
+  const cardHtml = `<div class="study-formula-card" contenteditable="false" style="margin:8px 0;"><div class="study-formula-title">📐 CALVERSE CALCULATION RESULT</div><div class="study-formula-equation" contenteditable="true">${escapeHtml(text)}</div></div><p><br></p>`;
+
+  if(source === 'ipad'){
+    const editor = document.getElementById('ipad-page-editor');
+    if(editor){
+      insertHtmlAtCursor(cardHtml, editor);
+      queueIpadSave();
+      showToast('Calculation inserted into page ➗');
+    }
+  } else if(source === 'new'){
+    createNote({
+      title: `Calculation — ${text.slice(0, 36)}`,
+      content: cardHtml,
+      fontFamily: 'clean',
+      tags: ['#math', '#calculation']
+    });
+    showToast('Created calculation note ➗');
+  } else {
+    const editor = document.getElementById('note-editor');
+    if(editor){
+      setNoteEditMode(true, false);
+      insertHtmlAtCursor(cardHtml, editor);
+      queueNoteSave();
+      showToast('Calculation inserted into note ➗');
+    }
+  }
+}
+
+/* ── BACKUP, EXPORT & RESTORE ENGINE ── */
+function openNotesBackupModal(){
+  const modal = document.getElementById('notes-backup-modal');
+  if(modal) modal.classList.add('show');
+}
+
+function closeNotesBackupModal(){
+  const modal = document.getElementById('notes-backup-modal');
+  if(modal) modal.classList.remove('show');
+}
+
+function exportNotesAsJson(){
+  const data = {
+    version: 'calverse_notes_ecosystem_v1',
+    exportDate: new Date().toISOString(),
+    notes: NOTES,
+    notebooks: JOURNAL_BOOKS,
+    vaultNotes: VAULT_NOTES
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `thecalverse_notes_backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Full JSON backup downloaded 💾');
+}
+
+function triggerJsonImport(){
+  const inp = document.getElementById('notes-json-import-input');
+  if(inp) inp.click();
+}
+
+function handleJsonImport(e){
+  const file = e.target?.files?.[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const data = JSON.parse(event.target.result);
+      if(!data || (!Array.isArray(data.notes) && !Array.isArray(data.notebooks))){
+        showToast('Invalid backup file format');
+        return;
+      }
+      let importedNotes = 0;
+      let importedBooks = 0;
+
+      if(Array.isArray(data.notebooks)){
+        const existingBookIds = new Set(JOURNAL_BOOKS.map(b => b.id));
+        data.notebooks.forEach(b => {
+          if(b && b.id && !existingBookIds.has(b.id)){
+            JOURNAL_BOOKS.push(b);
+            importedBooks++;
+          }
+        });
+        saveJournalBooks();
+      }
+
+      if(Array.isArray(data.notes)){
+        const existingNoteIds = new Set(NOTES.map(n => n.id));
+        data.notes.forEach(n => {
+          if(n && n.id && !existingNoteIds.has(n.id)){
+            NOTES.push(n);
+            importedNotes++;
+          }
+        });
+        saveNotesData();
+      }
+
+      closeNotesBackupModal();
+      renderNotesList();
+      showToast(`Imported ${importedNotes} notes and ${importedBooks} notebooks ✅`);
+    } catch(err){
+      showToast('Error reading backup file');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function exportCurrentNoteMarkdown(){
+  const note = getNoteById(currentNoteId);
+  if(!note){
+    showToast('No active note to export');
+    return;
+  }
+  const title = getNoteDisplayTitle(note);
+  const plain = notePlainText(note.content || '');
+  const md = `# ${title}\n\n*Created: ${new Date(note.createdAt).toLocaleDateString()}*\n\n${plain}\n`;
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${title.replace(/[^a-z0-9_\-]/gi, '_')}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Exported note as Markdown (.md) 📄');
+}
+
+function copyCurrentNoteText(){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  const title = getNoteDisplayTitle(note);
+  const plain = notePlainText(note.content || '');
+  const text = `${title}\n\n${plain}`;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Copied note text to clipboard 📋');
+    });
+  } else {
+    showToast('Copied note text 📋');
+  }
+}
+
+/* ── GLOBAL KEYBOARD SHORTCUTS ── */
+window.addEventListener('keydown', (e) => {
+  const isMod = (e.metaKey || e.ctrlKey);
+  if(!isMod) return;
+
+  const key = e.key.toLowerCase();
+  if(key === 's'){
+    // Save note or iPad page
+    if(curScr === 'NoteEdit' || document.getElementById('sNoteEdit')?.classList.contains('active')){
+      e.preventDefault();
+      saveCurrentNote(true);
+    } else if(curScr === 'Journal' || document.getElementById('sJournal')?.classList.contains('active')){
+      e.preventDefault();
+      saveCurrentIpadPage(true);
+    }
+  } else if(key === 'n' && !e.shiftKey){
+    // New Quick Note
+    if(curScr === 'Notes' || curScr === 'Journal' || curScr === 'NoteEdit'){
+      e.preventDefault();
+      requestNewNote();
+    }
+  } else if(key === 'j' && !e.shiftKey){
+    // New Journal Entry
+    if(curScr === 'Notes' || curScr === 'Journal'){
+      e.preventDefault();
+      openNewJournalEntryModal();
+    }
+  }
+});
 
 /* ── AUTHENTIC IPAD DIGITAL NOTEBOOK CONTROLLER ── */
 let currentJournalPageIndex = 0;
@@ -7166,8 +8681,18 @@ function saveCurrentIpadPage(showFeedback=false){
   const fontSel = document.getElementById('ipad-font-select');
   const paperSel = document.getElementById('ipad-paper-select');
 
-  const nextTitle = titleEl ? titleEl.value.trim() : '';
+  let nextTitle = titleEl ? titleEl.value.trim() : '';
   const nextContent = editorEl ? cleanCanvasHtmlBeforeSave(editorEl) : '';
+  if(!nextTitle && nextContent){
+    const plain = notePlainText(nextContent).trim();
+    if(plain){
+      const firstLine = plain.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)[0] || '';
+      if(firstLine){
+        nextTitle = firstLine.slice(0, 48);
+        if(titleEl) titleEl.value = nextTitle;
+      }
+    }
+  }
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
   const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','blank'];
   const nextPaper = (paperSel && validPapers.includes(paperSel.value)) ? paperSel.value : 'obsidian';
@@ -10034,8 +11559,18 @@ function saveCurrentNote(showFeedback=false){
   const fontSel=document.getElementById('note-font');
   const sizeSel=document.getElementById('note-size');
   const paperSel=document.getElementById('note-paper-style');
-  const nextTitle=titleEl?titleEl.value.trim():'';
+  let nextTitle=titleEl?titleEl.value.trim():'';
   const rawContent=editor?editor.innerHTML:'';
+  if(!nextTitle && rawContent){
+    const plain = notePlainText(rawContent).trim();
+    if(plain){
+      const firstLine = plain.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)[0] || '';
+      if(firstLine){
+        nextTitle = firstLine.slice(0, 48);
+        if(titleEl) titleEl.value = nextTitle;
+      }
+    }
+  }
   const nextFont=(fontSel&&fontSel.value in NOTE_FONT_MAP)?fontSel.value:'clean';
   const nextSize=(sizeSel&&sizeSel.value in NOTE_SIZE_MAP)?sizeSel.value:'medium';
   const nextPaper=(paperSel&&['ruled','obsidian','cream','blank'].includes(paperSel.value))?paperSel.value:'ruled';
@@ -10424,19 +11959,117 @@ const PERSONALITY_PROMPTS = [
   "I just wanted to write down three sentences so today doesn't vanish entirely."
 ];
 let currentPromptSparkIndex = 0;
+let currentSparkFilter = 'all';
+
+const PERSONALITY_VOICE_MAP = {
+  messy: [
+    "I don't even know what I'm upset about anymore. Everything just keeps piling up, and I'm supposed to act normal.",
+    "I have so much on my mind, and somehow none of it makes sense when I try to explain it.",
+    "My mind feels like twenty browser tabs open at the same time, and music is playing from one of them but I can't find it.",
+    "I keep waiting for things to quiet down before I start living, but I'm starting to think this is just what life feels like.",
+    "I didn't say anything because if I started, I wasn't sure I could stop without getting angry.",
+    "I spent twenty minutes staring at a blank screen today wondering where all my focus went.",
+    "I'm sitting here acting like I have plenty of time, but there's a quiet hum of panic in the back of my mind.",
+    "I'm capable of doing this. I'm just so exhausted by how much effort every single small step takes."
+  ],
+  poetic: [
+    "Some things never really happen twice, yet somehow I keep living them over and over again.",
+    "It's strange how a completely ordinary moment can stay with you longer than the moments that were supposed to matter.",
+    "The afternoon light hit the corner of the table in a way that suddenly made me feel ten years younger.",
+    "The sound of rain against the window makes me feel like the world paused just so I could breathe.",
+    "I noticed the way the leaves turned golden on that street corner and felt an unexpected pang of grief for summer.",
+    "There is an unfinished sentence sitting between us that neither of us knows how to finish.",
+    "I keep collecting books and ideas like I'm building a sanctuary I never actually have time to step inside.",
+    "The smell of cold morning air and wet pavement always makes me feel like a clean slate is possible."
+  ],
+  blunt: [
+    "Honestly, I'm tired of being understanding about things that hurt me.",
+    "I wish I could explain it without having to explain everything that led to it.",
+    "There's a specific kind of tired that sleep has nothing to do with.",
+    "I don't need advice right now. I just need to put this down so it stops echoing in my skull.",
+    "I'm not mad. I'm just quietly recalculating where I stand with people.",
+    "Sometimes I want to say the blunt truth just to see the shocked look on everyone's faces.",
+    "I'm tired of feeling like I have to earn my right to rest.",
+    "The hardest person to be honest with is usually the one staring back from the bathroom mirror at 1 AM."
+  ],
+  contradictory: [
+    "I want someone to notice when something is wrong, but I don't want to have to explain it to them.",
+    "Part of me wants to disappear for three weeks, and the other part just wants someone to text me 'are you okay?'.",
+    "Sometimes I miss people who are still alive, still around, just entirely different now.",
+    "I keep pretending I'm fine with being patient, but deep down I'm violently tired of waiting.",
+    "I don't want to fix anything right now. I just want permission to exist without being productive for an hour.",
+    "It's not that I don't care. It's that caring about this right now would break whatever glue is holding the rest of me together."
+  ],
+  curious: [
+    "I wonder if they think about that afternoon as often as I do, or if it was just a Tuesday to them.",
+    "I heard a song in the grocery store today that I haven't heard in seven years, and for three minutes I stood frozen in the cereal aisle.",
+    "There's a scene in my head that never happened, but I've imagined it so clearly it feels like a memory.",
+    "I keep thinking about that house by the water we drove past three summers ago.",
+    "I was proud of myself today for something so ridiculously small that no one else would ever understand.",
+    "I bought coffee I didn't need just to have a reason to leave the room for five minutes."
+  ]
+};
+
+function getPromptVoiceName(prompt){
+  for(const [voice, list] of Object.entries(PERSONALITY_VOICE_MAP)){
+    if(list.includes(prompt)){
+      if(voice === 'messy') return 'Messy & Honest';
+      if(voice === 'poetic') return 'Poetic & Reflective';
+      if(voice === 'blunt') return 'Blunt & Raw';
+      if(voice === 'contradictory') return 'Contradictory';
+      if(voice === 'curious') return 'Curious & Specific';
+    }
+  }
+  return 'Thought Spark';
+}
+
+function filterSparkCategory(cat, btn){
+  currentSparkFilter = cat;
+  document.querySelectorAll('#journal-sparks-view .jspark-voice-btn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+
+  if(cat !== 'all' && PERSONALITY_VOICE_MAP[cat]){
+    const catList = PERSONALITY_VOICE_MAP[cat];
+    const picked = catList[Math.floor(Math.random() * catList.length)];
+    const idx = PERSONALITY_PROMPTS.indexOf(picked);
+    if(idx !== -1) currentPromptSparkIndex = idx;
+  }
+  updatePromptSparkUI();
+}
 
 function updatePromptSparkUI(){
+  const prompt = PERSONALITY_PROMPTS[currentPromptSparkIndex];
+  if(!prompt) return;
+
   const quoteEl = document.getElementById('prompt-spark-quote');
   const countEl = document.getElementById('prompt-spark-counter');
-  if(!quoteEl || !PERSONALITY_PROMPTS.length) return;
-  const prompt = PERSONALITY_PROMPTS[currentPromptSparkIndex];
-  quoteEl.style.opacity = '0';
-  setTimeout(() => {
-    quoteEl.textContent = '“' + prompt + '”';
-    quoteEl.style.opacity = '1';
-  }, 120);
+  if(quoteEl){
+    quoteEl.style.opacity = '0';
+    setTimeout(() => {
+      quoteEl.textContent = '“' + prompt + '”';
+      quoteEl.style.opacity = '1';
+    }, 100);
+  }
   if(countEl){
     countEl.textContent = 'Spark ' + (currentPromptSparkIndex + 1) + ' of ' + PERSONALITY_PROMPTS.length;
+  }
+
+  const deckQuote = document.getElementById('jspark-main-quote');
+  const deckBadge = document.getElementById('jspark-badge-voice');
+  const deckCount = document.getElementById('jspark-deck-counter');
+
+  if(deckQuote){
+    deckQuote.style.opacity = '0';
+    setTimeout(() => {
+      deckQuote.textContent = '“' + prompt + '”';
+      deckQuote.style.opacity = '1';
+    }, 100);
+  }
+  if(deckBadge){
+    deckBadge.textContent = '💭 ' + getPromptVoiceName(prompt).toUpperCase();
+  }
+  if(deckCount){
+    deckCount.textContent = 'Spark ' + (currentPromptSparkIndex + 1) + ' of ' + PERSONALITY_PROMPTS.length;
   }
 }
 
