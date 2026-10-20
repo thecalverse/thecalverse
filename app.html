@@ -981,6 +981,8 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notes-top-btn.ghost.show{display:inline-flex;align-items:center;justify-content:center;}
 .notes-top-btn.library-only{display:none;}
 .notes-top-btn.library-only.show{display:inline-flex;align-items:center;justify-content:center;}
+.notes-top-btn.vault-only{display:none;}
+.notes-top-btn.vault-only.show{display:inline-flex;align-items:center;justify-content:center;}
 .notes-sub{font-size:12px;color:var(--t2);line-height:1.6;}
 .notes-add{flex:1 1 100%;max-width:none;width:100%;height:44px;border:none;border-radius:14px;background:var(--accg);color:#fff;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;box-shadow:0 10px 20px rgba(84,92,180,.2),inset 0 1px 0 rgba(255,255,255,.22);gap:10px;overflow:hidden;padding:0 14px;}
 .notes-add.expanded{flex:1 1 100%;max-width:none;width:100%;}
@@ -3194,13 +3196,15 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   <div class="screen" id="sNotes">
     <div class="notes-shell">
       <div class="notes-top">
-        <div class="notes-top-copy">
+        <div class="notes-top-copy" onclick="handleNotesHeaderTap()" style="cursor:pointer;-webkit-user-select:none;user-select:none;">
           <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes</div>
           <div class="notes-sub" id="notes-page-sub">Your study notebook for quick ideas, formulas, and revision notes.</div>
         </div>
         <div class="notes-top-actions">
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
           <button class="notes-top-btn ghost warn" id="notes-delete-all" onclick="deleteAllTrash()">Delete All</button>
+          <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
+          <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
           <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
             <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">Trash</button>
           </div>
@@ -3225,7 +3229,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
   <!-- NOTE EDITOR -->
   <div class="screen" id="sNoteEdit">
-    <div class="sbk" onclick="openNotes()">← Notes</div>
+    <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Notes</div>
     <div class="note-editor-wrap view-mode" id="note-editor-wrap">
       <div class="note-editor-head">
       <input type="text" id="note-title" class="note-title-input" placeholder="Topic" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
@@ -3378,6 +3382,22 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </div>
 
+<div id="vault-auth-dialog" class="app-dialog" onclick="closeVaultAuthDialog()">
+  <div class="app-dialog-card" onclick="event.stopPropagation()">
+    <div class="app-dialog-title" id="vault-auth-title">🔒 Vault Passcode</div>
+    <div class="app-dialog-body" id="vault-auth-body"></div>
+    <div class="app-dialog-actions" id="vault-auth-actions"></div>
+  </div>
+</div>
+
+<div id="vault-change-dialog" class="app-dialog" onclick="closeVaultChangeDialog()">
+  <div class="app-dialog-card" onclick="event.stopPropagation()">
+    <div class="app-dialog-title" id="vault-change-title">⚙️ Change Vault Passcode</div>
+    <div class="app-dialog-body" id="vault-change-body"></div>
+    <div class="app-dialog-actions" id="vault-change-actions"></div>
+  </div>
+</div>
+
 <script>
 /* ── GLOBALS ── */
 let H=[],hFilt='all',sndOn=true,hapticOn=false,animOn=true,thmIdx=0,currentTab='home';
@@ -3392,6 +3412,8 @@ let countAnimTimers={};
 let currentInfoKey='about',navReady=false,navLock=false;
 let historySaveTimer=0,historyRenderTimer=0,layoutSyncTimer=0,homeClockTicker=0;
 let NOTES=[],notesTrash=[],notesSort='edited',notesView='grid',notesPane='notes',currentNoteId='',noteSaveTimer=0,noteUntitledSeed=1,noteEditMode=false,lastDeletedNote=null,lastRedoDelete=null,noteActionToastTimer=null,notePaperSyncRaf=0,libraryFolders=[],libraryItems=[],libraryTrashFolders=[],libraryTrashItems=[],currentLibraryFolderId='',currentLibraryTrashFolderId='',libraryView='folders';
+const VAULT_PASS_KEY='calverse_vault_pass_hash',VAULT_NOTES_KEY='calverse_vault_notes_data';
+let VAULT_NOTES=[],vaultUntitledSeed=1,isVaultActive=false,secretHeaderTapCount=0,secretHeaderTapTimer=null;
 let TRACKER=[],trackerMonthOffset=0,trackerSaveTimer=0;
 let SEARCH_CARD_INDEX=null;
 let SEARCH_FORMULA_INDEX=null;
@@ -3570,7 +3592,8 @@ function applyCurrentNoteThemeInk(){
   }
   if(view)view.style.color=next;
   renderNoteColorPalette(next);
-  saveNotesData();
+  if(note?.isVault)saveVaultNotesData();
+  else saveNotesData();
 }
 
 function buildSearchCardIndex(){
@@ -4388,7 +4411,7 @@ function syncViewToggle(id,value){
   if(label)label.textContent=isList?'List':'Grid';
 }
 function getNoteById(id){
-  return NOTES.find(note=>note.id===id)||null;
+  return NOTES.find(note=>note.id===id)||(isVaultActive?VAULT_NOTES.find(note=>note.id===id):null)||null;
 }
 function openNotesDB(){
   return new Promise((resolve,reject)=>{
@@ -5034,7 +5057,7 @@ function loadNotesData(){
   })();
 }
 function getFilteredNotes(){
-  let list=[...NOTES];
+  let list=(notesPane==='vault')?[...VAULT_NOTES]:[...NOTES];
   if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   else if(notesSort==='title')list.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
   else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
@@ -5048,10 +5071,33 @@ function syncNotesPaneUI(){
   const restoreAllBtn=document.getElementById('notes-restore-all');
   const deleteAllBtn=document.getElementById('notes-delete-all');
   const addNoteBtn=document.getElementById('notes-add-btn');
+  const lockBtn=document.getElementById('notes-vault-lock');
+  const passBtn=document.getElementById('notes-vault-change-pass');
   const paneSeg=document.querySelector('.notes-pane-seg');
   const controls=document.querySelector('.notes-controls');
   const notesList=document.getElementById('notes-list');
   const libraryPane=document.getElementById('library-pane');
+
+  if(notesPane==='vault'){
+    if(title)title.textContent='🔒 Hidden Notes';
+    if(sub)sub.textContent='Private hidden notebook · Tap Lock to exit';
+    if(trashBtn)trashBtn.classList.remove('on');
+    if(restoreAllBtn)restoreAllBtn.classList.remove('show');
+    if(deleteAllBtn)deleteAllBtn.classList.remove('show');
+    if(paneSeg)paneSeg.style.display='none';
+    if(lockBtn)lockBtn.classList.add('show');
+    if(passBtn)passBtn.classList.add('show');
+    if(addNoteBtn)addNoteBtn.style.display='flex';
+    if(controls)controls.style.display='grid';
+    if(notesList)notesList.style.display='grid';
+    if(libraryPane)libraryPane.style.display='none';
+    if(notesShell)notesShell.classList.remove('library-mode');
+    return;
+  }
+
+  if(lockBtn)lockBtn.classList.remove('show');
+  if(passBtn)passBtn.classList.remove('show');
+
   if(title)title.textContent=notesPane==='trash'?'Trash':notesPane==='library'?'Library':'Notes';
   if(sub)sub.textContent=notesPane==='trash'
     ?'Trash shows deleted notes and deleted uploads.'
@@ -5110,7 +5156,11 @@ function renderNotesList(){
   listEl.className=`notes-list view-${notesView}`;
   const list=getFilteredNotes();
   if(!list.length){
-    listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗒️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No notes yet. Tap + to create one.</div><div style="font-size:12px">Everything saves locally, so your notes stay here even after refresh.</div></div>`;
+    if(notesPane==='vault'){
+      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🔒</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No hidden notes yet.</div><div style="font-size:12px">Tap + to create your first secret note. Everything is private.</div></div>`;
+    }else{
+      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗒️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No notes yet. Tap + to create one.</div><div style="font-size:12px">Everything saves locally, so your notes stay here even after refresh.</div></div>`;
+    }
     return;
   }
   listEl.innerHTML=list.map(renderNoteCard).join('');
@@ -5142,13 +5192,32 @@ function renderTrashPane(){
   }
 }
 function openNotes(opts={}){
-  notesPane='notes';
+  if(!opts?.keepVault){
+    notesPane='notes';
+    isVaultActive=false;
+  }
   setBottomTab('notes');
   setActiveScreen('sNotes','Notes',opts||{});
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
+}
+function openVaultNotes(opts={}){
+  notesPane='vault';
+  isVaultActive=true;
+  setBottomTab('notes');
+  setActiveScreen('sNotes','Notes',opts||{});
+  syncNotesPaneUI();
+  renderNotesList();
+  resetViewportTop();
+}
+function lockVault(){
+  isVaultActive=false;
+  notesPane='notes';
+  syncNotesPaneUI();
+  renderNotesList();
+  showToast('Vault locked 🔒');
 }
 function openLibrary(opts={}){
   notesPane='library';
@@ -5358,6 +5427,10 @@ window.handleIncomingSharePayload=function(payload){
 };
 let pendingNewNoteReward=false;
 function requestNewNote(){
+  if(notesPane==='vault'){
+    createVaultNote();
+    return;
+  }
   try{
     if(window.CalverseAds && typeof window.CalverseAds.showNotesCreateRewarded==='function'){
       pendingNewNoteReward=true;
@@ -5366,6 +5439,14 @@ function requestNewNote(){
     }
   }catch(e){}
   createNote();
+}
+function createVaultNote(){
+  const now=Date.now();
+  const note={id:`vault_${now}_${Math.random().toString(36).slice(2,7)}`,title:'',content:'',createdAt:now,updatedAt:now,untitledIndex:vaultUntitledSeed++,fontFamily:'clean',fontSize:'medium',textColor:getDefaultNoteTextColor(),textColorMode:'auto',tags:[],isVault:true};
+  VAULT_NOTES.unshift(note);
+  saveVaultNotesData();
+  renderNotesList();
+  openNoteEditor(note.id,{edit:true});
 }
 window.onNotesCreateRewarded=function(){
   if(!pendingNewNoteReward)return;
@@ -5395,7 +5476,11 @@ function renameNotePrompt(id){
       if(!next){showToast('Note name required');return false;}
       note.title=next;
       note.updatedAt=Date.now();
-      saveNotesData();
+      if(note.isVault){
+        saveVaultNotesData();
+      }else{
+        saveNotesData();
+      }
       renderNotesList();
       if(currentNoteId===id){
         const titleEl=document.getElementById('note-title');
@@ -5408,6 +5493,27 @@ function renameNotePrompt(id){
 function deleteNote(id){
   const note=getNoteById(id);
   if(!note)return;
+  if(note.isVault){
+    showAppDialog({
+      title:'Delete Hidden Note',
+      message:'Permanently delete this hidden note?',
+      confirmText:'Delete',
+      cancelText:'Cancel',
+      tone:'warn',
+      onConfirm:()=>{
+        VAULT_NOTES=VAULT_NOTES.filter(item=>item.id!==id);
+        saveVaultNotesData();
+        if(currentNoteId===id){
+          currentNoteId='';
+          openVaultNotes({replace:true});
+        }else{
+          renderNotesList();
+        }
+        showToast('Hidden note deleted');
+      }
+    });
+    return;
+  }
   const trashed={...note,deletedAt:Date.now()};
   lastDeletedNote={...trashed};
   lastRedoDelete=null;
@@ -5763,10 +5869,16 @@ function startNoteEdit(lineIndex=0){
 }
 function openNoteEditor(id,opts={}){
   const note=getNoteById(id);
-  if(!note){openNotes({replace:true});return;}
+  if(!note){
+    if(isVaultActive)openVaultNotes({replace:true});
+    else openNotes({replace:true});
+    return;
+  }
   currentNoteId=id;
   setBottomTab('notes');
   setActiveScreen('sNoteEdit','NoteEdit',opts||{});
+  const backBtn=document.getElementById('note-edit-back');
+  if(backBtn)backBtn.textContent=note.isVault?'← Vault':'← Notes';
   const titleEl=document.getElementById('note-title');
   const editor=document.getElementById('note-editor');
   const fontSel=document.getElementById('note-font');
@@ -5789,7 +5901,7 @@ function openNoteEditor(id,opts={}){
   syncNoteEditorPlaceholder();
   refreshNoteFormatState();
   if(opts?.edit)setNoteEditMode(true,true);
-  if(opts?.push!==false)rememberView({type:'note-edit',id},!!opts?.replace);
+  if(opts?.push!==false && !note.isVault)rememberView({type:'note-edit',id},!!opts?.replace);
 }
 function saveCurrentNote(showFeedback=false){
   const note=getNoteById(currentNoteId);
@@ -5826,7 +5938,11 @@ function saveCurrentNote(showFeedback=false){
   note.textColorMode=nextMode;
   note.tags=nextTags;
   note.updatedAt=Date.now();
-  saveNotesData();
+  if(note.isVault){
+    saveVaultNotesData();
+  }else{
+    saveNotesData();
+  }
   updateNoteMeta(note);
   syncNoteEditorPlaceholder();
   syncNotePaperLines();
@@ -5841,6 +5957,7 @@ function queueNoteSave(){
 function initNotesFeature(){
   loadNotesData();
   loadLibraryData();
+  loadVaultNotesData();
   syncNotesPaneUI();
   const editor=document.getElementById('note-editor');
   if(editor&&editor.dataset.ready!=='1'){
@@ -5855,6 +5972,240 @@ function initNotesFeature(){
   refreshNoteFontPreview();
   renderNoteColorPalette(getDefaultNoteTextColor());
   renderNotesList();
+}
+
+/* ── HIDDEN NOTES VAULT ── */
+async function hashVaultPass(pass){
+  const str=String(pass||'').trim();
+  if(!str)return '';
+  try{
+    if(window.crypto&&crypto.subtle){
+      const enc=new TextEncoder().encode('cv_vault_salt_#99@'+str);
+      const buf=await crypto.subtle.digest('SHA-256',enc);
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+  }catch(_){}
+  let h=0x811c9dc5;
+  for(let i=0;i<str.length;i++){
+    h^=str.charCodeAt(i);
+    h+=(h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24);
+  }
+  return 'fb_'+(h>>>0).toString(16);
+}
+
+function loadVaultNotesData(){
+  try{
+    const raw=localStorage.getItem(VAULT_NOTES_KEY);
+    const parsed=raw?JSON.parse(raw):[];
+    VAULT_NOTES=normalizeNoteCollection(parsed).map(n=>({...n,isVault:true}));
+  }catch(e){
+    VAULT_NOTES=[];
+  }
+  vaultUntitledSeed=VAULT_NOTES.reduce((max,n)=>Math.max(max,Number(n.untitledIndex)||0),0)+1;
+}
+
+function saveVaultNotesData(){
+  try{
+    localStorage.setItem(VAULT_NOTES_KEY,JSON.stringify(VAULT_NOTES));
+  }catch(e){}
+}
+
+function handleNotesHeaderTap(){
+  if(notesPane==='vault')return;
+  secretHeaderTapCount++;
+  clearTimeout(secretHeaderTapTimer);
+  secretHeaderTapTimer=setTimeout(()=>{
+    secretHeaderTapCount=0;
+  },2200);
+  if(secretHeaderTapCount>=5){
+    secretHeaderTapCount=0;
+    clearTimeout(secretHeaderTapTimer);
+    try{if(typeof vib==='function')vib();}catch(_){}
+    openVaultAuthModal();
+  }
+}
+
+async function openVaultAuthModal(){
+  const dialog=document.getElementById('vault-auth-dialog');
+  const titleEl=document.getElementById('vault-auth-title');
+  const bodyEl=document.getElementById('vault-auth-body');
+  const actionsEl=document.getElementById('vault-auth-actions');
+  if(!dialog||!titleEl||!bodyEl||!actionsEl)return;
+
+  const storedHash=localStorage.getItem(VAULT_PASS_KEY);
+  if(!storedHash){
+    titleEl.textContent='🔐 Set Vault Passcode';
+    bodyEl.innerHTML=`
+      <div class="app-dialog-msg">Create a private passcode or PIN to lock and access your hidden notes.</div>
+      <input id="vault-input-new" class="app-dialog-input" type="password" placeholder="Enter new passcode" style="margin-bottom:8px" autocomplete="off" />
+      <input id="vault-input-confirm" class="app-dialog-input" type="password" placeholder="Confirm passcode" autocomplete="off" />
+      <div id="vault-auth-err" style="color:var(--rdc);font-size:12px;margin-top:8px;display:none;"></div>
+    `;
+    actionsEl.innerHTML=`
+      <button class="app-dialog-btn" onclick="closeVaultAuthDialog()">Cancel</button>
+      <button class="app-dialog-btn acc" onclick="submitVaultSetup()">Save & Enter</button>
+    `;
+  }else{
+    titleEl.textContent='🔒 Unlock Vault';
+    bodyEl.innerHTML=`
+      <div class="app-dialog-msg">Enter your passcode to view hidden notes.</div>
+      <input id="vault-input-pass" class="app-dialog-input" type="password" placeholder="Enter passcode" autocomplete="off" />
+      <div id="vault-auth-err" style="color:var(--rdc);font-size:12px;margin-top:8px;display:none;"></div>
+    `;
+    actionsEl.innerHTML=`
+      <button class="app-dialog-btn" onclick="closeVaultAuthDialog()">Cancel</button>
+      <button class="app-dialog-btn acc" onclick="submitVaultUnlock()">Unlock</button>
+    `;
+  }
+  dialog.classList.add('show');
+  requestAnimationFrame(()=>{
+    const targetInput=document.getElementById('vault-input-pass')||document.getElementById('vault-input-new');
+    if(targetInput){
+      targetInput.focus();
+      targetInput.onkeydown=(e)=>{
+        if(e.key==='Enter'){
+          e.preventDefault();
+          if(storedHash)submitVaultUnlock();
+          else submitVaultSetup();
+        }
+      };
+    }
+  });
+}
+
+function closeVaultAuthDialog(){
+  const dialog=document.getElementById('vault-auth-dialog');
+  if(dialog)dialog.classList.remove('show');
+}
+
+async function submitVaultSetup(){
+  const newPass=document.getElementById('vault-input-new')?.value||'';
+  const confirmPass=document.getElementById('vault-input-confirm')?.value||'';
+  const errEl=document.getElementById('vault-auth-err');
+  const card=document.querySelector('#vault-auth-dialog .app-dialog-card');
+  if(!newPass.trim()){
+    if(errEl){errEl.textContent='Passcode cannot be empty';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    return;
+  }
+  if(newPass!==confirmPass){
+    if(errEl){errEl.textContent='Passcodes do not match';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    return;
+  }
+  const hash=await hashVaultPass(newPass);
+  localStorage.setItem(VAULT_PASS_KEY,hash);
+  closeVaultAuthDialog();
+  loadVaultNotesData();
+  openVaultNotes();
+  showToast('Vault created & passcode set 🔒');
+}
+
+async function submitVaultUnlock(){
+  const pass=document.getElementById('vault-input-pass')?.value||'';
+  const errEl=document.getElementById('vault-auth-err');
+  const card=document.querySelector('#vault-auth-dialog .app-dialog-card');
+  const storedHash=localStorage.getItem(VAULT_PASS_KEY);
+  const hash=await hashVaultPass(pass);
+  if(hash!==storedHash){
+    if(errEl){errEl.textContent='Incorrect passcode';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    const input=document.getElementById('vault-input-pass');
+    if(input){input.value='';input.focus();}
+    return;
+  }
+  closeVaultAuthDialog();
+  loadVaultNotesData();
+  openVaultNotes();
+  showToast('Vault unlocked 🔓');
+}
+
+function openVaultChangePassModal(){
+  const dialog=document.getElementById('vault-change-dialog');
+  const bodyEl=document.getElementById('vault-change-body');
+  const actionsEl=document.getElementById('vault-change-actions');
+  if(!dialog||!bodyEl||!actionsEl)return;
+
+  bodyEl.innerHTML=`
+    <div class="app-dialog-msg">Verify your current passcode and choose a new one.</div>
+    <input id="vault-change-old" class="app-dialog-input" type="password" placeholder="Current passcode" style="margin-bottom:8px" autocomplete="off" />
+    <input id="vault-change-new" class="app-dialog-input" type="password" placeholder="New passcode" style="margin-bottom:8px" autocomplete="off" />
+    <input id="vault-change-confirm" class="app-dialog-input" type="password" placeholder="Confirm new passcode" autocomplete="off" />
+    <div id="vault-change-err" style="color:var(--rdc);font-size:12px;margin-top:8px;display:none;"></div>
+  `;
+  actionsEl.innerHTML=`
+    <button class="app-dialog-btn" onclick="closeVaultChangeDialog()">Cancel</button>
+    <button class="app-dialog-btn acc" onclick="submitVaultChangePass()">Update Passcode</button>
+  `;
+  dialog.classList.add('show');
+  requestAnimationFrame(()=>{
+    const oldInput=document.getElementById('vault-change-old');
+    if(oldInput){
+      oldInput.focus();
+      oldInput.onkeydown=(e)=>{
+        if(e.key==='Enter'){
+          e.preventDefault();
+          submitVaultChangePass();
+        }
+      };
+    }
+  });
+}
+
+function closeVaultChangeDialog(){
+  const dialog=document.getElementById('vault-change-dialog');
+  if(dialog)dialog.classList.remove('show');
+}
+
+async function submitVaultChangePass(){
+  const oldPass=document.getElementById('vault-change-old')?.value||'';
+  const newPass=document.getElementById('vault-change-new')?.value||'';
+  const confirmPass=document.getElementById('vault-change-confirm')?.value||'';
+  const errEl=document.getElementById('vault-change-err');
+  const card=document.querySelector('#vault-change-dialog .app-dialog-card');
+  const storedHash=localStorage.getItem(VAULT_PASS_KEY);
+
+  const oldHash=await hashVaultPass(oldPass);
+  if(oldHash!==storedHash){
+    if(errEl){errEl.textContent='Current passcode is incorrect';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    return;
+  }
+  if(!newPass.trim()){
+    if(errEl){errEl.textContent='New passcode cannot be empty';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    return;
+  }
+  if(newPass!==confirmPass){
+    if(errEl){errEl.textContent='New passcodes do not match';errEl.style.display='block';}
+    card?.classList.remove('err-shake');
+    void card?.offsetWidth;
+    card?.classList.add('err-shake');
+    return;
+  }
+  const newHash=await hashVaultPass(newPass);
+  localStorage.setItem(VAULT_PASS_KEY,newHash);
+  closeVaultChangeDialog();
+  showToast('Passcode updated successfully ✅');
+}
+
+function handleNoteEditBack(){
+  const note=getNoteById(currentNoteId);
+  if(note?.isVault||isVaultActive){
+    openVaultNotes();
+  }else{
+    openNotes();
+  }
 }
 
 /* ── TRACKER ── */
@@ -7343,6 +7694,10 @@ function handleSearchKey(e){
 const SM={Basic:'sBasic',Sci:'sSci',Trig:'sTrig',Pct:'sPct',Age:'sAge',Bmi:'sBmi',Emi:'sEmi',Unit:'sUnit',Matrix:'sMatrix',Stat:'sStat',Graph:'sGraph',Base:'sBase',Quad:'sQuad',Lcm:'sLcm',Prime:'sPrime',Si:'sSi',Pl:'sPl',Disc:'sDisc',Frac:'sFrac',TimeC:'sTimeC',Rng:'sRng',Ncr:'sNcr',Area:'sArea',Vol:'sVol',Prob:'sProb',Physics:'sPhysics',Chem:'sChem',Hist:'sHist',Timer:'sTimer',Tracker:'sTracker',Notes:'sNotes',NoteEdit:'sNoteEdit',Settings:'sSettings',Info:'sInfo',C11:'sC11',Calcs:'sCalcs'};
 function setBottomTab(tab){
   const nextTab=tab||'home';
+  if(nextTab!=='notes'&&isVaultActive){
+    isVaultActive=false;
+    notesPane='notes';
+  }
   if(currentTab===nextTab&&document.getElementById('bn-'+nextTab)?.classList.contains('on')){
     syncBottomIndicator();
     syncSideNavIndicator();
@@ -7454,6 +7809,10 @@ function getTabForScreen(name,id){
   return 'home';
 }
 function setActiveScreen(id,name,opts={}){
+  if(id!=='sNotes'&&id!=='sNoteEdit'&&isVaultActive){
+    isVaultActive=false;
+    notesPane='notes';
+  }
   if(curScr==='Timer'&&id!=='sTimer')stopTimerAndExit();
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById(id);if(!el)return null;
