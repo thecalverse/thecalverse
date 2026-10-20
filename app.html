@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="google-adsense-account" content="ca-pub-6365346135619596">
 <title>Calverse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <script>
 (() => {
   try {
@@ -1386,6 +1389,61 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .note-book-tag.theme-honey{background:#fff8e1;color:#f57f17;border-color:#ffe082;}
 [data-t=light] .note-book-tag.theme-ocean{background:#e1f5fe;color:#0277bd;border-color:#81d4fa;}
 
+/* ── GOODNOTES & IPAD STUDY PLANNER STYLES ── */
+.note-paper.paper-obsidian-grid{
+  background:#10141e!important;
+  background-image:linear-gradient(to right,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.08) 1px,transparent 1px)!important;
+  background-size:24px 24px!important;
+  color:#f0f4fc;
+}
+.note-paper.paper-obsidian-grid::before,.note-paper.paper-obsidian-grid::after{display:none!important;}
+
+.note-paper.paper-cream-dots{
+  background:#fbf7ef!important;
+  background-image:radial-gradient(#bba792 1.3px,transparent 1.3px)!important;
+  background-size:22px 22px!important;
+  color:#2e241c!important;
+}
+.note-paper.paper-cream-dots::before,.note-paper.paper-cream-dots::after{display:none!important;}
+.note-paper.paper-cream-dots .note-editor,.note-paper.paper-cream-dots .note-view{color:#2e241c!important;}
+
+.note-paper.paper-blank{
+  background:rgba(255,255,255,.03)!important;
+  background-image:none!important;
+}
+.note-paper.paper-blank::before,.note-paper.paper-blank::after{display:none!important;}
+
+/* Study Callout Box (HappyDownloads style) */
+.study-box{position:relative;margin:18px 0;border-radius:16px;border:1.5px solid rgba(255,140,200,.45);background:rgba(255,140,200,.06);padding:20px 16px 14px;}
+.study-box.box-pink{border-color:rgba(255,140,200,.45);background:rgba(255,140,200,.06);}
+.study-box.box-mint{border-color:rgba(120,230,160,.45);background:rgba(120,230,160,.06);}
+.study-box.box-lavender{border-color:rgba(180,140,255,.45);background:rgba(180,140,255,.06);}
+.study-box.box-blue{border-color:rgba(100,190,255,.45);background:rgba(100,190,255,.06);}
+.study-box-tag{position:absolute;top:-11px;left:18px;background:linear-gradient(135deg,#c2527a,#7a284e);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:1px;padding:2px 10px;border-radius:999px;box-shadow:0 4px 10px rgba(0,0,0,.2);text-transform:uppercase;user-select:none;}
+.study-box.box-mint .study-box-tag{background:linear-gradient(135deg,#388e3c,#1b5e20);}
+.study-box.box-lavender .study-box-tag{background:linear-gradient(135deg,#7b1fa2,#4a148c);}
+.study-box.box-blue .study-box-tag{background:linear-gradient(135deg,#1976d2,#0d47a1);}
+.study-box-body{font-size:16px;line-height:1.6;outline:none;}
+
+/* Two-Column Diagram + Notes (Made to Plan style) */
+.study-split-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;align-items:start;}
+@media (max-width:560px){.study-split-col{grid-template-columns:1fr;gap:10px;}}
+.study-col-card{border-radius:14px;border:1px dashed var(--glb);background:rgba(255,255,255,.03);padding:12px;min-height:120px;}
+.study-col-card img{width:100%;border-radius:10px;display:block;}
+
+/* Formula & Concept Box */
+.study-formula-card{margin:14px auto;width:min(100%,420px);text-align:center;padding:14px 18px;border-radius:16px;border:1.5px solid rgba(140,126,255,.4);background:linear-gradient(135deg,rgba(140,126,255,.12),rgba(255,140,200,.08));box-shadow:0 8px 24px rgba(0,0,0,.15);}
+.study-formula-title{font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--act);margin-bottom:4px;}
+.study-formula-equation{font-family:'Courier New',Courier,monospace;font-size:20px;font-weight:800;letter-spacing:1px;margin:4px 0;}
+.study-formula-sub{font-size:11.5px;color:var(--t2);margin-top:4px;}
+
+/* Pastel Callout Card */
+.study-callout-card{margin:12px 0;padding:12px 16px;border-radius:12px;border-left:4px solid var(--act);background:rgba(255,255,255,.05);font-size:15px;line-height:1.55;}
+.study-callout-card.callout-pink{border-left-color:#f48fb1;background:rgba(244,143,177,.08);}
+.study-callout-card.callout-mint{border-left-color:#81c784;background:rgba(129,199,132,.08);}
+.study-callout-card.callout-lavender{border-left-color:#ba68c8;background:rgba(186,104,200,.08);}
+.study-callout-card.callout-honey{border-left-color:#ffb74d;background:rgba(255,183,77,.08);}
+
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
 .tracker-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -2502,7 +2560,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="sni" id="sn-tracker" onclick="bnav('tracker')"><span class="snico">&#9673;</span><span>Tracker</span></div>
     <div class="sni" id="sn-library" onclick="bnav('library')"><span class="snico">&#9636;</span><span>Library</span></div>
     <div class="sni" id="sn-timer" onclick="bnav('timer')"><span class="snico">&#9719;</span><span>Timer</span></div>
-    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">📖</span><span>Journal</span></div>
+    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">📝</span><span>Notes</span></div>
+    <div class="sni" id="sn-journal" onclick="bnav('journal')"><span class="snico">📖</span><span>Journal</span></div>
   </div>
   <div class="sn-head">Info</div>
   <div class="lsnav">
@@ -3472,8 +3531,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
           <div class="notes-pane-seg" role="tablist" aria-label="Journal panes">
-            <button class="notes-pane-btn on" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Books</button>
-            <button class="notes-pane-btn" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 All Pages</button>
+            <button class="notes-pane-btn on" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 Notes</button>
+            <button class="notes-pane-btn" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Bookshelf</button>
             <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">🗑️ Trash</button>
           </div>
           <button class="notes-top-btn" id="notes-new-book-btn" onclick="openCreateBookModal()" type="button" style="display:inline-flex;align-items:center;gap:5px;">📚 + Book</button>
@@ -3521,13 +3580,13 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <div class="note-toolbar">
           <div class="note-tool-group">
             <select id="note-font" class="note-tool-select" onchange="applyNoteTypography()">
+              <option value="caveat">✨ Aesthetic Cursive (Caveat)</option>
+              <option value="patrick" selected>📝 Study Notebook (Patrick Hand)</option>
+              <option value="kalam">🖋️ Ink Ballpoint (Kalam)</option>
+              <option value="shantell">🌸 Modern Print (Shantell)</option>
+              <option value="architect">📐 Technical Hand (Architect)</option>
               <option value="clean">Clean Sans - balanced</option>
               <option value="serif">Elegant Serif - classic</option>
-              <option value="hand">Notebook Script - neat</option>
-              <option value="handSoft">Soft Cursive - flowing</option>
-              <option value="handRound">Rounded Hand - casual</option>
-              <option value="handInk">Ink Script - signature</option>
-              <option value="handLoose">Loose Script - airy</option>
               <option value="book">Book Serif - study</option>
               <option value="modern">Modern Sans - crisp</option>
               <option value="mono">Mono Focus - tidy</option>
@@ -3538,8 +3597,14 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <option value="large">Large</option>
               <option value="xlarge">Extra Large</option>
             </select>
+            <select id="note-paper-style" class="note-tool-select" onchange="applyNotePaperStyle(this.value)" title="Paper Background">
+              <option value="ruled">📜 Lined Notebook</option>
+              <option value="obsidian">🖤 Obsidian Grid</option>
+              <option value="cream">📑 Cream Dots</option>
+              <option value="blank">🤍 Blank Page</option>
+            </select>
             <div class="note-font-meta">
-              <div class="note-font-tag" id="note-font-tag">Notebook Script</div>
+              <div class="note-font-tag" id="note-font-tag">Study Notebook</div>
               <div class="note-font-preview" id="note-font-preview">Quick study notes</div>
             </div>
           </div>
@@ -3554,6 +3619,15 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🎀 Stickers</button>
           <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🖼️ Photo</button>
           <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📝 Sticky</button>
+          <button class="note-tool-btn" type="button" onclick="toggleStudyBlocksMenu(event)" title="Study Callouts & Layouts" id="note-study-blocks-btn" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📦 Blocks ▾</button>
+          <div id="study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:215px;padding:8px;top:38px;left:0;" onclick="event.stopPropagation()">
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('split')">📊 2-Col Diagram + Notes</button>
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-pink')">🌸 Key Point (Pink)</button>
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-mint')">🌿 Key Point (Mint)</button>
+            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertStudyBlock('callout-lavender')">✨ Key Point (Lavender)</button>
+          </div>
           <button class="note-tool-btn" type="button" onclick="toggleHighlighterPalette(event)" title="Highlighter" id="note-highlighter-btn">🖍️ Marker</button>
           <div id="journal-hl-palette" class="hl-palette" onclick="event.stopPropagation()">
             <div class="hl-swatch" style="background:#fff176;" title="Sunshine Yellow" onclick="applyJournalHighlighter('rgba(255,241,118,0.5)')"></div>
@@ -3669,7 +3743,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="bni" id="bn-tracker" onclick="bnav('tracker')"><div class="bnico">◉</div><span>Tracker</span></div>
     <div class="bni" id="bn-library" onclick="bnav('library')"><div class="bnico">▤</div><span>Library</span></div>
     <div class="bni" id="bn-timer" onclick="bnav('timer')"><div class="bnico">&#9719;</div><span>Timer</span></div>
-    <div class="bni" id="bn-notes" onclick="bnav('notes')"><div class="bnico">📖</div><span>Journal</span></div>
+    <div class="bni" id="bn-notes" onclick="bnav('notes')"><div class="bnico">📝</div><span>Notes</span></div>
+    <div class="bni" id="bn-journal" onclick="bnav('journal')"><div class="bnico">📖</div><span>Journal</span></div>
     <div class="bni" id="bn-sett" onclick="bnav('sett')"><div class="bnico">⚙</div><span>Settings</span></div>
   </div>
 <div id="copy-toast" class="copy-toast">Copied!</div>
@@ -3895,28 +3970,38 @@ function formatFileSizeMB(bytes){
 const TRACKER_KEY='calverse_tracker_v1';
 const TRACKER_RETENTION_DAYS=540;
 const NOTE_FONT_MAP={
+  caveat:`"Caveat",cursive`,
+  patrick:`"Patrick Hand",cursive`,
+  kalam:`"Kalam",cursive`,
+  shantell:`"Shantell Sans",cursive,sans-serif`,
+  architect:`"Architects Daughter",cursive`,
   clean:`-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif`,
   serif:`"Georgia","Times New Roman",serif`,
-  hand:`"Segoe Print","Bradley Hand",cursive`,
-  handSoft:`"Lucida Handwriting","Segoe Script","Brush Script MT",cursive`,
-  handRound:`"Comic Sans MS","Trebuchet MS","Segoe UI",sans-serif`,
-  handInk:`"Segoe Script","Segoe Print","Bradley Hand",cursive`,
-  handLoose:`"Brush Script MT","Lucida Handwriting","Segoe Script",cursive`,
   book:`"Palatino Linotype","Book Antiqua",Palatino,serif`,
   modern:`"Trebuchet MS","Aptos","Segoe UI",sans-serif`,
-  mono:`"Consolas","Courier New",monospace`
+  mono:`"Consolas","Courier New",monospace`,
+  hand:`"Patrick Hand","Segoe Print",cursive`,
+  handSoft:`"Caveat","Lucida Handwriting",cursive`,
+  handRound:`"Shantell Sans","Comic Sans MS",cursive`,
+  handInk:`"Kalam","Segoe Script",cursive`,
+  handLoose:`"Caveat",cursive`
 };
 const NOTE_FONT_META={
+  caveat:{label:'✨ Aesthetic Cursive (Caveat)',sample:'Flowing iPad GoodNotes cursive style'},
+  patrick:{label:'📝 Study Notebook (Patrick Hand)',sample:'Neat, legible school notebook notes'},
+  kalam:{label:'🖋️ Ink Ballpoint (Kalam)',sample:'Authentic hand-drawn ink pen loops'},
+  shantell:{label:'🌸 Modern Print (Shantell)',sample:'Clean, modern organic hand lettering'},
+  architect:{label:'📐 Technical Hand (Architect)',sample:'Crisp architect & STEM notes'},
   clean:{label:'Clean Sans',sample:'Quick study notes'},
   serif:{label:'Elegant Serif',sample:'Focused revision notes'},
-  hand:{label:'Notebook Script',sample:'Neat notebook writing'},
-  handSoft:{label:'Soft Cursive',sample:'Flowing handwritten style'},
-  handRound:{label:'Rounded Hand',sample:'Friendly handwritten notes'},
-  handInk:{label:'Ink Script',sample:'Personal signature style notes'},
-  handLoose:{label:'Loose Script',sample:'Relaxed handwritten flow'},
-  book:{label:'Book Serif',sample:'Textbook-like reading notes'},
-  modern:{label:'Modern Sans',sample:'Sharp modern note style'},
-  mono:{label:'Mono Focus',sample:'Aligned formula and code notes'}
+  book:{label:'Book Serif',sample:'Detailed textbook revision'},
+  modern:{label:'Modern Sans',sample:'Organized study thoughts'},
+  mono:{label:'Mono Focus',sample:'Formulas, code, equations'},
+  hand:{label:'Study Notebook',sample:'Neat notebook writing'},
+  handSoft:{label:'Aesthetic Cursive',sample:'Flowing handwritten style'},
+  handRound:{label:'Modern Print',sample:'Friendly handwritten notes'},
+  handInk:{label:'Ink Ballpoint',sample:'Personal signature style notes'},
+  handLoose:{label:'Aesthetic Script',sample:'Relaxed handwritten cursive'}
 };
 const NOTE_SIZE_MAP={
   small:{font:'16px',line:'28px'},
@@ -3984,7 +4069,8 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
     fontSize,
     textColor,
     textColorMode,
-    bookId: typeof note.bookId==='string'?note.bookId:''
+    bookId: typeof note.bookId==='string'?note.bookId:'',
+    paperStyle: typeof note.paperStyle==='string'?note.paperStyle:'ruled'
   };
   if(fromTrash){
     const deletedAt=Number(note.deletedAt)||updatedAt;
@@ -5557,8 +5643,8 @@ function syncNotesPaneUI(){
     if(interiorPane)interiorPane.style.display=currentJournalBookId?'block':'none';
     if(libraryPane)libraryPane.style.display='none';
   }else if(notesPane==='notes'){
-    if(title)title.textContent='All Journal Pages';
-    if(sub)sub.textContent='All your pages across every book and loose notes.';
+    if(title)title.textContent='Study Notes';
+    if(sub)sub.textContent='Your study notebook for formulas, concepts & revision notes.';
     if(controls)controls.style.display='grid';
     if(newBookBtn)newBookBtn.style.display='none';
     if(addNoteBtn)addNoteBtn.style.display='flex';
@@ -5990,8 +6076,7 @@ function renderTrashPane(){
 
 function openNotes(opts={}){
   if(!opts?.keepVault){
-    notesPane='books';
-    currentJournalBookId='';
+    notesPane='notes';
     isVaultActive=false;
   }
   setBottomTab('notes');
@@ -6000,6 +6085,76 @@ function openNotes(opts={}){
   renderNotesList();
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
+}
+
+function openJournal(opts={}){
+  if(!opts?.keepVault){
+    notesPane='books';
+    currentJournalBookId='';
+    isVaultActive=false;
+  }
+  setBottomTab('journal');
+  setActiveScreen('sNotes','Notes',opts||{});
+  syncNotesPaneUI();
+  renderNotesList();
+  resetViewportTop();
+  if(opts?.push!==false)rememberView({type:'journal'},!!opts?.replace);
+}
+
+function applyNotePaperStyle(style){
+  const paper=document.getElementById('note-paper');
+  if(!paper)return;
+  paper.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-blank');
+  if(style==='obsidian')paper.classList.add('paper-obsidian-grid');
+  else if(style==='cream')paper.classList.add('paper-cream-dots');
+  else if(style==='blank')paper.classList.add('paper-blank');
+  const note=getNoteById(currentNoteId);
+  if(note && note.paperStyle!==style){
+    note.paperStyle=style;
+    queueNoteSave();
+  }
+}
+
+function toggleStudyBlocksMenu(e){
+  e?.stopPropagation();
+  const m=document.getElementById('study-blocks-menu');
+  if(m)m.style.display=(m.style.display==='flex')?'none':'flex';
+}
+
+document.addEventListener('click',(e)=>{
+  const m=document.getElementById('study-blocks-menu');
+  if(m && m.style.display==='flex' && !m.contains(e.target) && e.target.id!=='note-study-blocks-btn'){
+    m.style.display='none';
+  }
+});
+
+function insertStudyBlock(type){
+  const m=document.getElementById('study-blocks-menu');
+  if(m)m.style.display='none';
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+
+  let html='';
+  if(type==='function'){
+    html=`<div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">FUNCTION</div><div class="study-box-body" contenteditable="true">• Pumps blood via the heart<br>• Transports oxygen & nutrients<br>• Removes metabolic waste</div></div><p><br></p>`;
+  }else if(type==='split'){
+    html=`<div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="false"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;">📊 Diagram / Illustration</div><button type="button" class="jphoto-btn" onclick="triggerPhotoUpload()">📸 Tap to insert diagram</button></div><div class="study-col-card" contenteditable="true" style="border-style:solid;"><b>Key Anatomy Notes:</b><br>• 12 pairs of ribs<br>• Connected to thoracic vertebrae<br>• Protects vital organs</div></div><p><br></p>`;
+  }else if(type==='formula'){
+    html=`<div class="study-formula-card" contenteditable="false"><div class="study-formula-title">FORMULA / LAW</div><div class="study-formula-equation" contenteditable="true">CO = SV × HR</div><div class="study-formula-sub" contenteditable="true">Cardiac Output = Stroke Volume × Heart Rate</div></div><p><br></p>`;
+  }else if(type==='callout-pink'){
+    html=`<div class="study-callout-card callout-pink" contenteditable="true">🌸 <b>Key Concept:</b> Type summary takeaway here...</div><p><br></p>`;
+  }else if(type==='callout-mint'){
+    html=`<div class="study-callout-card callout-mint" contenteditable="true">🌿 <b>Key Concept:</b> Type summary takeaway here...</div><p><br></p>`;
+  }else if(type==='callout-lavender'){
+    html=`<div class="study-callout-card callout-lavender" contenteditable="true">✨ <b>Key Concept:</b> Type summary takeaway here...</div><p><br></p>`;
+  }
+
+  insertHtmlAtCursor(html,editor);
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
+  showToast('Study block added ✨');
 }
 
 function openVaultNotes(opts={}){
@@ -7275,13 +7430,14 @@ function openNoteEditor(id,opts={}){
   setBottomTab('notes');
   setActiveScreen('sNoteEdit','NoteEdit',opts||{});
   const backBtn=document.getElementById('note-edit-back');
-  if(backBtn)backBtn.textContent=note.isVault?'← Vault':'← Journal';
+  if(backBtn)backBtn.textContent=note.isVault?'← Vault':(notesPane==='books'?'← Journal':'← Notes');
   syncNoteBookAssignSelect(note.bookId);
   initJournalMediaListeners();
   const titleEl=document.getElementById('note-title');
   const editor=document.getElementById('note-editor');
   const fontSel=document.getElementById('note-font');
   const sizeSel=document.getElementById('note-size');
+  const paperSel=document.getElementById('note-paper-style');
   if(titleEl)titleEl.value=note.title||'';
   if(editor){
     editor.innerHTML=note.content||'';
@@ -7289,6 +7445,8 @@ function openNoteEditor(id,opts={}){
   }
   if(fontSel)fontSel.value=note.fontFamily||'clean';
   if(sizeSel)sizeSel.value=note.fontSize||'medium';
+  if(paperSel)paperSel.value=note.paperStyle||'ruled';
+  applyNotePaperStyle(note.paperStyle||'ruled');
   renderNoteColorPalette(resolveNoteTextColor(note));
   if(editor)editor.dataset.noteFont=note.fontFamily||'clean';
   applyNoteTypography();
@@ -7309,10 +7467,12 @@ function saveCurrentNote(showFeedback=false){
   const editor=document.getElementById('note-editor');
   const fontSel=document.getElementById('note-font');
   const sizeSel=document.getElementById('note-size');
+  const paperSel=document.getElementById('note-paper-style');
   const nextTitle=titleEl?titleEl.value.trim():'';
   const rawContent=editor?editor.innerHTML:'';
   const nextFont=(fontSel&&fontSel.value in NOTE_FONT_MAP)?fontSel.value:'clean';
   const nextSize=(sizeSel&&sizeSel.value in NOTE_SIZE_MAP)?sizeSel.value:'medium';
+  const nextPaper=(paperSel&&['ruled','obsidian','cream','blank'].includes(paperSel.value))?paperSel.value:'ruled';
   const pickedColor=normalizeColorHex(editor?.dataset?.noteColor||note.textColor||'');
   const nextMode=note.textColorMode==='custom'&&pickedColor?'custom':'auto';
   const nextColor=nextMode==='custom'?pickedColor:getDefaultNoteTextColor();
@@ -7329,6 +7489,7 @@ function saveCurrentNote(showFeedback=false){
     note.textColor!==nextColor||
     note.textColorMode!==nextMode||
     note.bookId!==nextBookId||
+    note.paperStyle!==nextPaper||
     JSON.stringify(note.tags||[])!==JSON.stringify(nextTags)
   );
   if(!changed&&!showFeedback)return;
@@ -7339,6 +7500,7 @@ function saveCurrentNote(showFeedback=false){
   note.textColor=nextColor;
   note.textColorMode=nextMode;
   note.bookId=nextBookId;
+  note.paperStyle=nextPaper;
   note.tags=nextTags;
   note.updatedAt=Date.now();
   if(note.isVault){
@@ -9821,15 +9983,16 @@ function renderDashboardGreeting(){
   }
 }
 function bnav(t){
-  const order={home:0,fav:1,hist:2,tracker:3,library:4,timer:5,notes:6,sett:7};
+  const order={home:0,fav:1,hist:2,tracker:3,library:4,timer:5,notes:6,journal:7,sett:8};
   const prev=currentTab;
-  if((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings'))return;
+  if((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='journal'&&curScr==='Notes'&&notesPane==='books')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings'))return;
   playClick('nav');vib('nav');
   if(t!=='fav')setBottomTab(t);
   const dir=(order[t]??0)>(order[prev]??0)?1:-1;
   if(t==='home')goHome({direction:dir});
   else if(t==='fav')openFavoritesPanel();
   else if(t==='notes')openNotes({direction:dir});
+  else if(t==='journal')openJournal({direction:dir});
   else if(t==='library')openLibrary({direction:dir});
   else if(t==='timer')openTimer({direction:dir});
   else if(t==='hist')go('Hist',null,{direction:dir});
@@ -9844,6 +10007,7 @@ function restoreView(view,dir=-1){
     else if(view.type==='timer')openTimer({direction:dir,push:false});
     else if(view.type==='tracker')openTracker({direction:dir,push:false});
     else if(view.type==='notes')openNotes({direction:dir,push:false});
+    else if(view.type==='journal')openJournal({direction:dir,push:false});
     else if(view.type==='library')openLibrary({direction:dir,push:false});
     else if(view.type==='note-edit')openNoteEditor(view.id,{direction:dir,push:false});
     else if(view.type==='folder')openFolderPage(view.folderKey,{direction:dir,push:false});
