@@ -1443,16 +1443,134 @@ canvas#gc{display:block;width:100%;height:240px;}
 .prompt-spark-btn.primary{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 4px 12px rgba(124,92,255,.25);}
 .prompt-spark-btn.primary:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(124,92,255,.35);}
 
-/* GoodNotes Stylus Tool Dock */
+/* ── PENLY & APPLE FREEFORM STYLUS DOCK ── */
 .ipad-stylus-dock{background:rgba(14,18,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;box-shadow:0 6px 20px rgba(0,0,0,.25);}
 [data-t=light] .ipad-stylus-dock{background:rgba(255,250,244,.92);border-color:rgba(131,98,74,.2);box-shadow:0 6px 18px rgba(104,76,56,.1);}
 .ipad-tool-grp{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
 
+/* Primary Tool Segmented Switcher */
+.ipad-tool-segmented{display:inline-flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:3px;gap:2px;}
+[data-t=light] .ipad-tool-segmented{background:rgba(0,0,0,.05);border-color:rgba(131,98,74,.18);}
+.dock-tool-btn{height:28px;padding:0 10px;border-radius:9px;border:none;background:transparent;color:var(--t1);font-size:11.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all .15s ease;white-space:nowrap;}
+.dock-tool-btn:hover{background:rgba(255,255,255,.12);}
+[data-t=light] .dock-tool-btn:hover{background:rgba(255,255,255,.8);}
+.dock-tool-btn.is-active{background:var(--accg);color:#fff;box-shadow:0 3px 10px rgba(124,92,255,.3);}
+.dock-divider{width:1px;height:22px;background:rgba(255,255,255,.15);margin:0 2px;}
+[data-t=light] .dock-divider{background:rgba(131,98,74,.2);}
+
+/* Inking Secondary Control Subbar */
+.ipad-ink-subbar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  background:rgba(18,22,32,.94);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  padding:6px 14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  animation:dockSlideIn .18s cubic-bezier(.2,1,.3,1);
+}
+[data-t=light] .ipad-ink-subbar{
+  background:rgba(255,250,244,.96);
+  border-color:rgba(131,98,74,.22);
+  box-shadow:0 6px 20px rgba(104,76,56,.12);
+}
+@keyframes dockSlideIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.ink-sub-group{display:inline-flex;align-items:center;gap:5px;}
+.ink-sub-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);margin-right:2px;}
+.ink-size-btn{height:24px;min-width:24px;padding:0 7px;border-radius:7px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t1);font-size:11px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease;}
+[data-t=light] .ink-size-btn{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.2);color:#3b281c;}
+.ink-size-btn.is-active{background:var(--accg);color:#fff;border-color:var(--acb);}
+.ink-swatch-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:transform .12s,box-shadow .12s;}
+.ink-swatch-dot:hover{transform:scale(1.2);}
+.ink-swatch-dot.is-active{transform:scale(1.25);border-color:#fff;box-shadow:0 0 0 2px var(--act);}
+
 /* iPad Paper Sheet (The Digital Canvas) */
-.ipad-screen-glass{position:relative;width:100%;border-radius:18px;background:#0d1017;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3) inset;border:1px solid rgba(255,255,255,.06);}
+.ipad-screen-glass{position:relative;width:100%;border-radius:18px;background:#0d1017;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3) inset;border:1px solid rgba(255,255,255,.06);transition:padding .2s ease;}
 [data-t=light] .ipad-screen-glass{background:#f7f3ec;border-color:rgba(131,98,74,.15);}
 
-.ipad-paper-sheet{position:relative;min-height:560px;padding:30px 36px 48px;box-sizing:border-box;transition:background .2s ease;font-size:18px;line-height:1.75;}
+/* Penly Spiral Ring Binder */
+.ipad-screen-glass.has-binder{padding-left:36px;}
+.ipad-spiral-spine{
+  position:absolute;
+  left:8px;
+  top:24px;
+  bottom:24px;
+  width:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  pointer-events:none;
+  z-index:25;
+}
+.ipad-spiral-ring{
+  width:32px;
+  height:13px;
+  border-radius:6px;
+  background:linear-gradient(180deg,#e8e8e8,#b0b0b0,#757575,#e8e8e8);
+  box-shadow:0 3px 6px rgba(0,0,0,.45),0 1px 2px rgba(255,255,255,.3) inset;
+  margin-left:-6px;
+  border:1px solid rgba(0,0,0,.3);
+}
+
+/* Side Divider Index Tabs (Penly Signature) */
+.ipad-side-tabs{
+  position:absolute;
+  right:2px;
+  top:60px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  z-index:25;
+}
+.ipad-side-tab{
+  padding:7px 5px;
+  font-size:9.5px;
+  font-weight:900;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  border-radius:0 8px 8px 0;
+  border:1px solid rgba(255,255,255,.18);
+  border-left:none;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:2px 2px 8px rgba(0,0,0,.25);
+  transition:all .15s ease;
+  user-select:none;
+}
+.ipad-side-tab:hover{transform:translateX(3px);}
+.ipad-side-tab.tab-pink{background:linear-gradient(135deg,#ec407a,#d81b60);}
+.ipad-side-tab.tab-lavender{background:linear-gradient(135deg,#ab47bc,#8e24aa);}
+.ipad-side-tab.tab-blue{background:linear-gradient(135deg,#42a5f5,#1e88e5);}
+.ipad-side-tab.tab-mint{background:linear-gradient(135deg,#66bb6a,#43a047);}
+.ipad-side-tab.tab-amber{background:linear-gradient(135deg,#ffa726,#fb8c00);}
+
+/* Inking Canvas Layer */
+.ipad-ink-canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:12;
+  touch-action:none;
+  border-radius:inherit;
+}
+.ipad-ink-canvas.is-active{
+  pointer-events:auto;
+  cursor:crosshair;
+}
+.ipad-ink-canvas.is-eraser{
+  pointer-events:auto;
+  cursor:cell;
+}
+
+.ipad-paper-sheet{position:relative;min-height:560px;padding:30px 36px 48px;box-sizing:border-box;transition:background .2s ease,transform .15s ease;font-size:18px;line-height:1.75;}
 @media (max-width:580px){.ipad-paper-sheet{padding:18px 14px 36px;min-height:460px;font-size:16px;}}
 
 .ipad-paper-sheet.paper-obsidian-grid{
@@ -1482,6 +1600,73 @@ canvas#gc{display:block;width:100%;height:240px;}
   background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(131,98,74,.14) 30px)!important;
   color:#2b221a!important;
   border-left:3px solid rgba(230,80,80,.4)!important;
+}
+
+/* Engineering Graph Paper (5mm quad grid) */
+.ipad-paper-sheet.paper-graph{
+  background:#101524!important;
+  background-image:linear-gradient(to right,rgba(99,132,255,.12) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.12) 1px,transparent 1px)!important;
+  background-size:16px 16px!important;
+  color:#f2f5fd!important;
+}
+[data-t=light] .ipad-paper-sheet.paper-graph{
+  background:#f9fbfd!important;
+  background-image:linear-gradient(to right,rgba(60,110,200,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(60,110,200,.14) 1px,transparent 1px)!important;
+  background-size:16px 16px!important;
+  color:#1e293b!important;
+}
+
+/* Cornell Study Notes Paper */
+.ipad-paper-sheet.paper-cornell{
+  background:#131826!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.07) 30px)!important;
+  color:#f2f5fd!important;
+  position:relative;
+}
+.ipad-paper-sheet.paper-cornell::before{
+  content:'';
+  position:absolute;
+  top:0;
+  bottom:110px;
+  left:220px;
+  width:2px;
+  background:rgba(255,140,200,.35);
+  pointer-events:none;
+}
+.ipad-paper-sheet.paper-cornell::after{
+  content:'';
+  position:absolute;
+  bottom:110px;
+  left:0;
+  right:0;
+  height:2px;
+  background:rgba(140,126,255,.35);
+  pointer-events:none;
+}
+[data-t=light] .ipad-paper-sheet.paper-cornell{
+  background:#fcf9f2!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(131,98,74,.13) 30px)!important;
+  color:#2b221a!important;
+}
+[data-t=light] .ipad-paper-sheet.paper-cornell::before{
+  background:rgba(220,100,140,.4);
+}
+[data-t=light] .ipad-paper-sheet.paper-cornell::after{
+  background:rgba(120,100,200,.4);
+}
+
+/* Daily / Weekly Planner Paper */
+.ipad-paper-sheet.paper-planner{
+  background:#0f1420!important;
+  background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px)!important;
+  background-size:28px 28px!important;
+  color:#f2f5fd!important;
+}
+[data-t=light] .ipad-paper-sheet.paper-planner{
+  background:#faf7f0!important;
+  background-image:linear-gradient(to right,rgba(140,110,80,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(140,110,80,.1) 1px,transparent 1px)!important;
+  background-size:28px 28px!important;
+  color:#2b221a!important;
 }
 
 .ipad-paper-sheet.paper-blank{
@@ -2052,6 +2237,87 @@ canvas#gc{display:block;width:100%;height:240px;}
   cursor:text;
   outline:none;
 }
+
+/* Apple Freeform Shapes */
+.canvas-item.canvas-shape{
+  min-width:70px;
+  min-height:50px;
+  cursor:grab;
+}
+.canvas-item.canvas-shape:active{cursor:grabbing;}
+.canvas-shape-container{
+  width:100%;
+  height:100%;
+  min-height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  position:relative;
+  transition:all .15s ease;
+  overflow:hidden;
+}
+.canvas-shape-body{
+  position:relative;
+  z-index:3;
+  width:88%;
+  text-align:center;
+  outline:none;
+  font-family:inherit;
+  font-weight:700;
+  line-height:1.4;
+  word-break:break-word;
+  user-select:text;
+  cursor:text;
+  padding:6px 8px;
+}
+.canvas-shape-body:empty::before{
+  content:attr(data-placeholder);
+  opacity:.4;
+  pointer-events:none;
+}
+
+/* Shape Geometry Types */
+.canvas-shape-container.shape-rect{border-radius:8px;}
+.canvas-shape-container.shape-rounded{border-radius:24px;}
+.canvas-shape-container.shape-circle{border-radius:50%;}
+.canvas-shape-container.shape-pill{border-radius:999px;}
+
+/* SVG shapes for arrow, speech, star, heart, diamond */
+.canvas-shape-svg{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+/* Shape Palette Styles */
+.canvas-shape[data-shape-style="yellow"] .canvas-shape-container{background:#fff9c4;color:#2b221a;border:2px solid #fbc02d;}
+.canvas-shape[data-shape-style="mint"] .canvas-shape-container{background:#c8e6c9;color:#1b5e20;border:2px solid #66bb6a;}
+.canvas-shape[data-shape-style="lavender"] .canvas-shape-container{background:#e1bee7;color:#4a148c;border:2px solid #ab47bc;}
+.canvas-shape[data-shape-style="sky"] .canvas-shape-container{background:#b3e5fc;color:#0d47a1;border:2px solid #29b6f6;}
+.canvas-shape[data-shape-style="coral"] .canvas-shape-container{background:#ffccbc;color:#bf360c;border:2px solid #ff7043;}
+.canvas-shape[data-shape-style="clear"] .canvas-shape-container{background:rgba(255,255,255,.05);color:inherit;border:2px solid rgba(255,255,255,.3);}
+[data-t=light] .canvas-shape[data-shape-style="clear"] .canvas-shape-container{background:rgba(0,0,0,.03);color:#2b221a;border-color:rgba(0,0,0,.25);}
+.canvas-shape[data-shape-style="dark"] .canvas-shape-container{background:#1e2433;color:#f0f4fc;border:2px solid #3b455d;}
+
+/* SVG color inheritance */
+.canvas-shape[data-shape-style="yellow"] .canvas-shape-svg{color:#fbc02d;}
+.canvas-shape[data-shape-style="mint"] .canvas-shape-svg{color:#66bb6a;}
+.canvas-shape[data-shape-style="lavender"] .canvas-shape-svg{color:#ab47bc;}
+.canvas-shape[data-shape-style="sky"] .canvas-shape-svg{color:#29b6f6;}
+.canvas-shape[data-shape-style="coral"] .canvas-shape-svg{color:#ff7043;}
+.canvas-shape[data-shape-style="clear"] .canvas-shape-svg{color:rgba(255,255,255,.6);}
+[data-t=light] .canvas-shape[data-shape-style="clear"] .canvas-shape-svg{color:rgba(0,0,0,.5);}
+.canvas-shape[data-shape-style="dark"] .canvas-shape-svg{color:#3b455d;}
+
+/* Shape Border Styles */
+.canvas-shape[data-border-style="dashed"] .canvas-shape-container{border-style:dashed!important;}
+.canvas-shape[data-border-style="dotted"] .canvas-shape-container{border-style:dotted!important;}
+.canvas-shape[data-border-style="none"] .canvas-shape-container{border-style:none!important;}
+
 .ipad-paper-canvas:empty::before{content:attr(data-placeholder);opacity:.35;pointer-events:none;}
 
 /* Tracker */
@@ -4174,53 +4440,53 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           </div>
 
           <div style="display:flex;align-items:center;gap:6px;">
+            <div class="ipad-zoom-pill" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
+              <button type="button" class="ipad-step-btn" onclick="zoomIpad(-0.15)" title="Zoom Out" style="width:22px;height:24px;">−</button>
+              <span id="ipad-zoom-val" style="font-size:11px;font-weight:800;min-width:34px;text-align:center;user-select:none;">100%</span>
+              <button type="button" class="ipad-step-btn" onclick="zoomIpad(0.15)" title="Zoom In" style="width:22px;height:24px;">＋</button>
+              <button type="button" class="ipad-step-btn" onclick="setIpadZoom(1.0)" title="Reset Zoom" style="font-size:10px;padding:0 5px;border-left:1px solid rgba(255,255,255,0.12);">Fit</button>
+            </div>
+            <button type="button" class="ipad-step-btn" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
             <button type="button" class="ipad-step-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
             <button type="button" class="ipad-step-btn" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
           </div>
         </div>
 
-        <!-- Stylus Tool Dock (Floating GoodNotes Style) -->
+        <!-- Penly & Apple Freeform Stylus Tool Dock -->
         <div class="ipad-stylus-dock">
-          <!-- Stylus Font / Pen -->
-          <div class="ipad-tool-grp">
-            <select id="ipad-font-select" class="note-tool-select" onchange="applyIpadTypography()" style="min-width:140px;height:30px;font-size:12px;padding:0 22px 0 8px;">
-              <option value="patrick" selected>📝 Study Notebook</option>
-              <option value="caveat">✨ Aesthetic Cursive</option>
-              <option value="shantell">🌸 Modern Print</option>
-              <option value="kalam">🖋️ Ink Ballpoint</option>
-              <option value="architect">📐 Technical Hand</option>
-              <option value="clean">Clean Sans</option>
-            </select>
-            
-            <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:125px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Paper Template">
-              <option value="obsidian" selected>🖤 Obsidian Grid</option>
-              <option value="cream">📑 Cream Dots</option>
-              <option value="ruled">📜 Lined Notebook</option>
-              <option value="blank">🤍 Blank Page</option>
-            </select>
+          <!-- Primary Tool Switcher (Segmented Dock) -->
+          <div class="ipad-tool-segmented">
+            <button type="button" class="dock-tool-btn is-active" id="tool-select" onclick="setIpadActiveTool('select')" title="Select & Move (Text, Tape, Shapes, Photos)">✋ Select</button>
+            <button type="button" class="dock-tool-btn" id="tool-pen" onclick="setIpadActiveTool('pen')" title="Stylus Pen (Handwriting & Inking)">✏️ Pen</button>
+            <button type="button" class="dock-tool-btn" id="tool-highlighter" onclick="setIpadActiveTool('highlighter')" title="Highlighter (Pastel Translucent Glow)">🖍️ Highlight</button>
+            <button type="button" class="dock-tool-btn" id="tool-eraser" onclick="setIpadActiveTool('eraser')" title="Eraser (Erase Inking & Drawings)">🧹 Eraser</button>
           </div>
 
-          <!-- Stylus Highlighters -->
+          <div class="dock-divider"></div>
+
+          <!-- Freeform Canvas Insertables -->
           <div class="ipad-tool-grp" style="position:relative;">
-            <div style="display:flex;align-items:center;gap:4px;padding:2px 6px;background:rgba(255,255,255,0.06);border-radius:10px;">
-              <span style="font-size:11px;font-weight:900;color:var(--t2);margin-right:2px;">🖍️</span>
-              <div class="hl-swatch" style="background:#fff176;width:20px;height:20px;" title="Yellow Highlighter" onclick="applyIpadHighlighter('rgba(255,241,118,0.55)')"></div>
-              <div class="hl-swatch" style="background:#f48fb1;width:20px;height:20px;" title="Pink Highlighter" onclick="applyIpadHighlighter('rgba(244,143,177,0.55)')"></div>
-              <div class="hl-swatch" style="background:#a5d6a7;width:20px;height:20px;" title="Mint Highlighter" onclick="applyIpadHighlighter('rgba(165,214,167,0.55)')"></div>
-              <div class="hl-swatch" style="background:#ce93d8;width:20px;height:20px;" title="Lavender Highlighter" onclick="applyIpadHighlighter('rgba(206,147,216,0.55)')"></div>
-              <div class="hl-swatch" style="background:#81d4fa;width:20px;height:20px;" title="Sky Blue Highlighter" onclick="applyIpadHighlighter('rgba(129,212,250,0.55)')"></div>
-              <div class="hl-swatch" style="background:transparent;border:1px dashed #aaa;width:20px;height:20px;display:grid;place-items:center;font-size:9px;color:var(--t2);" title="Clear Highlighter" onclick="applyIpadHighlighter('transparent')">✕</div>
+            <button type="button" class="note-tool-btn" onclick="insertIpadTextBox()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert movable text box anywhere">🔤 Text Box</button>
+            <button type="button" class="note-tool-btn" onclick="insertIpadStickyPrompt()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert aesthetic sticky note">📝 Sticky</button>
+            <button type="button" class="note-tool-btn" onclick="toggleIpadShapesMenu(event)" id="ipad-shapes-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert Apple Freeform shapes">📐 Shapes ▾</button>
+            <button type="button" class="note-tool-btn" onclick="insertIpadWashiTape()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert writable washi tape strip">📌 Washi</button>
+            <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable planner stickers">🎀 Stickers</button>
+            <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert photo or diagram">🖼️ Photo</button>
+            <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Study callouts & formula blocks">📦 Blocks ▾</button>
+
+            <!-- Freeform Shapes Menu Popover -->
+            <div id="ipad-shapes-menu" class="hl-palette" style="display:none;grid-template-columns:repeat(4,1fr);gap:6px;min-width:270px;padding:10px;top:38px;right:0;" onclick="event.stopPropagation()">
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('rect')" title="Rectangle Card">🔲 Card</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('rounded')" title="Rounded Pill">🏷️ Pill</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('circle')" title="Circle / Oval">⚪ Circle</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('arrow')" title="Arrow Connector">➡️ Arrow</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('speech')" title="Speech Bubble">💬 Speech</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('star')" title="Star">⭐ Star</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('heart')" title="Heart">❤️ Heart</button>
+              <button type="button" class="jphoto-btn" onclick="insertIpadShape('diamond')" title="Diamond">🔷 Diamond</button>
             </div>
-          </div>
 
-          <!-- Creative Study Inserts -->
-          <div class="ipad-tool-grp" style="position:relative;">
-            <button type="button" class="note-tool-btn" onclick="insertIpadTextBox()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert movable floating text box">🔤 Text Box</button>
-            <button type="button" class="note-tool-btn" onclick="insertIpadWashiTape()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert aesthetic washi tape strip">📌 Washi</button>
-            <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert resizable photo or diagram">🖼️ Photo</button>
-            <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable aesthetic stickers">🎀 Stickers</button>
-            <button type="button" class="note-tool-btn" onclick="insertIpadStickyPrompt()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📝 Sticky</button>
-            <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📦 Blocks ▾</button>
+            <!-- Study Blocks Popover -->
             <div id="ipad-study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:220px;padding:8px;top:38px;right:0;" onclick="event.stopPropagation()">
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('split')">📊 2-Col Diagram + Notes</button>
@@ -4229,17 +4495,71 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-mint')">🌿 Key Concept (Mint)</button>
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertIpadStudyBlock('callout-lavender')">✨ Key Concept (Lavender)</button>
             </div>
-            
+          </div>
+
+          <div class="dock-divider"></div>
+
+          <!-- Paper & Typography Selectors -->
+          <div class="ipad-tool-grp">
+            <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:130px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Digital Paper Template">
+              <option value="obsidian" selected>🖤 Obsidian Grid</option>
+              <option value="cream">📑 Cream Dots</option>
+              <option value="ruled">📜 Lined Notebook</option>
+              <option value="graph">📐 Engineering Graph</option>
+              <option value="cornell">🎓 Cornell Study Notes</option>
+              <option value="planner">📋 Daily Planner</option>
+              <option value="blank">🤍 Blank Page</option>
+            </select>
+
+            <select id="ipad-font-select" class="note-tool-select" onchange="applyIpadTypography()" style="min-width:135px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Handwriting Font Style">
+              <option value="patrick" selected>📝 Study Notebook</option>
+              <option value="caveat">✨ Aesthetic Cursive</option>
+              <option value="shantell">🌸 Modern Print</option>
+              <option value="kalam">🖋️ Ink Ballpoint</option>
+              <option value="architect">📐 Technical Hand</option>
+              <option value="clean">Clean Sans</option>
+            </select>
           </div>
         </div>
+
+        <!-- Inking Secondary Subbar (Contextual for Pen, Highlighter, Eraser) -->
+        <div id="ipad-ink-subbar" class="ipad-ink-subbar" style="display:none;"></div>
 
         <input type="file" id="ipad-photo-input" accept="image/*" style="display:none" onchange="handleIpadPhotoUpload(event)">
 
         <!-- iPad Paper Sheet Surface -->
-        <div class="ipad-screen-glass">
+        <div class="ipad-screen-glass" id="ipad-screen-glass">
+          <!-- Spiral Spine (when binder is toggled) -->
+          <div class="ipad-spiral-spine" id="ipad-spiral-spine" style="display:none;">
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+            <div class="ipad-spiral-ring"></div>
+          </div>
+
+          <!-- Side Divider Index Tabs (Penly Signature) -->
+          <div class="ipad-side-tabs" id="ipad-side-tabs">
+            <div class="ipad-side-tab tab-pink" onclick="handleIpadSideTabClick('Notes')" title="Notes Section">Notes</div>
+            <div class="ipad-side-tab tab-lavender" onclick="handleIpadSideTabClick('Study')" title="Study Section">Study</div>
+            <div class="ipad-side-tab tab-blue" onclick="handleIpadSideTabClick('Planner')" title="Planner Section">Plan</div>
+            <div class="ipad-side-tab tab-mint" onclick="handleIpadSideTabClick('Ideas')" title="Ideas Section">Ideas</div>
+            <div class="ipad-side-tab tab-amber" onclick="handleIpadSideTabClick('Journal')" title="Journal Section">Journal</div>
+          </div>
+
           <div class="ipad-paper-sheet paper-obsidian-grid" id="ipad-paper-sheet">
             <input type="text" id="ipad-page-title" class="ipad-paper-title" placeholder="Page Title (e.g. Bioenergetics & ATP Cycle...)" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(true)">
-            <div id="ipad-page-editor" class="ipad-paper-canvas" contenteditable="true" spellcheck="true" data-placeholder="Start typing your study notes here... Tap highlighters, drop sticky notes, or insert study blocks from the top toolbar." oninput="queueIpadSave()" onblur="saveCurrentIpadPage(false)"></div>
+            <!-- Freehand Inking Canvas Layer -->
+            <canvas id="ipad-ink-canvas" class="ipad-ink-canvas"></canvas>
+            <!-- Canvas Elements Layer (Text Boxes, Washi, Shapes, Photos, Stickers, Sticky Notes) -->
+            <div id="ipad-page-editor" class="ipad-paper-canvas" contenteditable="true" spellcheck="true" data-placeholder="Start typing notes here... Tap Pen to write or doodle, Highlighter to glow, or drop shapes and text boxes anywhere!" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(false)"></div>
           </div>
         </div>
 
@@ -6764,6 +7084,9 @@ function loadIpadActivePage(){
   applyIpadTypography();
   upgradeLegacyIpadElements(editorEl);
   initIpadCanvasEngine();
+  initIpadInkEngine();
+  loadIpadInkForActiveNote(activeNote);
+  restoreIpadBinderState();
   updateIpadSaveStatus('Saved locally to notebook');
 }
 
@@ -6798,6 +7121,7 @@ function addIpadPage(){
     textColorMode: 'auto',
     bookId: currentJournalBookId,
     paperStyle: preferredPaper,
+    inkStrokes: [],
     tags: []
   };
   NOTES.unshift(newNote);
@@ -6845,12 +7169,14 @@ function saveCurrentIpadPage(showFeedback=false){
   const nextTitle = titleEl ? titleEl.value.trim() : '';
   const nextContent = editorEl ? cleanCanvasHtmlBeforeSave(editorEl) : '';
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
-  const nextPaper = (paperSel && ['obsidian','cream','ruled','blank'].includes(paperSel.value)) ? paperSel.value : 'obsidian';
+  const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','blank'];
+  const nextPaper = (paperSel && validPapers.includes(paperSel.value)) ? paperSel.value : 'obsidian';
 
   note.title = nextTitle;
   note.content = nextContent;
   note.fontFamily = nextFont;
   note.paperStyle = nextPaper;
+  note.inkStrokes = currentInkStrokes || [];
   note.updatedAt = Date.now();
   saveNotesData();
 
@@ -6875,10 +7201,13 @@ function applyIpadPaperStyle(style){
   const sheet = document.getElementById('ipad-paper-sheet');
   const sel = document.getElementById('ipad-paper-select');
   if(!sheet) return;
-  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-ruled','paper-blank');
+  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-ruled','paper-graph','paper-cornell','paper-planner','paper-blank');
   if(style === 'obsidian') sheet.classList.add('paper-obsidian-grid');
   else if(style === 'cream') sheet.classList.add('paper-cream-dots');
   else if(style === 'ruled') sheet.classList.add('paper-ruled');
+  else if(style === 'graph') sheet.classList.add('paper-graph');
+  else if(style === 'cornell') sheet.classList.add('paper-cornell');
+  else if(style === 'planner') sheet.classList.add('paper-planner');
   else sheet.classList.add('paper-blank');
   if(sel && sel.value !== style) sel.value = style;
   const note = getNoteById(currentNoteId);
@@ -7000,7 +7329,7 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   clone.querySelectorAll(".canvas-item").forEach(el => {
     el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
   });
-  clone.querySelectorAll(".cbar-angles-popover").forEach(p => {
+  clone.querySelectorAll(".cbar-angles-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
     p.style.display = "none";
   });
   return clone.innerHTML;
@@ -7314,6 +7643,94 @@ function insertIpadStickyPrompt(){
   showToast("Sticky note pinned! Move anywhere 📝");
 }
 
+function insertIpadShape(shapeType='rounded'){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "cshape_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(180, 100);
+
+  let shapeContent = '';
+  if(shapeType === 'rect'){
+    shapeContent = `<div class="canvas-shape-container shape-rect"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Note Card</div></div>`;
+  } else if(shapeType === 'rounded'){
+    shapeContent = `<div class="canvas-shape-container shape-rounded"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Concept Pill</div></div>`;
+  } else if(shapeType === 'circle'){
+    shapeContent = `<div class="canvas-shape-container shape-circle"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Idea 💡</div></div>`;
+  } else if(shapeType === 'arrow'){
+    shapeContent = `
+      <div class="canvas-shape-container shape-custom">
+        <svg class="canvas-shape-svg" viewBox="0 0 200 80" preserveAspectRatio="none">
+          <path d="M 10 25 L 140 25 L 140 10 L 190 40 L 140 70 L 140 55 L 10 55 Z" fill="currentColor" opacity="0.88" />
+        </svg>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;" data-placeholder="...">Process ➔</div>
+      </div>`;
+  } else if(shapeType === 'speech'){
+    shapeContent = `
+      <div class="canvas-shape-container shape-custom">
+        <svg class="canvas-shape-svg" viewBox="0 0 200 120" preserveAspectRatio="none">
+          <path d="M 20 10 C 10 10 10 20 10 20 L 10 80 C 10 90 20 90 20 90 L 40 90 L 30 115 L 75 90 L 180 90 C 190 90 190 80 190 80 L 190 20 C 190 10 180 10 180 10 Z" fill="currentColor" opacity="0.9" />
+        </svg>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Quote...">Takeaway 💬</div>
+      </div>`;
+  } else if(shapeType === 'star'){
+    shapeContent = `
+      <div class="canvas-shape-container shape-custom">
+        <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="currentColor" opacity="0.92"/>
+        </svg>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="margin-top:10px;" data-placeholder="Key">⭐ Key</div>
+      </div>`;
+  } else if(shapeType === 'heart'){
+    shapeContent = `
+      <div class="canvas-shape-container shape-custom">
+        <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path d="M 50 88 A 35 35 0 0 1 10 45 A 22 22 0 0 1 50 25 A 22 22 0 0 1 90 45 A 35 35 0 0 1 50 88 Z" fill="currentColor" opacity="0.9"/>
+        </svg>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;" data-placeholder="Love">❤️ Focus</div>
+      </div>`;
+  } else if(shapeType === 'diamond'){
+    shapeContent = `
+      <div class="canvas-shape-container shape-custom">
+        <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polygon points="50,5 95,50 50,95 5,50" fill="currentColor" opacity="0.9"/>
+        </svg>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Decision">Decision? 🔷</div>
+      </div>`;
+  }
+
+  const html = `
+    <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Shape</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="shape-style" title="Cycle Color Fill">🎨 Fill</button>
+          <button type="button" class="cbar-btn" data-action="shape-border" title="Cycle Border Style">── Border</button>
+          <button type="button" class="cbar-btn" data-action="shape-font-size" title="Text Size">🔠 Size</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      ${shapeContent}
+      <div class="canvas-rotate-handle" title="Drag to rotate">↻</div>
+      <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>
+      <div class="canvas-resize-e" data-dir="e" title="Drag to resize width"></div>
+      <div class="canvas-resize-s" data-dir="s" title="Drag to resize height"></div>
+      <div class="canvas-resize-w" data-dir="w" title="Drag to resize width from left"></div>
+      <div class="canvas-resize-n" data-dir="n" title="Drag to resize height from top"></div>
+    </div>
+  `;
+
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast(`Added ${shapeType} shape! Drag or type inside 📐`);
+  const menu = document.getElementById("ipad-shapes-menu");
+  if(menu) menu.style.display = "none";
+  const box = document.getElementById(id);
+  const body = box?.querySelector(".canvas-shape-body");
+  if(body) setTimeout(() => body.focus(), 60);
+}
+
 function handleCanvasAction(btn, e){
   const action = btn.dataset.action;
   const item = btn.closest(".canvas-item");
@@ -7490,6 +7907,44 @@ function handleCanvasAction(btn, e){
     showToast("Color: " + next);
     return;
   }
+
+  if(action === "shape-style"){
+    const styles = ["mint", "yellow", "lavender", "sky", "coral", "clear", "dark"];
+    const cur = item.dataset.shapeStyle || "mint";
+    let idx = styles.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = styles[(idx + 1) % styles.length];
+    item.dataset.shapeStyle = next;
+    queueIpadSave();
+    showToast("Shape fill: " + next);
+    return;
+  }
+
+  if(action === "shape-border"){
+    const borders = ["solid", "dashed", "dotted", "none"];
+    const cur = item.dataset.borderStyle || "solid";
+    let idx = borders.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = borders[(idx + 1) % borders.length];
+    item.dataset.borderStyle = next;
+    queueIpadSave();
+    showToast("Shape border: " + next);
+    return;
+  }
+
+  if(action === "shape-font-size"){
+    const body = item.querySelector(".canvas-shape-body");
+    if(!body) return;
+    const sizes = ["13px", "16px", "20px", "26px"];
+    const cur = body.style.fontSize || "16px";
+    let idx = sizes.indexOf(cur);
+    if(idx === -1) idx = 1;
+    const next = sizes[(idx + 1) % sizes.length];
+    body.style.fontSize = next;
+    queueIpadSave();
+    showToast("Shape text size: " + next);
+    return;
+  }
 }
 
 function initIpadCanvasEngine(){
@@ -7555,14 +8010,14 @@ function initIpadCanvasEngine(){
       return;
     }
 
-    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body, .washi-tape-label");
+    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
     if(editable){
       const item = editable.closest(".canvas-item");
       if(item) selectCanvasItem(item);
       return;
     }
 
-    const dragTarget = e.target.closest(".canvas-drag-handle, .canvas-item-bar, .canvas-photo-card, .washi-tape-strip, .canvas-sticker-glyph, .journal-sticky-note");
+    const dragTarget = e.target.closest(".canvas-drag-handle, .canvas-item-bar, .canvas-photo-card, .washi-tape-strip, .canvas-sticker-glyph, .journal-sticky-note, .canvas-shape-container");
     if(dragTarget){
       const item = dragTarget.closest(".canvas-item");
       if(item){
@@ -7619,8 +8074,8 @@ function initIpadCanvasEngine(){
       const deltaX = e.clientX - s.startX;
       const deltaY = e.clientY - s.startY;
       const editorWidth = editor.clientWidth || 700;
-      const minW = (s.type === "washi") ? 60 : (s.type === "sticker") ? 40 : 120;
-      const minH = (s.type === "washi") ? 22 : 28;
+      const minW = (s.type === "washi") ? 60 : (s.type === "sticker") ? 40 : (s.type === "shape") ? 60 : 120;
+      const minH = (s.type === "washi") ? 22 : (s.type === "shape") ? 36 : 28;
       const maxW = Math.max(minW, editorWidth - s.item.offsetLeft - 10);
 
       // Width resizing (Length)
@@ -7726,6 +8181,460 @@ function initIpadCanvasEngine(){
     }
   });
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PENLY & APPLE FREEFORM INKING, SHAPES, ZOOM & SPIRAL BINDER ENGINE
+   ══════════════════════════════════════════════════════════════════════════ */
+let currentInkStrokes = [];
+let inkRedoStack = [];
+let isDrawingInk = false;
+let currentStroke = null;
+
+let ipadActiveTool = 'select'; // 'select' | 'pen' | 'highlighter' | 'eraser'
+let ipadPenColor = '#1a1a1a';
+let ipadPenWidth = 3;
+let ipadHighlighterColor = 'rgba(255, 235, 59, 0.42)';
+let ipadHighlighterWidth = 22;
+let ipadEraserWidth = 24;
+let ipadInkEngineInitialized = false;
+
+let currentIpadZoom = 1.0;
+let ipadBinderEnabled = false;
+
+function setIpadActiveTool(tool){
+  ipadActiveTool = tool;
+  document.querySelectorAll(".dock-tool-btn").forEach(btn => {
+    btn.classList.toggle("is-active", btn.id === "tool-" + tool);
+  });
+
+  const canvas = document.getElementById("ipad-ink-canvas");
+  if(canvas){
+    canvas.classList.remove("is-active", "is-eraser");
+    if(tool === "pen" || tool === "highlighter"){
+      canvas.classList.add("is-active");
+    } else if(tool === "eraser"){
+      canvas.classList.add("is-active", "is-eraser");
+    }
+  }
+
+  // Deselect canvas items when handwriting
+  if(tool !== "select"){
+    deselectAllCanvasItems();
+  }
+
+  renderIpadInkSubbar();
+  const toolIcons = { select: "✋ Select & Move", pen: "✏️ Pen Inking", highlighter: "🖍️ Highlighter", eraser: "🧹 Eraser" };
+  showToast(toolIcons[tool] || tool);
+}
+
+function renderIpadInkSubbar(){
+  const subbar = document.getElementById("ipad-ink-subbar");
+  if(!subbar) return;
+
+  if(ipadActiveTool === "select"){
+    subbar.style.display = "none";
+    subbar.innerHTML = "";
+    return;
+  }
+
+  subbar.style.display = "flex";
+
+  if(ipadActiveTool === "pen"){
+    const sizes = [
+      { label: "1.5", val: 1.5, title: "Fine (1.5px)" },
+      { label: "3", val: 3, title: "Medium (3px)" },
+      { label: "5", val: 5, title: "Bold (5px)" },
+      { label: "8", val: 8, title: "Marker (8px)" }
+    ];
+    const colors = [
+      { hex: "#1a1a1a", name: "Obsidian" },
+      { hex: "#5d4037", name: "Mocha" },
+      { hex: "#1565c0", name: "Navy" },
+      { hex: "#2e7d32", name: "Pine" },
+      { hex: "#c2185b", name: "Berry" },
+      { hex: "#7b1fa2", name: "Plum" },
+      { hex: "#00897b", name: "Teal" },
+      { hex: "#ffffff", name: "White" }
+    ];
+
+    let sizeHtml = sizes.map(s => `
+      <button type="button" class="ink-size-btn ${ipadPenWidth === s.val ? 'is-active' : ''}" onclick="setIpadPenWidth(${s.val})" title="${s.title}">${s.label}</button>
+    `).join("");
+
+    let colorHtml = colors.map(c => `
+      <div class="ink-swatch-dot ${ipadPenColor === c.hex ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadPenColor('${c.hex}')" title="${c.name}"></div>
+    `).join("");
+
+    subbar.innerHTML = `
+      <div class="ink-sub-group">
+        <span class="ink-sub-label">✏️ Stroke</span>
+        ${sizeHtml}
+      </div>
+      <div class="dock-divider"></div>
+      <div class="ink-sub-group">
+        <span class="ink-sub-label">Ink</span>
+        ${colorHtml}
+      </div>
+      <div class="dock-divider"></div>
+      <div class="ink-sub-group">
+        <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Ink Stroke">↩️ Undo</button>
+        <button type="button" class="ink-size-btn" onclick="redoIpadInk()" title="Redo Ink Stroke">↪️ Redo</button>
+      </div>
+    `;
+  } else if(ipadActiveTool === "highlighter"){
+    const sizes = [
+      { label: "Thin (14)", val: 14 },
+      { label: "Med (22)", val: 22 },
+      { label: "Broad (32)", val: 32 }
+    ];
+    const colors = [
+      { val: "rgba(255, 235, 59, 0.42)", hex: "#fff176", name: "Butter Lemon" },
+      { val: "rgba(244, 143, 177, 0.42)", hex: "#f48fb1", name: "Blush Pink" },
+      { val: "rgba(165, 214, 167, 0.42)", hex: "#a5d6a7", name: "Matcha Mint" },
+      { val: "rgba(206, 147, 216, 0.42)", hex: "#ce93d8", name: "Lilac Lavender" },
+      { val: "rgba(129, 212, 250, 0.42)", hex: "#81d4fa", name: "Sky Blue" },
+      { val: "rgba(255, 171, 145, 0.42)", hex: "#ffab91", name: "Peach Coral" }
+    ];
+
+    let sizeHtml = sizes.map(s => `
+      <button type="button" class="ink-size-btn ${ipadHighlighterWidth === s.val ? 'is-active' : ''}" onclick="setIpadHighlighterWidth(${s.val})">${s.label}</button>
+    `).join("");
+
+    let colorHtml = colors.map(c => `
+      <div class="ink-swatch-dot ${ipadHighlighterColor === c.val ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadHighlighterColor('${c.val}')" title="${c.name}"></div>
+    `).join("");
+
+    subbar.innerHTML = `
+      <div class="ink-sub-group">
+        <span class="ink-sub-label">🖍️ Width</span>
+        ${sizeHtml}
+      </div>
+      <div class="dock-divider"></div>
+      <div class="ink-sub-group">
+        <span class="ink-sub-label">Pastel Glow</span>
+        ${colorHtml}
+      </div>
+      <div class="dock-divider"></div>
+      <div class="ink-sub-group">
+        <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Highlighter">↩️ Undo</button>
+      </div>
+    `;
+  } else if(ipadActiveTool === "eraser"){
+    const sizes = [
+      { label: "Small (18)", val: 18 },
+      { label: "Medium (32)", val: 32 },
+      { label: "Large (50)", val: 50 }
+    ];
+
+    let sizeHtml = sizes.map(s => `
+      <button type="button" class="ink-size-btn ${ipadEraserWidth === s.val ? 'is-active' : ''}" onclick="setIpadEraserWidth(${s.val})">${s.label}</button>
+    `).join("");
+
+    subbar.innerHTML = `
+      <div class="ink-sub-group">
+        <span class="ink-sub-label">🧹 Eraser</span>
+        ${sizeHtml}
+      </div>
+      <div class="dock-divider"></div>
+      <div class="ink-sub-group">
+        <button type="button" class="ink-size-btn" style="color:var(--rdc);" onclick="clearAllIpadInk()" title="Erase All Drawings">Clear Ink ✕</button>
+        <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Erase">↩️ Undo</button>
+      </div>
+    `;
+  }
+}
+
+function setIpadPenColor(hex){
+  ipadPenColor = hex;
+  renderIpadInkSubbar();
+}
+
+function setIpadPenWidth(w){
+  ipadPenWidth = w;
+  renderIpadInkSubbar();
+}
+
+function setIpadHighlighterColor(val){
+  ipadHighlighterColor = val;
+  renderIpadInkSubbar();
+}
+
+function setIpadHighlighterWidth(w){
+  ipadHighlighterWidth = w;
+  renderIpadInkSubbar();
+}
+
+function setIpadEraserWidth(w){
+  ipadEraserWidth = w;
+  renderIpadInkSubbar();
+}
+
+function initIpadInkEngine(){
+  if(ipadInkEngineInitialized) return;
+  const canvas = document.getElementById("ipad-ink-canvas");
+  const sheet = document.getElementById("ipad-paper-sheet");
+  if(!canvas || !sheet) return;
+  ipadInkEngineInitialized = true;
+
+  resizeIpadInkCanvas();
+  window.addEventListener("resize", () => {
+    resizeIpadInkCanvas();
+  });
+
+  canvas.addEventListener("pointerdown", (e) => {
+    if(ipadActiveTool !== "pen" && ipadActiveTool !== "highlighter" && ipadActiveTool !== "eraser") return;
+    e.preventDefault();
+    e.stopPropagation();
+    try { canvas.setPointerCapture(e.pointerId); } catch(_){}
+
+    isDrawingInk = true;
+    const pt = getInkCanvasCoords(e, canvas);
+    const tool = ipadActiveTool;
+    const color = (tool === "highlighter") ? ipadHighlighterColor : ipadPenColor;
+    const size = (tool === "highlighter") ? ipadHighlighterWidth : (tool === "eraser") ? ipadEraserWidth : ipadPenWidth;
+
+    currentStroke = {
+      tool: tool,
+      color: color,
+      size: size,
+      points: [pt]
+    };
+
+    redrawAllInkStrokes(currentStroke);
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if(!isDrawingInk || !currentStroke) return;
+    e.preventDefault();
+    const pt = getInkCanvasCoords(e, canvas);
+    currentStroke.points.push(pt);
+    redrawAllInkStrokes(currentStroke);
+  });
+
+  function stopInkDrawing(e){
+    if(!isDrawingInk) return;
+    isDrawingInk = false;
+    try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
+    if(currentStroke && currentStroke.points.length > 0){
+      currentInkStrokes.push(currentStroke);
+      inkRedoStack = [];
+      queueIpadSave();
+    }
+    currentStroke = null;
+    redrawAllInkStrokes();
+  }
+
+  canvas.addEventListener("pointerup", stopInkDrawing);
+  canvas.addEventListener("pointercancel", stopInkDrawing);
+}
+
+function getInkCanvasCoords(e, canvas){
+  const rect = canvas.getBoundingClientRect();
+  const zoom = currentIpadZoom || 1;
+  const x = (e.clientX - rect.left) / zoom;
+  const y = (e.clientY - rect.top) / zoom;
+  return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
+}
+
+function resizeIpadInkCanvas(){
+  const canvas = document.getElementById("ipad-ink-canvas");
+  const sheet = document.getElementById("ipad-paper-sheet");
+  if(!canvas || !sheet) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const targetW = sheet.clientWidth || 800;
+  const targetH = Math.max(sheet.scrollHeight || 0, sheet.clientHeight || 0, 700);
+
+  if(canvas.width !== Math.round(targetW * dpr) || canvas.height !== Math.round(targetH * dpr)){
+    canvas.width = Math.round(targetW * dpr);
+    canvas.height = Math.round(targetH * dpr);
+    canvas.style.width = targetW + "px";
+    canvas.style.height = targetH + "px";
+    redrawAllInkStrokes();
+  }
+}
+
+function loadIpadInkForActiveNote(note){
+  currentInkStrokes = Array.isArray(note.inkStrokes) ? JSON.parse(JSON.stringify(note.inkStrokes)) : [];
+  inkRedoStack = [];
+  resizeIpadInkCanvas();
+  redrawAllInkStrokes();
+}
+
+function drawStrokeSegment(ctx, stroke){
+  const pts = stroke.points;
+  if(!pts || pts.length === 0) return;
+
+  ctx.save();
+  if(stroke.tool === 'highlighter'){
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = stroke.color;
+    ctx.fillStyle = stroke.color;
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  } else if(stroke.tool === 'eraser'){
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = stroke.color;
+    ctx.fillStyle = stroke.color;
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+
+  if(pts.length === 1){
+    ctx.beginPath();
+    ctx.arc(pts[0].x, pts[0].y, stroke.size / 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    return;
+  }
+
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+
+  for(let i = 1; i < pts.length - 1; i++){
+    const midX = (pts[i].x + pts[i+1].x) / 2;
+    const midY = (pts[i].y + pts[i+1].y) / 2;
+    ctx.quadraticCurveTo(pts[i].x, pts[i].y, midX, midY);
+  }
+  ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function redrawAllInkStrokes(includeActive=null){
+  const canvas = document.getElementById('ipad-ink-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.scale(dpr, dpr);
+  currentInkStrokes.forEach(s => drawStrokeSegment(ctx, s));
+  if(includeActive){
+    drawStrokeSegment(ctx, includeActive);
+  }
+  ctx.restore();
+}
+
+function undoIpadInk(){
+  if(!currentInkStrokes.length) return;
+  const popped = currentInkStrokes.pop();
+  inkRedoStack.push(popped);
+  redrawAllInkStrokes();
+  queueIpadSave();
+  showToast("Stroke undone ↩️");
+}
+
+function redoIpadInk(){
+  if(!inkRedoStack.length) return;
+  const popped = inkRedoStack.pop();
+  currentInkStrokes.push(popped);
+  redrawAllInkStrokes();
+  queueIpadSave();
+  showToast("Stroke redone ↪️");
+}
+
+function clearAllIpadInk(){
+  if(!currentInkStrokes.length) return;
+  if(confirm("Clear all handwriting & drawings on this page?")){
+    currentInkStrokes = [];
+    redrawAllInkStrokes();
+    queueIpadSave();
+    showToast("Drawings cleared 🧹");
+  }
+}
+
+function toggleIpadShapesMenu(e){
+  if(e) e.stopPropagation();
+  const menu = document.getElementById("ipad-shapes-menu");
+  const blocksMenu = document.getElementById("ipad-study-blocks-menu");
+  if(blocksMenu) blocksMenu.style.display = "none";
+  if(!menu) return;
+  menu.style.display = (menu.style.display === "grid") ? "none" : "grid";
+}
+
+function zoomIpad(delta){
+  currentIpadZoom = Math.min(1.8, Math.max(0.5, Math.round((currentIpadZoom + delta) * 100) / 100));
+  applyIpadZoom();
+}
+
+function setIpadZoom(val){
+  currentIpadZoom = val;
+  applyIpadZoom();
+}
+
+function applyIpadZoom(){
+  const sheet = document.getElementById("ipad-paper-sheet");
+  const label = document.getElementById("ipad-zoom-val");
+  if(sheet){
+    sheet.style.transform = `scale(${currentIpadZoom})`;
+    sheet.style.transformOrigin = "top center";
+  }
+  if(label){
+    label.textContent = Math.round(currentIpadZoom * 100) + "%";
+  }
+}
+
+function toggleIpadSpiralBinder(){
+  ipadBinderEnabled = !ipadBinderEnabled;
+  const glass = document.getElementById("ipad-screen-glass");
+  const spine = document.getElementById("ipad-spiral-spine");
+  const btn = document.getElementById("ipad-binder-toggle-btn");
+  if(!glass) return;
+  if(ipadBinderEnabled){
+    glass.classList.add("has-binder");
+    if(spine) spine.style.display = "flex";
+    if(btn) btn.style.background = "var(--accg)";
+    showToast("Spiral Binder Attached 📓✨");
+  } else {
+    glass.classList.remove("has-binder");
+    if(spine) spine.style.display = "none";
+    if(btn) btn.style.background = "transparent";
+    showToast("Spiral Binder Detached");
+  }
+  localStorage.setItem("thecalverse_ipad_binder", ipadBinderEnabled ? "1" : "0");
+}
+
+function restoreIpadBinderState(){
+  const saved = localStorage.getItem("thecalverse_ipad_binder");
+  if(saved === "1"){
+    ipadBinderEnabled = true;
+    const glass = document.getElementById("ipad-screen-glass");
+    const spine = document.getElementById("ipad-spiral-spine");
+    const btn = document.getElementById("ipad-binder-toggle-btn");
+    if(glass) glass.classList.add("has-binder");
+    if(spine) spine.style.display = "flex";
+    if(btn) btn.style.background = "var(--accg)";
+  }
+}
+
+function handleIpadSideTabClick(tabName){
+  showToast(`Section: ${tabName} 📑`);
+  const titleEl = document.getElementById('ipad-page-title');
+  if(titleEl && (!titleEl.value || titleEl.value.startsWith("Page "))){
+    titleEl.value = `${tabName} — Page ${currentJournalPageIndex + 1}`;
+    queueIpadSave();
+  }
+}
+
+document.addEventListener("click", (e) => {
+  if(!e.target.closest("#ipad-shapes-btn, #ipad-shapes-menu")){
+    const m = document.getElementById("ipad-shapes-menu");
+    if(m) m.style.display = "none";
+  }
+  if(!e.target.closest("#ipad-blocks-btn, #ipad-study-blocks-menu")){
+    const b = document.getElementById("ipad-study-blocks-menu");
+    if(b) b.style.display = "none";
+  }
+});
 
 function openIpadPagesDrawer(){
   saveCurrentIpadPage(false);
