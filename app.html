@@ -1424,6 +1424,25 @@ canvas#gc{display:block;width:100%;height:240px;}
 .ipad-step-btn:disabled{opacity:.35;cursor:not-allowed;}
 .ipad-page-counter{font-size:11.5px;font-weight:800;color:var(--t1);padding:0 6px;white-space:nowrap;user-select:none;}
 
+/* ── INNER VOICE THOUGHT SPARK WIDGET ── */
+.prompt-spark-container{margin-bottom:16px;}
+.prompt-spark-card{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:16px 18px 14px;box-shadow:0 10px 24px rgba(0,0,0,.15);transition:all .2s ease;}
+[data-t=light] .prompt-spark-card{background:linear-gradient(135deg,#fcfaf6,#f7f1e7);border-color:rgba(131,98,74,.22);box-shadow:0 8px 22px rgba(104,76,56,.08);}
+.prompt-spark-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.prompt-spark-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--act);background:rgba(140,126,255,.12);padding:3px 9px;border-radius:999px;}
+[data-t=light] .prompt-spark-badge{color:#7c4a27;background:rgba(160,108,78,.14);}
+.prompt-spark-meta{font-size:11px;color:var(--t3);font-weight:700;}
+.prompt-spark-quote{font-family:'Caveat','Patrick Hand',cursive;font-size:21px;line-height:1.45;color:var(--t1);margin:8px 0 14px;padding:2px 0;min-height:52px;display:flex;align-items:center;transition:opacity .15s ease;}
+.prompt-spark-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed rgba(255,255,255,.1);padding-top:10px;}
+[data-t=light] .prompt-spark-actions{border-top-color:rgba(131,98,74,.15);}
+.prompt-spark-nav{display:inline-flex;align-items:center;gap:4px;}
+.prompt-spark-btn{height:28px;padding:0 11px;border-radius:9px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t1);font-size:11.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;transition:all .15s ease;}
+[data-t=light] .prompt-spark-btn{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.2);color:#3b281c;}
+.prompt-spark-btn:hover{background:rgba(255,255,255,.14);}
+[data-t=light] .prompt-spark-btn:hover{background:#fff;}
+.prompt-spark-btn.primary{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 4px 12px rgba(124,92,255,.25);}
+.prompt-spark-btn.primary:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(124,92,255,.35);}
+
 /* GoodNotes Stylus Tool Dock */
 .ipad-stylus-dock{background:rgba(14,18,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;box-shadow:0 6px 20px rgba(0,0,0,.25);}
 [data-t=light] .ipad-stylus-dock{background:rgba(255,250,244,.92);border-color:rgba(131,98,74,.2);box-shadow:0 6px 18px rgba(104,76,56,.1);}
@@ -4227,18 +4246,47 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="tpl-modal-head">
       <div>
         <div class="tpl-modal-title"><span>✨</span> Aesthetic Note Templates</div>
-        <div class="tpl-modal-sub">Curated Canva & Pinterest-style layouts for mindful journaling, study notes & planners.</div>
+        <div class="tpl-modal-sub">Curated Canva & digital notebook layouts, inner-voice prompts & structured study canvases.</div>
       </div>
       <button type="button" class="tpl-modal-close" onclick="closeTemplatePickerModal()" aria-label="Close templates modal">✕</button>
     </div>
     <div class="tpl-modal-tabs" id="tpl-modal-tabs">
-      <button type="button" class="tpl-tab-btn on" onclick="filterTemplateCategory('all',this)">🌟 All (12)</button>
+      <button type="button" class="tpl-tab-btn on" onclick="filterTemplateCategory('all',this)">🌟 All (36)</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('prompts',this)">💭 Inner Voice & Prompts</button>
       <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('journal',this)">🌸 Journal & Mood</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('study',this)">🎓 Study & Cornell</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('planning',this)">📅 Habits & Planning</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('creative',this)">✍️ Scenes & Creative</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('study',this)">🎓 Study & Learning</button>
       <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('stem',this)">📐 STEM & Formulas</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('planning',this)">📅 Habits & Planning</button>
     </div>
     <div class="tpl-modal-body">
+      <div class="prompt-spark-container" id="prompt-spark-container">
+        <div class="prompt-spark-card">
+          <div class="prompt-spark-top">
+            <div class="prompt-spark-badge">
+              <span>💭</span>
+              <span>INNER VOICE · THOUGHT SPARK</span>
+            </div>
+            <div class="prompt-spark-meta">
+              <span id="prompt-spark-counter">Spark 1 of 54</span>
+            </div>
+          </div>
+          <div class="prompt-spark-quote" id="prompt-spark-quote">
+            “I don't even know what I'm upset about anymore. Everything just keeps piling up, and I'm supposed to act normal.”
+          </div>
+          <div class="prompt-spark-actions">
+            <div class="prompt-spark-nav">
+              <button type="button" class="prompt-spark-btn" onclick="cyclePromptSpark(-1)" title="Previous thought spark">‹ Prev</button>
+              <button type="button" class="prompt-spark-btn" onclick="shufflePromptSpark()" title="Shuffle random thought spark">↻ Shuffle</button>
+              <button type="button" class="prompt-spark-btn" onclick="cyclePromptSpark(1)" title="Next thought spark">Next ›</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <button type="button" class="prompt-spark-btn" onclick="copyPromptSparkText()" title="Copy prompt to clipboard">📋 Copy</button>
+              <button type="button" class="prompt-spark-btn primary" onclick="writeFromCurrentPromptSpark()" title="Start writing on this prompt">Write on this ✍️</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="tpl-grid" id="tpl-modal-grid"></div>
     </div>
   </div>
@@ -8968,11 +9016,173 @@ function handleNoteEditBack(){
   }
 }
 
-/* ── AESTHETIC NOTE TEMPLATES SUITE ── */
+/* ── AESTHETIC NOTE TEMPLATES & INNER VOICE SUITE ── */
 let templateModalSource = 'list';
 let activeTemplateCategory = 'all';
 
+/* ── 54 AUTHENTIC PERSONALITY WRITING SPARKS ── */
+const PERSONALITY_PROMPTS = [
+  "I don't even know what I'm upset about anymore. Everything just keeps piling up, and I'm supposed to act normal.",
+  "Some things never really happen twice, yet somehow I keep living them over and over again.",
+  "Honestly, I'm tired of being understanding about things that hurt me.",
+  "I want someone to notice when something is wrong, but I don't want to have to explain it to them.",
+  "It's strange how a completely ordinary moment can stay with you longer than the moments that were supposed to matter.",
+  "I have so much on my mind, and somehow none of it makes sense when I try to explain it.",
+  "I wish I could explain it without having to explain everything that led to it.",
+  "There's a specific kind of tired that sleep has nothing to do with.",
+  "I'm sitting here acting like I have plenty of time, but there's a quiet hum of panic in the back of my mind.",
+  "I keep waiting for things to quiet down before I start living, but I'm starting to think this is just what life feels like.",
+  "I didn't say anything because if I started, I wasn't sure I could stop without getting angry.",
+  "The afternoon light hit the corner of the table in a way that suddenly made me feel ten years younger.",
+  "I don't need advice right now. I just need to put this down so it stops echoing in my skull.",
+  "Part of me wants to disappear for three weeks, and the other part just wants someone to text me 'are you okay?'.",
+  "It wasn't even a big argument, but the air between us never quite went back to normal.",
+  "I spent twenty minutes staring at a blank screen today wondering where all my focus went.",
+  "The hardest thing is knowing you were right, but still being the one who ends up feeling guilty.",
+  "I keep replaying the last sentence they said, looking for a meaning that probably wasn't there.",
+  "Nothing bad actually happened today. I just feel hollow in the ribs for no reason.",
+  "I bought coffee I didn't need just to have a reason to leave the room for five minutes.",
+  "Sometimes I miss people who are still alive, still around, just entirely different now.",
+  "I'm capable of doing this. I'm just so exhausted by how much effort every single small step takes.",
+  "I want to be remembered for who I was on my best days, not the person who keeps dropping the ball.",
+  "There is a version of this conversation that went completely differently in my head yesterday.",
+  "I keep collecting books and ideas like I'm building a sanctuary I never actually have time to step inside.",
+  "I feel like a spectator in my own week, watching myself attend meetings and make tea like an actor in a play.",
+  "Why do the things that hurt the most always arrive disguised as completely casual remarks?",
+  "I don't want to fix anything right now. I just want permission to exist without being productive for an hour.",
+  "I was proud of myself today for something so ridiculously small that no one else would ever understand.",
+  "The sound of rain against the window makes me feel like the world paused just so I could breathe.",
+  "I catch myself holding my breath whenever I open my notifications.",
+  "If I'm being honest, I gave up on that expectation weeks ago, but admitting it out loud makes it real.",
+  "It's not that I don't care. It's that caring about this right now would break whatever glue is holding the rest of me together.",
+  "A cup of tea, a silent room, and thirty minutes where nobody asks me for anything. That's all I wanted.",
+  "I wonder if they think about that afternoon as often as I do, or if it was just a Tuesday to them.",
+  "I'm not mad. I'm just quietly recalculating where I stand with people.",
+  "There is an unfinished sentence sitting between us that neither of us knows how to finish.",
+  "My mind feels like twenty browser tabs open at the same time, and music is playing from one of them but I can't find it.",
+  "I noticed the way the leaves turned golden on that street corner and felt an unexpected pang of grief for summer.",
+  "I keep pretending I'm fine with being patient, but deep down I'm violently tired of waiting.",
+  "Sometimes the bravest thing you do all day is just not spiraling.",
+  "I heard a song in the grocery store today that I haven't heard in seven years, and for three minutes I stood frozen in the cereal aisle.",
+  "I don't know who I'm performing for anymore.",
+  "I have a weird sense that something good is about to happen, but I'm almost too superstitious to say it.",
+  "There's a scene in my head that never happened, but I've imagined it so clearly it feels like a memory.",
+  "I'm tired of feeling like I have to earn my right to rest.",
+  "The hardest person to be honest with is usually the one staring back from the bathroom mirror at 1 AM.",
+  "It felt like an ordinary conversation at the time, but looking back, that was the exact moment everything shifted.",
+  "I don't need a whole new life. I just need a morning where I wake up without an immediate knot of urgency in my chest.",
+  "I keep thinking about that house by the water we drove past three summers ago.",
+  "Sometimes I want to say the blunt truth just to see the shocked look on everyone's faces.",
+  "I'm allowed to change my mind about things I thought I wanted forever.",
+  "The smell of cold morning air and wet pavement always makes me feel like a clean slate is possible.",
+  "I just wanted to write down three sentences so today doesn't vanish entirely."
+];
+let currentPromptSparkIndex = 0;
+
+function updatePromptSparkUI(){
+  const quoteEl = document.getElementById('prompt-spark-quote');
+  const countEl = document.getElementById('prompt-spark-counter');
+  if(!quoteEl || !PERSONALITY_PROMPTS.length) return;
+  const prompt = PERSONALITY_PROMPTS[currentPromptSparkIndex];
+  quoteEl.style.opacity = '0';
+  setTimeout(() => {
+    quoteEl.textContent = '“' + prompt + '”';
+    quoteEl.style.opacity = '1';
+  }, 120);
+  if(countEl){
+    countEl.textContent = 'Spark ' + (currentPromptSparkIndex + 1) + ' of ' + PERSONALITY_PROMPTS.length;
+  }
+}
+
+function cyclePromptSpark(delta){
+  currentPromptSparkIndex = (currentPromptSparkIndex + delta + PERSONALITY_PROMPTS.length) % PERSONALITY_PROMPTS.length;
+  updatePromptSparkUI();
+}
+
+function shufflePromptSpark(){
+  if(PERSONALITY_PROMPTS.length <= 1) return;
+  let nextIdx;
+  do {
+    nextIdx = Math.floor(Math.random() * PERSONALITY_PROMPTS.length);
+  } while(nextIdx === currentPromptSparkIndex);
+  currentPromptSparkIndex = nextIdx;
+  updatePromptSparkUI();
+}
+
+function copyPromptSparkText(){
+  const prompt = PERSONALITY_PROMPTS[currentPromptSparkIndex];
+  if(!prompt) return;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(prompt).then(() => {
+      showToast('Copied thought spark to clipboard 📋');
+    }).catch(() => {
+      showToast('Copied thought spark ✨');
+    });
+  } else {
+    showToast('Copied thought spark ✨');
+  }
+}
+
+function writeFromCurrentPromptSpark(){
+  const prompt = PERSONALITY_PROMPTS[currentPromptSparkIndex];
+  if(!prompt) return;
+  closeTemplatePickerModal();
+
+  const isIpad = (templateModalSource === 'ipad' || curScr === 'Journal' || document.getElementById('sJournal')?.classList.contains('active'));
+  
+  if(isIpad){
+    const editor = document.getElementById('ipad-page-editor');
+    if(!editor) return;
+    const sparkHtml = `
+      <div class="note-callout quote" style="border-left:4px solid var(--act);background:rgba(140,126,255,0.08);padding:14px 16px;border-radius:12px;margin:12px 0 16px 0;" contenteditable="false">
+        <div style="font-size:10.5px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;letter-spacing:.6px;">💭 INNER VOICE · THOUGHT SPARK</div>
+        <div style="font-size:1.15em;font-style:italic;line-height:1.55;color:var(--t1);">“${escapeHtml(prompt)}”</div>
+      </div>
+      <p>Start writing whatever comes to mind...</p>
+    `;
+    insertHtmlAtCursor(sparkHtml, editor);
+    queueIpadSave();
+    showToast('Prompt placed on page — write freely ✍️');
+    editor.focus();
+  } else {
+    const now = Date.now();
+    const isVault = (notesPane === 'vault' || isVaultActive);
+    const note = {
+      id: isVault ? `vault_${now}_${Math.random().toString(36).slice(2,7)}` : `note_${now}_${Math.random().toString(36).slice(2,7)}`,
+      title: `💭 Inner Voice — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+      content: `
+        <div class="note-callout quote" style="border-left:4px solid var(--act);background:rgba(140,126,255,0.08);padding:14px 16px;border-radius:12px;margin-bottom:16px;" contenteditable="false">
+          <div style="font-size:10.5px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;letter-spacing:.6px;">💭 INNER VOICE · THOUGHT SPARK</div>
+          <div style="font-size:1.15em;font-style:italic;line-height:1.55;color:var(--t1);">“${escapeHtml(prompt)}”</div>
+        </div>
+        <p>Start writing whatever comes to mind...</p>
+      `,
+      createdAt: now,
+      updatedAt: now,
+      untitledIndex: isVault ? vaultUntitledSeed++ : noteUntitledSeed++,
+      fontFamily: 'caveat',
+      fontSize: 'medium',
+      textColor: getDefaultNoteTextColor(),
+      textColorMode: 'auto',
+      bookId: (!isVault && currentJournalBookId) ? currentJournalBookId : '',
+      tags: ['journal', 'inner-voice', 'spark', 'reflection'],
+      isVault: isVault
+    };
+    if(isVault){
+      VAULT_NOTES.unshift(note);
+      saveVaultNotesData();
+    } else {
+      NOTES.unshift(note);
+      saveNotesData();
+    }
+    renderNotesList();
+    openNoteEditor(note.id, { edit: true });
+    showToast('Prompt ready — write freely ✍️');
+  }
+}
+
 const NOTE_TEMPLATES = [
+  // ── A. JOURNAL & MOOD ──
   {
     id: 'daily_reflection',
     category: 'journal',
@@ -8984,8 +9194,22 @@ const NOTE_TEMPLATES = [
     font: 'hand',
     previewType: 'journal',
     tags: ['journal', 'daily', 'gratitude', 'mindfulness'],
-    defaultTitle: () => `🌸 Daily Reflection — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
-    content: `<div class="note-mood-row" contenteditable="false"><span style="font-size:12px;font-weight:800;color:var(--t2);margin-right:4px;">Today's Vibe:</span><span class="note-mood-pill on" onclick="toggleMoodPill(this,event)">☀️ Radiant</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌿 Peaceful</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">⚡ Energized</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌧️ Slow & Soft</span></div><div class="note-callout pink"><div class="note-callout-hdr"><span>✨ 3 THINGS I AM GRATEFUL FOR</span><span>🌸</span></div><div>1. The warmth of fresh morning coffee and a calm start</div><div>2. A thoughtful message that made me smile</div><div>3. Having quiet time to create and reflect</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌿 TODAY'S SMALL JOYS & WINS</span><span>🌱</span></div><div>• Finished my most important task before noon</div><div>• Took a gentle 15-minute walk outside</div><div>• Honored my boundaries and rested without guilt</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>💭 BRAIN DUMP & REFLECTIONS</span><span>✨</span></div><div>Pouring out the day's swirling thoughts. Unfiltered, honest, letting it all settle onto the page...</div><div><br></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌙 GENTLE INTENTION FOR TOMORROW</span><span>🕯️</span></div><div>"Approach tomorrow with patience, steady focus, and kindness toward myself."</div></div>`
+    defaultTitle: () => "🌸 Daily Reflection — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-mood-row" contenteditable="false"><span style="font-size:12px;font-weight:800;color:var(--t2);margin-right:4px;">Today\'s Vibe:</span><span class="note-mood-pill on" onclick="toggleMoodPill(this,event)">☀️ Radiant</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌿 Peaceful</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">⚡ Energized</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌧️ Slow & Soft</span></div><div class="note-callout pink"><div class="note-callout-hdr"><span>✨ 3 THINGS I AM GRATEFUL FOR</span><span>🌸</span></div><div>1. The warmth of fresh morning coffee and a calm start</div><div>2. A thoughtful message that made me smile</div><div>3. Having quiet time to create and reflect</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌿 TODAY\'S SMALL JOYS & WINS</span><span>🌱</span></div><div>• Finished my most important task before noon</div><div>• Took a gentle 15-minute walk outside</div><div>• Honored my boundaries and rested without guilt</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>💭 BRAIN DUMP & REFLECTIONS</span><span>✨</span></div><div>Pouring out the day\'s swirling thoughts. Unfiltered, honest, letting it all settle onto the page...</div><div><br></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌙 GENTLE INTENTION FOR TOMORROW</span><span>🕯️</span></div><div>"Approach tomorrow with patience, steady focus, and kindness toward myself."</div></div>'
+  },
+  {
+    id: 'unfiltered_braindump',
+    category: 'journal',
+    badge: 'Brain Dump',
+    badgeColor: 'sky',
+    icon: '🌊',
+    name: 'Unfiltered Stream & Brain Dump',
+    desc: 'Zero editing, zero structure. Let every tangled thought pour onto the page without judgment.',
+    font: 'handSoft',
+    previewType: 'journal',
+    tags: ['journal', 'braindump', 'freewriting', 'mental-clutter'],
+    defaultTitle: () => "🌊 Brain Dump — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 UNFILTERED THOUGHT STREAM</span><span>NO EDITING ZONE</span></div><div>Start typing without pausing to fix spelling, punctuation, or grammar. No one is grading this. Let everything tumbling around in your head hit the page raw...</div><p><br></p></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌱 THE ONE THING AT THE BOTTOM</span><span>CLARITY</span></div><div>If I had to distill what all this noise is actually trying to tell me in one honest sentence:</div><div><br></div></div>'
   },
   {
     id: 'morning_pages',
@@ -8993,13 +9217,83 @@ const NOTE_TEMPLATES = [
     badge: 'Morning Routine',
     badgeColor: 'amber',
     icon: '☕',
-    name: 'Morning Pages & Focus',
-    desc: 'Wake-up check-in, daily core priority, unfiltered brain dump & morning affirmation.',
+    name: 'Morning Pages & Grounding',
+    desc: 'Wake-up check-in, daily core priority, unfiltered brain dump & morning clarity.',
     font: 'handSoft',
     previewType: 'journal',
-    tags: ['morning', 'mindset', 'focus'],
-    defaultTitle: () => `☕ Morning Pages — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
-    content: `<div class="note-callout amber"><div class="note-callout-hdr"><span>☀️ MORNING CHECK-IN</span><span>07:30 AM</span></div><div><b>Sleep Quality:</b> 8 hrs · Rested & clear-headed</div><div><b>Energy Level:</b> ⚡⚡⚡⚡⚪ (4/5)</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 THE ONE THING (CORE PRIORITY)</span><span>⚡</span></div><div style="font-size:1.05em;font-weight:700;">If only ONE thing gets finished today, make it this:</div><div>• Complete and review today's study milestone</div></div><div class="note-callout quote">“You do not have to be good. You only have to let the soft animal of your body love what it loves.” — Mary Oliver</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 UNFILTERED MORNING STREAM</span><span>☕</span></div><div>Waking up to a fresh clean slate. Writing freely to clear morning mental clutter and ground intentions for the day...</div><div><br></div></div>`
+    tags: ['morning', 'mindset', 'focus', 'clarity'],
+    defaultTitle: () => "☕ Morning Pages — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout amber"><div class="note-callout-hdr"><span>☀️ MORNING CHECK-IN</span><span>07:30 AM</span></div><div><b>Sleep Quality:</b> Rested & clear-headed</div><div><b>Energy Level:</b> ⚡⚡⚡⚡⚪ (4/5)</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 THE ONE THING (CORE PRIORITY)</span><span>⚡</span></div><div style="font-size:1.05em;font-weight:700;">If only ONE thing gets finished today, make it this:</div><div>• Complete today\'s primary milestone without rushing</div></div><div class="note-callout quote">“You do not have to be good. You only have to let the soft animal of your body love what it loves.” — Mary Oliver</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 UNFILTERED MORNING STREAM</span><span>☕</span></div><div>Waking up to a fresh clean slate. Pouring out morning mental fog to ground my focus for the day...</div><div><br></div></div>'
+  },
+  {
+    id: 'midnight_musings',
+    category: 'journal',
+    badge: 'Midnight Thoughts',
+    badgeColor: 'purple',
+    icon: '🌙',
+    name: 'Midnight Musings & Stillness',
+    desc: 'For the quiet hours between 11 PM and 3 AM when the world sleeps and thoughts wander.',
+    font: 'hand',
+    previewType: 'journal',
+    tags: ['midnight', 'night', 'deep-thoughts', 'quiet'],
+    defaultTitle: () => "🌙 Midnight Thoughts — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>🌙 LATE NIGHT VIBES</span><span>01:14 AM</span></div><div>The world is silent outside. Lamps are low. The strange, quiet clarity that only exists after midnight...</div></div><div class="note-callout quote">“The moon was up, painting the world in shades of quiet understanding.”</div><div class="note-callout pink"><div class="note-callout-hdr"><span>💭 WHY MY EYES ARE STILL OPEN</span><span>🌌</span></div><div>• Things lingering on my mind that didn\'t get resolved today<br>• Ideas that feel unusually brilliant in the dark<br>• Random memories drifting up out of nowhere</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🕯️ PERMISSION TO SLEEP</span><span>✨</span></div><div>Whatever didn\'t happen today will wait for tomorrow. Leaving my worries between these lines so I can rest.</div></div>'
+  },
+  {
+    id: 'unsent_letter',
+    category: 'journal',
+    badge: 'Unsent Letter',
+    badgeColor: 'rose',
+    icon: '✉️',
+    name: 'The Unsent Letter',
+    desc: 'Write to someone without ever having to send it. Clear the air in complete privacy.',
+    font: 'caveat',
+    previewType: 'letter',
+    tags: ['journal', 'letter', 'unsent', 'closure', 'private'],
+    defaultTitle: () => "✉️ Unsent Letter — To Someone",
+    content: '<div class="note-callout rose"><div class="note-callout-hdr"><span>✉️ PRIVATE & UNSENT</span><span>PERSONAL</span></div><div><b>To:</b> [Name / Past Self / Future Self]<br><b>Date:</b> Written in complete confidentiality</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🖋️ WHAT I NEVER GOT TO SAY</span><span>WORDS KEPT</span></div><div>There are things I wish you understood, but I never found the right moment or the courage to say out loud...</div><p><br></p></div><div class="note-callout lavender"><div class="note-callout-hdr"><span>🕊️ WHY I AM NOT SENDING THIS</span><span>CLOSURE</span></div><div>This isn\'t meant to reopen a closed door or restart an argument. It\'s simply here so I don\'t have to carry these words inside me anymore.</div></div>'
+  },
+  {
+    id: 'memories_preserved',
+    category: 'journal',
+    badge: 'Memory Card',
+    badgeColor: 'cream',
+    icon: '🕯️',
+    name: 'Ordinary Moments Worth Preserving',
+    desc: 'Capture a fleeting, quiet afternoon or glance before time washes the details away.',
+    font: 'serif',
+    previewType: 'journal',
+    tags: ['memories', 'nostalgia', 'moments', 'archive'],
+    defaultTitle: () => "🕯️ Memory — An Ordinary Afternoon",
+    content: '<div class="note-callout cream"><div class="note-callout-hdr"><span>📍 TIME & PLACE</span><span>ARCHIVE</span></div><div><b>When:</b> Today\'s date & rough time<br><b>Where:</b> The kitchen corner, train window, or quiet cafe table<br><b>Weather & Light:</b> Soft slanted sunlight, damp air after rain</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌿 WHAT ACTUALLY HAPPENED</span><span>THE SMALL DETAILS</span></div><div>It wasn\'t a grand milestone. It was just an ordinary moment, but something about the sounds, the silence, and the temperature made me want to freeze time...</div><p><br></p></div><div class="note-callout quote">“It\'s strange how a completely ordinary moment can stay with you longer than the moments that were supposed to matter.”</div><div class="note-callout amber"><div class="note-callout-hdr"><span>✨ WORDS I NEVER WANT TO FORGET</span><span>IMPRINT</span></div><div>A phrase said in passing, a look, or a quiet feeling I want to keep safe here.</div></div>'
+  },
+  {
+    id: 'contradictory_feelings',
+    category: 'journal',
+    badge: 'Two Truths',
+    badgeColor: 'lavender',
+    icon: '⚖️',
+    name: 'Contradictory Feelings & Nuance',
+    desc: 'Untangle two opposite things you feel at the exact same time without feeling broken.',
+    font: 'hand',
+    previewType: 'split',
+    tags: ['feelings', 'contradiction', 'nuance', 'emotional-clarity'],
+    defaultTitle: () => "⚖️ Two Truths at Once — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout lavender"><div class="note-callout-hdr"><span>⚖️ THE DUALITY</span><span>BOTH ARE REAL</span></div><div>Human emotions are rarely tidy. I am holding two completely contradictory feelings right now, and both deserve room to exist.</div></div><div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="true" style="border-color:rgba(140,126,255,0.3);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;">🌸 TRUTH A: WHAT ONE PART OF ME FEELS</div>• Part of me is genuinely exhausted and wants to pull away<br>• I feel frustrated that things didn\'t go the way I hoped<br>• I want to be left alone</div><div class="study-col-card" contenteditable="true" style="border-color:rgba(165,214,167,0.3);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:#5a9e63;margin-bottom:6px;">🌿 TRUTH B: WHAT ANOTHER PART FEELS</div>• At the exact same time, I care deeply about how this ends<br>• I know everyone is trying their best with limited tools<br>• I want to be held and understood</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🕯️ THE HONEST MIDDLE GROUND</span><span>PEACE</span></div><div>I don\'t have to force myself to pick one side today. I can honor my exhaustion while still maintaining my compassion.</div></div>'
+  },
+  {
+    id: 'things_left_unsaid',
+    category: 'journal',
+    badge: 'Words Kept',
+    badgeColor: 'pink',
+    icon: '💭',
+    name: 'Things Left Unsaid',
+    desc: 'The words and sentences that stayed in your throat during a conversation.',
+    font: 'handSoft',
+    previewType: 'journal',
+    tags: ['unsaid', 'conversation', 'honesty', 'feelings'],
+    defaultTitle: () => "💭 Left Unsaid — Words Kept Inside",
+    content: '<div class="note-callout pink"><div class="note-callout-hdr"><span>💭 THE MOMENT</span><span>UNSPOKEN</span></div><div><b>Who I was with:</b> [Name / Context]<br><b>What was happening:</b> The conversation we were having</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>🗣️ WHAT I ACTUALLY SAID</span><span>SURFACE</span></div><div>"It\'s fine, don\'t worry about it." / The polite, easy response I gave to keep the peace.</div></div><div class="note-callout rose"><div class="note-callout-hdr"><span>💔 WHAT STAYED IN MY THROAT</span><span>THE TRUTH</span></div><div>The three sentences I held back because I wasn\'t sure I could say them without crying, yelling, or changing everything:</div><p><br></p></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌱 WHY I AM WRITING IT DOWN NOW</span><span>RELEASE</span></div><div>Giving these words air here so they stop echoing in my chest.</div></div>'
   },
   {
     id: 'book_journal',
@@ -9012,160 +9306,441 @@ const NOTE_TEMPLATES = [
     font: 'serif',
     previewType: 'review',
     tags: ['reading', 'books', 'review'],
-    defaultTitle: () => `📖 Book Review — Title Here`,
-    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>📖 BOOK DETAILS</span><span>★★★★★ (5/5)</span></div><div><b>Title:</b> Atomic Habits</div><div><b>Author:</b> James Clear</div><div><b>Genre:</b> Non-Fiction / Psychology · <b>Pages:</b> 320</div><div><b>Status:</b> Finished · Read in 5 days</div></div><div class="note-callout quote">“You do not rise to the level of your goals. You fall to the level of your systems.”</div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 CORE TAKEAWAYS & LESSONS</span><span>🌱</span></div><div>1. Small 1% daily improvements compound into gigantic results over a year.</div><div>2. Identity-based habits: decide who you want to be, then prove it to yourself with small wins.</div><div>3. Make good habits obvious, attractive, easy, and satisfying.</div></div><div class="note-callout pink"><div class="note-callout-hdr"><span>✨ PERSONAL REFLECTION & RATING</span><span>💬</span></div><div>This book fundamentally reframed how I approach daily study routines. The emphasis on identity over mere willpower is game-changing.</div></div>`
+    defaultTitle: () => "📖 Book Review — Title Here",
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>📖 BOOK DETAILS</span><span>★★★★★ (5/5)</span></div><div><b>Title:</b> Book Title Here</div><div><b>Author:</b> Author Name</div><div><b>Genre:</b> Fiction / Non-Fiction · <b>Pages:</b> 320</div><div><b>Status:</b> Finished · Read in 5 days</div></div><div class="note-callout quote">“Insert your favorite standout quote or sentence from this book here...”</div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 CORE TAKEAWAYS & LESSONS</span><span>🌱</span></div><div>1. The core argument or perspective that shifted how I think<br>2. A character moment or passage that hit close to home<br>3. Why I would recommend this to a friend</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>✨ PERSONAL REFLECTION</span><span>💭</span></div><div>How this book made me feel, what it made me question, and what I will carry forward from it...</div></div>'
+  },
+
+  // ── B. PERSONALITY-DRIVEN WRITING PROMPTS ──
+  {
+    id: 'thought_spark_journal',
+    category: 'prompts',
+    badge: 'Thought Spark',
+    badgeColor: 'amber',
+    icon: '✨',
+    name: 'Inner Voice Thought Spark',
+    desc: 'Start with a sentence that sounds like real thoughts, and let it take you wherever it leads.',
+    font: 'caveat',
+    previewType: 'prompt',
+    tags: ['prompts', 'spark', 'inner-voice', 'freewrite'],
+    defaultTitle: () => "✨ Thought Spark — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout quote" style="border-left:4px solid var(--act);background:rgba(140,126,255,0.08);padding:14px 16px;border-radius:10px;margin-bottom:14px;"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;letter-spacing:.5px;">💭 THOUGHT SPARK</div><div style="font-size:1.15em;font-style:italic;line-height:1.55;">“I don\'t even know what I\'m upset about anymore. Everything just keeps piling up, and I\'m supposed to act normal.”</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌊 UNFILTERED EXPANSION</span><span>WHERE THIS LEADS</span></div><div>Writing directly from that sentence. What is actually sitting under the surface today?</div><p><br></p></div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 A QUIET REALIZATION</span><span>PERSPECTIVE</span></div><div>One thing I realize after writing this down that I couldn\'t see five minutes ago.</div></div>'
   },
   {
-    id: 'midnight_musings',
-    category: 'journal',
-    badge: 'Deep Musings',
+    id: 'replaying_thoughts',
+    category: 'prompts',
+    badge: 'Mental Replay',
     badgeColor: 'purple',
-    icon: '💭',
-    name: 'Midnight Musings & Thoughts',
-    desc: 'Cozy late-night reflection canvas for unfiltered thoughts and peaceful wind-down.',
-    font: 'handInk',
-    previewType: 'journal',
-    tags: ['night', 'thoughts', 'reflection'],
-    defaultTitle: () => `💭 Midnight Thoughts — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
-    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>🕯️ LATE NIGHT VIBE</span><span>11:45 PM</span></div><div>Rain tapping gently on the windowpane · Warm tea on the desk · Lofi music in the background.</div></div><div class="note-callout quote">“There is a peace in the quiet hours that the day can never offer.”</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 STREAM OF CONSCIOUSNESS</span><span>UNFILTERED</span></div><div>The world has gone quiet. When all the noise drops away, thoughts begin to stretch out. I am realizing that so much of what felt urgent earlier today does not actually matter in the big picture...</div><div><br></div><div>What matters is staying curious, giving yourself grace, and doing work you believe in.</div><div><br></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌙 A THOUGHT TO SLEEP ON</span><span>GOODNIGHT</span></div><div>"You did enough today. Let the day go, rest deeply, and begin anew tomorrow."</div></div>`
+    icon: '🔄',
+    name: 'Deconstructing a Looping Scene',
+    desc: 'For that conversation or moment that won\'t stop playing like a movie in your head.',
+    font: 'hand',
+    previewType: 'prompt',
+    tags: ['prompts', 'replay', 'looping-thoughts', 'overthinking'],
+    defaultTitle: () => "🔄 Replaying Scene — Mental Deconstruction",
+    content: '<div class="note-callout quote">“There is a version of this conversation that went completely differently in my head yesterday.”</div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎬 THE SCENE ON LOOP</span><span>THE EXACT TAPE</span></div><div>What happened, who was there, and the exact words or silence that keep replaying:</div><p><br></p></div><div class="note-callout pink"><div class="note-callout-hdr"><span>🔍 WHY MY BRAIN WON\'T DROP IT</span><span>UNDERNEATH</span></div><div>• What am I afraid this says about me?<br>• What outcome am I trying to mentally rewrite?</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌱 THE GROUNDED TRUTH</span><span>REALITY</span></div><div>What is actually true in the present moment, outside of my spiraling head.</div></div>'
   },
+  {
+    id: 'hard_to_explain',
+    category: 'prompts',
+    badge: 'Hard to Explain',
+    badgeColor: 'sky',
+    icon: '🌫️',
+    name: 'When Words Keep Failing',
+    desc: 'When you know exactly what is going on inside, but sentences feel too clumsy.',
+    font: 'handSoft',
+    previewType: 'prompt',
+    tags: ['prompts', 'unspoken', 'hard-to-explain', 'nuance'],
+    defaultTitle: () => "🌫️ Hard to Explain — Finding Words",
+    content: '<div class="note-callout quote">“I wish I could explain it without having to explain everything that led to it.”</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🎨 DESCRIBING IT WITHOUT EMOTION WORDS</span><span>METAPHOR</span></div><div>If this feeling were a weather pattern, physical sensation, or texture: (e.g. cold rain against a windshield, a radio playing two stations at once, holding a heavy cardboard box with wet hands)...</div><p><br></p></div><div class="note-callout amber"><div class="note-callout-hdr"><span>✍️ THE MESSY FIRST ATTEMPT</span><span>HONEST</span></div><div>Explaining it without worrying about whether it makes total sense to anyone else:</div><div><br></div></div>'
+  },
+  {
+    id: 'tired_of_being_understanding',
+    category: 'prompts',
+    badge: 'Raw Honesty',
+    badgeColor: 'rose',
+    icon: '🥀',
+    name: 'Tired of Being Understanding',
+    desc: 'An honest, unapologetic space for when empathy has quietly turned into exhaustion.',
+    font: 'hand',
+    previewType: 'prompt',
+    tags: ['prompts', 'boundaries', 'honesty', 'exhaustion'],
+    defaultTitle: () => "🥀 Raw Honesty — Drawing the Line",
+    content: '<div class="note-callout quote">“Honestly, I\'m tired of being understanding about things that hurt me.”</div><div class="note-callout rose"><div class="note-callout-hdr"><span>🥀 WHAT I HAVE BEEN TOLERATING</span><span>TRUTH</span></div><div>Where I have been bending over backwards to justify someone else\'s behavior at the expense of my own peace:</div><p><br></p></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🛑 THE BOUNDARY I AM SETTING</span><span>PROTECTION</span></div><div>I do not need to make a dramatic speech. I just need to quietly stop participating in what hurts me.</div></div>'
+  },
+  {
+    id: 'quiet_ordinary_day',
+    category: 'prompts',
+    badge: 'Quiet Ordinary',
+    badgeColor: 'sage',
+    icon: '🍃',
+    name: 'A Completely Ordinary Day',
+    desc: 'Low-pressure journaling for days where nothing dramatic happened and life was just quiet.',
+    font: 'clean',
+    previewType: 'prompt',
+    tags: ['prompts', 'ordinary', 'peaceful', 'routine'],
+    defaultTitle: () => "🍃 A Quiet Day — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout quote">“Nothing bad actually happened today. It was just a quiet, ordinary day, and that is enough.”</div><div class="note-callout sage"><div class="note-callout-hdr"><span>☕ 3 ORDINARY DETAILS FROM TODAY</span><span>OBSERVATIONS</span></div><div>1. The warmth of the morning cup in my hands<br>2. A sound I heard outside the window<br>3. A completely mundane task I finished quietly</div></div><div class="note-callout cream"><div class="note-callout-hdr"><span>🌱 WHY ORDINARY MATTERS</span><span>STILLNESS</span></div><div>Not every page needs a plot twist. Sometimes peace is just the absence of urgency.</div></div>'
+  },
+
+  // ── C. SCENES, FRAGMENTS & CREATIVE WRITING ──
+  {
+    id: 'scene_in_my_head',
+    category: 'creative',
+    badge: 'Scene Capture',
+    badgeColor: 'purple',
+    icon: '🎬',
+    name: 'A Scene in My Head',
+    desc: 'Paint a vivid scene replaying in your imagination without worrying about a plot.',
+    font: 'serif',
+    previewType: 'creative',
+    tags: ['creative', 'scene', 'fiction', 'imagery'],
+    defaultTitle: () => "🎬 Scene — Untitled Moment",
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>🎬 SCENE SETTING & ATMOSPHERE</span><span>LIGHT & TEXTURE</span></div><div><b>Setting:</b> The diner booth at 2 AM, the empty platform under yellow fluorescent lights, the gravel road...<br><b>Light & Sound:</b> Slanted rain, buzzing neon, low hum of traffic</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🎭 THE ACTION & UNSPOKEN TENSION</span><span>WHAT HAPPENS</span></div><div>Describe what is occurring. The small gestures—fingers tapping a paper cup, eyes looking at a wristwatch, silence stretched between two people:</div><p><br></p></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🎞️ THE LINGERING FINAL FRAME</span><span>EXIT</span></div><div>The image the camera leaves behind as the scene fades out...</div></div>'
+  },
+  {
+    id: 'imagined_conversation',
+    category: 'creative',
+    badge: 'Dialogue Script',
+    badgeColor: 'sky',
+    icon: '💬',
+    name: 'The Imagined Conversation',
+    desc: 'Dialogue script between two people: what was said, what was meant, and the subtext.',
+    font: 'hand',
+    previewType: 'creative',
+    tags: ['creative', 'dialogue', 'script', 'character'],
+    defaultTitle: () => "💬 Dialogue — An Imagined Talk",
+    content: '<div class="note-callout sky"><div class="note-callout-hdr"><span>💬 PARTICIPANTS & SETTING</span><span>CONTEXT</span></div><div><b>Characters:</b> Person A & Person B<br><b>Location:</b> Inside a parked car while it rains outside</div></div><div class="note-callout quote"><b>A:</b> “Are you actually listening, or just waiting for your turn to talk?”<br><br><b>B:</b> “I’m listening. I just don’t know what you want me to say to that.”<br><br><b>A:</b> “Say what you actually mean for once.”</div><div class="note-callout lavender"><div class="note-callout-hdr"><span>💭 SUBTEXT & UNFINISHED THOUGHTS</span><span>UNDERNEATH</span></div><div>What neither of them would admit out loud while the wipers clicked back and forth...</div></div>'
+  },
+  {
+    id: 'sensory_moment',
+    category: 'creative',
+    badge: 'Sensory Study',
+    badgeColor: 'sage',
+    icon: '🌿',
+    name: 'Sensory Atmosphere Study',
+    desc: 'Capture a single moment through all 5 senses: sound, light, temperature, texture, scent.',
+    font: 'serif',
+    previewType: 'creative',
+    tags: ['creative', 'sensory', 'atmosphere', 'description'],
+    defaultTitle: () => "🌿 Sensory Study — Atmosphere",
+    content: '<div class="note-callout sage"><div class="note-callout-hdr"><span>👁️ SIGHT & LIGHT</span><span>VISUAL</span></div><div>Angles of golden light on wooden floorboards, long dust motes suspended in stillness...</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>👂 SOUND & SILENCE</span><span>AUDIO</span></div><div>The refrigerator hum, distant tires hissing on wet asphalt, clock ticking in the hallway...</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>✋ TOUCH & TEMPERATURE</span><span>TACTILE</span></div><div>Cold porcelain against fingertips, coarse wool blanket pulled up to the collarbone...</div></div><div class="note-callout pink"><div class="note-callout-hdr"><span>👃 SCENT & MEMORY</span><span>ATMOSPHERE</span></div><div>Old paperbacks, crushed rosemary, damp cedar smoke from a chimney nearby...</div></div>'
+  },
+  {
+    id: 'character_monologue',
+    category: 'creative',
+    badge: 'Interior Voice',
+    badgeColor: 'amber',
+    icon: '🎭',
+    name: 'Character Internal Monologue',
+    desc: 'The private contradictions, secrets, and unfiltered speech of a character.',
+    font: 'caveat',
+    previewType: 'creative',
+    tags: ['creative', 'character', 'monologue', 'voice'],
+    defaultTitle: () => "🎭 Monologue — Character Voice",
+    content: '<div class="note-callout amber"><div class="note-callout-hdr"><span>🎭 CHARACTER & IMMEDIATE SITUATION</span><span>PROFILE</span></div><div><b>Name:</b> [Character Name]<br><b>What they are pretending to do:</b> Sitting at the dinner table smiling<br><b>What they are actually terrified of:</b> Being found out</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>💭 UNFILTERED INTERNAL STREAM</span><span>WHAT THEY REALLY THINK</span></div><div>Write in first person. Let their contradictions, jealousies, dry humor, and genuine vulnerabilities show through without authorial judgment...</div><p><br></p></div>'
+  },
+  {
+    id: 'dialogue_fragments',
+    category: 'creative',
+    badge: 'Overheard Lines',
+    badgeColor: 'pink',
+    icon: '✂️',
+    name: 'Dialogue Fragments & Snippets',
+    desc: 'A notebook page for overheard snippets, striking lines from strangers, and quips worth keeping.',
+    font: 'architect',
+    previewType: 'creative',
+    tags: ['creative', 'dialogue', 'overheard', 'snippets'],
+    defaultTitle: () => "✂️ Overheard Snippets & Dialogue",
+    content: '<div class="note-callout pink"><div class="note-callout-hdr"><span>✂️ OVERHEARD #1</span><span>BUS STOP / 05:40 PM</span></div><div>“You can’t stay mad at someone for being who they’ve always been.”</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>✂️ OVERHEARD #2</span><span>COFFEE COUNTER</span></div><div>“I liked him better when I didn’t know what he thought about everything.”</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>✂️ OVERHEARD #3</span><span>SUBWAY / TRAIN CAR</span></div><div>“We spent two years building a house out of apologies.”</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌱 STORY SEEDS</span><span>IDEAS</span></div><div>Notes on which line could become a full scene or story later...</div></div>'
+  },
+  {
+    id: 'story_fragment',
+    category: 'creative',
+    badge: 'Story Seed',
+    badgeColor: 'cream',
+    icon: '📜',
+    name: 'Story Fragment Without an Ending',
+    desc: 'Write a compelling beginning or middle without any pressure to wrap it up.',
+    font: 'serif',
+    previewType: 'creative',
+    tags: ['creative', 'story', 'fiction', 'fragments'],
+    defaultTitle: () => "📜 Story Fragment — Untitled",
+    content: '<div class="note-callout quote">“The key had been taped to the underside of the kitchen table for three years before anyone thought to look for it.”</div><div class="note-callout cream"><div class="note-callout-hdr"><span>📜 THE UNFOLDING PASSAGE</span><span>NO ENDING REQUIRED</span></div><div>Continue writing without worrying where the plot needs to go. Just follow the rhythm of the language and let the characters make interesting mistakes...</div><p><br></p></div><div class="note-callout lavender"><div class="note-callout-hdr"><span>💡 UNFINISHED THREADS TO REVISIT</span><span>NOTES</span></div><div>• What was inside the locked wooden chest?<br>• The sister\'s reaction when she returns</div></div>'
+  },
+  {
+    id: 'one_liners_collection',
+    category: 'creative',
+    badge: 'Fragment Vault',
+    badgeColor: 'lavender',
+    icon: '📌',
+    name: 'One-Liners & Resonant Sentences',
+    desc: 'A digital scrapbook for beautiful lines, metaphors, and sentences that don\'t have a home yet.',
+    font: 'handSoft',
+    previewType: 'creative',
+    tags: ['creative', 'one-liners', 'quotes', 'metaphors'],
+    defaultTitle: () => "📌 Resonant Sentences Vault",
+    content: '<div class="note-callout lavender"><div class="note-callout-hdr"><span>📌 FRAGMENT #1</span><span>METAPHOR</span></div><div style="font-size:1.1em;font-style:italic;">“Some people enter a room like a weather system; you adjust your coat before you even realize why.”</div></div><div class="note-callout pink"><div class="note-callout-hdr"><span>📌 FRAGMENT #2</span><span>OBSERVATION</span></div><div style="font-size:1.1em;font-style:italic;">“The kitchen clock didn\'t tick so much as swallow seconds one by one.”</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📌 FRAGMENT #3</span><span>ADMISSION</span></div><div style="font-size:1.1em;font-style:italic;">“I didn\'t want to win the argument. I just wanted you to see where it bruised.”</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>📌 FRAGMENT #4</span><span>ATMOSPHERE</span></div><div style="font-size:1.1em;font-style:italic;">“The sky looked like bruised plums fading into charcoal.”</div></div>'
+  },
+
+  // ── D. STUDY & LEARNING ──
   {
     id: 'cornell_notes',
     category: 'study',
     badge: 'Cornell Method',
-    badgeColor: 'sky',
+    badgeColor: 'purple',
     icon: '🎓',
     name: 'Cornell Study Notes',
-    desc: 'Academic gold-standard 2-column split for cues, lecture notes & summary takeaways.',
+    desc: 'The gold standard for academic retention: 2-column cues and notes with bottom summary.',
     font: 'clean',
     previewType: 'cornell',
-    tags: ['study', 'cornell', 'lecture'],
-    defaultTitle: () => `🎓 Cornell Notes — Topic Here`,
-    content: `<div class="note-callout sky"><div class="note-callout-hdr"><span>🎓 TOPIC & COURSE INFO</span><span>CORNELL METHOD</span></div><div><b>Course:</b> Physics / Classical Mechanics</div><div><b>Topic:</b> Conservation of Angular Momentum</div><div><b>Date:</b> ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} · <b>Lecturer:</b> Dr. Harris</div></div><div class="note-cornell-grid"><div class="note-cornell-cue"><span class="note-tpl-badge purple">CUES / QUESTIONS</span><div>• What is L?</div><div><br></div><div>• Condition for conservation?</div><div><br></div><div>• Figure skater example?</div><div><br></div><div>• Potential exam question?</div></div><div class="note-cornell-notes"><span class="note-tpl-badge sky">LECTURE & STUDY NOTES</span><div><b>Angular Momentum:</b> L = I · ω (Moment of Inertia × Angular Velocity)</div><div><br></div><div><b>Conservation Law:</b> When net external torque τ = 0, the total angular momentum of the system remains strictly constant over time: dL/dt = 0.</div><div><br></div><div><b>Example:</b> Figure skater pulls arms in → I decreases → to keep L constant, ω must increase proportionally!</div></div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📌 SUMMARY & SYNTHESIS</span><span>TAKEAWAYS</span></div><div>Angular momentum L is conserved whenever external torque is zero. Decreasing moment of inertia accelerates rotation speed proportionally. Always check if external torque is present before applying conservation!</div></div>`
+    tags: ['study', 'cornell', 'lecture', 'academic'],
+    defaultTitle: () => "🎓 Cornell — Subject & Chapter",
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>🎓 CORNELL NOTES</span><span>LECTURE METADATA</span></div><div><b>Subject:</b> Biochemistry / Organic Chemistry · <b>Date:</b> ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '<br><b>Topic:</b> Enzyme Kinetics & Allosteric Regulation</div></div><div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="true" style="border-color:rgba(140,126,255,0.3);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;">❓ CUES & KEYWORDS</div>• Km value meaning?<br>• Vmax definition<br>• Competitive vs Non-competitive inhibition<br>• Lineweaver-Burk plot slope?</div><div class="study-col-card" contenteditable="true" style="border-color:rgba(255,255,255,0.15);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--t1);margin-bottom:6px;">📝 MAIN CLASS NOTES</div>• <b>Km:</b> Substrate concentration at 1/2 Vmax. Measures affinity (inverse).<br>• <b>Competitive:</b> Binds active site; increases Km, Vmax unchanged.<br>• <b>Non-competitive:</b> Binds allosteric site; Km unchanged, decreases Vmax.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 SUMMARY & ACTIVE RECALL SYNTHESIS</span><span>CORE ESSENCE</span></div><div>Km represents substrate affinity (lower = tighter binding). Competitive inhibitors fight for the active site and can be outcompeted with more substrate, whereas non-competitive inhibitors shut down catalytic machinery regardless of substrate abundance.</div></div>'
   },
   {
-    id: 'exam_cram',
+    id: 'lecture_notes',
     category: 'study',
-    badge: 'Exam Revision',
-    badgeColor: 'pink',
-    icon: '🎯',
-    name: 'Exam Cram & Active Recall',
-    desc: 'High-yield checklist, active recall Q&A sprint, and common traps warning alert.',
-    font: 'clean',
-    previewType: 'checklist',
-    tags: ['exam', 'revision', 'activerecall'],
-    defaultTitle: () => `🎯 Exam Revision — Subject Here`,
-    content: `<div class="note-callout pink"><div class="note-callout-hdr"><span>🎯 EXAM TARGET & COUNTDOWN</span><span>HIGH YIELD</span></div><div><b>Subject:</b> Calculus & Linear Algebra</div><div><b>Target Score:</b> 95%+ · <b>Confidence:</b> 🟡 Reviewing Key Concepts</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🔥 HIGH-YIELD CONCEPTS (MUST MASTER)</span><span>EXAM ESSENTIALS</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Eigenvalues and Eigenvectors: det(A - λI) = 0</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Integration by Parts: ∫u dv = uv - ∫v du</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Taylor Series Expansion about x = a</span></div></div></div><div class="note-callout warn"><div class="note-callout-hdr"><span>⚠️ COMMON TRAPS & TRICK QUESTIONS</span><span>WATCH OUT</span></div><div>• Do not forget the constant of integration (+ C) on indefinite integrals!</div><div>• When dividing by (A - λI), verify that the matrix determinant is non-zero.</div><div>• Remember the chain rule on composite functions like sin(x²).</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>❓ ACTIVE RECALL SPRINT (TEST YOURSELF)</span><span>ACTIVE RECALL</span></div><div>1. <i>Q: What is the geometric meaning of the determinant of a 3×3 matrix?</i><br>→ Answer: The signed volume scaling factor of the parallelepiped.</div><div><br></div><div>2. <i>Q: State the Fundamental Theorem of Calculus.</i><br>→ Answer: If F'(x) = f(x), then ∫ₐᵇ f(x) dx = F(b) - F(a).</div></div>`
-  },
-  {
-    id: 'feynman_technique',
-    category: 'study',
-    badge: 'Feynman Method',
-    badgeColor: 'purple',
-    icon: '💡',
-    name: 'Concept Deep Dive (Feynman)',
-    desc: 'Master any complex topic: 10-year-old explanation, core analogy & knowledge gaps.',
-    font: 'book',
-    previewType: 'journal',
-    tags: ['study', 'feynman', 'deepdive'],
-    defaultTitle: () => `💡 Feynman Deep Dive — Topic Here`,
-    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>💡 TARGET CONCEPT</span><span>FEYNMAN METHOD</span></div><div><b>Concept:</b> Blockchain & Distributed Ledger Technology</div><div><b>One-Sentence Definition:</b> A tamper-proof chain of cryptographic records verified by a consensus network rather than a central bank.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>👶 STEP 1: EXPLAIN TO A 10-YEAR-OLD</span><span>SIMPLE ENGLISH</span></div><div>Imagine a classroom notebook where everyone writes down who gave lunch money to whom. Every student holds an exact twin copy. If one kid tries to secretly erase a line in their own book, all the other 29 books prove they are cheating!</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🧩 STEP 2: THE CORE ANALOGY</span><span>MENTAL MODEL</span></div><div>It is like a group chat where messages cannot ever be edited or deleted once sent, and every phone in the room keeps an identical certified record.</div></div><div class="note-callout warn"><div class="note-callout-hdr"><span>🔍 STEP 3: IDENTIFY KNOWLEDGE GAPS</span><span>TO RE-STUDY</span></div><div>• Review how Proof-of-Work prevents double-spending mathematically.</div><div>• Re-check how public/private cryptographic keys pair together.</div></div>`
-  },
-  {
-    id: 'weekly_reset',
-    category: 'planning',
-    badge: 'Weekly Reset',
-    badgeColor: 'sage',
-    icon: '🌿',
-    name: 'Weekly Reset & Habit Matrix',
-    desc: 'Mon–Sun interactive habit tracker matrix, weekly wins, and top 3 goals.',
-    font: 'modern',
-    previewType: 'habit',
-    tags: ['planning', 'habits', 'weekly'],
-    defaultTitle: () => `🌿 Weekly Reset — Week of ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
-    content: `<div class="note-callout amber"><div class="note-callout-hdr"><span>🌿 WEEKLY THEME & INTENTION</span><span>WEEK RESET</span></div><div><b>Weekly Focus:</b> Consistent deep work & mindful nutrition</div><div><b>Affirmation:</b> Small daily progress compounds into life-changing mastery.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📊 WEEKLY HABIT MATRIX</span><span>MON – SUN</span></div><table class="note-habit-table" contenteditable="false"><tr><th class="note-habit-th" style="text-align:left;">HABIT</th><th class="note-habit-th">M</th><th class="note-habit-th">T</th><th class="note-habit-th">W</th><th class="note-habit-th">T</th><th class="note-habit-th">F</th><th class="note-habit-th">S</th><th class="note-habit-th">S</th></tr><tr><td class="note-habit-td-name">💧 Hydrate 2L</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">📚 Study 2h</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">🏃 30m Movement</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">🧘 Unplug 10pm</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr></table></div><div class="note-callout sky"><div class="note-callout-hdr"><span>🎯 NEXT WEEK'S TOP 3 GOALS</span><span>TARGETS</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Complete 2 full practice mock test papers</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Consolidate summary flashcards for chemistry</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Take Sunday afternoon off for a refreshing nature walk</span></div></div></div>`
-  },
-  {
-    id: 'daily_planner',
-    category: 'planning',
-    badge: 'Daily Planner',
-    badgeColor: 'purple',
-    icon: '📅',
-    name: 'Daily Time-Block & Priorities',
-    desc: 'Canva-style daily planner with top 3 non-negotiables, time blocks & inbox.',
-    font: 'clean',
-    previewType: 'planner',
-    tags: ['planner', 'daily', 'productivity'],
-    defaultTitle: () => `📅 Daily Plan — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
-    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>⚡ TOP 3 NON-NEGOTIABLES TODAY</span><span>PRIORITY</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Revise organic chemistry reaction pathways</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Submit lab report draft</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">45 minutes active movement & stretching</span></div></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>⏰ TIME BLOCKS SCHEDULE</span><span>FOCUS</span></div><div><b>🌅 08:00 – 11:30 | Deep Work Block</b><br>• High-cognitive study session & problem solving</div><div><br></div><div><b>☀️ 12:30 – 16:30 | Classes & Labs</b><br>• Attend lectures, take Cornell notes, lab work</div><div><br></div><div><b>🌙 18:00 – 21:00 | Review & Practice</b><br>• Flashcard review, exercise, dinner & relaxation</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📥 QUICK INBOX & REMINDERS</span><span>NOTES</span></div><div>• Email professor regarding question #4</div><div>• Pick up stationery on the way home</div></div>`
-  },
-  {
-    id: 'project_canvas',
-    category: 'planning',
-    badge: 'Project Sprint',
+    badge: 'Live Lecture',
     badgeColor: 'sky',
-    icon: '🚀',
-    name: 'Project & Assignment Sprint',
-    desc: 'Deliverables checklist, phased timeline milestones & citation references.',
+    icon: '🎙️',
+    name: 'Live Lecture & Active Capture',
+    desc: 'Fast, clean lecture notes: Core Thesis, main lecture points with timestamps, and questions.',
     font: 'clean',
-    previewType: 'checklist',
-    tags: ['project', 'assignment', 'sprint'],
-    defaultTitle: () => `🚀 Project Sprint — Title Here`,
-    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>🚀 PROJECT BRIEF</span><span>SPRINT CANVAS</span></div><div><b>Project Name:</b> AI-Powered Calverse Notes Redesign</div><div><b>Due Date:</b> November 15, 2026 · <b>Weight:</b> 35% of Final Grade</div><div><b>Key Objective:</b> Design and ship responsive aesthetic journal & study templates.</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📋 DELIVERABLES CHECKLIST</span><span>RUBRIC</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">User research & Pinterest aesthetic benchmark review</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Frontend template modal & responsive grid layouts</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Light & dark theme glassmorphism styling</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Deploy and run cross-browser verification tests</span></div></div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>⏳ MILESTONE TIMELINE</span><span>STAGES</span></div><div>• <b>Phase 1 (Week 1):</b> Requirements, mood board & wireframes</div><div>• <b>Phase 2 (Week 2):</b> Implementation & interactive checklist bindings</div><div>• <b>Phase 3 (Week 3):</b> Final polish, documentation & submission</div></div>`
+    previewType: 'study',
+    tags: ['study', 'lecture', 'college', 'notes'],
+    defaultTitle: () => "🎙️ Lecture — Topic & Speaker",
+    content: '<div class="note-callout sky"><div class="note-callout-hdr"><span>🎙️ LECTURE DETAILS</span><span>LIVE CAPTURE</span></div><div><b>Course:</b> Neurobiology 201<br><b>Lecturer:</b> Prof. Henderson · <b>Date:</b> ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>⚡ CORE THESIS OF TODAY\'S CLASS</span><span>BIG IDEA</span></div><div>Synaptic plasticity is not just chemical strengthening; it requires structural dendritic spine remodeling within 45 minutes of stimulation.</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>📝 TIMESTAMPS & RUNNING NOTES</span><span>STRUCTURED</span></div><div>• <b>[10:15]</b> Calcium influx triggers CaMKII autophosphorylation.<br>• <b>[10:32]</b> AMPA receptor insertion into postsynaptic density.<br>• <b>[10:50]</b> Retrograde signaling via nitric oxide to presynaptic terminal.</div></div><div class="note-callout rose"><div class="note-callout-hdr"><span>❓ QUESTIONS TO ASK IN OFFICE HOURS</span><span>CLARIFY</span></div><div>• Does long-term depression (LTD) require protein synthesis or just endocytosis?</div></div>'
   },
   {
-    id: 'formula_cheatsheet',
-    category: 'stem',
-    badge: 'Formula Sheet',
+    id: 'concept_deepdive',
+    category: 'study',
+    badge: 'Feynman Model',
+    badgeColor: 'amber',
+    icon: '💡',
+    name: 'Concept Deep Dive (Feynman Technique)',
+    desc: 'Explain a complex topic in simple language as if teaching a beginner to expose knowledge gaps.',
+    font: 'clean',
+    previewType: 'study',
+    tags: ['study', 'feynman', 'active-recall', 'mental-models'],
+    defaultTitle: () => "💡 Concept — Feynman Technique",
+    content: '<div class="note-callout amber"><div class="note-callout-hdr"><span>💡 TARGET CONCEPT</span><span>FORMAL DEFINITION</span></div><div style="font-size:1.1em;font-weight:700;">Concept: The Fourier Transform</div><div>Mathematical operation decomposing a waveform into its constituent sinusoidal frequency components.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🧒 THE 10-YEAR-OLD EXPLANATION (NO JARGON)</span><span>ANALOGY</span></div><div>Imagine drinking a smoothie made of strawberry, banana, and kiwi. A Fourier Transform is like a magic machine that separates the smoothie back into a pile of strawberries, bananas, and kiwis so you can see exactly how much of each fruit was in the glass.</div></div><div class="note-callout pink"><div class="note-callout-hdr"><span>🔍 WHERE MY EXPLANATION BROKE DOWN</span><span>KNOWLEDGE GAPS</span></div><div>• I struggled to explain why complex exponential numbers (e^(iωt)) are needed instead of just sine waves.<br>• Need to review Euler\'s formula connection!</div></div>'
+  },
+  {
+    id: 'formula_breakdown',
+    category: 'study',
+    badge: 'STEM Formula',
     badgeColor: 'sky',
     icon: '📐',
-    name: 'STEM Formula & Cheat Sheet',
-    desc: 'High-contrast formula box, SI units breakdown table, worked example & pro-tip.',
-    font: 'mono',
-    previewType: 'formula',
-    tags: ['stem', 'physics', 'math', 'formula'],
-    defaultTitle: () => `📐 Formula Sheet — Topic Here`,
-    content: `<div class="note-callout formula"><div class="note-callout-hdr" style="color:#d8d0ff;"><span>📐 KEY FORMULA SHOWCASE</span><span>PHYSICS / ENERGETICS</span></div><div style="font-size:22px;font-weight:900;text-align:center;letter-spacing:1px;padding:8px 0;color:#9df3ff;font-family:'Cambria Math','Georgia',monospace;">W = ∫ F · dr = ΔK = ½ m(v₂² - v₁²)</div><div style="text-align:center;font-size:12px;color:rgba(255,255,255,.6);">Work-Energy Theorem: Total work done equals change in kinetic energy.</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📊 VARIABLES & SI UNITS</span><span>BREAKDOWN</span></div><div>• <b>W:</b> Work done (Joules, J = N·m = kg·m²/s²)</div><div>• <b>F:</b> Net force vector applied (Newtons, N)</div><div>• <b>m:</b> Mass of object (Kilograms, kg)</div><div>• <b>v:</b> Velocity of object (Meters per second, m/s)</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📝 WORKED PROBLEM & SOLUTION</span><span>EXAMPLE</span></div><div><b>Problem:</b> A 1200 kg car accelerates from 10 m/s to 25 m/s. Find work done.</div><div><br></div><div><b>Step 1:</b> Initial kinetic energy K₁ = ½(1200)(10)² = 60,000 J</div><div><b>Step 2:</b> Final kinetic energy K₂ = ½(1200)(25)² = 375,000 J</div><div><b>Step 3:</b> Work W = K₂ - K₁ = 375,000 - 60,000 = <b>315,000 J (315 kJ)</b></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>⚡ PRO-TIP & EXAM SHORTCUT</span><span>REMEMBER</span></div><div>If net force is perpendicular to displacement (like uniform circular motion), W = 0 J because cos(90°) = 0. No work is done!</div></div>`
+    name: 'STEM Formula & Equation Dissection',
+    desc: 'Mathematical equation breakdown: formula display, variable definitions, units, and derivation.',
+    font: 'architect',
+    previewType: 'stem',
+    tags: ['stem', 'math', 'physics', 'formulas'],
+    defaultTitle: () => "📐 Formula — Name & Equation",
+    content: '<div class="study-formula-card" contenteditable="false"><div class="study-formula-title">PHYSICS / THERMODYNAMICS LAW</div><div class="study-formula-equation" contenteditable="true">ΔG = ΔH - TΔS</div><div class="study-formula-sub" contenteditable="true">Gibbs Free Energy = Change in Enthalpy - (Temperature × Change in Entropy)</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📊 VARIABLES & UNITS TABLE</span><span>DEFINITIONS</span></div><div>• <b>ΔG:</b> Change in free energy (kJ/mol) — Negative means spontaneous!<br>• <b>ΔH:</b> Change in enthalpy (kJ/mol) — Negative means exothermic.<br>• <b>T:</b> Absolute temperature in Kelvin (K). Must NOT be Celsius!<br>• <b>ΔS:</b> Change in entropy (J/mol·K). WATCH OUT: Convert J to kJ!</div></div><div class="note-callout rose"><div class="note-callout-hdr"><span>⚠️ COMMON EXAM TRAPS</span><span>PITFALLS</span></div><div>1. Forgetting to divide ΔS by 1000 before subtracting from ΔH.<br>2. Temperature must always be in Kelvin (add 273.15).</div></div>'
+  },
+  {
+    id: 'worked_example',
+    category: 'study',
+    badge: 'Step-by-Step',
+    badgeColor: 'sage',
+    icon: '🔢',
+    name: 'Step-by-Step Worked Problem',
+    desc: 'STEM problem solving: Given variables, theorem strategy, step-by-step algebra, and check.',
+    font: 'architect',
+    previewType: 'stem',
+    tags: ['stem', 'problems', 'worked-example', 'math'],
+    defaultTitle: () => "🔢 Worked Problem — Topic & Number",
+    content: '<div class="note-callout amber"><div class="note-callout-hdr"><span>❓ PROBLEM STATEMENT & GIVEN VALUES</span><span>SETUP</span></div><div>A 2.5 kg projectile is fired at an angle of 30° above horizontal with an initial velocity of 40 m/s from a height of 15 m. Find the total flight time.<br><br><b>Given:</b> m = 2.5 kg, v₀ = 40 m/s, θ = 30°, y₀ = 15 m, g = 9.8 m/s²</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 STRATEGY & THEOREMS</span><span>ROADMAP</span></div><div>Resolve v₀ into vertical and horizontal components. Use kinematic equation for vertical position: y(t) = y₀ + v₀y·t - (1/2)g·t²</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>🔢 STEP-BY-STEP ALGEBRA</span><span>EXECUTION</span></div><div>1. v₀y = 40 · sin(30°) = 20.0 m/s<br>2. 0 = 15 + 20t - 4.9t²<br>3. 4.9t² - 20t - 15 = 0<br>4. Quadratic formula: t = [20 ± √(400 - 4(4.9)(-15))] / (2 · 4.9)<br>5. t = [20 + √(400 + 294)] / 9.8 = [20 + 26.34] / 9.8 = <b>4.73 seconds</b></div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>✅ SANITY CHECK</span><span>VERIFY</span></div><div>At t=2s, projectile reaches apex (v_y=0). Takes ~2.7s to drop 35m from apex. Total ~4.7s is physically realistic.</div></div>'
+  },
+  {
+    id: 'mistakes_misconceptions',
+    category: 'study',
+    badge: 'Error Analysis',
+    badgeColor: 'rose',
+    icon: '⚠️',
+    name: 'Mistakes & Misconceptions Log',
+    desc: 'Turn wrong answers into mastery: What I thought, what was true, and the rule to remember.',
+    font: 'clean',
+    previewType: 'study',
+    tags: ['study', 'mistakes', 'exam-prep', 'active-learning'],
+    defaultTitle: () => "⚠️ Mistake Analysis — Exam Review",
+    content: '<div class="note-callout rose"><div class="note-callout-hdr"><span>❌ THE MISSED QUESTION</span><span>WHAT HAPPENED</span></div><div>Question #14 on Midterm 2: "Calculate the pH of a 10⁻⁸ M HCl solution."<br><b>My wrong answer:</b> pH = 8 (Basic, which makes no sense for an acid!)</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🧠 MY FAULTY LOGIC (WHY I PICKED IT)</span><span>MISCONCEPTION</span></div><div>I simply took -log(10⁻⁸) without considering that water naturally dissociates into 10⁻⁷ M H⁺. At extremely low acid concentrations, water\'s autoionization dominates!</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>✅ THE CORRECT REASONING</span><span>MASTERY</span></div><div>Total [H⁺] = [H⁺]_HCl + [H⁺]_H₂O ≈ 10⁻⁸ + 10⁻⁷ = 1.1 × 10⁻⁷ M.<br>pH = -log(1.1 × 10⁻⁷) ≈ <b>6.96</b> (very slightly acidic, which is physically sound).</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🌟 THE GOLDEN RULE TO NEVER FORGET</span><span>IMPRINT</span></div><div>"An acid solution can NEVER have a pH greater than 7 at 25°C, no matter how dilute."</div></div>'
+  },
+  {
+    id: 'active_recall_cram',
+    category: 'study',
+    badge: 'Active Recall',
+    badgeColor: 'pink',
+    icon: '⚡',
+    name: 'Active Recall & Revision Sheet',
+    desc: 'Self-testing quiz cards: Question prompt, blur/click to reveal answer, confidence rating.',
+    font: 'clean',
+    previewType: 'study',
+    tags: ['study', 'flashcards', 'active-recall', 'exam'],
+    defaultTitle: () => "⚡ Active Recall — Topic",
+    content: '<div class="note-callout pink"><div class="note-callout-hdr"><span>⚡ ACTIVE RECALL TESTING SHEET</span><span>COVER & TEST</span></div><div>Do NOT read passively. Read the question, formulate the answer in your head or on scratch paper, then tap the blurred answer box to verify.</div></div><div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">QUESTION 1 · ANATOMY</div><div class="study-box-body" contenteditable="true"><b>Q: Which cranial nerve is responsible for sensory innervation to the face?</b><br><br><span style="filter:blur(5px);background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px;cursor:pointer;" onclick="this.style.filter=\'none\'">Answer: Cranial Nerve V (Trigeminal Nerve)</span></div></div><div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">QUESTION 2 · PHYSIOLOGY</div><div class="study-box-body" contenteditable="true"><b>Q: What triggers neurotransmitter vesicle exocytosis at the axon terminal?</b><br><br><span style="filter:blur(5px);background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px;cursor:pointer;" onclick="this.style.filter=\'none\'">Answer: Voltage-gated Calcium (Ca²⁺) channel influx</span></div></div>'
+  },
+  {
+    id: 'chapter_summary',
+    category: 'study',
+    badge: 'Chapter Synthesis',
+    badgeColor: 'cream',
+    icon: '📚',
+    name: 'Chapter Synthesis & Key Takeaways',
+    desc: 'High-level textbook chapter summary: Core argument, 3 main themes, glossary, and review.',
+    font: 'serif',
+    previewType: 'study',
+    tags: ['study', 'textbook', 'chapter', 'summary'],
+    defaultTitle: () => "📚 Chapter Summary — Textbook Name",
+    content: '<div class="note-callout cream"><div class="note-callout-hdr"><span>📚 TEXTBOOK & CHAPTER INFO</span><span>SYNTHESIS</span></div><div><b>Textbook:</b> Principles of Neural Science<br><b>Chapter 12:</b> Synaptic Transmission & Neurotransmitters</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 THE AUTHOR\'S CENTRAL ARGUMENT</span><span>BIG PICTURE</span></div><div>Synapses are not static copper wires; they are dynamic, biochemically rich computational nodes that actively filter and weight signal transmission.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 3 KEY EVIDENCE PILLARS</span><span>FOUNDATIONS</span></div><div>1. Spatial vs Temporal summation of EPSPs and IPSPs<br>2. Ionotropic (fast) vs Metabotropic (slow/G-protein) receptor pathways<br>3. Synaptic depression via vesicle depletion under high-frequency firing</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>📖 CRITICAL GLOSSARY</span><span>TERMS</span></div><div>• <b>Quantal release:</b> Neurotransmitter released in discrete packets.<br>• <b>SNARE complex:</b> Synaptobrevin + Syntaxin + SNAP-25 fusion machinery.</div></div>'
   },
   {
     id: 'lab_report',
-    category: 'stem',
-    badge: 'Lab Journal',
-    badgeColor: 'sage',
-    icon: '🔬',
+    category: 'study',
+    badge: 'Lab Report',
+    badgeColor: 'purple',
+    icon: '🧪',
     name: 'Lab Experiment & Investigation',
-    desc: 'Full lab journal: apparatus list, observation data table & error analysis.',
-    font: 'modern',
-    previewType: 'formula',
-    tags: ['stem', 'lab', 'experiment'],
-    defaultTitle: () => `🔬 Lab Report — Experiment Title`,
-    content: `<div class="note-callout sky"><div class="note-callout-hdr"><span>🔬 EXPERIMENT OVERVIEW</span><span>LAB JOURNAL</span></div><div><b>Experiment:</b> Determination of Acceleration Due to Gravity (g) via Simple Pendulum</div><div><b>Date:</b> ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} · <b>Partner:</b> Alex Chen</div><div><b>Objective:</b> Measure period T for various lengths L and deduce g from T = 2π√(L/g).</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🧪 APPARATUS & SETUP</span><span>EQUIPMENT</span></div><div>• Metallic bob, non-elastic thread, vernier caliper, digital stopwatch (±0.01s), meter rod.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📊 OBSERVATIONS & DATA TABLE</span><span>MEASUREMENTS</span></div><div>• Length L₁ = 0.50 m → Mean time for 20 oscillations: 28.32 s → T₁ = 1.416 s</div><div>• Length L₂ = 0.70 m → Mean time for 20 oscillations: 33.56 s → T₂ = 1.678 s</div><div>• Length L₃ = 0.90 m → Mean time for 20 oscillations: 38.08 s → T₃ = 1.904 s</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>✅ CONCLUSION & ERROR ANALYSIS</span><span>RESULTS</span></div><div><b>Calculated g:</b> 9.78 m/s² (Theoretical: 9.81 m/s², Error: 0.31%). Primary source of error: air drag and reaction time on stopwatch.</div></div>`
+    desc: 'Scientific lab write-up: hypothesis, equipment, procedure, data table & conclusion.',
+    font: 'clean',
+    previewType: 'stem',
+    tags: ['stem', 'lab', 'experiment', 'science'],
+    defaultTitle: () => "🧪 Lab Report — Experiment Title",
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>🧪 EXPERIMENT DETAILS</span><span>INVESTIGATION</span></div><div><b>Lab Title:</b> Spectrophotometric Determination of Reaction Rates<br><b>Date:</b> ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' · <b>Lab Partner:</b> Partner Name</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🔬 HYPOTHESIS & OBJECTIVE</span><span>PREDICTION</span></div><div>If substrate concentration doubles, initial reaction velocity will increase proportionally until enzyme saturation is reached at [S] > 15 mM.</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📊 DATA & OBSERVATIONS</span><span>RESULTS</span></div><div>• Trial 1 (5 mM): Absorbance 0.142 at 420nm<br>• Trial 2 (10 mM): Absorbance 0.284 at 420nm<br>• Trial 3 (20 mM): Absorbance 0.410 at 420nm (approaching Vmax)</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌱 CONCLUSION & SOURCES OF ERROR</span><span>DISCUSSION</span></div><div>Data supports first-order kinetics at low concentrations transitioning into zero-order at saturation. Main source of error: temperature fluctuations in cuvette holder (±1.5°C).</div></div>'
+  },
+
+  // ── E. PLANNING & ORGANISATION ──
+  {
+    id: 'simple_daily_plan',
+    category: 'planning',
+    badge: 'Simple Daily',
+    badgeColor: 'amber',
+    icon: '☀️',
+    name: 'Minimalist Daily Flow',
+    desc: 'A peaceful, non-overwhelming day plan: Top 3 Must-Dos, Morning/Afternoon flow, and evening unwind.',
+    font: 'clean',
+    previewType: 'planner',
+    tags: ['planning', 'daily', 'routine', 'calm'],
+    defaultTitle: () => "☀️ Daily Flow — " + new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}),
+    content: '<div class="note-callout amber"><div class="note-callout-hdr"><span>☀️ TODAY\'S GUIDING INTENTION</span><span>ENERGY</span></div><div>"Do fewer things with deeper attention. Rushing solves nothing."</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 THE TOP 3 MUST-DOS</span><span>CORE PRIORITIES</span></div><div>☐ 1. Finish the first draft of Chapter 4<br>☐ 2. 45-minute gym / movement session<br>☐ 3. Review and pay monthly bills</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>⏳ TIME & ENERGY FLOW</span><span>SCHEDULE</span></div><div>• <b>Morning (08:00 - 11:30):</b> Deep focused work on Priority #1<br>• <b>Afternoon (13:00 - 16:30):</b> Communication, errands, and Priority #2<br>• <b>Evening (18:00 - 21:00):</b> Dinner, reading, quiet unwind</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌙 EVENING RECOVERY</span><span>UNWIND</span></div><div>Screen-free 30 minutes before bed. What went well today?</div></div>'
+  },
+  {
+    id: 'weekly_intentions',
+    category: 'planning',
+    badge: 'Weekly Rhythm',
+    badgeColor: 'sage',
+    icon: '🗓️',
+    name: 'Weekly Rhythm & Intentions',
+    desc: 'Gentle weekly roadmap: Core theme, Mon-Sun milestones, 3 habit anchors, and rest boundaries.',
+    font: 'handSoft',
+    previewType: 'planner',
+    tags: ['planning', 'weekly', 'habits', 'intentions'],
+    defaultTitle: () => "🗓️ Weekly Rhythm — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout sage"><div class="note-callout-hdr"><span>🗓️ WEEKLY THEME</span><span>FOCUS</span></div><div><b>Guiding Word:</b> Consistency Over Intensity<br><b>Main Milestone to Reach:</b> Submit lab assignment & complete 3 study blocks</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📅 DAY-BY-DAY MILESTONES</span><span>RHYTHM</span></div><div>• <b>Mon - Tue:</b> Problem sets & core reading<br>• <b>Wed - Thu:</b> Lab synthesis & writing<br>• <b>Fri:</b> Wrap up loose ends, submit<br>• <b>Weekend:</b> Complete rest, nature walk, book reading</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌱 3 HABIT ANCHORS</span><span>SUSTAINABILITY</span></div><div>1. Drink 1 glass of water immediately upon waking<br>2. 20-minute daily reading block before bed<br>3. No laptop in bedroom after 10 PM</div></div>'
+  },
+  {
+    id: 'brain_dump_organizer',
+    category: 'planning',
+    badge: 'Dump & Sift',
+    badgeColor: 'sky',
+    icon: '📥',
+    name: 'Brain Dump & Action Sifter',
+    desc: 'Turn mental overload into calm clarity: Unfiltered dump on left, organized actions on right.',
+    font: 'clean',
+    previewType: 'split',
+    tags: ['planning', 'braindump', 'organizer', 'gtd'],
+    defaultTitle: () => "📥 Brain Dump & Sifter — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="true" style="border-color:rgba(129,212,250,0.3);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:#5c9ec2;margin-bottom:6px;">📥 RAW MENTAL DUMP</div>• Email advisor about research credit<br>• Buy groceries (oats, eggs, coffee beans)<br>• Call dentist for cleaning appointment<br>• Organize download folder<br>• Finish review questions for exam<br>• Check flight prices for December</div><div class="study-col-card" contenteditable="true" style="border-color:rgba(165,214,167,0.3);"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:#5a9e63;margin-bottom:6px;">⚡ ACTION BUCKETS</div><b>DO TODAY:</b><br>• Email advisor & finish review questions<br><br><b>SCHEDULE THIS WEEK:</b><br>• Groceries (Tue) & Dentist call (Wed)<br><br><b>DROP / LET GO:</b><br>• Download folder cleanup (zero urgency)</div></div>'
+  },
+  {
+    id: 'project_sprint',
+    category: 'planning',
+    badge: 'Project Sprint',
+    badgeColor: 'purple',
+    icon: '🚀',
+    name: 'Project & Assignment Sprint',
+    desc: 'Break big goals into painless milestones: Objective, Phases 1-3, current blockers, next step.',
+    font: 'clean',
+    previewType: 'planner',
+    tags: ['planning', 'projects', 'goals', 'sprint'],
+    defaultTitle: () => "🚀 Project Sprint — Goal Title",
+    content: '<div class="note-callout purple"><div class="note-callout-hdr"><span>🚀 PROJECT CHARTER</span><span>GOAL</span></div><div><b>Project Name:</b> Thesis Proposal Draft<br><b>Target Deadline:</b> End of month<br><b>Definition of Done:</b> 10-page document approved with literature review</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>🗺️ 3 PHASES ROADMAP</span><span>EXECUTION</span></div><div>• <b>Phase 1 (Foundation):</b> Gather 15 peer-reviewed citations<br>• <b>Phase 2 (Drafting):</b> Write methodology and background<br>• <b>Phase 3 (Polishing):</b> Review with advisor & final proofread</div></div><div class="note-callout rose"><div class="note-callout-hdr"><span>⚠️ CURRENT BLOCKER & NEXT 15-MIN ACTION</span><span>MOMENTUM</span></div><div><b>Blocker:</b> Unsure about sample size calculation.<br><b>Next 15-Minute Action:</b> Open G*Power manual and run two quick parameter simulations.</div></div>'
+  },
+  {
+    id: 'unfinished_tasks_shelf',
+    category: 'planning',
+    badge: 'Holding Shelf',
+    badgeColor: 'cream',
+    icon: '⏳',
+    name: 'Unfinished Tasks Holding Shelf',
+    desc: 'A zero-guilt parking lot for tasks put on hold, with context notes on where you left off.',
+    font: 'hand',
+    previewType: 'planner',
+    tags: ['planning', 'shelf', 'parking-lot', 'low-anxiety'],
+    defaultTitle: () => "⏳ Task Holding Shelf — Context Notes",
+    content: '<div class="note-callout cream"><div class="note-callout-hdr"><span>⏳ THE HOLDING SHELF</span><span>ZERO-GUILT PARKING LOT</span></div><div>Putting a task on hold is not failing. It is an intentional decision to protect today\'s focus. Record exactly where you paused so you can resume without friction later.</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>📦 ITEM #1: WEBSITE REDESIGN</span><span>ON HOLD</span></div><div><b>Paused At:</b> Finished CSS styles, paused right before mobile responsiveness test.<br><b>Why On Hold:</b> Waiting for updated logo vector files from client.<br><b>Revisit Date:</b> Next Tuesday morning</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📦 ITEM #2: STATS ASSIGNMENT #4</span><span>ON HOLD</span></div><div><b>Paused At:</b> Completed Questions 1-3; stuck on R code for regression model.<br><b>Where Notes Are:</b> Scratch notebook page 14.<br><b>Revisit Date:</b> After Thursday office hours</div></div>'
+  },
+  {
+    id: 'lightweight_review',
+    category: 'planning',
+    badge: 'Weekly Review',
+    badgeColor: 'lavender',
+    icon: '🪞',
+    name: 'Lightweight Weekly Reflection',
+    desc: 'A compassionate 5-minute review: What went well, what drained me, and one gentle adjustment.',
+    font: 'handSoft',
+    previewType: 'journal',
+    tags: ['planning', 'reflection', 'review', 'gentle'],
+    defaultTitle: () => "🪞 Weekly Reflection — " + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    content: '<div class="note-callout sage"><div class="note-callout-hdr"><span>🌟 WHAT WENT GENUINELY WELL</span><span>CELEBRATE</span></div><div>• Kept my mornings calm on 4 out of 5 days<br>• Finished my primary project ahead of schedule<br>• Slept an average of 7.5 hours per night</div></div><div class="note-callout rose"><div class="note-callout-hdr"><span>🌧️ WHAT DRAINED MY ENERGY</span><span>AWARENESS</span></div><div>• Saying yes to an optional meeting on Thursday that lasted 2 hours<br>• Checking emails right before going to sleep on Tuesday</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌱 ONE SMALL ADJUSTMENT FOR NEXT WEEK</span><span>ITERATE</span></div><div>Put phone across the room at 10 PM. Not five changes—just this one.</div></div><div class="note-callout quote">“Be gentle with yourself. You are doing the best you can with the energy you have.”</div>'
   }
 ];
 
 function renderMiniPreviewHTML(type){
   if(type==='cornell'){
-    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:grid;grid-template-columns:1fr 2fr;gap:4px;flex:1;"><div class="tpl-mini-box" style="font-size:7.5px;">CUES</div><div class="tpl-mini-box" style="font-size:7.5px;">NOTES</div></div><div class="tpl-mini-line" style="width:100%;height:6px;background:rgba(120,210,160,.28);border-radius:4px;"></div></div>';
+    return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;flex:1;"><div style="width:32%;border-right:1px dashed rgba(255,255,255,.18);"><div class="tpl-mini-line accent"></div><div class="tpl-mini-line short"></div></div><div style="flex:1;"><div class="tpl-mini-line"></div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div></div><div class="tpl-mini-box">Summary Box</div></div>';
   }
-  if(type==='habit'){
-    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:flex;gap:4px;align-items:center;flex:1;"><div class="tpl-mini-box" style="border-radius:4px;">✓</div><div class="tpl-mini-box" style="border-radius:4px;">✓</div><div class="tpl-mini-box" style="border-radius:4px;">·</div><div class="tpl-mini-box" style="border-radius:4px;">·</div><div class="tpl-mini-box" style="border-radius:4px;">·</div></div><div class="tpl-mini-line short"></div></div>';
+  if(type==='study'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div class="tpl-mini-box" style="border-style:solid;border-color:rgba(140,126,255,.3);">Core Concept & Definition</div><div class="tpl-mini-line"></div></div>';
   }
-  if(type==='formula'){
-    return '<div class="tpl-mini-preview"><div style="background:rgba(90,180,255,.18);border:1px solid rgba(90,180,255,.3);border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:900;color:var(--t1);font-family:monospace;">W = ∫ F · dr = ΔK</div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div>';
+  if(type==='stem'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-box" style="font-weight:800;font-size:9px;color:var(--act);background:rgba(140,126,255,.1);">ΔG = ΔH - TΔS</div><div style="display:flex;gap:4px;margin-top:2px;"><div class="tpl-mini-line short"></div><div class="tpl-mini-line" style="width:60%;"></div></div></div>';
   }
   if(type==='review'){
-    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="font-size:10px;color:#ffcc60;">★★★★★</div><div class="tpl-mini-box" style="font-style:italic;font-size:8px;">“Favorite quote...”</div></div>';
+    return '<div class="tpl-mini-preview"><div style="display:flex;justify-content:space-between;"><div class="tpl-mini-line short accent"></div><span style="font-size:8px;">★★★★★</span></div><div class="tpl-mini-box" style="font-style:italic;font-size:8px;">“Favorite quote...”</div></div>';
   }
   if(type==='planner'){
-    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:10px;height:10px;border-radius:3px;border:1px solid var(--act);background:var(--acc);"></div><div class="tpl-mini-line" style="width:75%;"></div></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:10px;height:10px;border-radius:3px;border:1px solid var(--glb);"></div><div class="tpl-mini-line" style="width:60%;"></div></div></div>';
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:9px;height:9px;border-radius:2.5px;border:1px solid var(--act);background:var(--acc);"></div><div class="tpl-mini-line" style="width:75%;"></div></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:9px;height:9px;border-radius:2.5px;border:1px solid var(--glb);"></div><div class="tpl-mini-line" style="width:60%;"></div></div></div>';
   }
-  return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;"><span style="font-size:9px;">☀️</span><span style="font-size:9px;">🌿</span><span style="font-size:9px;">⚡</span></div><div class="tpl-mini-line accent"></div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div>';
+  if(type==='prompt'){
+    return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;align-items:center;"><span style="font-size:10px;">💭</span><div class="tpl-mini-line accent" style="width:40%;"></div></div><div class="tpl-mini-box" style="font-style:italic;font-size:8.5px;padding:2px 4px;">“A thought waiting to be unpacked...”</div></div>';
+  }
+  if(type==='letter'){
+    return '<div class="tpl-mini-preview"><div style="display:flex;justify-content:space-between;"><div class="tpl-mini-line short accent"></div><span style="font-size:9px;">✉️</span></div><div class="tpl-mini-line"></div><div class="tpl-mini-line"></div><div class="tpl-mini-line short" style="margin-left:auto;"></div></div>';
+  }
+  if(type==='creative'){
+    return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;"><span style="font-size:9px;">🎬</span><div class="tpl-mini-line accent"></div></div><div class="tpl-mini-line" style="font-style:italic;"></div><div class="tpl-mini-line short"></div><div class="tpl-mini-box" style="border:none;background:rgba(255,255,255,.04);font-size:8px;">“Dialogue & atmosphere...”</div></div>';
+  }
+  if(type==='split'){
+    return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;flex:1;"><div class="tpl-mini-box" style="font-size:8px;">Left Stream</div><div class="tpl-mini-box" style="font-size:8px;">Right Action</div></div></div>';
+  }
+  return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;"><span style="font-size:9px;">🌸</span><span style="font-size:9px;">✨</span></div><div class="tpl-mini-line accent"></div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div>';
 }
 
 function renderTemplateGrid(category='all'){
   const grid=document.getElementById('tpl-modal-grid');
   if(!grid)return;
-  const list=(category==='all')?NOTE_TEMPLATES:NOTE_TEMPLATES.filter(t=>t.category===category);
+  
+  let list;
+  if(category==='all'){
+    list = NOTE_TEMPLATES;
+  } else if(category==='stem'){
+    list = NOTE_TEMPLATES.filter(t => t.category==='stem' || (t.tags && t.tags.includes('stem')));
+  } else {
+    list = NOTE_TEMPLATES.filter(t => t.category===category);
+  }
+
   grid.innerHTML=list.map(t=>{
     const fontLabel=NOTE_FONT_META[t.font]?.label||'Clean Sans';
     return `<div class="tpl-card" onclick="selectTemplate('${t.id}')">
@@ -9196,6 +9771,7 @@ function filterTemplateCategory(cat, btn){
 function openTemplatePickerModal(source='list'){
   templateModalSource=source;
   renderTemplateGrid(activeTemplateCategory);
+  updatePromptSparkUI();
   const modal=document.getElementById('note-template-modal');
   if(modal)modal.classList.add('show');
 }
