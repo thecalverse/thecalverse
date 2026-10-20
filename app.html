@@ -1479,7 +1479,332 @@ canvas#gc{display:block;width:100%;height:240px;}
 @media (max-width:580px){.ipad-paper-title{font-size:19px;}}
 [data-t=light] .ipad-paper-title{border-bottom-color:rgba(0,0,0,.12);}
 
-.ipad-paper-canvas{min-height:440px;outline:none;color:inherit;line-height:1.75;word-break:break-word;}
+/* ══════════════════════════════════════════════════════════════════════════
+   CANVA / POWERPOINT FREEFORM CANVAS ENGINE FOR IPAD JOURNAL
+   ══════════════════════════════════════════════════════════════════════════ */
+.ipad-paper-canvas{
+  position:relative;
+  min-height:540px;
+  outline:none;
+  color:inherit;
+  line-height:1.75;
+  word-break:break-word;
+}
+.ipad-paper-canvas:empty::before{
+  content:attr(data-placeholder);
+  opacity:.35;
+  pointer-events:none;
+}
+
+/* Canvas Item Base */
+.canvas-item{
+  position:absolute;
+  touch-action:none;
+  user-select:none;
+  box-sizing:border-box;
+  z-index:10;
+  transition:box-shadow .15s ease;
+}
+.canvas-item.is-selected{
+  outline:2px dashed var(--act);
+  outline-offset:3px;
+}
+.canvas-item.is-dragging{
+  opacity:.88;
+  cursor:grabbing!important;
+  box-shadow:0 18px 40px rgba(0,0,0,.35)!important;
+}
+.canvas-item.is-resizing{
+  user-select:none!important;
+}
+
+/* Floating Action Toolbar */
+.canvas-item-bar{
+  position:absolute;
+  top:-38px;
+  left:0;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:rgba(16,22,34,.94);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  padding:3px 8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.38);
+  z-index:90;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(4px);
+  transition:opacity .15s ease,transform .15s ease;
+  white-space:nowrap;
+}
+.canvas-item-bar.mini{
+  top:-34px;
+  padding:2px 6px;
+}
+.canvas-item:hover .canvas-item-bar,
+.canvas-item.is-selected .canvas-item-bar{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+[data-t=light] .canvas-item-bar{
+  background:rgba(255,250,244,.95);
+  border-color:rgba(131,98,74,.3);
+  box-shadow:0 8px 20px rgba(104,76,56,.2);
+  color:#3b281c;
+}
+
+.canvas-drag-handle{
+  cursor:grab;
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  font-size:11px;
+  font-weight:800;
+  color:#fff;
+  padding:0 4px;
+  user-select:none;
+}
+[data-t=light] .canvas-drag-handle{
+  color:#3b281c;
+}
+.canvas-drag-handle:active{cursor:grabbing;}
+
+.canvas-bar-btns{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+}
+.cbar-btn{
+  height:22px;
+  padding:0 7px;
+  border-radius:999px;
+  border:none;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  transition:background .12s ease;
+}
+[data-t=light] .cbar-btn{
+  background:rgba(131,98,74,.12);
+  color:#3b281c;
+}
+.cbar-btn:hover{
+  background:var(--act);
+  color:#fff;
+}
+.cbar-btn.del:hover{
+  background:var(--rdc);
+  color:#fff;
+}
+
+/* Resize Handle Knob */
+.canvas-resize-handle{
+  position:absolute;
+  right:-9px;
+  bottom:-9px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:var(--act);
+  border:2px solid #fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  cursor:nwse-resize;
+  touch-action:none;
+  z-index:90;
+  opacity:0;
+  pointer-events:none;
+  transform:scale(.7);
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-item:hover .canvas-resize-handle,
+.canvas-item.is-selected .canvas-resize-handle{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1);
+}
+
+/* Floating Text Box */
+.canvas-item.canvas-text-box{
+  min-width:140px;
+  min-height:50px;
+  border-radius:12px;
+  padding:10px 14px;
+  transition:background .2s,border-color .2s;
+}
+.canvas-item.canvas-text-box[data-box-style="paper"]{
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 6px 18px rgba(0,0,0,.15);
+}
+[data-t=light] .canvas-item.canvas-text-box[data-box-style="paper"]{
+  background:rgba(255,255,255,.88);
+  border-color:rgba(131,98,74,.22);
+  box-shadow:0 6px 18px rgba(104,76,56,.1);
+  color:#2b221a;
+}
+.canvas-item.canvas-text-box[data-box-style="clear"]{
+  background:transparent;
+  border:1px dashed rgba(255,255,255,.15);
+  box-shadow:none;
+}
+[data-t=light] .canvas-item.canvas-text-box[data-box-style="clear"]{
+  border-color:rgba(131,98,74,.2);
+  color:#2b221a;
+}
+.canvas-item.canvas-text-box[data-box-style="postit"]{
+  background:#fff9c4;
+  color:#2c2c2c!important;
+  border-top:3.5px solid #fff176;
+  border-radius:4px 4px 16px 4px;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+}
+.canvas-item.canvas-text-box[data-box-style="dark"]{
+  background:rgba(14,18,28,.95);
+  border:1.5px solid rgba(140,126,255,.45);
+  box-shadow:0 8px 26px rgba(0,0,0,.4);
+  color:#f2f5fd;
+}
+.canvas-item.canvas-text-box[data-box-style="mint"]{
+  background:#c8e6c9;
+  color:#1c3b20!important;
+  border-top:3.5px solid #a5d6a7;
+  border-radius:6px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+.canvas-item.canvas-text-box[data-box-style="lavender"]{
+  background:#e1bee7;
+  color:#2d1833!important;
+  border-top:3.5px solid #ce93d8;
+  border-radius:6px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.canvas-text-body{
+  min-height:28px;
+  outline:none;
+  word-break:break-word;
+  user-select:text;
+  cursor:text;
+  line-height:1.55;
+  color:inherit;
+}
+.canvas-text-body[data-font-size="s"]{font-size:13.5px;}
+.canvas-text-body[data-font-size="m"]{font-size:17px;}
+.canvas-text-body[data-font-size="l"]{font-size:23px;font-weight:700;}
+.canvas-text-body[data-font-size="xl"]{font-size:30px;font-weight:900;letter-spacing:-.3px;}
+.canvas-text-body:empty::before{content:attr(data-placeholder);opacity:.4;pointer-events:none;}
+
+/* Floating Photos */
+.canvas-item.canvas-photo{
+  min-width:140px;
+  cursor:grab;
+}
+.canvas-item.canvas-photo:active{cursor:grabbing;}
+.canvas-item.canvas-photo .canvas-photo-card{
+  width:100%;
+  box-sizing:border-box;
+}
+.canvas-item.canvas-photo img{
+  width:100%;
+  height:auto;
+  max-height:80vh;
+  object-fit:contain;
+  display:block;
+  border-radius:inherit;
+  pointer-events:none;
+}
+.canvas-photo-caption{
+  margin-top:8px;
+  font-family:'Segoe Print','Bradley Hand',cursive;
+  font-size:13px;
+  color:inherit;
+  text-align:center;
+  min-height:18px;
+  outline:none;
+  user-select:text;
+  cursor:text;
+}
+.canvas-photo-caption:empty::before{content:attr(placeholder);opacity:.4;pointer-events:none;}
+
+/* Photo Gold Frame */
+.journal-photo-card.frame-gold{
+  padding:8px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#ffd54f,#ffb300,#ffe082,#ffca28);
+  box-shadow:0 12px 28px rgba(0,0,0,.25),0 2px 8px rgba(255,193,7,.2);
+  display:inline-block;
+  width:100%;
+}
+.journal-photo-card.frame-gold img{width:100%;border-radius:4px;display:block;}
+
+/* Floating Washi Tape */
+.canvas-item.canvas-washi{
+  min-width:60px;
+  height:28px;
+  cursor:grab;
+}
+.canvas-item.canvas-washi:active{cursor:grabbing;}
+.canvas-item.canvas-washi .washi-tape-strip{
+  width:100%;
+  height:24px;
+  margin:0;
+  pointer-events:none;
+}
+
+/* Additional Washi Patterns */
+.washi-dots{background:#fff9c4;background-image:radial-gradient(#fbc02d 1.5px,transparent 1.5px);background-size:8px 8px;}
+.washi-grid{background:#e8eaf6;background-image:linear-gradient(to right,rgba(63,81,181,.2) 1px,transparent 1px),linear-gradient(to bottom,rgba(63,81,181,.2) 1px,transparent 1px);background-size:10px 10px;}
+.washi-sky{background:repeating-linear-gradient(45deg,#b3e5fc,#b3e5fc 8px,#81d4fa 8px,#81d4fa 16px);}
+
+/* Floating Stickers */
+.canvas-item.canvas-sticker{
+  display:inline-block;
+  width:64px;
+  text-align:center;
+  cursor:grab;
+}
+.canvas-item.canvas-sticker:active{cursor:grabbing;}
+.canvas-sticker-glyph{
+  font-size:48px;
+  line-height:1;
+  user-select:none;
+  display:block;
+  pointer-events:none;
+}
+
+/* Floating Sticky Note */
+.canvas-item.canvas-sticky{
+  min-width:140px;
+  cursor:grab;
+}
+.canvas-item.canvas-sticky:active{cursor:grabbing;}
+.canvas-item.canvas-sticky .journal-sticky-note{
+  margin:0;
+  cursor:default;
+}
+.canvas-sticky-body{
+  user-select:text;
+  cursor:text;
+  outline:none;
+}
 .ipad-paper-canvas:empty::before{content:attr(data-placeholder);opacity:.35;pointer-events:none;}
 
 /* Tracker */
@@ -3643,7 +3968,10 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
           <!-- Creative Study Inserts -->
           <div class="ipad-tool-grp" style="position:relative;">
-            <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">🎀 Stickers</button>
+            <button type="button" class="note-tool-btn" onclick="insertIpadTextBox()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert movable floating text box">🔤 Text Box</button>
+            <button type="button" class="note-tool-btn" onclick="insertIpadWashiTape()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert aesthetic washi tape strip">📌 Washi</button>
+            <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert resizable photo or diagram">🖼️ Photo</button>
+            <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable aesthetic stickers">🎀 Stickers</button>
             <button type="button" class="note-tool-btn" onclick="insertIpadStickyPrompt()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📝 Sticky</button>
             <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📦 Blocks ▾</button>
             <div id="ipad-study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:220px;padding:8px;top:38px;right:0;" onclick="event.stopPropagation()">
@@ -3654,7 +3982,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-mint')">🌿 Key Concept (Mint)</button>
               <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertIpadStudyBlock('callout-lavender')">✨ Key Concept (Lavender)</button>
             </div>
-            <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">🖼️ Photo</button>
+            
           </div>
         </div>
 
@@ -6158,6 +6486,8 @@ function loadIpadActivePage(){
 
   applyIpadPaperStyle(activeNote.paperStyle || 'obsidian');
   applyIpadTypography();
+  upgradeLegacyIpadElements(editorEl);
+  initIpadCanvasEngine();
   updateIpadSaveStatus('Saved locally to notebook');
 }
 
@@ -6237,7 +6567,7 @@ function saveCurrentIpadPage(showFeedback=false){
   const paperSel = document.getElementById('ipad-paper-select');
 
   const nextTitle = titleEl ? titleEl.value.trim() : '';
-  const nextContent = editorEl ? editorEl.innerHTML : '';
+  const nextContent = editorEl ? cleanCanvasHtmlBeforeSave(editorEl) : '';
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
   const nextPaper = (paperSel && ['obsidian','cream','ruled','blank'].includes(paperSel.value)) ? paperSel.value : 'obsidian';
 
@@ -6379,31 +6709,537 @@ function triggerIpadPhotoUpload(){
   if(inp) inp.click();
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   CANVA / POWERPOINT FREEFORM ENGINE (DRAG, RESIZE, ROTATE, TEXT BOXES)
+   ══════════════════════════════════════════════════════════════════════════ */
+let ipadCanvasEngineInitialized = false;
+let canvasMaxZIndex = 50;
+let activeDragState = null;
+let activeResizeState = null;
+
+function cleanCanvasHtmlBeforeSave(editorEl){
+  if(!editorEl) return "";
+  const clone = editorEl.cloneNode(true);
+  clone.querySelectorAll(".canvas-item").forEach(el => {
+    el.classList.remove("is-selected", "is-dragging", "is-resizing");
+  });
+  return clone.innerHTML;
+}
+
+function upgradeLegacyIpadElements(editorEl){
+  if(!editorEl) return;
+  editorEl.querySelectorAll(".journal-photo-wrap:not(.canvas-item)").forEach((wrap, i) => {
+    const id = wrap.id || ("cphoto_" + Date.now() + "_" + i);
+    wrap.id = id;
+    wrap.classList.add("canvas-item", "canvas-photo");
+    wrap.setAttribute("data-type", "photo");
+    wrap.setAttribute("contenteditable", "false");
+    wrap.style.position = "absolute";
+    if(!wrap.style.left) wrap.style.left = (30 + (i * 40)) + "px";
+    if(!wrap.style.top) wrap.style.top = (60 + (i * 60)) + "px";
+    if(!wrap.style.width) wrap.style.width = "320px";
+    if(!wrap.style.zIndex) wrap.style.zIndex = "" + (++canvasMaxZIndex);
+    
+    if(!wrap.querySelector(".canvas-item-bar")){
+      wrap.insertAdjacentHTML("afterbegin", `
+        <div class="canvas-item-bar">
+          <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
+          <div class="canvas-bar-btns">
+            <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame">🖼️ Frame</button>
+            <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
+            <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size">📐 Size</button>
+            <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+            <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+          </div>
+        </div>
+      `);
+    }
+    if(!wrap.querySelector(".canvas-resize-handle")){
+      wrap.insertAdjacentHTML("beforeend", `<div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>`);
+    }
+  });
+
+  editorEl.querySelectorAll(".journal-sticky-note:not(.canvas-sticky-body)").forEach((note, i) => {
+    if(note.closest(".canvas-item")) return;
+    const parent = note.parentElement;
+    const id = "csticky_" + Date.now() + "_" + i;
+    const color = note.classList.contains("pink") ? "pink" : note.classList.contains("mint") ? "mint" : note.classList.contains("lavender") ? "lavender" : "yellow";
+    const wrapper = document.createElement("div");
+    wrapper.className = "canvas-item canvas-sticky";
+    wrapper.id = id;
+    wrapper.setAttribute("data-type", "sticky");
+    wrapper.setAttribute("data-sticky-color", color);
+    wrapper.setAttribute("contenteditable", "false");
+    wrapper.style.position = "absolute";
+    wrapper.style.left = (40 + (i * 35)) + "px";
+    wrapper.style.top = (80 + (i * 50)) + "px";
+    wrapper.style.width = "260px";
+    wrapper.style.zIndex = "" + (++canvasMaxZIndex);
+    wrapper.innerHTML = `
+      <div class="canvas-item-bar mini">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="journal-sticky-note ${color} canvas-sticky-body" contenteditable="true" spellcheck="true">${note.innerHTML}</div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    `;
+    if(parent) parent.replaceChild(wrapper, note);
+  });
+}
+
+function getNextCanvasItemPosition(width=280, height=120){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return { left: 40, top: 40 };
+  const items = editor.querySelectorAll(".canvas-item");
+  const count = items.length;
+  const canvasWidth = editor.clientWidth || 700;
+  const left = Math.min(canvasWidth - width - 20, 24 + ((count * 36) % 240));
+  const top = 30 + ((count * 48) % 360);
+  return { left: Math.max(10, Math.round(left)), top: Math.max(10, Math.round(top)) };
+}
+
+function selectCanvasItem(item){
+  deselectAllCanvasItems();
+  if(!item) return;
+  item.classList.add("is-selected");
+  item.style.zIndex = "" + (++canvasMaxZIndex);
+}
+
+function deselectAllCanvasItems(){
+  document.querySelectorAll("#ipad-paper-sheet .canvas-item.is-selected").forEach(el => {
+    el.classList.remove("is-selected");
+  });
+}
+
+function insertIpadTextBox(){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "ctext_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(280, 100);
+  const html = `
+    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>
+          <button type="button" class="cbar-btn" data-action="font-size" title="Font Size (S / M / L / XL)">🔠 Size</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." data-font-size="m">Type notes, title, or formula...</div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast("Text box placed! Drag or type anywhere 🔤");
+  const box = document.getElementById(id);
+  const body = box?.querySelector(".canvas-text-body");
+  if(body) setTimeout(() => body.focus(), 60);
+}
+
+function insertIpadWashiTape(pattern="washi-blush"){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "cwashi_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(180, 36);
+  const html = `
+    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-rotation="-6" style="left:${pos.left}px;top:${pos.top}px;width:180px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar mini">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Tape</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Pattern">🎨 Pattern</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate Angle">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="washi-tape-strip ${pattern}"></div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast("Washi tape placed! Drag over photos or headers 📌");
+}
+
+function insertIpadPhotoFromDataUrl(dataUrl){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "cphoto_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(320, 240);
+  const html = `
+    <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame (Polaroid / Washi / Rounded / Minimal / Gold)">🖼️ Frame</button>
+          <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
+          <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size (S / M / L / Fit)">📐 Size</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="canvas-photo-card frame-washi">
+        <img src="${dataUrl}" alt="Study Diagram" style="width:100%;height:auto;object-fit:contain;display:block;border-radius:inherit;pointer-events:none;">
+        <div class="canvas-photo-caption" contenteditable="true" spellcheck="false" placeholder="Figure caption...">Figure 1.1 Study Diagram</div>
+      </div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast("Photo placed! Drag or resize with corner knob 🎀");
+}
+
 function handleIpadPhotoUpload(e){
   const file = e?.target?.files?.[0];
   if(!file) return;
   const reader = new FileReader();
   reader.onload = function(evt){
-    const dataUrl = evt.target.result;
-    const editor = document.getElementById('ipad-page-editor');
-    if(!editor) return;
-    editor.focus();
-    const photoId = 'photo_' + Date.now();
-    const imgHtml = `
-      <div class="journal-photo-wrap" id="${photoId}" data-size="m" contenteditable="false">
-        <div class="journal-photo-card frame-washi">
-          <img src="${dataUrl}" alt="Study Diagram" style="max-height:360px;object-fit:contain;">
-        </div>
-        <div class="journal-photo-caption" contenteditable="true" placeholder="Figure caption...">Figure 1.1 Study Diagram</div>
-      </div>
-      <p><br></p>
-    `;
-    insertHtmlAtCursor(imgHtml, editor);
-    queueIpadSave();
-    showToast('Photo inserted with washi tape 🎀');
+    insertIpadPhotoFromDataUrl(evt.target.result);
   };
   reader.readAsDataURL(file);
-  e.target.value = '';
+  e.target.value = "";
+}
+
+function insertIpadSticker(stickerEmoji){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "csticker_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(64, 64);
+  const html = `
+    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar mini">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="canvas-sticker-glyph">${stickerEmoji}</div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast(`Added sticker ${stickerEmoji} ✨`);
+}
+
+function insertIpadStickyPrompt(){
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const id = "csticky_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  const pos = getNextCanvasItemPosition(260, 160);
+  const colors = ["yellow", "pink", "mint", "lavender", "sky"];
+  const picked = colors[Math.floor(Math.random() * colors.length)];
+  const html = `
+    <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item-bar mini">
+        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
+        <div class="canvas-bar-btns">
+          <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
+          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+      </div>
+      <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true">
+        <b>📌 Note:</b> Type key study takeaway or formula here...
+      </div>
+      <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast("Sticky note pinned! Move anywhere 📝");
+}
+
+function handleCanvasAction(btn, e){
+  const action = btn.dataset.action;
+  const item = btn.closest(".canvas-item");
+  if(!item) return;
+
+  if(action === "delete"){
+    item.remove();
+    queueIpadSave();
+    showToast("Deleted 🗑️");
+    return;
+  }
+
+  if(action === "rotate"){
+    const angles = [0, 6, 15, 30, -30, -15, -6];
+    const cur = Number(item.dataset.rotation || 0);
+    let idx = angles.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = angles[(idx + 1) % angles.length];
+    item.dataset.rotation = "" + next;
+    item.style.transform = (next !== 0) ? ("rotate(" + next + "deg)") : "none";
+    queueIpadSave();
+    showToast("Rotated " + next + "° ↻");
+    return;
+  }
+
+  if(action === "box-style"){
+    const styles = ["paper", "clear", "postit", "dark", "mint", "lavender"];
+    const cur = item.dataset.boxStyle || "paper";
+    let idx = styles.indexOf(cur);
+    if(idx === -1) idx = 0;
+    const next = styles[(idx + 1) % styles.length];
+    item.dataset.boxStyle = next;
+    queueIpadSave();
+    showToast("Style: " + next);
+    return;
+  }
+
+  if(action === "font-size"){
+    const body = item.querySelector(".canvas-text-body");
+    if(!body) return;
+    const sizes = ["s", "m", "l", "xl"];
+    const cur = body.dataset.fontSize || "m";
+    let idx = sizes.indexOf(cur);
+    if(idx === -1) idx = 1;
+    const next = sizes[(idx + 1) % sizes.length];
+    body.dataset.fontSize = next;
+    queueIpadSave();
+    showToast("Text size: " + next.toUpperCase());
+    return;
+  }
+
+  if(action === "frame"){
+    const card = item.querySelector(".canvas-photo-card");
+    if(!card) return;
+    const frames = ["frame-washi", "frame-polaroid", "frame-rounded", "frame-minimal", "frame-gold"];
+    let idx = frames.findIndex(f => card.classList.contains(f));
+    if(idx === -1) idx = 0;
+    frames.forEach(f => card.classList.remove(f));
+    const next = frames[(idx + 1) % frames.length];
+    card.classList.add(next);
+    queueIpadSave();
+    showToast("Frame: " + next.replace("frame-", ""));
+    return;
+  }
+
+  if(action === "crop"){
+    openPhotoCropModalFromCard(item.id);
+    return;
+  }
+
+  if(action === "quick-size"){
+    const curW = item.offsetWidth;
+    const editorW = document.getElementById("ipad-page-editor")?.clientWidth || 600;
+    let nextW = 320;
+    if(curW < 240) nextW = 340;
+    else if(curW < 400) nextW = Math.min(540, editorW - 20);
+    else if(curW < 600) nextW = Math.min(editorW - 10, 720);
+    else nextW = 200;
+    item.style.width = nextW + "px";
+    queueIpadSave();
+    showToast("Resized: " + nextW + "px");
+    return;
+  }
+
+  if(action === "washi-pattern"){
+    const strip = item.querySelector(".washi-tape-strip");
+    if(!strip) return;
+    const patterns = ["washi-blush", "washi-matcha", "washi-lavender", "washi-kraft", "washi-foil", "washi-dots", "washi-grid", "washi-sky"];
+    let idx = patterns.findIndex(p => strip.classList.contains(p));
+    if(idx === -1) idx = 0;
+    patterns.forEach(p => strip.classList.remove(p));
+    const next = patterns[(idx + 1) % patterns.length];
+    strip.classList.add(next);
+    item.dataset.washiPattern = next;
+    queueIpadSave();
+    showToast("Washi pattern 🎨");
+    return;
+  }
+
+  if(action === "sticky-color"){
+    const noteEl = item.querySelector(".journal-sticky-note");
+    if(!noteEl) return;
+    const colors = ["yellow", "pink", "mint", "lavender", "sky"];
+    let idx = colors.findIndex(c => noteEl.classList.contains(c));
+    if(idx === -1) idx = 0;
+    colors.forEach(c => noteEl.classList.remove(c));
+    const next = colors[(idx + 1) % colors.length];
+    noteEl.classList.add(next);
+    item.dataset.stickyColor = next;
+    queueIpadSave();
+    showToast("Color: " + next);
+    return;
+  }
+}
+
+function initIpadCanvasEngine(){
+  if(ipadCanvasEngineInitialized) return;
+  const sheet = document.getElementById("ipad-paper-sheet");
+  const editor = document.getElementById("ipad-page-editor");
+  if(!sheet || !editor) return;
+  ipadCanvasEngineInitialized = true;
+
+  sheet.addEventListener("pointerdown", (e) => {
+    const actionBtn = e.target.closest(".cbar-btn");
+    if(actionBtn){
+      e.stopPropagation();
+      handleCanvasAction(actionBtn, e);
+      return;
+    }
+
+    const resizeHandle = e.target.closest(".canvas-resize-handle");
+    if(resizeHandle){
+      const item = resizeHandle.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
+        activeResizeState = {
+          pointerId: e.pointerId,
+          handle: resizeHandle,
+          item: item,
+          startX: e.clientX,
+          startY: e.clientY,
+          startWidth: item.offsetWidth,
+          startHeight: item.offsetHeight,
+          type: item.dataset.type || ""
+        };
+        item.classList.add("is-resizing");
+      }
+      return;
+    }
+
+    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body");
+    if(editable){
+      const item = editable.closest(".canvas-item");
+      if(item) selectCanvasItem(item);
+      return;
+    }
+
+    const dragTarget = e.target.closest(".canvas-drag-handle, .canvas-item-bar, .canvas-photo-card, .washi-tape-strip, .canvas-sticker-glyph, .journal-sticky-note");
+    if(dragTarget){
+      const item = dragTarget.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { dragTarget.setPointerCapture(e.pointerId); } catch(_){}
+        activeDragState = {
+          pointerId: e.pointerId,
+          handle: dragTarget,
+          item: item,
+          startX: e.clientX,
+          startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop
+        };
+        item.classList.add("is-dragging");
+        return;
+      }
+    }
+
+    const item = e.target.closest(".canvas-item");
+    if(item){
+      selectCanvasItem(item);
+      return;
+    }
+
+    deselectAllCanvasItems();
+  });
+
+  sheet.addEventListener("pointermove", (e) => {
+    if(activeResizeState && activeResizeState.pointerId === e.pointerId){
+      e.preventDefault();
+      const s = activeResizeState;
+      const deltaX = e.clientX - s.startX;
+      const editorWidth = editor.clientWidth || 700;
+      const minW = (s.type === "washi" || s.type === "sticker") ? 50 : 120;
+      const maxW = Math.max(minW, editorWidth - s.item.offsetLeft - 10);
+      const newWidth = Math.max(minW, Math.min(maxW, s.startWidth + deltaX));
+      
+      s.item.style.width = newWidth + "px";
+
+      if(s.type === "sticker"){
+        const glyph = s.item.querySelector(".canvas-sticker-glyph");
+        if(glyph) glyph.style.fontSize = Math.max(20, Math.round(newWidth * 0.75)) + "px";
+      }
+      return;
+    }
+
+    if(activeDragState && activeDragState.pointerId === e.pointerId){
+      e.preventDefault();
+      const s = activeDragState;
+      const deltaX = e.clientX - s.startX;
+      const deltaY = e.clientY - s.startY;
+      const editorWidth = editor.clientWidth || 700;
+      const maxLeft = Math.max(0, editorWidth - s.item.offsetWidth);
+      const newLeft = Math.max(0, Math.min(maxLeft, s.startLeft + deltaX));
+      const newTop = Math.max(0, s.startTop + deltaY);
+
+      s.item.style.left = newLeft + "px";
+      s.item.style.top = newTop + "px";
+      return;
+    }
+  });
+
+  function endPointerInteractions(e){
+    if(activeResizeState && activeResizeState.pointerId === e.pointerId){
+      try { activeResizeState.handle.releasePointerCapture(e.pointerId); } catch(_){}
+      activeResizeState.item.classList.remove("is-resizing");
+      activeResizeState = null;
+      queueIpadSave();
+    }
+    if(activeDragState && activeDragState.pointerId === e.pointerId){
+      try { activeDragState.handle.releasePointerCapture(e.pointerId); } catch(_){}
+      activeDragState.item.classList.remove("is-dragging");
+      activeDragState = null;
+      queueIpadSave();
+    }
+  }
+  sheet.addEventListener("pointerup", endPointerInteractions);
+  sheet.addEventListener("pointercancel", endPointerInteractions);
+
+  sheet.addEventListener("paste", (e) => {
+    const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+    if(!items) return;
+    for(let i = 0; i < items.length; i++){
+      if(items[i].type.indexOf("image") !== -1){
+        e.preventDefault();
+        const file = items[i].getAsFile();
+        if(file){
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            insertIpadPhotoFromDataUrl(evt.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+        break;
+      }
+    }
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if(e.key === "Delete" || e.key === "Backspace"){
+      const activeEl = document.activeElement;
+      if(activeEl && (activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA" || activeEl.isContentEditable)){
+        return;
+      }
+      const selectedItem = sheet.querySelector(".canvas-item.is-selected");
+      if(selectedItem){
+        e.preventDefault();
+        selectedItem.remove();
+        queueIpadSave();
+        showToast("Item deleted 🗑️");
+      }
+    }
+  });
 }
 
 function openIpadPagesDrawer(){
@@ -6569,7 +7405,10 @@ const STICKER_PACKS = {
     { name: 'Matcha Sage Strip', cls: 'washi-matcha' },
     { name: 'Lavender Mist Strip', cls: 'washi-lavender' },
     { name: 'Kraft Vintage Strip', cls: 'washi-kraft' },
-    { name: 'Rainbow Foil Strip', cls: 'washi-foil' }
+    { name: 'Rainbow Foil Strip', cls: 'washi-foil' },
+    { name: 'Polka Dots Strip', cls: 'washi-dots' },
+    { name: 'Grid Paper Strip', cls: 'washi-grid' },
+    { name: 'Sky Watercolor Strip', cls: 'washi-sky' }
   ],
   cozy: ['☕','🕯️','📖','🥐','🍂','🧶','🍪','🧦','🥯','🍯','🪴','🥞','🥧','📻','🌧️','🧣','🪵','🍁','🤎','🫖','🛋️','🥮','🍫','🥨','🥪','☕','🏡','🪑','📚','☕','🐈','🐕','🫕','🍶'],
   study: ['🎓','📚','✍️','💡','📌','📐','🔬','🗂️','📑','🔖','✏️','🎯','⏳','💻','🧠','🔍','📊','📝','🏷️','📋','🗓️','🔑','🏆','🥇','📎','📏','🧪','🧬','🔭','💻','⚡'],
@@ -6654,16 +7493,16 @@ function insertStickerToJournal(sticker){
   closeStickersModal();
   const editor=getActiveJournalEditor();
   if(!editor)return;
-  if(editor.id==='note-editor')setNoteEditMode(true,false);
+  if(editor.id==='ipad-page-editor'){
+    insertIpadSticker(sticker);
+    return;
+  }
+  setNoteEditMode(true,false);
   editor.focus();
   const stickerHtml=`<span class="journal-sticker" data-size="m" contenteditable="false" onclick="handleStickerClick(this)">${sticker}</span>&nbsp;`;
   insertHtmlAtCursor(stickerHtml,editor);
-  if(editor.id==='ipad-page-editor'){
-    queueIpadSave();
-  }else{
-    syncNoteEditorPlaceholder();
-    queueNoteSave();
-  }
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
   showToast(`Added sticker ${sticker} ✨`);
 }
 
@@ -6671,16 +7510,16 @@ function insertWashiTapeToJournal(washiClass){
   closeStickersModal();
   const editor=getActiveJournalEditor();
   if(!editor)return;
-  if(editor.id==='note-editor')setNoteEditMode(true,false);
+  if(editor.id==='ipad-page-editor'){
+    insertIpadWashiTape(washiClass);
+    return;
+  }
+  setNoteEditMode(true,false);
   editor.focus();
   const washiHtml=`<div class="washi-tape-strip ${washiClass}" contenteditable="false"></div><p><br></p>`;
   insertHtmlAtCursor(washiHtml,editor);
-  if(editor.id==='ipad-page-editor'){
-    queueIpadSave();
-  }else{
-    syncNoteEditorPlaceholder();
-    queueNoteSave();
-  }
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
   showToast('Added washi tape 📌');
 }
 
@@ -7077,7 +7916,11 @@ function applyPhotoCrop(){
   const imgEl=wrap?.querySelector('img');
   if(imgEl){
     imgEl.src=croppedDataUrl;
-    queueNoteSave();
+    if(curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+      queueIpadSave();
+    }else{
+      queueNoteSave();
+    }
     showToast('Photo cropped ✨');
   }
   closeCropModal();
