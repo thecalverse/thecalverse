@@ -1783,8 +1783,8 @@ canvas#gc{display:block;width:100%;height:240px;}
 .canvas-item.canvas-washi:active{cursor:grabbing;}
 .canvas-item.canvas-washi .washi-tape-strip{
   width:100%;
-  min-height:36px;
-  height:auto;
+  height:100%;
+  min-height:22px;
   margin:0;
   padding:4px 14px;
   box-sizing:border-box;
@@ -1870,6 +1870,96 @@ canvas#gc{display:block;width:100%;height:240px;}
 .canvas-rotate-handle:active{cursor:grabbing;}
 .canvas-item:hover .canvas-rotate-handle,
 .canvas-item.is-selected .canvas-rotate-handle{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) scale(1);
+}
+
+/* All-Way Resize Handles */
+.canvas-resize-e{
+  position:absolute;
+  right:-6px;
+  top:50%;
+  transform:translateY(-50%) scale(.7);
+  width:8px;
+  height:24px;
+  border-radius:4px;
+  background:var(--act);
+  border:1.5px solid #fff;
+  cursor:ew-resize;
+  touch-action:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  z-index:91;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-resize-w{
+  position:absolute;
+  left:-6px;
+  top:50%;
+  transform:translateY(-50%) scale(.7);
+  width:8px;
+  height:24px;
+  border-radius:4px;
+  background:var(--act);
+  border:1.5px solid #fff;
+  cursor:ew-resize;
+  touch-action:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  z-index:91;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-resize-s{
+  position:absolute;
+  bottom:-6px;
+  left:50%;
+  transform:translateX(-50%) scale(.7);
+  width:24px;
+  height:8px;
+  border-radius:4px;
+  background:var(--act);
+  border:1.5px solid #fff;
+  cursor:ns-resize;
+  touch-action:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  z-index:91;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-resize-n{
+  position:absolute;
+  top:-6px;
+  left:50%;
+  transform:translateX(-50%) scale(.7);
+  width:24px;
+  height:8px;
+  border-radius:4px;
+  background:var(--act);
+  border:1.5px solid #fff;
+  cursor:ns-resize;
+  touch-action:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  z-index:91;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-item:hover .canvas-resize-e,
+.canvas-item.is-selected .canvas-resize-e,
+.canvas-item:hover .canvas-resize-w,
+.canvas-item.is-selected .canvas-resize-w{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(-50%) scale(1);
+}
+.canvas-item:hover .canvas-resize-s,
+.canvas-item.is-selected .canvas-resize-s,
+.canvas-item:hover .canvas-resize-n,
+.canvas-item.is-selected .canvas-resize-n{
   opacity:1;
   pointer-events:auto;
   transform:translateX(-50%) scale(1);
@@ -6927,6 +7017,9 @@ function upgradeLegacyIpadElements(editorEl){
     if(!tape.querySelector(".canvas-rotate-handle")){
       tape.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
     }
+    if(!tape.querySelector(".canvas-resize-e")){
+      tape.insertAdjacentHTML("beforeend", '<div class="canvas-resize-e" data-dir="e" title="Drag to resize length (width)"></div><div class="canvas-resize-s" data-dir="s" title="Drag to resize thickness (height)"></div><div class="canvas-resize-w" data-dir="w" title="Drag to resize length from left"></div><div class="canvas-resize-n" data-dir="n" title="Drag to resize thickness from top"></div>');
+    }
     if(!tape.querySelector(".cbar-angles-popover")){
       const bar = tape.querySelector(".canvas-item-bar");
       if(bar){
@@ -7074,6 +7167,7 @@ function insertIpadWashiTape(pattern="washi-blush"){
         <span class="canvas-drag-handle" title="Drag to move tape">⋮⋮ Move</span>
         <div class="canvas-bar-btns">
           <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Tape Pattern">🎨 Pattern</button>
+          <button type="button" class="cbar-btn" data-action="washi-thickness" title="Cycle Thickness (Thin / Normal / Thick / Chunky)">📏 Height</button>
           <button type="button" class="cbar-btn" data-action="washi-text-color" title="Toggle Text Ink">✒️ Ink</button>
           <button type="button" class="cbar-btn" data-action="washi-font-size" title="Text Size">🔠 Size</button>
           <button type="button" class="cbar-btn" data-action="rotate-step" title="Step Angle (+5°)">↻ <span class="cbar-angle-val">-6°</span></button>
@@ -7097,7 +7191,11 @@ function insertIpadWashiTape(pattern="washi-blush"){
         <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape Label ✨</div>
       </div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
-      <div class="canvas-resize-handle" title="Drag corner to stretch or resize">⤡</div>
+      <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize width & height in all ways">⤡</div>
+      <div class="canvas-resize-e" data-dir="e" title="Drag to resize length (width)"></div>
+      <div class="canvas-resize-s" data-dir="s" title="Drag to resize thickness (height)"></div>
+      <div class="canvas-resize-w" data-dir="w" title="Drag to resize length from left"></div>
+      <div class="canvas-resize-n" data-dir="n" title="Drag to resize thickness from top"></div>
     </div>
   `;
   deselectAllCanvasItems();
@@ -7300,6 +7398,20 @@ function handleCanvasAction(btn, e){
     return;
   }
 
+  if(action === "washi-thickness"){
+    const heights = [26, 40, 58, 80];
+    const curH = item.offsetHeight || 40;
+    let nextH = 40;
+    if(curH < 32) nextH = 40;
+    else if(curH < 48) nextH = 58;
+    else if(curH < 70) nextH = 80;
+    else nextH = 26;
+    item.style.height = nextH + "px";
+    queueIpadSave();
+    showToast("Tape thickness: " + nextH + "px 📏");
+    return;
+  }
+
   if(action === "washi-pattern"){
     const strip = item.querySelector(".washi-tape-strip");
     if(!strip) return;
@@ -7416,7 +7528,7 @@ function initIpadCanvasEngine(){
       return;
     }
 
-    const resizeHandle = e.target.closest(".canvas-resize-handle");
+    const resizeHandle = e.target.closest(".canvas-resize-handle, .canvas-resize-e, .canvas-resize-s, .canvas-resize-w, .canvas-resize-n");
     if(resizeHandle){
       const item = resizeHandle.closest(".canvas-item");
       if(item){
@@ -7424,12 +7536,16 @@ function initIpadCanvasEngine(){
         e.stopPropagation();
         selectCanvasItem(item);
         try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
+        const dir = resizeHandle.dataset.dir || "se";
         activeResizeState = {
           pointerId: e.pointerId,
           handle: resizeHandle,
           item: item,
+          dir: dir,
           startX: e.clientX,
           startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop,
           startWidth: item.offsetWidth,
           startHeight: item.offsetHeight,
           type: item.dataset.type || ""
@@ -7501,16 +7617,37 @@ function initIpadCanvasEngine(){
       e.preventDefault();
       const s = activeResizeState;
       const deltaX = e.clientX - s.startX;
+      const deltaY = e.clientY - s.startY;
       const editorWidth = editor.clientWidth || 700;
-      const minW = (s.type === "washi" || s.type === "sticker") ? 50 : 120;
+      const minW = (s.type === "washi") ? 60 : (s.type === "sticker") ? 40 : 120;
+      const minH = (s.type === "washi") ? 22 : 28;
       const maxW = Math.max(minW, editorWidth - s.item.offsetLeft - 10);
-      const newWidth = Math.max(minW, Math.min(maxW, s.startWidth + deltaX));
-      
-      s.item.style.width = newWidth + "px";
+
+      // Width resizing (Length)
+      if(s.dir === "se" || s.dir === "e"){
+        const newWidth = Math.max(minW, Math.min(maxW, s.startWidth + deltaX));
+        s.item.style.width = newWidth + "px";
+      } else if(s.dir === "w"){
+        const newWidth = Math.max(minW, s.startWidth - deltaX);
+        const newLeft = Math.max(0, s.startLeft + (s.startWidth - newWidth));
+        s.item.style.width = newWidth + "px";
+        s.item.style.left = newLeft + "px";
+      }
+
+      // Height resizing (Thickness in all ways!)
+      if(s.dir === "se" || s.dir === "s"){
+        const newHeight = Math.max(minH, s.startHeight + deltaY);
+        s.item.style.height = newHeight + "px";
+      } else if(s.dir === "n"){
+        const newHeight = Math.max(minH, s.startHeight - deltaY);
+        const newTop = Math.max(0, s.startTop + (s.startHeight - newHeight));
+        s.item.style.height = newHeight + "px";
+        s.item.style.top = newTop + "px";
+      }
 
       if(s.type === "sticker"){
         const glyph = s.item.querySelector(".canvas-sticker-glyph");
-        if(glyph) glyph.style.fontSize = Math.max(20, Math.round(newWidth * 0.75)) + "px";
+        if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
       }
       return;
     }
