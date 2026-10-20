@@ -13324,6 +13324,52 @@ function enrichSteps(existingSteps,formula,fields,vals,result){
   return [...base,...existingSteps];
 }
 
+/* ── STEP-BY-STEP BUILDER ── */
+let _sbsId = 0;
+
+function makeSBS(steps){
+  if(!steps || !steps.length) return '';
+  const id = 'sbs_' + (++_sbsId);
+  const stepsHtml = steps.map((s, idx) => {
+    if(!s) return '';
+    const title = (typeof s === 'object' && s.title) ? `<div class="sbs-work-label">${escapeHtml(s.title)}</div>` : '';
+    const body = (typeof s === 'object') ? (s.body || '') : String(s);
+    if(!body && !title) return '';
+    return `<div class="sbs-work-line sbs-step">${title}${body}</div>`;
+  }).filter(Boolean).join('');
+
+  if(!stepsHtml) return '';
+
+  return `
+    <button type="button" class="sbs-toggle" id="${id}-btn" onclick="toggleSBS('${id}')" style="display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;font-size:12px;font-weight:800;cursor:pointer;">
+      <span>▶ Step-by-Step Working</span>
+    </button>
+    <div id="${id}-wrap" class="sbs-work" style="display:none;margin-top:6px;">
+      ${stepsHtml}
+    </div>
+  `;
+}
+
+function toggleSBS(id){
+  const btn = document.getElementById(id + '-btn');
+  const wrap = document.getElementById(id + '-wrap');
+  if(!btn || !wrap) return;
+  const isOpen = (wrap.style.display === 'grid' || wrap.classList.contains('open'));
+  if(isOpen){
+    wrap.style.display = 'none';
+    wrap.classList.remove('open');
+    btn.classList.remove('open');
+    const span = btn.querySelector('span') || btn;
+    span.textContent = '▶ Step-by-Step Working';
+  } else {
+    wrap.style.display = 'grid';
+    wrap.classList.add('open');
+    btn.classList.add('open');
+    const span = btn.querySelector('span') || btn;
+    span.textContent = '▼ Hide Working';
+  }
+}
+
 function eq(s){return`<span class="sbs-eq">${s}</span>`;}
 function note(s){return`<span class="sbs-note">💡 ${s}</span>`;}
 function step(title,body){return{title,body};}
