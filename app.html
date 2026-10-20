@@ -1242,49 +1242,6 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .tpl-card-btn{background:rgba(131,98,74,.08);border-color:rgba(131,98,74,.18);color:#3f2d22;}
 [data-t=light] .tpl-card:hover .tpl-card-btn{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
 
-/* ── JOURNAL BOOKS & SCRAPBOOKING SUITE ── */
-.bookshelf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding:4px 0 24px;}
-@media (max-width:520px){.bookshelf-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
-
-.book-card{position:relative;height:260px;border-radius:12px 18px 18px 12px;cursor:pointer;perspective:1000px;transition:transform .25s var(--ease-flow),box-shadow .25s var(--ease-flow);display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 14px 24px;overflow:hidden;user-select:none;box-shadow:0 14px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.2);}
-.book-card:hover{transform:translateY(-6px) rotateY(-4deg);box-shadow:0 22px 42px rgba(0,0,0,.32),-6px 6px 18px rgba(0,0,0,.18);}
-
-/* Book Spine */
-.book-card::before{content:'';position:absolute;top:0;bottom:0;left:0;width:14px;background:linear-gradient(90deg,rgba(0,0,0,.35) 0%,rgba(255,255,255,.15) 50%,rgba(0,0,0,.25) 100%);box-shadow:inset -1px 0 0 rgba(0,0,0,.2);z-index:2;}
-.book-card::after{content:'';position:absolute;top:0;bottom:0;left:18px;width:1.5px;background:rgba(255,255,255,.2);z-index:2;}
-
-/* Cover Themes */
-.book-card.theme-blush{background:linear-gradient(135deg,#c2527a,#7a284e);color:#fff;}
-.book-card.theme-matcha{background:linear-gradient(135deg,#4e7a59,#25462f);color:#fff;}
-.book-card.theme-latte{background:linear-gradient(135deg,#a47551,#5e3d23);color:#fff;}
-.book-card.theme-obsidian{background:linear-gradient(135deg,#232938,#111520);border:1px solid rgba(255,255,255,.12);color:#fff;}
-.book-card.theme-lavender{background:linear-gradient(135deg,#7252a4,#41286c);color:#fff;}
-.book-card.theme-honey{background:linear-gradient(135deg,#b37d2e,#6b450f);color:#fff;}
-.book-card.theme-ocean{background:linear-gradient(135deg,#2f6f9f,#143a57);color:#fff;}
-
-.book-card-emblem{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.3);display:grid;place-items:center;font-size:24px;box-shadow:0 8px 18px rgba(0,0,0,.18);margin-bottom:10px;}
-.book-card-title{font-size:16px;font-weight:900;line-height:1.3;letter-spacing:.2px;text-shadow:0 2px 4px rgba(0,0,0,.25);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.book-card-desc{font-size:11px;opacity:.8;margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.book-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,.15);font-size:11px;font-weight:800;letter-spacing:.3px;opacity:.9;}
-
-/* Create Book Card */
-.book-card.create-new{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:2px dashed var(--glb);box-shadow:none;display:grid;place-items:center;text-align:center;padding:24px 16px;}
-.book-card.create-new:hover{border-color:var(--act);transform:translateY(-4px);background:linear-gradient(180deg,rgba(140,126,255,.09),rgba(255,140,200,.04));}
-.book-card.create-new::before,.book-card.create-new::after{display:none;}
-.book-create-ico{width:52px;height:52px;border-radius:50%;background:var(--acc);border:1px solid var(--acb);display:grid;place-items:center;font-size:26px;color:var(--act);margin:0 auto 8px;}
-.book-create-txt{font-size:14px;font-weight:900;color:var(--t1);}
-.book-create-sub{font-size:11px;color:var(--t2);margin-top:3px;}
-
-/* Book Interior Hero */
-.book-interior-hero{position:relative;margin-bottom:14px;padding:16px 18px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#fff;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.16);}
-.book-hero-info{display:flex;align-items:center;gap:14px;}
-.book-hero-icon{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:26px;border:1.5px solid rgba(255,255,255,.3);}
-.book-hero-title{font-size:18px;font-weight:900;letter-spacing:.2px;}
-.book-hero-meta{font-size:12px;opacity:.85;margin-top:2px;}
-.book-hero-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.book-hero-btn{height:34px;padding:0 13px;border-radius:11px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:800;cursor:pointer;backdrop-filter:blur(4px);transition:all .18s var(--ease-flow);}
-.book-hero-btn:hover{background:rgba(255,255,255,.28);transform:scale(1.03);}
-
 /* Stickers */
 .journal-sticker{display:inline-block;vertical-align:middle;line-height:1;margin:2px 4px;cursor:pointer;user-select:none;transition:transform .18s var(--ease-flow);filter:drop-shadow(0 3px 6px rgba(0,0,0,.15));}
 .journal-sticker:hover{transform:scale(1.2) rotate(4deg);}
@@ -1363,8 +1320,6 @@ canvas#gc{display:block;width:100%;height:240px;}
 .hl-swatch:hover{transform:scale(1.2);}
 
 /* Light Theme Adjustments */
-[data-t=light] .book-card{box-shadow:0 12px 28px rgba(104,76,56,.2),inset 0 1px 0 rgba(255,255,255,.3);}
-[data-t=light] .book-card.create-new{background:rgba(255,255,255,.4);border-color:rgba(131,98,74,.24);}
 [data-t=light] .stickers-drawer-card,[data-t=light] .crop-modal-card{background:linear-gradient(180deg,rgba(255,250,244,.98),rgba(242,230,216,.96));border-color:rgba(131,98,74,.18);box-shadow:0 30px 60px rgba(104,76,56,.2);}
 [data-t=light] .sticker-pick-btn{background:rgba(255,255,255,.6);border-color:rgba(131,98,74,.16);}
 [data-t=light] .sticker-pick-btn:hover{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);}
@@ -1631,21 +1586,6 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .chem-go{background:linear-gradient(135deg,rgba(113,144,100,.96),rgba(154,178,118,.92));border-color:rgba(90,118,81,.28);box-shadow:0 10px 18px rgba(80,104,70,.14),inset 0 1px 0 rgba(255,255,255,.2);}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
 
-/* ── STEP-BY-STEP ── */
-.sbs-toggle{display:flex;align-items:center;gap:7px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--glb);border-radius:12px;padding:10px 13px;cursor:pointer;font-size:12px;font-weight:700;color:var(--act);margin-top:10px;user-select:none;transition:background .18s,box-shadow .22s var(--ease-flow),transform .18s var(--ease-flow),border-color .18s var(--ease-flow);box-shadow:0 10px 18px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.05);}
-.sbs-toggle:active{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));}
-.sbs-toggle .sbs-arr{font-size:10px;transition:transform .28s;margin-left:auto;}
-.sbs-toggle.open .sbs-arr{transform:rotate(90deg);}
-.sbs-wrap{overflow:hidden;max-height:0;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
-.sbs-wrap.open{max-height:9999px;}
-.sbs-inner{padding-top:8px;}
-.sbs-step{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--glb);border-radius:14px;padding:12px 14px;margin-bottom:8px;animation:fUp .2s ease both;box-shadow:0 10px 18px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.04);}
-.sbs-title{font-size:11.5px;font-weight:800;color:var(--act);letter-spacing:.2px;margin-bottom:6px;}
-.sbs-num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:rgba(110,80,255,.2);border:1px solid rgba(110,80,255,.3);color:var(--act);font-size:10px;font-weight:700;margin-right:7px;flex-shrink:0;vertical-align:middle;}
-.sbs-body{font-size:13px;color:var(--t2);line-height:1.82;}
-.sbs-body b{color:var(--t1);}
-.sbs-eq{display:block;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.022));border-radius:8px;padding:7px 11px;margin:5px 0;font-family:monospace;font-size:13px;color:var(--ok);letter-spacing:.3px;border-left:3px solid rgba(102,255,176,.3);border:1px solid rgba(255,255,255,.05);}
-.sbs-note{display:block;background:rgba(255,175,50,.08);border-left:3px solid var(--amc);border-radius:0 8px 8px 0;padding:6px 10px;margin:5px 0;font-size:11.5px;color:var(--amc);}
 .sbs-work{display:grid;gap:8px;margin:6px 0;}
 .sbs-work-line{display:block;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));border-radius:10px;padding:8px 11px;border-left:3px solid rgba(102,255,176,.26);border:1px solid rgba(255,255,255,.05);font-family:monospace;font-size:13px;color:var(--t1);letter-spacing:.15px;overflow-x:auto;}
 .sbs-work-line.hl{color:var(--ok);border-left-color:rgba(102,255,176,.5);background:rgba(40,80,55,.16);}
@@ -2226,7 +2166,7 @@ html[data-platform=android-app] .topbar{
 }
 .brand{pointer-events:auto!important;}
 /* Notes must stay canvas-clean: no wrapper/toolbar box behind Notes, Trash, or +. */
-#sNotes .notes-shell,#sNotes .notes-top,#sNotes .notes-top-copy,#sNotes .notes-top-actions,#sNotes .notes-controls,#sNotes .note-surface,#sNotes .note-surface.gp,#sJournal .notes-shell,#sJournal .notes-top,#sJournal .notes-top-copy,#sJournal .notes-top-actions,#sJournal .notes-controls,#sJournal .note-surface,#sJournal .note-surface.gp,#sNoteEdit .note-editor-head{
+#sNotes .notes-shell,#sNotes .notes-top,#sNotes .notes-top-copy,#sNotes .notes-top-actions,#sNotes .notes-controls,#sNotes .note-surface,#sNotes .note-surface.gp,#sNoteEdit .note-editor-head{
   background:transparent!important;
   background-image:none!important;
   border:none!important;
@@ -2235,9 +2175,9 @@ html[data-platform=android-app] .topbar{
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
 }
-#sNotes .note-surface,#sNotes .note-surface.gp,#sJournal .note-surface,#sJournal .note-surface.gp{padding:0!important;border-radius:0!important;overflow:visible!important;}
-#sNotes .note-surface::before,#sNotes .note-surface::after,#sNotes .notes-top::before,#sNotes .notes-top::after,#sJournal .note-surface::before,#sJournal .note-surface::after,#sJournal .notes-top::before,#sJournal .notes-top::after,#sNoteEdit .note-editor-head::before,#sNoteEdit .note-editor-head::after{display:none!important;content:none!important;}
-#sNotes .notes-empty,#sJournal .notes-empty{background:transparent!important;background-image:none!important;border:none!important;box-shadow:none!important;}
+#sNotes .note-surface,#sNotes .note-surface.gp{padding:0!important;border-radius:0!important;overflow:visible!important;}
+#sNotes .note-surface::before,#sNotes .note-surface::after,#sNotes .notes-top::before,#sNotes .notes-top::after,#sNoteEdit .note-editor-head::before,#sNoteEdit .note-editor-head::after{display:none!important;content:none!important;}
+#sNotes .notes-empty{background:transparent!important;background-image:none!important;border:none!important;box-shadow:none!important;}
 .hist-sub{margin:-8px 0 12px;}
 html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .mc,html[data-platform=android-app] .gp,html[data-platform=android-app] .ic,html[data-platform=android-app] .rb,html[data-platform=android-app] .hi,html[data-platform=android-app] .note-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
 html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .home-folder-grid .folder-btn{box-shadow:0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06)!important;}
@@ -4335,11 +4275,6 @@ function buildSearchCardIndex(){
     SEARCH_CARD_INDEX.push({key,label,lookupKey,kws,html:el.outerHTML});
   });
 }
-function isDesktopFavoritesMode(){
-  try{
-    return window.matchMedia('(min-width:900px) and (orientation:landscape)').matches;
-  }catch(e){return false;}
-}
 function loadCalcFavs(){
   try{
     const raw=JSON.parse(localStorage.getItem(CALC_FAV_KEY)||'[]');
@@ -4639,17 +4574,9 @@ function syncSoundUI(){
   if(btnSide)btnSide.textContent=sndOn?'🔊':'🔇';
   if(tog)tog.classList.toggle('on',sndOn);
 }
-function syncHapticUI(){
-  const tog=document.getElementById('tog-hpt');
-  if(tog)tog.classList.toggle('on',hapticOn);
-}
 function isCompactPhone(){
   try{return window.matchMedia('(pointer: coarse)').matches&&window.matchMedia('(max-width: 640px)').matches;}
   catch(e){return window.innerWidth<=640;}
-}
-function isCompactThemeLayout(){
-  try{return window.matchMedia('(max-width: 560px)').matches;}
-  catch(e){return window.innerWidth<=560;}
 }
 function getThemeHost(){
   return document.body || document.documentElement;
@@ -4675,11 +4602,6 @@ function setSoundState(next,feedback='toggle'){
   syncSoundUI();
   if(changed&&!next)vib(feedback);
 }
-function setHapticState(next,feedback='toggle'){
-  hapticOn=false;
-  syncHapticUI();
-}
-function togSound(){setSoundState(!sndOn,'toggle');}
 
 /* TIMER */
 function clampTimerInput(v,min,max){
@@ -5092,13 +5014,6 @@ function stripInlineAutoInk(html=''){
 function notePlainText(html=''){
   return extractNoteText(html,false);
 }
-function notePreview(note){
-  const text=extractNoteText(note?.content||'',true);
-  if(!text)return 'Start writing here...';
-  const lines=text.split('\n').filter(Boolean).slice(0,2);
-  const preview=lines.join('\n');
-  return preview.length>120?`${preview.slice(0,120).trimEnd()}...`:preview;
-}
 function renderNotePreviewHtml(note){
   const text=extractNoteText(note?.content||'',true);
   const lines=text
@@ -5107,10 +5022,6 @@ function renderNotePreviewHtml(note){
   while(lines.length<2)lines.push('');
   const empty=!notePlainText(note?.content||'');
   return lines.map(line=>`<span class="note-preview-line${empty?' note-preview-empty':''}">${escapeHtml(line||' ')}</span>`).join('');
-}
-function noteLinesFromHtml(html=''){
-  const text=extractNoteText(html,true);
-  return text?text.split('\n'):[];
 }
 function formatNoteStamp(ts){
   if(!ts)return 'Just now';
@@ -5862,64 +5773,6 @@ function setNotesPane(next){
   renderNotesList();
 }
 
-let journalPane='books';
-function setJournalPane(pane){
-  journalPane=['books','pages'].includes(pane)?pane:'books';
-  const booksBtn=document.getElementById('journal-pane-books');
-  const pagesBtn=document.getElementById('journal-pane-pages');
-  if(booksBtn)booksBtn.classList.toggle('on',journalPane==='books');
-  if(pagesBtn)pagesBtn.classList.toggle('on',journalPane==='pages');
-  const shelf=document.getElementById('bookshelf-pane');
-  const interior=document.getElementById('book-interior-pane');
-  const pagesList=document.getElementById('journal-pages-list');
-  const newBookBtn=document.getElementById('journal-new-book-btn');
-  const addBtn=document.getElementById('journal-add-btn');
-
-  if(journalPane==='books'){
-    if(currentJournalBookId){
-      renderBookInteriorPane();
-    }else{
-      renderBookshelfPane();
-    }
-  }else{
-    if(shelf)shelf.style.display='none';
-    if(interior)interior.style.display='none';
-    if(pagesList)pagesList.style.display='grid';
-    if(newBookBtn)newBookBtn.style.display='none';
-    if(addBtn)addBtn.style.display='flex';
-    renderJournalAllPages();
-  }
-}
-
-function syncJournalPaneUI(){
-  setJournalPane(journalPane||'books');
-}
-
-function renderJournalPane(){
-  setJournalPane(journalPane||'books');
-}
-
-function renderJournalAllPages(){
-  const listEl=document.getElementById('journal-pages-list');
-  if(!listEl)return;
-  listEl.className=`notes-list view-${notesView}`;
-  const list=[...NOTES];
-  if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  else if(notesSort==='title')list.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
-  else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
-
-  if(!list.length){
-    listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">📖</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No journal pages yet.</div><div style="font-size:12px">Create a book or tap "+ New Page" to start your first entry.</div></div>`;
-    return;
-  }
-  listEl.innerHTML=list.map(renderNoteCard).join('');
-  requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
-}
-
-function requestNewJournalPage(){
-  requestNewNote({bookId:currentJournalBookId||''});
-}
-
 function setNotesSort(val){
   notesSort=val||'edited';
   renderNotesList();
@@ -6111,26 +5964,6 @@ function deleteBookPrompt(bookId){
   });
 }
 
-function openBookView(bookId){
-  const book=getJournalBookById(bookId);
-  if(!book)return;
-  currentJournalBookId=bookId;
-  notesPane='books';
-  journalPane='books';
-  setJournalPane('books');
-  resetViewportTop();
-}
-
-function exitBookView(){
-  currentJournalBookId='';
-  setJournalPane('books');
-  resetViewportTop();
-}
-
-function requestNewNoteInCurrentBook(){
-  requestNewNote({bookId:currentJournalBookId});
-}
-
 function syncNoteBookAssignSelect(selectedBookId=''){
   const sel=document.getElementById('note-book-assign');
   if(!sel)return;
@@ -6152,101 +5985,6 @@ function assignCurrentNoteToBook(bookId){
   showToast(book?`Moved to "${book.title}"`:'Removed from book');
 }
 
-function renderBookshelfPane(){
-  const shelf=document.getElementById('bookshelf-pane');
-  if(!shelf)return;
-  shelf.style.display='block';
-  const interior=document.getElementById('book-interior-pane');
-  if(interior)interior.style.display='none';
-  const pagesList=document.getElementById('journal-pages-list');
-  if(pagesList)pagesList.style.display='none';
-
-  let html=`<div class="bookshelf-grid">`;
-  html+=`
-    <div class="book-card create-new" onclick="openCreateBookModal()">
-      <div class="book-create-ico">+</div>
-      <div class="book-create-txt">Create New Book</div>
-      <div class="book-create-sub">Design custom cover & stickers</div>
-    </div>
-  `;
-  JOURNAL_BOOKS.forEach(book=>{
-    const pageCount=NOTES.filter(n=>n.bookId===book.id).length;
-    const themeCls=book.coverTheme||'theme-blush';
-    html+=`
-      <div class="book-card ${themeCls}" onclick="openBookView('${book.id}')">
-        <div class="book-card-emblem">${book.emblem||'🌸'}</div>
-        <div>
-          <div class="book-card-title">${escapeHtml(book.title)}</div>
-          <div class="book-card-desc">${escapeHtml(book.desc||'')}</div>
-        </div>
-        <div class="book-card-footer">
-          <span>${pageCount} ${pageCount===1?'Page':'Pages'}</span>
-          <span>Open →</span>
-        </div>
-      </div>
-    `;
-  });
-  html+=`</div>`;
-  shelf.innerHTML=html;
-}
-
-function renderBookInteriorPane(){
-  const interior=document.getElementById('book-interior-pane');
-  const shelf=document.getElementById('bookshelf-pane');
-  const pagesList=document.getElementById('journal-pages-list');
-  if(!interior)return;
-  if(shelf)shelf.style.display='none';
-  if(pagesList)pagesList.style.display='none';
-  interior.style.display='block';
-
-  const book=getJournalBookById(currentJournalBookId);
-  if(!book){
-    currentJournalBookId='';
-    renderBookshelfPane();
-    return;
-  }
-
-  let notesInBook=NOTES.filter(n=>n.bookId===book.id);
-  if(notesSort==='created')notesInBook.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  else if(notesSort==='title')notesInBook.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
-  else notesInBook.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
-
-  const themeCls=book.coverTheme||'theme-blush';
-  let html=`
-    <div class="book-interior-hero ${themeCls}">
-      <div class="book-hero-info">
-        <div class="book-hero-icon">${book.emblem||'📖'}</div>
-        <div>
-          <div class="book-hero-title">${escapeHtml(book.title)}</div>
-          <div class="book-hero-meta">${escapeHtml(book.desc||'')} · ${notesInBook.length} ${notesInBook.length===1?'Page':'Pages'}</div>
-        </div>
-      </div>
-      <div class="book-hero-actions">
-        <button type="button" class="book-hero-btn" onclick="exitBookView()">← Bookshelf</button>
-        <button type="button" class="book-hero-btn" onclick="requestNewNoteInCurrentBook()">+ New Page</button>
-        <button type="button" class="book-hero-btn" onclick="openTemplatePickerModal('list')">✨ Template</button>
-        <button type="button" class="book-hero-btn" onclick="openEditBookModal('${book.id}')">✏️ Edit</button>
-        <button type="button" class="book-hero-btn" onclick="deleteBookPrompt('${book.id}')">🗑️</button>
-      </div>
-    </div>
-  `;
-
-  if(!notesInBook.length){
-    html+=`
-      <div class="notes-empty">
-        <div class="notes-empty-ico">${book.emblem||'📖'}</div>
-        <div style="font-size:15px;font-weight:700;color:var(--t1)">No pages in this book yet.</div>
-        <div style="font-size:12px">Tap "+ New Page" or choose a "✨ Template" to write your first entry.</div>
-      </div>
-    `;
-  }else{
-    html+=`<div class="notes-list view-${notesView}">`;
-    html+=notesInBook.map(renderNoteCard).join('');
-    html+=`</div>`;
-  }
-  interior.innerHTML=html;
-}
-
 function renderNoteCard(note){
   const title=escapeHtml(getNoteDisplayTitle(note));
   const snippet=renderNotePreviewHtml(note);
@@ -6260,11 +5998,6 @@ function renderNotesList(){
   const sortEl=document.getElementById('notes-sort');
   syncNotesPaneUI();
   if(sortEl&&sortEl.value!==notesSort)sortEl.value=notesSort;
-  if(notesPane==='books'){
-    if(currentJournalBookId)renderBookInteriorPane();
-    else renderBookshelfPane();
-    return;
-  }
   if(notesPane==='library'){
     renderLibraryPane();
     return;
@@ -7692,35 +7425,6 @@ function createNote(initialFields={}){
   renderNotesList();
   openNoteEditor(note.id,{edit:true});
 }
-function renameNotePrompt(id){
-  const note=getNoteById(id);
-  if(!note)return;
-  showAppInputDialog({
-    title:'Rename Page',
-    message:'Update page title',
-    placeholder:'Enter page title',
-    value:note.title||getNoteDisplayTitle(note),
-    confirmText:'Save',
-    cancelText:'Cancel',
-    onConfirm:(nextRaw)=>{
-      const next=String(nextRaw||'').trim();
-      if(!next){showToast('Page name required');return false;}
-      note.title=next;
-      note.updatedAt=Date.now();
-      if(note.isVault){
-        saveVaultNotesData();
-      }else{
-        saveNotesData();
-      }
-      renderNotesList();
-      if(currentNoteId===id){
-        const titleEl=document.getElementById('note-title');
-        if(titleEl)titleEl.value=note.title;
-        updateNoteMeta(note);
-      }
-    }
-  });
-}
 function deleteNote(id){
   const note=getNoteById(id);
   if(!note)return;
@@ -7760,10 +7464,6 @@ function deleteNote(id){
     renderNotesList();
   }
   showNoteActionToast('Note moved to Trash',[{label:'Undo',accent:true,action:'undoDelete'},{label:'Open Trash',action:'openTrash'}]);
-}
-function deleteCurrentNote(){
-  if(!currentNoteId)return;
-  deleteNote(currentNoteId);
 }
 function restoreTrashedNote(id,showRedo=true){
   const note=notesTrash.find(item=>item.id===id);
@@ -8047,59 +7747,6 @@ function setNoteEditMode(editing,focusEditor=true,persist=true){
       syncNotePaperLines();
     });
   }
-}
-function toggleNoteEditMode(){
-  setNoteEditMode(!noteEditMode,true);
-}
-function placeCaretAtNoteLine(lineIndex=0){
-  const editor=document.getElementById('note-editor');
-  if(!editor)return;
-  const lines=noteLinesFromHtml(editor.innerHTML);
-  const safeIndex=Math.max(0,Math.min(lineIndex,lines.length));
-  const charOffset=lines.slice(0,safeIndex).reduce((sum,line)=>sum+line.length,0)+safeIndex;
-  const range=document.createRange();
-  const sel=window.getSelection();
-  const walker=document.createTreeWalker(editor,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,{
-    acceptNode(node){
-      if(node.nodeType===Node.TEXT_NODE)return NodeFilter.FILTER_ACCEPT;
-      if(node.nodeName==='BR')return NodeFilter.FILTER_ACCEPT;
-      return NodeFilter.FILTER_SKIP;
-    }
-  });
-  let remaining=charOffset;
-  let placed=false;
-  while(walker.nextNode()){
-    const node=walker.currentNode;
-    if(node.nodeType===Node.TEXT_NODE){
-      const len=node.textContent.length;
-      if(remaining<=len){
-        range.setStart(node,Math.max(0,remaining));
-        placed=true;
-        break;
-      }
-      remaining-=len;
-    }else if(node.nodeName==='BR'){
-      if(remaining<=0){
-        range.setStartAfter(node);
-        placed=true;
-        break;
-      }
-      remaining-=1;
-    }
-  }
-  if(!placed)range.selectNodeContents(editor),range.collapse(false);
-  sel.removeAllRanges();
-  sel.addRange(range);
-}
-function startNoteEdit(lineIndex=0){
-  setNoteEditMode(true,false);
-  requestAnimationFrame(()=>{
-    const editor=document.getElementById('note-editor');
-    editor?.focus();
-    applyCurrentNoteInk();
-    placeCaretAtNoteLine(lineIndex);
-    refreshNoteFormatState();
-  });
 }
 function openNoteEditor(id,opts={}){
   const note=getNoteById(id);
@@ -8948,14 +8595,6 @@ function loadTrackerData(){
     TRACKER=parsed.map(normalizeTrackerHabit).filter(Boolean);
   }catch(e){TRACKER=[];}
 }
-function trackerMonthKeys(date){
-  const year=date.getFullYear();
-  const month=date.getMonth();
-  const days=new Date(year,month+1,0).getDate();
-  const keys=[];
-  for(let day=1;day<=days;day++)keys.push(getTrackerDayKey(new Date(year,month,day).getTime()));
-  return keys;
-}
 function shiftTrackerMonth(delta){
   trackerMonthOffset+=delta;
   if(trackerMonthOffset>0)trackerMonthOffset=0;
@@ -9123,34 +8762,6 @@ function deleteTrackerHabit(id){
       refreshHomeDesktopWidgets();
     }
   });
-}
-function renderTrackerLegacy(){
-  const listEl=document.getElementById('tracker-list');
-  const monthLabel=document.getElementById('tracker-month-label');
-  const nextBtn=document.getElementById('tracker-next');
-  if(!listEl)return;
-  const monthDate=trackerMonthDate(trackerMonthOffset);
-  const keys=trackerMonthKeys(monthDate);
-  const todayKey=getTrackerDayKey();
-  if(monthLabel)monthLabel.textContent=formatTrackerMonth(monthDate);
-  if(nextBtn)nextBtn.disabled=trackerMonthOffset>=0;
-  if(!TRACKER.length){
-    listEl.innerHTML='<div class="tracker-empty"><div class="notes-empty-ico">◎</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No habits yet. Add one to start tracking.</div><div style="font-size:12px">Each day you complete a habit, mark it done and build your streak.</div></div>';
-    return;
-  }
-  listEl.innerHTML=TRACKER.map(habit=>{
-    const checkedCount=keys.filter(k=>habit.checks[k]).length;
-    const completion=(checkedCount/Math.max(1,keys.length))*100;
-    const streak=trackerStreak(habit);
-    const doneToday=!!habit.checks[todayKey];
-    const grid=keys.map(k=>{
-      const cls=['tracker-cell'];
-      if(habit.checks[k])cls.push('on');
-      if(k===todayKey)cls.push('today');
-      return `<span class="${cls.join(' ')}" title="${k}"></span>`;
-    }).join('');
-    return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${streak} day streak</div></div><div class="tracker-meta">${checkedCount}/${keys.length} · ${fmt(completion,1)}%</div></div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><button class="note-card-btn ${doneToday?'done acc':'acc'}" onclick="toggleTrackerToday('${habit.id}')">${doneToday?'Done Today':'Mark Done'}</button><button class="note-card-btn" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div></div>`;
-  }).join('');
 }
 let trackerRenderToken=0;
 function buildTrackerCardHTMLFast(habit,weekKeys,monthKeys,todayKey){
@@ -9435,52 +9046,6 @@ function toggleTrackerDay(id,key){
   queueTrackerSave();
   renderTracker();
   refreshHomeDesktopWidgets();
-}
-function renderTrackerLegacyFull(){
-  const listEl=document.getElementById('tracker-list');
-  const monthLabel=document.getElementById('tracker-month-label');
-  const nextBtn=document.getElementById('tracker-next');
-  if(!listEl)return;
-  const monthDate=trackerMonthDate(trackerMonthOffset);
-  const weekKeys=getWeekKeys();
-  const todayKey=getTrackerDayKey();
-  const monthKeys=getMonthKeys(monthDate.getTime());
-  if(monthLabel)monthLabel.textContent=formatTrackerMonth(monthDate);
-  if(nextBtn)nextBtn.disabled=trackerMonthOffset>=0;
-  if(!TRACKER.length){
-    listEl.innerHTML='<div class="tracker-empty"><div class="notes-empty-ico">◎</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No habits yet. Add one to start tracking.</div><div style="font-size:12px">Only today can be marked. Past and future days stay locked.</div></div>';
-    renderTrackerProgress();
-    return;
-  }
-  listEl.innerHTML=TRACKER.map(habit=>{
-    const weeklyDone=weekKeys.filter(k=>habit.checks[k]).length;
-    const weeklyPct=weekKeys.length?weeklyDone*100/weekKeys.length:0;
-    const monthlyDone=monthKeys.filter(k=>habit.checks[k]).length;
-    const monthlyPct=monthKeys.length?monthlyDone*100/monthKeys.length:0;
-    const streak=trackerStreak(habit);
-    const weekHeader=weekKeys.map((k,idx)=>{
-      const d=parseTrackerDayKey(k);
-      const dayShort=TRACKER_DAY_NAMES[idx].slice(0,3);
-      const dateText=d?String(d.getDate()).padStart(2,'0'):'';
-      return `<div class="tracker-day-tag"><div class="dw">${dayShort}</div><div class="dt">${dateText}</div></div>`;
-    }).join('');
-    const grid=weekKeys.map((k,idx)=>{
-      const cls=['tracker-cell'];
-      if(habit.checks[k])cls.push('on');
-      if(k===todayKey)cls.push('today');
-      const canTick=(k===todayKey);
-      if(!canTick)cls.push('locked');
-      return `<button type="button" class="${cls.join(' ')}" ${canTick?`onclick="toggleTrackerDay('${habit.id}','${k}')"`:''} ${canTick?'':'disabled'} title="${TRACKER_DAY_NAMES[idx]}">${habit.checks[k]?'✓':''}</button>`;
-    }).join('');
-    return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${streak} day streak</div></div><div class="tracker-meta"><div class="tracker-meta-line">Weekly: <b>${weeklyDone}/7</b> · <b>${fmt(weeklyPct,1)}%</b></div><div class="tracker-meta-line">Monthly: <b>${monthlyDone}/${monthKeys.length}</b> · <b>${fmt(monthlyPct,1)}%</b></div></div></div><div class="tracker-grid-head">${weekHeader}</div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><div class="tracker-actions-left"><button class="note-card-btn acc" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div><button class="note-card-btn ${habit.checks[todayKey]?'done acc':'acc'}" onclick="toggleTrackerDay('${habit.id}','${todayKey}')">${habit.checks[todayKey]?'Done Today':'Mark Today'}</button></div></div>`;
-  }).join('');
-  renderTrackerProgress();
-}
-function openTrackerLegacyFull(opts={}){
-  if(currentTab!=='tracker')setBottomTab('tracker');
-  setActiveScreen('sTracker','Tracker',opts||{});
-  scheduleTrackerRender({deferMs:170});
-  if(opts?.push!==false)rememberView({type:'tracker'},!!opts?.replace);
 }
 
 /* ── RIPPLE ── */
@@ -9905,21 +9470,6 @@ function setAcademiaTimerMode(kind){
 function openAcademiaFolder(kind){
   const map={math:'math',physics:'phys',chemistry:'chem'};
   openFolderPage(map[kind]||'math',{direction:1});
-}
-function openCalculatorsPanelFor(kind){
-  renderCalculatorsPage();
-  go('Calcs',null,{direction:1});
-  requestAnimationFrame(()=>{
-    const keys=['math','phys','chem'];
-    keys.forEach(k=>{
-      const body=document.getElementById(`c-${k}-body`);
-      const arrow=document.getElementById(`c-${k}-arrow`);
-      if(!body)return;
-      const open=k===kind;
-      body.classList.toggle('open',open);
-      if(arrow)arrow.classList.toggle('open',open);
-    });
-  });
 }
 function buildAcademiaCalendarSelectors(){
   const mSel=document.getElementById('ac-month-select');
@@ -10924,9 +10474,6 @@ function addH(mode,expr,result,payload=null){
 function bracketOk(s){let c=0;for(const ch of s){if(ch==='(')c++;else if(ch===')')c--;if(c<0)return false;}return c===0;}
 function sEv(e){const r=Function('"use strict";return('+e+')')();if(isFinite(r))return r;if(r===Infinity||r===-Infinity){try{const be=e.replace(/\b(\d+)\b/g,m=>m+'n');const br=Function('"use strict";return('+be+')')();if(typeof br==='bigint')return br;}catch(_){}}return r;}
 function safeFmt(r){if(typeof r==='bigint'){const s=r.toString(),neg=s[0]==='-',d=neg?s.slice(1):s;return d.length<=22?s:(neg?'-':'')+d[0]+'.'+d.slice(1,9)+'...×10^'+(d.length-1);}return fmt(r);}
-function explainKnownValues(fields,vals){
-  return fields.map((f,i)=>vals[i]!==null?`${f.l} = <b>${vals[i]}</b>`:null).filter(Boolean).join('<br>');
-}
 function cleanFormulaText(formula){
   return String(formula||'').replace(/\s+[—-]\s+leave one blank.*$/i,'').trim();
 }
@@ -11012,19 +10559,6 @@ function enrichSteps(existingSteps,formula,fields,vals,result){
   return [...base,...existingSteps];
 }
 
-/* â”€â”€ STEP-BY-STEP BUILDER â”€â”€ */
-let _sbsId=0;
-function makeSBS(steps){
-  return '';
-}
-function toggleSBS(id){
-  const btn=document.getElementById(id+'-btn');
-  const wrap=document.getElementById(id+'-wrap');
-  if(!btn||!wrap)return;
-  const open=wrap.classList.toggle('open');
-  btn.classList.toggle('open',open);
-  btn.firstChild.textContent=open?'▼ Working ':'▶ Working ';
-}
 function eq(s){return`<span class="sbs-eq">${s}</span>`;}
 function note(s){return`<span class="sbs-note">💡 ${s}</span>`;}
 function step(title,body){return{title,body};}
@@ -14046,12 +13580,6 @@ function answerMarkup(label,v,unit=''){
 }
 function physWrap(v){
   return typeof v==='number'&&v<0?`(${physFmtVal(v)})`:physFmtVal(v);
-}
-function physReciprocal(v){
-  return `1/${physWrap(v)}`;
-}
-function sbsWork(lines,highlightLast=false){
-  return `<div class="sbs-work">`+lines.map((line,i)=>`<div class="sbs-work-line${highlightLast&&i===lines.length-1?' hl':''}">${line}</div>`).join('')+`</div>`;
 }
 function buildMirrorFormulaWorkedSteps(pf,result,vals,ans,knownStr,blankField){
   const [f,v,u]=vals;
