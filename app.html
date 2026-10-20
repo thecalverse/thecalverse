@@ -983,6 +983,12 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notes-top-btn.library-only.show{display:inline-flex;align-items:center;justify-content:center;}
 .notes-top-btn.vault-only{display:none;}
 .notes-top-btn.vault-only.show{display:inline-flex;align-items:center;justify-content:center;}
+.notes-top-copy, #notes-page-title, #notes-page-sub{
+  cursor:default!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+  -webkit-touch-callout:none!important;
+}
 .notes-sub{font-size:12px;color:var(--t2);line-height:1.6;}
 .notes-add{flex:1 1 100%;max-width:none;width:100%;height:44px;border:none;border-radius:14px;background:var(--accg);color:#fff;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;box-shadow:0 10px 20px rgba(84,92,180,.2),inset 0 1px 0 rgba(255,255,255,.22);gap:10px;overflow:hidden;padding:0 14px;}
 .notes-add.expanded{flex:1 1 100%;max-width:none;width:100%;}
@@ -3196,7 +3202,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   <div class="screen" id="sNotes">
     <div class="notes-shell">
       <div class="notes-top">
-        <div class="notes-top-copy" onclick="handleNotesHeaderTap()" style="cursor:pointer;-webkit-user-select:none;user-select:none;">
+        <div class="notes-top-copy" onclick="handleNotesHeaderTap()">
           <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes</div>
           <div class="notes-sub" id="notes-page-sub">Your study notebook for quick ideas, formulas, and revision notes.</div>
         </div>
@@ -3382,7 +3388,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </div>
 
-<div id="vault-auth-dialog" class="app-dialog" onclick="closeVaultAuthDialog()">
+<div id="vault-auth-dialog" class="app-dialog" onclick="handleVaultBackdropClick(event)">
   <div class="app-dialog-card" onclick="event.stopPropagation()">
     <div class="app-dialog-title" id="vault-auth-title">🔒 Vault Passcode</div>
     <div class="app-dialog-body" id="vault-auth-body"></div>
@@ -3390,7 +3396,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </div>
 
-<div id="vault-change-dialog" class="app-dialog" onclick="closeVaultChangeDialog()">
+<div id="vault-change-dialog" class="app-dialog" onclick="handleVaultChangeBackdropClick(event)">
   <div class="app-dialog-card" onclick="event.stopPropagation()">
     <div class="app-dialog-title" id="vault-change-title">⚙️ Change Vault Passcode</div>
     <div class="app-dialog-body" id="vault-change-body"></div>
@@ -6010,18 +6016,21 @@ function saveVaultNotesData(){
   }catch(e){}
 }
 
+let vaultAuthOpenedAt=0;
 function handleNotesHeaderTap(){
   if(notesPane==='vault')return;
   secretHeaderTapCount++;
   clearTimeout(secretHeaderTapTimer);
   secretHeaderTapTimer=setTimeout(()=>{
     secretHeaderTapCount=0;
-  },2200);
+  },2400);
   if(secretHeaderTapCount>=5){
     secretHeaderTapCount=0;
     clearTimeout(secretHeaderTapTimer);
     try{if(typeof vib==='function')vib();}catch(_){}
-    openVaultAuthModal();
+    setTimeout(()=>{
+      openVaultAuthModal();
+    },120);
   }
 }
 
@@ -6031,6 +6040,8 @@ async function openVaultAuthModal(){
   const bodyEl=document.getElementById('vault-auth-body');
   const actionsEl=document.getElementById('vault-auth-actions');
   if(!dialog||!titleEl||!bodyEl||!actionsEl)return;
+
+  vaultAuthOpenedAt=Date.now();
 
   const storedHash=localStorage.getItem(VAULT_PASS_KEY);
   if(!storedHash){
@@ -6073,9 +6084,20 @@ async function openVaultAuthModal(){
   });
 }
 
+function handleVaultBackdropClick(e){
+  if(e && e.target !== document.getElementById('vault-auth-dialog')) return;
+  if(Date.now() - vaultAuthOpenedAt < 500) return;
+  closeVaultAuthDialog();
+}
+
 function closeVaultAuthDialog(){
   const dialog=document.getElementById('vault-auth-dialog');
   if(dialog)dialog.classList.remove('show');
+}
+
+function handleVaultChangeBackdropClick(e){
+  if(e && e.target !== document.getElementById('vault-change-dialog')) return;
+  closeVaultChangeDialog();
 }
 
 async function submitVaultSetup(){
