@@ -1444,6 +1444,89 @@ canvas#gc{display:block;width:100%;height:240px;}
 .study-callout-card.callout-lavender{border-left-color:#ba68c8;background:rgba(186,104,200,.08);}
 .study-callout-card.callout-honey{border-left-color:#ffb74d;background:rgba(255,183,77,.08);}
 
+/* ── AUTHENTIC IPAD DIGITAL NOTEBOOK ── */
+.ipad-stage{display:flex;flex-direction:column;align-items:center;width:100%;max-width:920px;margin:0 auto;padding:4px 8px 32px;box-sizing:border-box;}
+.ipad-frame{position:relative;width:100%;background:linear-gradient(145deg,#1c202a,#11141b);border-radius:28px;padding:12px 14px 18px;box-shadow:0 24px 60px rgba(0,0,0,.45),0 2px 0 rgba(255,255,255,.08) inset,0 -2px 0 rgba(0,0,0,.6) inset;border:1px solid rgba(255,255,255,.1);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;}
+@media (max-width:580px){.ipad-frame{border-radius:20px;padding:10px 8px 14px;}}
+[data-t=light] .ipad-frame{background:linear-gradient(145deg,#e9e1d8,#d5c8b7);border-color:rgba(131,98,74,.22);box-shadow:0 20px 48px rgba(104,76,56,.18),0 1px 0 rgba(255,255,255,.8) inset;}
+
+/* Apple Pencil Magnetic Dock */
+.ipad-pencil-dock{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:130px;height:7px;background:linear-gradient(180deg,#303642,#1a1d24);border-radius:4px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 6px rgba(0,0,0,.3);}
+.ipad-pencil-dock::after{content:'⚡ Stylus Ready';font-size:7.5px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.5px;line-height:1;}
+[data-t=light] .ipad-pencil-dock{background:linear-gradient(180deg,#eee3d7,#ccc0ae);border-color:rgba(131,98,74,.25);}
+[data-t=light] .ipad-pencil-dock::after{color:#5d4231;}
+
+/* iPad Top Bar */
+.ipad-top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:4px 4px 2px;}
+.ipad-notebook-meta{display:flex;align-items:center;gap:6px;}
+.ipad-notebook-select{height:30px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--t1);font-size:12px;font-weight:800;padding:0 24px 0 8px;cursor:pointer;outline:none;}
+[data-t=light] .ipad-notebook-select{background:rgba(255,255,255,.75);border-color:rgba(131,98,74,.25);color:#3f2d22;}
+
+.ipad-page-stepper{display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:2px 4px;}
+[data-t=light] .ipad-page-stepper{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.25);}
+.ipad-step-btn{height:26px;min-width:26px;border-radius:7px;border:none;background:transparent;color:var(--t1);font-size:12.5px;font-weight:800;cursor:pointer;display:grid;place-items:center;transition:background .15s;}
+.ipad-step-btn:hover:not(:disabled){background:rgba(255,255,255,.12);}
+.ipad-step-btn:disabled{opacity:.35;cursor:not-allowed;}
+.ipad-page-counter{font-size:11.5px;font-weight:800;color:var(--t1);padding:0 6px;white-space:nowrap;user-select:none;}
+
+/* GoodNotes Stylus Tool Dock */
+.ipad-stylus-dock{background:rgba(14,18,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+[data-t=light] .ipad-stylus-dock{background:rgba(255,250,244,.92);border-color:rgba(131,98,74,.2);box-shadow:0 6px 18px rgba(104,76,56,.1);}
+.ipad-tool-grp{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+
+/* iPad Paper Sheet (The Digital Canvas) */
+.ipad-screen-glass{position:relative;width:100%;border-radius:18px;background:#0d1017;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3) inset;border:1px solid rgba(255,255,255,.06);}
+[data-t=light] .ipad-screen-glass{background:#f7f3ec;border-color:rgba(131,98,74,.15);}
+
+.ipad-paper-sheet{position:relative;min-height:560px;padding:30px 36px 48px;box-sizing:border-box;transition:background .2s ease;font-size:18px;line-height:1.75;}
+@media (max-width:580px){.ipad-paper-sheet{padding:18px 14px 36px;min-height:460px;font-size:16px;}}
+
+.ipad-paper-sheet.paper-obsidian-grid{
+  background:#111520!important;
+  background-image:linear-gradient(to right,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.07) 1px,transparent 1px)!important;
+  background-size:24px 24px!important;
+  color:#f2f5fd!important;
+}
+.ipad-paper-sheet.paper-cream-dots{
+  background:#fcf8f0!important;
+  background-image:radial-gradient(#bba792 1.3px,transparent 1.3px)!important;
+  background-size:22px 22px!important;
+  color:#2b221a!important;
+}
+.ipad-paper-sheet.paper-cream-dots .ipad-paper-title{border-bottom-color:rgba(43,34,26,.15)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-cream-dots .ipad-paper-canvas{color:#2b221a!important;}
+.ipad-paper-sheet.paper-cream-dots .study-box-body{color:#2b221a!important;}
+
+.ipad-paper-sheet.paper-ruled{
+  background:#121622!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.08) 30px)!important;
+  color:#f2f5fd!important;
+  border-left:3px solid rgba(255,100,100,.35)!important;
+}
+[data-t=light] .ipad-paper-sheet.paper-ruled{
+  background:#fcf9f2!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(131,98,74,.14) 30px)!important;
+  color:#2b221a!important;
+  border-left:3px solid rgba(230,80,80,.4)!important;
+}
+
+.ipad-paper-sheet.paper-blank{
+  background:rgba(255,255,255,.02)!important;
+  background-image:none!important;
+  color:#f2f5fd!important;
+}
+[data-t=light] .ipad-paper-sheet.paper-blank{
+  background:#fffcf8!important;
+  color:#2b221a!important;
+}
+
+.ipad-paper-title{width:100%;border:none;background:transparent;outline:none;font-size:24px;font-weight:900;letter-spacing:-.3px;color:inherit;margin-bottom:12px;padding:0 0 8px 0;border-bottom:1.5px dashed rgba(255,255,255,.15);box-sizing:border-box;}
+@media (max-width:580px){.ipad-paper-title{font-size:19px;}}
+[data-t=light] .ipad-paper-title{border-bottom-color:rgba(0,0,0,.12);}
+
+.ipad-paper-canvas{min-height:440px;outline:none;color:inherit;line-height:1.75;word-break:break-word;}
+.ipad-paper-canvas:empty::before{content:attr(data-placeholder);opacity:.35;pointer-events:none;}
+
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
 .tracker-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -3555,28 +3638,103 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     </div>
   </div>
 
-  <!-- AESTHETIC JOURNAL & BINDERS -->
+  <!-- AESTHETIC IPAD DIGITAL NOTEBOOK -->
   <div class="screen" id="sJournal">
-    <div class="notes-shell">
-      <div class="notes-top">
-        <div class="notes-top-copy">
-          <div class="stitle" id="journal-page-title" style="margin-bottom:0">Journal</div>
-          <div class="notes-sub" id="journal-page-sub">Aesthetic digital binders, scrapbooks, polaroids & Canva templates.</div>
-        </div>
-        <div class="notes-top-actions">
-          <div class="notes-pane-seg" role="tablist" aria-label="Journal panes">
-            <button class="notes-pane-btn on" id="journal-pane-books" onclick="setJournalPane('books')" type="button">📚 Books</button>
-            <button class="notes-pane-btn" id="journal-pane-pages" onclick="setJournalPane('pages')" type="button">📄 All Pages</button>
+    <div class="ipad-stage">
+      <div class="ipad-frame">
+        <div class="ipad-pencil-dock" title="Apple Pencil Ready"></div>
+        
+        <!-- Top Control Bar -->
+        <div class="ipad-top-bar">
+          <div class="ipad-notebook-meta">
+            <select id="ipad-notebook-select" class="ipad-notebook-select" onchange="handleIpadNotebookChange(this.value)" title="Active Notebook">
+              <!-- Dynamically populated with notebooks -->
+            </select>
+            <button type="button" class="ipad-step-btn" onclick="openCreateBookModal()" title="Create New Notebook" style="font-size:15px;padding:0 6px;">📚+</button>
+            <button type="button" class="ipad-step-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
           </div>
-          <button class="notes-top-btn" id="journal-new-book-btn" onclick="openCreateBookModal()" type="button" style="display:inline-flex;align-items:center;gap:5px;">📚 + Book</button>
-          <button class="notes-top-btn" id="journal-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
-          <button class="notes-add" id="journal-add-btn" onclick="requestNewJournalPage()" aria-label="Create page"><span class="notes-add-ico">+</span><span class="notes-add-label">New Page</span></button>
+          
+          <div class="ipad-page-stepper">
+            <button type="button" class="ipad-step-btn" id="ipad-prev-page-btn" onclick="flipIpadPage(-1)" title="Previous Page">‹</button>
+            <span class="ipad-page-counter" id="ipad-page-counter">Page 1 of 1</span>
+            <button type="button" class="ipad-step-btn" id="ipad-next-page-btn" onclick="flipIpadPage(1)" title="Next Page">›</button>
+            <button type="button" class="ipad-step-btn" onclick="addIpadPage()" title="Add New Page" style="border-left:1px solid rgba(255,255,255,0.15);padding-left:6px;margin-left:2px;color:var(--act);">+ Page</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button type="button" class="ipad-step-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
+            <button type="button" class="ipad-step-btn" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
+          </div>
         </div>
-      </div>
-      <div class="gp note-surface">
-        <div class="bookshelf-pane" id="bookshelf-pane"></div>
-        <div class="book-interior-pane" id="book-interior-pane" style="display:none;"></div>
-        <div class="notes-list" id="journal-pages-list" style="display:none;"></div>
+
+        <!-- Stylus Tool Dock (Floating GoodNotes Style) -->
+        <div class="ipad-stylus-dock">
+          <!-- Stylus Font / Pen -->
+          <div class="ipad-tool-grp">
+            <select id="ipad-font-select" class="note-tool-select" onchange="applyIpadTypography()" style="min-width:140px;height:30px;font-size:12px;padding:0 22px 0 8px;">
+              <option value="patrick" selected>📝 Study Notebook</option>
+              <option value="caveat">✨ Aesthetic Cursive</option>
+              <option value="shantell">🌸 Modern Print</option>
+              <option value="kalam">🖋️ Ink Ballpoint</option>
+              <option value="architect">📐 Technical Hand</option>
+              <option value="clean">Clean Sans</option>
+            </select>
+            
+            <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:125px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Paper Template">
+              <option value="obsidian" selected>🖤 Obsidian Grid</option>
+              <option value="cream">📑 Cream Dots</option>
+              <option value="ruled">📜 Lined Notebook</option>
+              <option value="blank">🤍 Blank Page</option>
+            </select>
+          </div>
+
+          <!-- Stylus Highlighters -->
+          <div class="ipad-tool-grp" style="position:relative;">
+            <div style="display:flex;align-items:center;gap:4px;padding:2px 6px;background:rgba(255,255,255,0.06);border-radius:10px;">
+              <span style="font-size:11px;font-weight:900;color:var(--t2);margin-right:2px;">🖍️</span>
+              <div class="hl-swatch" style="background:#fff176;width:20px;height:20px;" title="Yellow Highlighter" onclick="applyIpadHighlighter('rgba(255,241,118,0.55)')"></div>
+              <div class="hl-swatch" style="background:#f48fb1;width:20px;height:20px;" title="Pink Highlighter" onclick="applyIpadHighlighter('rgba(244,143,177,0.55)')"></div>
+              <div class="hl-swatch" style="background:#a5d6a7;width:20px;height:20px;" title="Mint Highlighter" onclick="applyIpadHighlighter('rgba(165,214,167,0.55)')"></div>
+              <div class="hl-swatch" style="background:#ce93d8;width:20px;height:20px;" title="Lavender Highlighter" onclick="applyIpadHighlighter('rgba(206,147,216,0.55)')"></div>
+              <div class="hl-swatch" style="background:#81d4fa;width:20px;height:20px;" title="Sky Blue Highlighter" onclick="applyIpadHighlighter('rgba(129,212,250,0.55)')"></div>
+              <div class="hl-swatch" style="background:transparent;border:1px dashed #aaa;width:20px;height:20px;display:grid;place-items:center;font-size:9px;color:var(--t2);" title="Clear Highlighter" onclick="applyIpadHighlighter('transparent')">✕</div>
+            </div>
+          </div>
+
+          <!-- Creative Study Inserts -->
+          <div class="ipad-tool-grp" style="position:relative;">
+            <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">🎀 Stickers</button>
+            <button type="button" class="note-tool-btn" onclick="insertIpadStickyPrompt()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📝 Sticky</button>
+            <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">📦 Blocks ▾</button>
+            <div id="ipad-study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:220px;padding:8px;top:38px;right:0;" onclick="event.stopPropagation()">
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('split')">📊 2-Col Diagram + Notes</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-pink')">🌸 Key Concept (Pink)</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-mint')">🌿 Key Concept (Mint)</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertIpadStudyBlock('callout-lavender')">✨ Key Concept (Lavender)</button>
+            </div>
+            <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;">🖼️ Photo</button>
+          </div>
+        </div>
+
+        <input type="file" id="ipad-photo-input" accept="image/*" style="display:none" onchange="handleIpadPhotoUpload(event)">
+
+        <!-- iPad Paper Sheet Surface -->
+        <div class="ipad-screen-glass">
+          <div class="ipad-paper-sheet paper-obsidian-grid" id="ipad-paper-sheet">
+            <input type="text" id="ipad-page-title" class="ipad-paper-title" placeholder="Page Title (e.g. Bioenergetics & ATP Cycle...)" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(true)">
+            <div id="ipad-page-editor" class="ipad-paper-canvas" contenteditable="true" spellcheck="true" data-placeholder="Start typing your study notes here... Tap highlighters, drop sticky notes, or insert study blocks from the top toolbar." oninput="queueIpadSave()" onblur="saveCurrentIpadPage(false)"></div>
+          </div>
+        </div>
+
+        <!-- iPad Bottom Status -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:2px 8px;font-size:11px;color:var(--t3);">
+          <div id="ipad-save-status">Saved locally to this notebook</div>
+          <div style="display:flex;gap:12px;">
+            <button type="button" style="background:none;border:none;color:var(--act);font-size:11.5px;font-weight:800;cursor:pointer;" onclick="saveCurrentIpadPage(true)">Save Now</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3868,6 +4026,25 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </div>
 
+<!-- IPAD NOTEBOOK PAGES OVERVIEW MODAL -->
+<div id="ipad-pages-modal" class="app-dialog" onclick="if(event.target===this)closeIpadPagesDrawer()">
+  <div class="stickers-drawer-card" style="max-width:700px;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--glb);">
+      <div>
+        <div style="font-size:17px;font-weight:900;color:var(--t1);" id="ipad-modal-book-title">📓 Pages Overview</div>
+        <div style="font-size:12px;color:var(--t2);">Tap any page to open or delete unwanted pages</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="note-card-btn acc" onclick="closeIpadPagesDrawer();addIpadPage();">+ New Page</button>
+        <button type="button" class="tpl-modal-close" onclick="closeIpadPagesDrawer()">✕</button>
+      </div>
+    </div>
+    <div class="notes-list view-grid" id="ipad-pages-overview-grid" style="max-height:55vh;overflow-y:auto;padding:8px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+      <!-- Page thumbnail cards -->
+    </div>
+  </div>
+</div>
+
 <div id="journal-stickers-modal" class="app-dialog" onclick="handleStickerModalBackdrop(event)">
   <div class="stickers-drawer-card" onclick="event.stopPropagation()">
     <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -4065,7 +4242,7 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
   if(!isLikelyNoteRecord(note))return null;
   const now=Date.now();
   const idRaw=String(note.id||'').trim();
-  if(!idRaw||!/^note_[a-z0-9_]+$/i.test(idRaw))return null;
+  if(!idRaw||!/^(note|vault)_[a-z0-9_]+$/i.test(idRaw))return null;
   const title=String(note.title||'');
   let content=typeof note.content==='string'?note.content:'';
   const createdAt=Number(note.createdAt)||now;
@@ -4081,6 +4258,7 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
   if(textColorMode!=='custom'){
     content=stripInlineAutoInk(content);
   }
+  const isVault = note.isVault === true || idRaw.startsWith('vault_');
   const safe={
     id:idRaw,
     title,
@@ -4093,7 +4271,8 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
     textColor,
     textColorMode,
     bookId: typeof note.bookId==='string'?note.bookId:'',
-    paperStyle: typeof note.paperStyle==='string'?note.paperStyle:'ruled'
+    paperStyle: typeof note.paperStyle==='string'?note.paperStyle:'ruled',
+    isVault: !!isVault
   };
   if(fromTrash){
     const deletedAt=Number(note.deletedAt)||updatedAt;
@@ -4945,7 +5124,8 @@ function syncViewToggle(id,value){
   if(label)label.textContent=isList?'List':'Grid';
 }
 function getNoteById(id){
-  return NOTES.find(note=>note.id===id)||(isVaultActive?VAULT_NOTES.find(note=>note.id===id):null)||null;
+  if(!id)return null;
+  return NOTES.find(note=>note.id===id)||VAULT_NOTES.find(note=>note.id===id)||null;
 }
 function openNotesDB(){
   return new Promise((resolve,reject)=>{
@@ -5890,8 +6070,14 @@ function submitBookModal(){
     JOURNAL_BOOKS.push(newBook);
     saveJournalBooks();
     showToast(`Created "${title}" 📚✨`);
+    currentJournalBookId = newBook.id;
+    currentJournalPageIndex = 0;
+    if(curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+      loadIpadActivePage();
+    }
   }
   closeBookModal();
+  syncIpadNotebookSelect();
   renderNotesList();
 }
 
@@ -5911,8 +6097,15 @@ function deleteBookPrompt(bookId){
       });
       saveJournalBooks();
       saveNotesData();
-      if(currentJournalBookId===bookId)currentJournalBookId='';
+      if(currentJournalBookId===bookId){
+        currentJournalBookId=JOURNAL_BOOKS[0]?.id||'';
+        currentJournalPageIndex=0;
+        if(curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+          loadIpadActivePage();
+        }
+      }
       showToast('Book deleted');
+      syncIpadNotebookSelect();
       renderNotesList();
     }
   });
@@ -6136,14 +6329,427 @@ function openNotes(opts={}){
 
 function openJournal(opts={}){
   notesPane='books';
-  currentJournalBookId='';
   isVaultActive=false;
   setBottomTab('journal');
   setActiveScreen('sJournal','Journal',{...opts,tab:'journal'});
-  syncJournalPaneUI();
-  renderJournalPane();
+  loadIpadActivePage();
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'journal'},!!opts?.replace);
+}
+
+/* ── AUTHENTIC IPAD DIGITAL NOTEBOOK CONTROLLER ── */
+let currentJournalPageIndex = 0;
+let ipadSaveTimer = null;
+
+function getIpadPagesForCurrentBook(){
+  if(!currentJournalBookId && JOURNAL_BOOKS.length > 0){
+    currentJournalBookId = JOURNAL_BOOKS[0].id;
+  }
+  return NOTES.filter(n => n.bookId === currentJournalBookId);
+}
+
+function syncIpadNotebookSelect(){
+  const sel = document.getElementById('ipad-notebook-select');
+  if(!sel) return;
+  if(!currentJournalBookId && JOURNAL_BOOKS.length > 0){
+    currentJournalBookId = JOURNAL_BOOKS[0].id;
+  }
+  let html = '';
+  JOURNAL_BOOKS.forEach(b => {
+    const isSel = (b.id === currentJournalBookId) ? 'selected' : '';
+    html += `<option value="${escapeHtml(b.id)}" ${isSel}>${escapeHtml(b.emblem||'📖')} ${escapeHtml(b.title)}</option>`;
+  });
+  sel.innerHTML = html;
+}
+
+function handleIpadNotebookChange(bookId){
+  saveCurrentIpadPage(false);
+  currentJournalBookId = bookId;
+  currentJournalPageIndex = 0;
+  loadIpadActivePage();
+}
+
+function loadIpadActivePage(){
+  syncIpadNotebookSelect();
+  let pages = getIpadPagesForCurrentBook();
+  if(!pages.length){
+    const now = Date.now();
+    const starterNote = {
+      id: `note_${now}_${Math.random().toString(36).slice(2,7)}`,
+      title: 'Chapter 1 — Study Notes',
+      content: `<div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">FUNCTION / CONCEPT</div><div class="study-box-body" contenteditable="true">• GoodNotes-style iPad digital study page<br>• Choose Obsidian Dark Grid or Cream Dots paper<br>• Use pastel highlighters, washi tape & study blocks</div></div><p>Start typing your study notes here...</p>`,
+      createdAt: now,
+      updatedAt: now,
+      untitledIndex: noteUntitledSeed++,
+      fontFamily: 'patrick',
+      fontSize: 'medium',
+      textColor: getDefaultNoteTextColor(),
+      textColorMode: 'auto',
+      bookId: currentJournalBookId,
+      paperStyle: 'obsidian',
+      tags: []
+    };
+    NOTES.unshift(starterNote);
+    saveNotesData();
+    pages = [starterNote];
+  }
+
+  if(currentJournalPageIndex >= pages.length){
+    currentJournalPageIndex = pages.length - 1;
+  }
+  if(currentJournalPageIndex < 0) currentJournalPageIndex = 0;
+
+  const activeNote = pages[currentJournalPageIndex];
+  currentNoteId = activeNote.id;
+
+  const titleEl = document.getElementById('ipad-page-title');
+  const editorEl = document.getElementById('ipad-page-editor');
+  const fontSel = document.getElementById('ipad-font-select');
+  const paperSel = document.getElementById('ipad-paper-select');
+  const counterEl = document.getElementById('ipad-page-counter');
+  const prevBtn = document.getElementById('ipad-prev-page-btn');
+  const nextBtn = document.getElementById('ipad-next-page-btn');
+  const pagesLabel = document.getElementById('ipad-pages-btn-label');
+
+  if(titleEl) titleEl.value = activeNote.title || '';
+  if(editorEl){
+    editorEl.innerHTML = activeNote.content || '';
+    editorEl.dataset.noteFont = activeNote.fontFamily || 'patrick';
+  }
+  if(fontSel) fontSel.value = activeNote.fontFamily || 'patrick';
+  if(paperSel) paperSel.value = activeNote.paperStyle || 'obsidian';
+  if(counterEl) counterEl.textContent = `Page ${currentJournalPageIndex + 1} of ${pages.length}`;
+  if(pagesLabel) pagesLabel.textContent = `Pages (${pages.length})`;
+  if(prevBtn) prevBtn.disabled = (currentJournalPageIndex === 0);
+  if(nextBtn) nextBtn.disabled = (currentJournalPageIndex >= pages.length - 1);
+
+  applyIpadPaperStyle(activeNote.paperStyle || 'obsidian');
+  applyIpadTypography();
+  updateIpadSaveStatus('Saved locally to notebook');
+}
+
+function flipIpadPage(delta){
+  saveCurrentIpadPage(false);
+  const pages = getIpadPagesForCurrentBook();
+  const nextIndex = currentJournalPageIndex + delta;
+  if(nextIndex >= 0 && nextIndex < pages.length){
+    currentJournalPageIndex = nextIndex;
+    loadIpadActivePage();
+  }
+}
+
+function addIpadPage(){
+  saveCurrentIpadPage(false);
+  const pages = getIpadPagesForCurrentBook();
+  const currentNote = getNoteById(currentNoteId);
+  const preferredFont = currentNote?.fontFamily || 'patrick';
+  const preferredPaper = currentNote?.paperStyle || 'obsidian';
+  const now = Date.now();
+  const nextNum = pages.length + 1;
+  const newNote = {
+    id: `note_${now}_${Math.random().toString(36).slice(2,7)}`,
+    title: `Page ${nextNum} — Study Notes`,
+    content: '',
+    createdAt: now,
+    updatedAt: now,
+    untitledIndex: noteUntitledSeed++,
+    fontFamily: preferredFont,
+    fontSize: 'medium',
+    textColor: getDefaultNoteTextColor(),
+    textColorMode: 'auto',
+    bookId: currentJournalBookId,
+    paperStyle: preferredPaper,
+    tags: []
+  };
+  NOTES.unshift(newNote);
+  saveNotesData();
+  currentJournalPageIndex = pages.length;
+  loadIpadActivePage();
+  showToast(`Added Page ${nextNum} ✨`);
+}
+
+function deleteCurrentIpadPage(){
+  const pages = getIpadPagesForCurrentBook();
+  if(pages.length <= 1){
+    showToast('Cannot delete the only page in notebook');
+    return;
+  }
+  const activeNote = getNoteById(currentNoteId);
+  if(!activeNote) return;
+  showAppDialog({
+    title: 'Delete Page',
+    message: `Delete "${activeNote.title || 'this page'}" from notebook?`,
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+    tone: 'warn',
+    onConfirm: () => {
+      NOTES = NOTES.filter(n => n.id !== activeNote.id);
+      saveNotesData();
+      const remaining = getIpadPagesForCurrentBook();
+      if(currentJournalPageIndex >= remaining.length){
+        currentJournalPageIndex = Math.max(0, remaining.length - 1);
+      }
+      loadIpadActivePage();
+      showToast('Page deleted');
+    }
+  });
+}
+
+function saveCurrentIpadPage(showFeedback=false){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  const titleEl = document.getElementById('ipad-page-title');
+  const editorEl = document.getElementById('ipad-page-editor');
+  const fontSel = document.getElementById('ipad-font-select');
+  const paperSel = document.getElementById('ipad-paper-select');
+
+  const nextTitle = titleEl ? titleEl.value.trim() : '';
+  const nextContent = editorEl ? editorEl.innerHTML : '';
+  const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
+  const nextPaper = (paperSel && ['obsidian','cream','ruled','blank'].includes(paperSel.value)) ? paperSel.value : 'obsidian';
+
+  note.title = nextTitle;
+  note.content = nextContent;
+  note.fontFamily = nextFont;
+  note.paperStyle = nextPaper;
+  note.updatedAt = Date.now();
+  saveNotesData();
+
+  updateIpadSaveStatus('Saved locally to notebook');
+  if(showFeedback) showToast('Page saved ✅');
+}
+
+function queueIpadSave(){
+  updateIpadSaveStatus('Saving...');
+  clearTimeout(ipadSaveTimer);
+  ipadSaveTimer = setTimeout(() => {
+    saveCurrentIpadPage(false);
+  }, 350);
+}
+
+function updateIpadSaveStatus(text){
+  const el = document.getElementById('ipad-save-status');
+  if(el) el.textContent = text;
+}
+
+function applyIpadPaperStyle(style){
+  const sheet = document.getElementById('ipad-paper-sheet');
+  const sel = document.getElementById('ipad-paper-select');
+  if(!sheet) return;
+  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-ruled','paper-blank');
+  if(style === 'obsidian') sheet.classList.add('paper-obsidian-grid');
+  else if(style === 'cream') sheet.classList.add('paper-cream-dots');
+  else if(style === 'ruled') sheet.classList.add('paper-ruled');
+  else sheet.classList.add('paper-blank');
+  if(sel && sel.value !== style) sel.value = style;
+  const note = getNoteById(currentNoteId);
+  if(note && note.paperStyle !== style){
+    note.paperStyle = style;
+    queueIpadSave();
+  }
+}
+
+function applyIpadTypography(){
+  const editor = document.getElementById('ipad-page-editor');
+  const sel = document.getElementById('ipad-font-select');
+  if(!editor || !sel) return;
+  const fontVal = sel.value;
+  const fontCss = NOTE_FONT_MAP[fontVal] || NOTE_FONT_MAP.patrick || 'cursive';
+  editor.style.fontFamily = fontCss;
+  editor.dataset.noteFont = fontVal;
+  const note = getNoteById(currentNoteId);
+  if(note && note.fontFamily !== fontVal){
+    note.fontFamily = fontVal;
+    queueIpadSave();
+  }
+}
+
+function applyIpadHighlighter(color){
+  const editor = document.getElementById('ipad-page-editor');
+  if(!editor) return;
+  editor.focus();
+  const sel = window.getSelection();
+  if(!sel || sel.isCollapsed || !sel.rangeCount){
+    if(color === 'transparent') return;
+    const highlightCard = `<span style="background-color:${color};padding:2px 6px;border-radius:4px;display:inline-block;font-weight:700;margin:2px 0;">✨ Key Highlight: </span>&nbsp;`;
+    insertHtmlAtCursor(highlightCard, editor);
+    queueIpadSave();
+    showToast('Highlighter placed 🖍️');
+    return;
+  }
+  if(color === 'transparent'){
+    try { document.execCommand('removeFormat', false, null); } catch(e){}
+    queueIpadSave();
+    showToast('Highlighter erased');
+    return;
+  }
+  try {
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('hiliteColor', false, color);
+  } catch(e){
+    try { document.execCommand('backColor', false, color); } catch(_) {}
+  }
+  queueIpadSave();
+  showToast('Highlighted 🖍️');
+}
+
+function insertIpadStickyPrompt(){
+  const editor = document.getElementById('ipad-page-editor');
+  if(!editor) return;
+  editor.focus();
+  const stickyHtml = `
+    <div class="journal-sticky-note yellow" contenteditable="true" onclick="cycleStickyColor(this)" title="Tap to change color" style="margin:12px auto;max-width:320px;">
+      <b>📌 Note:</b> Type key study takeaway or formula here... (tap edge to cycle color)
+    </div><p><br></p>
+  `;
+  insertHtmlAtCursor(stickyHtml, editor);
+  queueIpadSave();
+  showToast('Sticky note pinned 📝');
+}
+
+function toggleIpadStudyBlocksMenu(e){
+  if(e) e.stopPropagation();
+  const m = document.getElementById('ipad-study-blocks-menu');
+  if(!m) return;
+  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function insertIpadStudyBlock(type){
+  const m = document.getElementById('ipad-study-blocks-menu');
+  if(m) m.style.display = 'none';
+  const editor = document.getElementById('ipad-page-editor');
+  if(!editor) return;
+  editor.focus();
+
+  let html = '';
+  if(type === 'function'){
+    html = `<div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">FUNCTION / CONCEPT</div><div class="study-box-body" contenteditable="true">• Core concept definition or rule<br>• Important biochemical mechanism or theorem<br>• Key exam takeaway points</div></div><p><br></p>`;
+  }else if(type === 'split'){
+    html = `<div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="false"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;">📊 Diagram / Figure</div><button type="button" class="jphoto-btn" onclick="triggerIpadPhotoUpload()">📸 Insert Diagram</button></div><div class="study-col-card" contenteditable="true" style="border-style:solid;"><b>Diagram Notes:</b><br>• Primary structure & labels<br>• Pathway flow & reaction steps</div></div><p><br></p>`;
+  }else if(type === 'formula'){
+    html = `<div class="study-formula-card" contenteditable="false"><div class="study-formula-title">FORMULA / LAW</div><div class="study-formula-equation" contenteditable="true">CO = SV × HR</div><div class="study-formula-sub" contenteditable="true">Cardiac Output = Stroke Volume × Heart Rate</div></div><p><br></p>`;
+  }else if(type === 'callout-pink'){
+    html = `<div class="study-callout-card callout-pink" contenteditable="true">🌸 <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
+  }else if(type === 'callout-mint'){
+    html = `<div class="study-callout-card callout-mint" contenteditable="true">🌿 <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
+  }else if(type === 'callout-lavender'){
+    html = `<div class="study-callout-card callout-lavender" contenteditable="true">✨ <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
+  }
+
+  insertHtmlAtCursor(html, editor);
+  queueIpadSave();
+  showToast('Study block added ✨');
+}
+
+function triggerIpadPhotoUpload(){
+  const inp = document.getElementById('ipad-photo-input');
+  if(inp) inp.click();
+}
+
+function handleIpadPhotoUpload(e){
+  const file = e?.target?.files?.[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const dataUrl = evt.target.result;
+    const editor = document.getElementById('ipad-page-editor');
+    if(!editor) return;
+    editor.focus();
+    const photoId = 'photo_' + Date.now();
+    const imgHtml = `
+      <div class="journal-photo-wrap" id="${photoId}" data-size="m" contenteditable="false">
+        <div class="journal-photo-card frame-washi">
+          <img src="${dataUrl}" alt="Study Diagram" style="max-height:360px;object-fit:contain;">
+        </div>
+        <div class="journal-photo-caption" contenteditable="true" placeholder="Figure caption...">Figure 1.1 Study Diagram</div>
+      </div>
+      <p><br></p>
+    `;
+    insertHtmlAtCursor(imgHtml, editor);
+    queueIpadSave();
+    showToast('Photo inserted with washi tape 🎀');
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function openIpadPagesDrawer(){
+  saveCurrentIpadPage(false);
+  const modal = document.getElementById('ipad-pages-modal');
+  const grid = document.getElementById('ipad-pages-overview-grid');
+  const titleEl = document.getElementById('ipad-modal-book-title');
+  if(!modal || !grid) return;
+  const book = getJournalBookById(currentJournalBookId);
+  if(titleEl) titleEl.textContent = `${book?.emblem || '📖'} ${book?.title || 'Notebook'} — Pages`;
+  
+  const pages = getIpadPagesForCurrentBook();
+  let html = '';
+  pages.forEach((p, idx) => {
+    const isCur = (idx === currentJournalPageIndex);
+    const title = escapeHtml(p.title || `Page ${idx + 1}`);
+    const snippet = renderNotePreviewHtml(p);
+    html += `
+      <div class="note-card ${isCur ? 'active-page-card' : ''}" style="${isCur ? 'border: 2px solid var(--act); box-shadow: 0 0 14px rgba(140,126,255,0.3);' : ''}" onclick="selectIpadPageFromDrawer(${idx})">
+        <div class="note-card-head">
+          <div class="note-card-title">Page ${idx + 1}: ${title}</div>
+          <div class="note-card-meta">${escapeHtml(formatNoteStamp(p.updatedAt))}</div>
+        </div>
+        <div class="note-card-snippet" style="max-height:80px;overflow:hidden;">${snippet}</div>
+        <div class="note-card-actions" style="margin-top:8px;">
+          <button type="button" class="note-card-btn ${isCur ? 'acc' : ''}" onclick="event.stopPropagation();selectIpadPageFromDrawer(${idx})">${isCur ? 'Current Page' : 'Open Page'}</button>
+          ${pages.length > 1 ? `<button type="button" class="note-card-btn del" onclick="event.stopPropagation();deleteIpadPageFromDrawer('${p.id}', ${idx})">Delete</button>` : ''}
+        </div>
+      </div>
+    `;
+  });
+  grid.innerHTML = html;
+  modal.classList.add('show');
+}
+
+function closeIpadPagesDrawer(){
+  const modal = document.getElementById('ipad-pages-modal');
+  if(modal) modal.classList.remove('show');
+}
+
+function selectIpadPageFromDrawer(idx){
+  closeIpadPagesDrawer();
+  currentJournalPageIndex = idx;
+  loadIpadActivePage();
+}
+
+function deleteIpadPageFromDrawer(noteId, idx){
+  showAppDialog({
+    title: 'Delete Page',
+    message: 'Permanently delete this page from notebook?',
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+    tone: 'warn',
+    onConfirm: () => {
+      NOTES = NOTES.filter(n => n.id !== noteId);
+      saveNotesData();
+      const remaining = getIpadPagesForCurrentBook();
+      if(currentJournalPageIndex >= remaining.length){
+        currentJournalPageIndex = Math.max(0, remaining.length - 1);
+      }
+      openIpadPagesDrawer();
+      loadIpadActivePage();
+      showToast('Page deleted');
+    }
+  });
+}
+
+function applyTemplateToIpadActivePage(tpl){
+  closeTemplatePickerModal();
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  const title = typeof tpl.defaultTitle === 'function' ? tpl.defaultTitle() : (tpl.name || 'Study Page');
+  note.title = title;
+  note.content = tpl.content;
+  if(tpl.font) note.fontFamily = tpl.font;
+  note.updatedAt = Date.now();
+  saveNotesData();
+  loadIpadActivePage();
+  showToast(`Applied ${tpl.name} ✨`);
 }
 
 function applyNotePaperStyle(style){
@@ -6205,6 +6811,7 @@ function insertStudyBlock(type){
 function openVaultNotes(opts={}){
   notesPane='vault';
   isVaultActive=true;
+  loadVaultNotesData();
   setBottomTab('notes');
   setActiveScreen('sNotes','Notes',opts||{});
   syncNotesPaneUI();
@@ -6214,7 +6821,7 @@ function openVaultNotes(opts={}){
 
 function lockVault(){
   isVaultActive=false;
-  notesPane='books';
+  notesPane='notes';
   currentJournalBookId='';
   syncNotesPaneUI();
   renderNotesList();
@@ -6303,29 +6910,44 @@ function insertHtmlAtCursor(html,fallbackContainer){
   }
 }
 
+function getActiveJournalEditor(){
+  if(curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+    return document.getElementById('ipad-page-editor');
+  }
+  return document.getElementById('note-editor');
+}
+
 function insertStickerToJournal(sticker){
   closeStickersModal();
-  setNoteEditMode(true,false);
-  const editor=document.getElementById('note-editor');
+  const editor=getActiveJournalEditor();
   if(!editor)return;
+  if(editor.id==='note-editor')setNoteEditMode(true,false);
   editor.focus();
   const stickerHtml=`<span class="journal-sticker" data-size="m" contenteditable="false" onclick="handleStickerClick(this)">${sticker}</span>&nbsp;`;
   insertHtmlAtCursor(stickerHtml,editor);
-  syncNoteEditorPlaceholder();
-  queueNoteSave();
+  if(editor.id==='ipad-page-editor'){
+    queueIpadSave();
+  }else{
+    syncNoteEditorPlaceholder();
+    queueNoteSave();
+  }
   showToast(`Added sticker ${sticker} ✨`);
 }
 
 function insertWashiTapeToJournal(washiClass){
   closeStickersModal();
-  setNoteEditMode(true,false);
-  const editor=document.getElementById('note-editor');
+  const editor=getActiveJournalEditor();
   if(!editor)return;
+  if(editor.id==='note-editor')setNoteEditMode(true,false);
   editor.focus();
   const washiHtml=`<div class="washi-tape-strip ${washiClass}" contenteditable="false"></div><p><br></p>`;
   insertHtmlAtCursor(washiHtml,editor);
-  syncNoteEditorPlaceholder();
-  queueNoteSave();
+  if(editor.id==='ipad-page-editor'){
+    queueIpadSave();
+  }else{
+    syncNoteEditorPlaceholder();
+    queueNoteSave();
+  }
   showToast('Added washi tape 📌');
 }
 
@@ -6334,7 +6956,22 @@ function handleStickerClick(el){
   const currentSize=el.getAttribute('data-size')||'m';
   const nextSize=(currentSize==='s')?'m':(currentSize==='m')?'l':'s';
   el.setAttribute('data-size',nextSize);
-  queueNoteSave();
+  const editor=getActiveJournalEditor();
+  if(editor&&editor.id==='ipad-page-editor')queueIpadSave();
+  else queueNoteSave();
+  try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
+}
+
+function cycleStickyColor(el){
+  if(!el)return;
+  const colors=['yellow','pink','mint','lavender'];
+  const cur=colors.find(c=>el.classList.contains(c))||'yellow';
+  const next=colors[(colors.indexOf(cur)+1)%colors.length];
+  el.classList.remove('yellow','pink','mint','lavender');
+  el.classList.add(next);
+  const editor=getActiveJournalEditor();
+  if(editor&&editor.id==='ipad-page-editor')queueIpadSave();
+  else queueNoteSave();
   try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
 }
 
@@ -7020,7 +7657,7 @@ function requestNewNote(initialFields={}){
 }
 function createVaultNote(){
   const now=Date.now();
-  const note={id:`vault_${now}_${Math.random().toString(36).slice(2,7)}`,title:'',content:'',createdAt:now,updatedAt:now,untitledIndex:vaultUntitledSeed++,fontFamily:'clean',fontSize:'medium',textColor:getDefaultNoteTextColor(),textColorMode:'auto',tags:[],isVault:true};
+  const note={id:`vault_${now}_${Math.random().toString(36).slice(2,7)}`,title:'',content:'',createdAt:now,updatedAt:now,untitledIndex:vaultUntitledSeed++,fontFamily:'clean',fontSize:'medium',paperStyle:'ruled',textColor:getDefaultNoteTextColor(),textColorMode:'auto',tags:[],isVault:true};
   VAULT_NOTES.unshift(note);
   saveVaultNotesData();
   renderNotesList();
@@ -7548,7 +8185,7 @@ function saveCurrentNote(showFeedback=false){
   note.paperStyle=nextPaper;
   note.tags=nextTags;
   note.updatedAt=Date.now();
-  if(note.isVault){
+  if(note.isVault || (note.id && note.id.startsWith('vault_'))){
     saveVaultNotesData();
   }else{
     saveNotesData();
@@ -7827,11 +8464,17 @@ async function submitVaultChangePass(){
 }
 
 function handleNoteEditBack(){
+  try{ saveCurrentNote(false); }catch(e){}
   const note=getNoteById(currentNoteId);
-  if(note?.isVault||isVaultActive){
+  const wasVault = !!(note?.isVault || isVaultActive || (currentNoteId && currentNoteId.startsWith('vault_')));
+  if(wasVault){
     openVaultNotes();
   }else{
-    openNotes();
+    if(notesPane==='books' || (note && note.bookId)){
+      openJournal();
+    }else{
+      openNotes();
+    }
   }
 }
 
@@ -8081,7 +8724,9 @@ function handleTemplateModalBackdrop(e){
 function selectTemplate(tplId){
   const tpl=NOTE_TEMPLATES.find(t=>t.id===tplId);
   if(!tpl)return;
-  if(templateModalSource==='editor'){
+  if(templateModalSource==='ipad'||curScr==='Journal'||document.getElementById('sJournal')?.classList.contains('active')){
+    applyTemplateToIpadActivePage(tpl);
+  }else if(templateModalSource==='editor'){
     applyTemplateToCurrentNote(tpl);
   }else{
     createNoteFromTemplate(tpl);
@@ -8165,7 +8810,7 @@ function doApplyTemplate(note, tpl){
   applyNoteTypography();
   renderNoteReadView(note);
   syncNoteEditorPlaceholder();
-  if(note.isVault){
+  if(note.isVault || (note.id && note.id.startsWith('vault_'))){
     saveVaultNotesData();
   }else{
     saveNotesData();
@@ -10031,7 +10676,7 @@ function renderDashboardGreeting(){
 function bnav(t){
   const order={home:0,fav:1,hist:2,tracker:3,library:4,timer:5,notes:6,journal:7,sett:8};
   const prev=currentTab;
-  if((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='journal'&&curScr==='Notes'&&notesPane==='books')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings'))return;
+  if((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='journal'&&curScr==='Journal')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings'))return;
   playClick('nav');vib('nav');
   if(t!=='fav')setBottomTab(t);
   const dir=(order[t]??0)>(order[prev]??0)?1:-1;
