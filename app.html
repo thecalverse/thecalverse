@@ -1239,6 +1239,153 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .tpl-card-btn{background:rgba(131,98,74,.08);border-color:rgba(131,98,74,.18);color:#3f2d22;}
 [data-t=light] .tpl-card:hover .tpl-card-btn{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
 
+/* ── JOURNAL BOOKS & SCRAPBOOKING SUITE ── */
+.bookshelf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding:4px 0 24px;}
+@media (max-width:520px){.bookshelf-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+
+.book-card{position:relative;height:260px;border-radius:12px 18px 18px 12px;cursor:pointer;perspective:1000px;transition:transform .25s var(--ease-flow),box-shadow .25s var(--ease-flow);display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px 14px 24px;overflow:hidden;user-select:none;box-shadow:0 14px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.2);}
+.book-card:hover{transform:translateY(-6px) rotateY(-4deg);box-shadow:0 22px 42px rgba(0,0,0,.32),-6px 6px 18px rgba(0,0,0,.18);}
+
+/* Book Spine */
+.book-card::before{content:'';position:absolute;top:0;bottom:0;left:0;width:14px;background:linear-gradient(90deg,rgba(0,0,0,.35) 0%,rgba(255,255,255,.15) 50%,rgba(0,0,0,.25) 100%);box-shadow:inset -1px 0 0 rgba(0,0,0,.2);z-index:2;}
+.book-card::after{content:'';position:absolute;top:0;bottom:0;left:18px;width:1.5px;background:rgba(255,255,255,.2);z-index:2;}
+
+/* Cover Themes */
+.book-card.theme-blush{background:linear-gradient(135deg,#c2527a,#7a284e);color:#fff;}
+.book-card.theme-matcha{background:linear-gradient(135deg,#4e7a59,#25462f);color:#fff;}
+.book-card.theme-latte{background:linear-gradient(135deg,#a47551,#5e3d23);color:#fff;}
+.book-card.theme-obsidian{background:linear-gradient(135deg,#232938,#111520);border:1px solid rgba(255,255,255,.12);color:#fff;}
+.book-card.theme-lavender{background:linear-gradient(135deg,#7252a4,#41286c);color:#fff;}
+.book-card.theme-honey{background:linear-gradient(135deg,#b37d2e,#6b450f);color:#fff;}
+.book-card.theme-ocean{background:linear-gradient(135deg,#2f6f9f,#143a57);color:#fff;}
+
+.book-card-emblem{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.3);display:grid;place-items:center;font-size:24px;box-shadow:0 8px 18px rgba(0,0,0,.18);margin-bottom:10px;}
+.book-card-title{font-size:16px;font-weight:900;line-height:1.3;letter-spacing:.2px;text-shadow:0 2px 4px rgba(0,0,0,.25);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.book-card-desc{font-size:11px;opacity:.8;margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.book-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,.15);font-size:11px;font-weight:800;letter-spacing:.3px;opacity:.9;}
+
+/* Create Book Card */
+.book-card.create-new{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:2px dashed var(--glb);box-shadow:none;display:grid;place-items:center;text-align:center;padding:24px 16px;}
+.book-card.create-new:hover{border-color:var(--act);transform:translateY(-4px);background:linear-gradient(180deg,rgba(140,126,255,.09),rgba(255,140,200,.04));}
+.book-card.create-new::before,.book-card.create-new::after{display:none;}
+.book-create-ico{width:52px;height:52px;border-radius:50%;background:var(--acc);border:1px solid var(--acb);display:grid;place-items:center;font-size:26px;color:var(--act);margin:0 auto 8px;}
+.book-create-txt{font-size:14px;font-weight:900;color:var(--t1);}
+.book-create-sub{font-size:11px;color:var(--t2);margin-top:3px;}
+
+/* Book Interior Hero */
+.book-interior-hero{position:relative;margin-bottom:14px;padding:16px 18px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#fff;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.16);}
+.book-hero-info{display:flex;align-items:center;gap:14px;}
+.book-hero-icon{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:26px;border:1.5px solid rgba(255,255,255,.3);}
+.book-hero-title{font-size:18px;font-weight:900;letter-spacing:.2px;}
+.book-hero-meta{font-size:12px;opacity:.85;margin-top:2px;}
+.book-hero-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.book-hero-btn{height:34px;padding:0 13px;border-radius:11px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:800;cursor:pointer;backdrop-filter:blur(4px);transition:all .18s var(--ease-flow);}
+.book-hero-btn:hover{background:rgba(255,255,255,.28);transform:scale(1.03);}
+
+/* Stickers */
+.journal-sticker{display:inline-block;vertical-align:middle;line-height:1;margin:2px 4px;cursor:pointer;user-select:none;transition:transform .18s var(--ease-flow);filter:drop-shadow(0 3px 6px rgba(0,0,0,.15));}
+.journal-sticker:hover{transform:scale(1.2) rotate(4deg);}
+.journal-sticker[data-size=s]{font-size:22px;}
+.journal-sticker[data-size=m]{font-size:36px;}
+.journal-sticker[data-size=l]{font-size:56px;}
+
+/* Washi Tape Strips */
+.washi-tape-strip{position:relative;margin:16px 0;height:24px;border-radius:2px;display:flex;align-items:center;justify-content:center;opacity:.92;box-shadow:0 2px 6px rgba(0,0,0,.08);user-select:none;cursor:default;}
+.washi-tape-strip::before,.washi-tape-strip::after{content:'';position:absolute;top:0;bottom:0;width:7px;}
+.washi-tape-strip::before{left:-4px;background:inherit;clip-path:polygon(100% 0, 0 25%, 100% 50%, 0 75%, 100% 100%);}
+.washi-tape-strip::after{right:-4px;background:inherit;clip-path:polygon(0 0, 100% 25%, 0 50%, 100% 75%, 0 100%);}
+.washi-blush{background:repeating-linear-gradient(45deg,#f8bbd0,#f8bbd0 8px,#f48fb1 8px,#f48fb1 16px);}
+.washi-matcha{background:repeating-linear-gradient(-45deg,#c8e6c9,#c8e6c9 8px,#a5d6a7 8px,#a5d6a7 16px);}
+.washi-lavender{background:repeating-linear-gradient(45deg,#e1bee7,#e1bee7 8px,#ce93d8 8px,#ce93d8 16px);}
+.washi-kraft{background:linear-gradient(90deg,#d7ccc8,#bcaaa4);}
+.washi-foil{background:linear-gradient(90deg,#ffd54f,#80deea,#e1bee7,#ff8a80);}
+
+/* Sticky Notes */
+.journal-sticky-note{position:relative;margin:14px auto;width:min(100%,320px);padding:18px 16px 14px;border-radius:4px 4px 18px 4px;box-shadow:0 12px 24px rgba(0,0,0,.12),0 2px 6px rgba(0,0,0,.06);transform:rotate(-1deg);line-height:1.55;font-family:'Segoe Print','Bradley Hand',cursive;font-size:16px;color:#2c2c2c;}
+.journal-sticky-note.yellow{background:#fff9c4;border-top:3px solid #fff176;}
+.journal-sticky-note.pink{background:#f8bbd0;border-top:3px solid #f48fb1;}
+.journal-sticky-note.mint{background:#c8e6c9;border-top:3px solid #a5d6a7;}
+.journal-sticky-note.lavender{background:#e1bee7;border-top:3px solid #ce93d8;}
+.journal-sticky-note::after{content:'';position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 16px 16px;border-color:transparent transparent rgba(0,0,0,.15) transparent;}
+
+/* Photo Frames & Canva-Style Photo Toolbar */
+.journal-photo-wrap{position:relative;display:inline-block;max-width:100%;margin:12px auto;text-align:center;}
+.journal-photo-wrap[data-size=s]{width:38%;min-width:180px;}
+.journal-photo-wrap[data-size=m]{width:68%;min-width:240px;}
+.journal-photo-wrap[data-size=l]{width:100%;}
+
+.journal-photo-card.frame-polaroid{background:#fff;padding:12px 12px 24px;border-radius:4px;box-shadow:0 12px 28px rgba(0,0,0,.16),0 2px 6px rgba(0,0,0,.08);transform:rotate(-1deg);color:#333;display:inline-block;width:100%;position:relative;}
+.journal-photo-card.frame-polaroid::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:54px;height:18px;background:rgba(255,230,170,.75);border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,.08);z-index:3;}
+.journal-photo-card.frame-polaroid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px;display:block;}
+.journal-photo-caption{margin-top:10px;font-family:'Segoe Print','Bradley Hand',cursive;font-size:13px;color:#444;text-align:center;min-height:18px;outline:none;}
+
+.journal-photo-card.frame-rounded{padding:6px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid var(--glb);box-shadow:0 10px 24px rgba(0,0,0,.12);display:inline-block;width:100%;}
+.journal-photo-card.frame-rounded img{width:100%;border-radius:16px;display:block;}
+
+.journal-photo-card.frame-washi{position:relative;padding:6px;background:rgba(255,255,255,.94);border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.14);display:inline-block;width:100%;}
+.journal-photo-card.frame-washi::before{content:'';position:absolute;top:-8px;left:-8px;width:38px;height:16px;background:rgba(244,143,177,.75);transform:rotate(-35deg);border-radius:2px;z-index:2;}
+.journal-photo-card.frame-washi::after{content:'';position:absolute;top:-8px;right:-8px;width:38px;height:16px;background:rgba(165,214,167,.75);transform:rotate(35deg);border-radius:2px;z-index:2;}
+.journal-photo-card.frame-washi img{width:100%;border-radius:4px;display:block;}
+
+.journal-photo-card.frame-minimal{display:inline-block;width:100%;}
+.journal-photo-card.frame-minimal img{width:100%;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.12);display:block;}
+
+.journal-photo-actions{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(16,22,38,.92);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:4px 8px;display:flex;gap:6px;align-items:center;z-index:10;box-shadow:0 8px 20px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .18s var(--ease-flow);}
+.journal-photo-wrap:hover .journal-photo-actions,.journal-photo-wrap.active .journal-photo-actions{opacity:1;pointer-events:auto;}
+.jphoto-btn{height:26px;padding:0 9px;border-radius:999px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:11px;font-weight:800;cursor:pointer;}
+.jphoto-btn:hover{background:var(--accg);color:#fff;}
+
+/* Crop Modal */
+.crop-modal-card{width:min(100%,580px);background:linear-gradient(180deg,rgba(18,24,38,.98),rgba(12,16,28,.96));border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 28px 56px rgba(0,0,0,.45);}
+.crop-canvas-box{position:relative;width:100%;max-height:50vh;background:#090d15;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--glb);}
+.crop-canvas-box canvas{max-width:100%;max-height:50vh;display:block;}
+.crop-presets-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;}
+.crop-preset-btn{height:30px;padding:0 12px;border-radius:10px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t2);font-size:11.5px;font-weight:800;cursor:pointer;white-space:nowrap;}
+.crop-preset-btn.on{background:var(--accg);border-color:var(--acb);color:#fff;}
+
+/* Stickers Drawer Modal */
+.stickers-drawer-card{width:min(100%,680px);max-height:85vh;max-height:85dvh;background:linear-gradient(180deg,rgba(16,22,36,.98),rgba(10,14,24,.97));border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:20px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 32px 64px rgba(0,0,0,.45);overflow:hidden;}
+.stickers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:10px;padding:8px 0;max-height:48vh;overflow-y:auto;}
+.sticker-pick-btn{height:52px;border-radius:14px;border:1px solid var(--glb);background:rgba(255,255,255,.04);display:grid;place-items:center;font-size:26px;cursor:pointer;transition:transform .18s var(--ease-flow),background .18s var(--ease-flow);}
+.sticker-pick-btn:hover{background:var(--acc);border-color:var(--acb);transform:scale(1.15);}
+
+.washi-pick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding:8px 0;}
+.washi-pick-item{height:36px;border-radius:8px;cursor:pointer;display:grid;place-items:center;font-size:11px;font-weight:900;color:#222;box-shadow:0 4px 10px rgba(0,0,0,.1);transition:transform .18s var(--ease-flow);}
+.washi-pick-item:hover{transform:scale(1.05);}
+
+/* Highlighter Popover */
+.hl-palette{display:none;position:absolute;z-index:100;background:rgba(18,24,38,.96);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:6px;gap:6px;box-shadow:0 12px 28px rgba(0,0,0,.35);}
+.hl-palette.show{display:flex;}
+.hl-swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);transition:transform .15s;}
+.hl-swatch:hover{transform:scale(1.2);}
+
+/* Light Theme Adjustments */
+[data-t=light] .book-card{box-shadow:0 12px 28px rgba(104,76,56,.2),inset 0 1px 0 rgba(255,255,255,.3);}
+[data-t=light] .book-card.create-new{background:rgba(255,255,255,.4);border-color:rgba(131,98,74,.24);}
+[data-t=light] .stickers-drawer-card,[data-t=light] .crop-modal-card{background:linear-gradient(180deg,rgba(255,250,244,.98),rgba(242,230,216,.96));border-color:rgba(131,98,74,.18);box-shadow:0 30px 60px rgba(104,76,56,.2);}
+[data-t=light] .sticker-pick-btn{background:rgba(255,255,255,.6);border-color:rgba(131,98,74,.16);}
+[data-t=light] .sticker-pick-btn:hover{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);}
+[data-t=light] .crop-preset-btn{background:rgba(255,255,255,.6);border-color:rgba(131,98,74,.16);color:#3f2d22;}
+[data-t=light] .crop-canvas-box{background:#e8ded3;border-color:rgba(131,98,74,.2);}
+[data-t=light] .hl-palette{background:rgba(255,250,244,.98);border-color:rgba(131,98,74,.2);}
+
+/* Note Book Tag Badge */
+.note-book-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.2px;text-transform:none;margin-right:6px;backdrop-filter:blur(4px);vertical-align:middle;}
+.note-book-tag.theme-blush{background:rgba(194,82,122,.18);color:#ff8eb3;border:1px solid rgba(194,82,122,.3);}
+.note-book-tag.theme-matcha{background:rgba(78,122,89,.18);color:#92e3a7;border:1px solid rgba(78,122,89,.3);}
+.note-book-tag.theme-latte{background:rgba(164,117,81,.18);color:#f0bc8d;border:1px solid rgba(164,117,81,.3);}
+.note-book-tag.theme-obsidian{background:rgba(35,41,56,.35);color:#d0d7e5;border:1px solid rgba(255,255,255,.15);}
+.note-book-tag.theme-lavender{background:rgba(114,82,164,.18);color:#d7b3ff;border:1px solid rgba(114,82,164,.3);}
+.note-book-tag.theme-honey{background:rgba(179,125,46,.18);color:#ffd17d;border:1px solid rgba(179,125,46,.3);}
+.note-book-tag.theme-ocean{background:rgba(47,111,159,.18);color:#8ad3ff;border:1px solid rgba(47,111,159,.3);}
+[data-t=light] .note-book-tag.theme-blush{background:#fce4ec;color:#ad1457;border-color:#f48fb1;}
+[data-t=light] .note-book-tag.theme-matcha{background:#e8f5e9;color:#2e7d32;border-color:#a5d6a7;}
+[data-t=light] .note-book-tag.theme-latte{background:#efebe9;color:#5d4037;border-color:#bcaaa4;}
+[data-t=light] .note-book-tag.theme-obsidian{background:#eceff1;color:#37474f;border-color:#b0bec5;}
+[data-t=light] .note-book-tag.theme-lavender{background:#f3e5f5;color:#6a1b9a;border-color:#ce93d8;}
+[data-t=light] .note-book-tag.theme-honey{background:#fff8e1;color:#f57f17;border-color:#ffe082;}
+[data-t=light] .note-book-tag.theme-ocean{background:#e1f5fe;color:#0277bd;border-color:#81d4fa;}
+
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
 .tracker-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -2355,7 +2502,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="sni" id="sn-tracker" onclick="bnav('tracker')"><span class="snico">&#9673;</span><span>Tracker</span></div>
     <div class="sni" id="sn-library" onclick="bnav('library')"><span class="snico">&#9636;</span><span>Library</span></div>
     <div class="sni" id="sn-timer" onclick="bnav('timer')"><span class="snico">&#9719;</span><span>Timer</span></div>
-    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">&#9998;</span><span>Notes</span></div>
+    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">📖</span><span>Journal</span></div>
   </div>
   <div class="sn-head">Info</div>
   <div class="lsnav">
@@ -3311,24 +3458,27 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     </div>
   </div>
 
-  <!-- NOTES -->
+  <!-- JOURNAL -->
   <div class="screen" id="sNotes">
     <div class="notes-shell">
       <div class="notes-top">
         <div class="notes-top-copy" onclick="handleNotesHeaderTap()">
-          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes</div>
-          <div class="notes-sub" id="notes-page-sub">Your study notebook for quick ideas, formulas, and revision notes.</div>
+          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Journal</div>
+          <div class="notes-sub" id="notes-page-sub">Your aesthetic notebook & creative journal for memories, study & plans.</div>
         </div>
         <div class="notes-top-actions">
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
           <button class="notes-top-btn ghost warn" id="notes-delete-all" onclick="deleteAllTrash()">Delete All</button>
           <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
-          <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
-            <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">Trash</button>
+          <div class="notes-pane-seg" role="tablist" aria-label="Journal panes">
+            <button class="notes-pane-btn on" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Books</button>
+            <button class="notes-pane-btn" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 All Pages</button>
+            <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">🗑️ Trash</button>
           </div>
+          <button class="notes-top-btn" id="notes-new-book-btn" onclick="openCreateBookModal()" type="button" style="display:inline-flex;align-items:center;gap:5px;">📚 + Book</button>
           <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
-          <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
+          <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create page"><span class="notes-add-ico">+</span><span class="notes-add-label">New Page</span></button>
         </div>
       </div>
       <div class="gp note-surface">
@@ -3341,20 +3491,27 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button type="button" class="view-toggle-btn" id="notes-view-toggle" onclick="toggleNotesView()" aria-label="Toggle notes view"><span class="view-toggle-ico" id="notes-view-toggle-ico">▦</span><span class="view-toggle-label" id="notes-view-toggle-label">Grid</span></button>
         </div>
         <input type="file" id="library-file-input" multiple style="display:none" onchange="handleLibraryFileInput(event)">
-        <div class="notes-list" id="notes-list"></div>
+        <div class="bookshelf-pane" id="bookshelf-pane"></div>
+        <div class="book-interior-pane" id="book-interior-pane" style="display:none;"></div>
+        <div class="notes-list" id="notes-list" style="display:none;"></div>
         <div class="library-pane" id="library-pane" style="display:none"></div>
       </div>
     </div>
   </div>
 
-  <!-- NOTE EDITOR -->
+  <!-- JOURNAL EDITOR -->
   <div class="screen" id="sNoteEdit">
-    <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Notes</div>
+    <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Journal</div>
     <div class="note-editor-wrap view-mode" id="note-editor-wrap">
       <div class="note-editor-head">
-      <input type="text" id="note-title" class="note-title-input" placeholder="Topic" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
+      <input type="text" id="note-title" class="note-title-input" placeholder="Title (e.g. Oct 20 Reflection, Chapter 3...)" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
       <div class="note-meta-row">
-        <div class="note-meta" id="note-meta">Saved locally</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="note-meta" id="note-meta">Saved locally</div>
+          <select id="note-book-assign" class="note-tool-select" onchange="assignCurrentNoteToBook(this.value)" style="min-width:130px;height:30px;font-size:11.5px;padding:0 22px 0 8px;">
+            <option value="">📚 No Book</option>
+          </select>
+        </div>
         <div class="note-editor-actions">
           <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
@@ -3387,17 +3544,31 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             </div>
           </div>
         <div class="note-tool-group">
-          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('undo')">↶</button>
-          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('redo')">↷</button>
+          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('undo')" title="Undo">↶</button>
+          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('redo')" title="Redo">↷</button>
           <button class="note-tool-btn" id="note-bold" onmousedown="event.preventDefault()" onclick="noteCommand('bold')">B</button>
           <button class="note-tool-btn" id="note-italic" onmousedown="event.preventDefault()" onclick="noteCommand('italic')"><i>I</i></button>
           <button class="note-tool-btn" id="note-underline" onmousedown="event.preventDefault()" onclick="noteCommand('underline')"><u>U</u></button>
+        </div>
+        <div class="note-tool-group" style="position:relative;">
+          <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🎀 Stickers</button>
+          <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🖼️ Photo</button>
+          <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📝 Sticky</button>
+          <button class="note-tool-btn" type="button" onclick="toggleHighlighterPalette(event)" title="Highlighter" id="note-highlighter-btn">🖍️ Marker</button>
+          <div id="journal-hl-palette" class="hl-palette" onclick="event.stopPropagation()">
+            <div class="hl-swatch" style="background:#fff176;" title="Sunshine Yellow" onclick="applyJournalHighlighter('rgba(255,241,118,0.5)')"></div>
+            <div class="hl-swatch" style="background:#f48fb1;" title="Sakura Pink" onclick="applyJournalHighlighter('rgba(244,143,177,0.5)')"></div>
+            <div class="hl-swatch" style="background:#a5d6a7;" title="Fresh Mint" onclick="applyJournalHighlighter('rgba(165,214,167,0.5)')"></div>
+            <div class="hl-swatch" style="background:#ce93d8;" title="Lavender Mist" onclick="applyJournalHighlighter('rgba(206,147,216,0.5)')"></div>
+            <div class="hl-swatch" style="background:transparent;border:1px dashed #fff;display:grid;place-items:center;font-size:10px;color:#fff;" title="Clear" onclick="applyJournalHighlighter('transparent')">✕</div>
           </div>
+        </div>
         <div class="note-tool-group">
           <div class="note-color-palette" id="note-color-palette"></div>
         </div>
       </div>
       </div>
+      <input type="file" id="journal-photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
       <div class="note-paper" id="note-paper">
         <div class="note-empty-tpl-banner" id="note-empty-tpl-banner" onclick="openTemplatePickerModal('editor')" style="display:none;">
           <div class="note-empty-tpl-sparkle">✨</div>
@@ -3498,7 +3669,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="bni" id="bn-tracker" onclick="bnav('tracker')"><div class="bnico">◉</div><span>Tracker</span></div>
     <div class="bni" id="bn-library" onclick="bnav('library')"><div class="bnico">▤</div><span>Library</span></div>
     <div class="bni" id="bn-timer" onclick="bnav('timer')"><div class="bnico">&#9719;</div><span>Timer</span></div>
-    <div class="bni" id="bn-notes" onclick="bnav('notes')"><div class="bnico">✎</div><span>Notes</span></div>
+    <div class="bni" id="bn-notes" onclick="bnav('notes')"><div class="bnico">📖</div><span>Journal</span></div>
     <div class="bni" id="bn-sett" onclick="bnav('sett')"><div class="bnico">⚙</div><span>Settings</span></div>
   </div>
 <div id="copy-toast" class="copy-toast">Copied!</div>
@@ -3549,6 +3720,106 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   </div>
 </div>
 
+<div id="journal-book-modal" class="app-dialog" onclick="handleBookModalBackdrop(event)">
+  <div class="app-dialog-card" style="width:min(100%,460px);" onclick="event.stopPropagation()">
+    <div class="app-dialog-title" id="book-modal-title">📚 Create New Book</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">Organize your pages into a stylish custom binder or journal.</div>
+    <div style="display:grid;gap:12px;">
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Book Title</label>
+        <input type="text" id="book-input-title" class="app-dialog-input" placeholder="e.g. Daily Mindful Journal 🌸" maxlength="40">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Description / Subtitle</label>
+        <input type="text" id="book-input-desc" class="app-dialog-input" placeholder="e.g. Thoughts, memories & daily plans" maxlength="60">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Cover Theme</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="book-theme-picker">
+          <button type="button" class="hl-swatch on" data-theme="blush" style="background:linear-gradient(135deg,#c2527a,#7a284e);" title="Blush Rose" onclick="selectBookTheme('blush',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="matcha" style="background:linear-gradient(135deg,#4e7a59,#25462f);" title="Matcha Sage" onclick="selectBookTheme('matcha',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="latte" style="background:linear-gradient(135deg,#a47551,#5e3d23);" title="Warm Latte" onclick="selectBookTheme('latte',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="obsidian" style="background:linear-gradient(135deg,#232938,#111520);" title="Midnight Obsidian" onclick="selectBookTheme('obsidian',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="lavender" style="background:linear-gradient(135deg,#7252a4,#41286c);" title="Lavender Mist" onclick="selectBookTheme('lavender',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="honey" style="background:linear-gradient(135deg,#b37d2e,#6b450f);" title="Honey Amber" onclick="selectBookTheme('honey',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="ocean" style="background:linear-gradient(135deg,#2f6f9f,#143a57);" title="Ocean Breeze" onclick="selectBookTheme('ocean',this)"></button>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Cover Emblem / Sticker</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:20px;" id="book-icon-picker">
+          <span class="sticker-pick-btn on" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌸',this)">🌸</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('📖',this)">📖</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🎓',this)">🎓</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('☕',this)">☕</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌿',this)">🌿</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('💡',this)">💡</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🪐',this)">🪐</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('✈️',this)">✈️</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🧸',this)">🧸</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🍓',this)">🍓</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🕯️',this)">🕯️</span>
+          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌙',this)">🌙</span>
+        </div>
+      </div>
+    </div>
+    <div class="app-dialog-actions" style="margin-top:16px;">
+      <button type="button" class="app-dialog-btn" onclick="closeBookModal()">Cancel</button>
+      <button type="button" class="app-dialog-btn acc" onclick="submitBookModal()">Save Book</button>
+    </div>
+  </div>
+</div>
+
+<div id="journal-stickers-modal" class="app-dialog" onclick="handleStickerModalBackdrop(event)">
+  <div class="stickers-drawer-card" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:var(--t1);letter-spacing:.2px;">🎀 Aesthetic Stickers & Washi Tape</div>
+        <div style="font-size:12px;color:var(--t2);">Tap any sticker or washi tape to add it to your journal page.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeStickersModal()">✕</button>
+    </div>
+    <div class="tpl-modal-tabs">
+      <button type="button" class="tpl-tab-btn on" onclick="filterStickerTab('cute',this)">🌸 Cute & Aesthetic</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('washi',this)">📌 Washi & Tape</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('cozy',this)">☕ Coffee & Cozy</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('study',this)">🎓 Study & Focus</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('mood',this)">💭 Mood & Nature</button>
+    </div>
+    <div id="stickers-content-box"></div>
+  </div>
+</div>
+
+<div id="journal-crop-modal" class="app-dialog" onclick="handleCropModalBackdrop(event)">
+  <div class="crop-modal-card" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:var(--t1);letter-spacing:.2px;">✂️ Crop & Cut Photo</div>
+        <div style="font-size:12px;color:var(--t2);">Crop aspect ratio, cut borders, and rotate your memory.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeCropModal()">✕</button>
+    </div>
+    <div class="crop-presets-row">
+      <button type="button" class="crop-preset-btn on" onclick="setCropRatio('free',this)">Free</button>
+      <button type="button" class="crop-preset-btn" onclick="setCropRatio('1:1',this)">1:1 Square</button>
+      <button type="button" class="crop-preset-btn" onclick="setCropRatio('4:3',this)">4:3 Classic</button>
+      <button type="button" class="crop-preset-btn" onclick="setCropRatio('16:9',this)">16:9 Banner</button>
+      <button type="button" class="crop-preset-btn" onclick="setCropRatio('9:16',this)">9:16 Story</button>
+      <button type="button" class="crop-preset-btn" onclick="rotateCropImage()">↻ Rotate 90°</button>
+    </div>
+    <div class="crop-canvas-box" id="crop-canvas-box">
+      <canvas id="crop-canvas"></canvas>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
+      <div style="font-size:11.5px;color:var(--t3);">Drag crop box handles or use ratio presets.</div>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="app-dialog-btn" onclick="closeCropModal()">Cancel</button>
+        <button type="button" class="app-dialog-btn acc" onclick="applyPhotoCrop()">Apply Crop ✨</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ── GLOBALS ── */
 let H=[],hFilt='all',sndOn=true,hapticOn=false,animOn=true,thmIdx=0,currentTab='home';
@@ -3562,7 +3833,9 @@ let AX;
 let countAnimTimers={};
 let currentInfoKey='about',navReady=false,navLock=false;
 let historySaveTimer=0,historyRenderTimer=0,layoutSyncTimer=0,homeClockTicker=0;
-let NOTES=[],notesTrash=[],notesSort='edited',notesView='grid',notesPane='notes',currentNoteId='',noteSaveTimer=0,noteUntitledSeed=1,noteEditMode=false,lastDeletedNote=null,lastRedoDelete=null,noteActionToastTimer=null,notePaperSyncRaf=0,libraryFolders=[],libraryItems=[],libraryTrashFolders=[],libraryTrashItems=[],currentLibraryFolderId='',currentLibraryTrashFolderId='',libraryView='folders';
+let NOTES=[],notesTrash=[],notesSort='edited',notesView='grid',notesPane='books',currentNoteId='',noteSaveTimer=0,noteUntitledSeed=1,noteEditMode=false,lastDeletedNote=null,lastRedoDelete=null,noteActionToastTimer=null,notePaperSyncRaf=0,libraryFolders=[],libraryItems=[],libraryTrashFolders=[],libraryTrashItems=[],currentLibraryFolderId='',currentLibraryTrashFolderId='',libraryView='folders';
+let JOURNAL_BOOKS=[],currentJournalBookId='',journalCropState=null,bookModalEditingId='';
+const JOURNAL_BOOKS_KEY='calverse_journal_books_v1';
 const VAULT_PASS_KEY='calverse_vault_pass_hash',VAULT_NOTES_KEY='calverse_vault_notes_data';
 let VAULT_NOTES=[],vaultUntitledSeed=1,isVaultActive=false,secretHeaderTapCount=0,secretHeaderTapTimer=null;
 let TRACKER=[],trackerMonthOffset=0,trackerSaveTimer=0;
@@ -3710,7 +3983,8 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
     fontFamily,
     fontSize,
     textColor,
-    textColorMode
+    textColorMode,
+    bookId: typeof note.bookId==='string'?note.bookId:''
   };
   if(fromTrash){
     const deletedAt=Number(note.deletedAt)||updatedAt;
@@ -5219,28 +5493,40 @@ function syncNotesPaneUI(){
   const title=document.getElementById('notes-page-title');
   const sub=document.getElementById('notes-page-sub');
   const trashBtn=document.getElementById('notes-pane-trash');
+  const booksBtn=document.getElementById('notes-pane-books');
+  const notesBtn=document.getElementById('notes-pane-notes');
   const restoreAllBtn=document.getElementById('notes-restore-all');
   const deleteAllBtn=document.getElementById('notes-delete-all');
   const addNoteBtn=document.getElementById('notes-add-btn');
+  const newBookBtn=document.getElementById('notes-new-book-btn');
+  const tplBtn=document.getElementById('notes-tpl-btn');
   const lockBtn=document.getElementById('notes-vault-lock');
   const passBtn=document.getElementById('notes-vault-change-pass');
   const paneSeg=document.querySelector('.notes-pane-seg');
   const controls=document.querySelector('.notes-controls');
   const notesList=document.getElementById('notes-list');
+  const shelfPane=document.getElementById('bookshelf-pane');
+  const interiorPane=document.getElementById('book-interior-pane');
   const libraryPane=document.getElementById('library-pane');
 
   if(notesPane==='vault'){
-    if(title)title.textContent='🔒 Hidden Notes';
+    if(title)title.textContent='🔒 Hidden Journal';
     if(sub)sub.textContent='Private hidden notebook · Tap Lock to exit';
     if(trashBtn)trashBtn.classList.remove('on');
+    if(booksBtn)booksBtn.classList.remove('on');
+    if(notesBtn)notesBtn.classList.remove('on');
     if(restoreAllBtn)restoreAllBtn.classList.remove('show');
     if(deleteAllBtn)deleteAllBtn.classList.remove('show');
     if(paneSeg)paneSeg.style.display='none';
     if(lockBtn)lockBtn.classList.add('show');
     if(passBtn)passBtn.classList.add('show');
     if(addNoteBtn)addNoteBtn.style.display='flex';
+    if(newBookBtn)newBookBtn.style.display='none';
+    if(tplBtn)tplBtn.style.display='inline-flex';
     if(controls)controls.style.display='grid';
     if(notesList)notesList.style.display='grid';
+    if(shelfPane)shelfPane.style.display='none';
+    if(interiorPane)interiorPane.style.display='none';
     if(libraryPane)libraryPane.style.display='none';
     if(notesShell)notesShell.classList.remove('library-mode');
     return;
@@ -5249,52 +5535,410 @@ function syncNotesPaneUI(){
   if(lockBtn)lockBtn.classList.remove('show');
   if(passBtn)passBtn.classList.remove('show');
 
-  if(title)title.textContent=notesPane==='trash'?'Trash':notesPane==='library'?'Library':'Notes';
-  if(sub)sub.textContent=notesPane==='trash'
-    ?'Trash shows deleted notes and deleted uploads.'
-    :notesPane==='library'
-      ?'Create subject folders and upload photos, PDFs, books, and study files into them.'
-      :'Your study notebook for quick ideas, formulas, and revision notes.';
+  if(booksBtn)booksBtn.classList.toggle('on',notesPane==='books');
+  if(notesBtn)notesBtn.classList.toggle('on',notesPane==='notes');
   if(trashBtn)trashBtn.classList.toggle('on',notesPane==='trash');
-  const hasTrash=(libraryTrashFolders.length>0||libraryTrashItems.length>0);
+
+  if(notesPane==='books'){
+    if(currentJournalBookId){
+      const b=getJournalBookById(currentJournalBookId);
+      if(title)title.textContent=b?b.title:'Journal Book';
+      if(sub)sub.textContent=b?(b.desc||'Pages in this book'):'Your journal entries';
+    }else{
+      if(title)title.textContent='Journal Books';
+      if(sub)sub.textContent='Aesthetic digital binders & scrapbooks for your memories, study & thoughts.';
+    }
+    if(controls)controls.style.display=currentJournalBookId?'grid':'none';
+    if(newBookBtn)newBookBtn.style.display=currentJournalBookId?'none':'inline-flex';
+    if(addNoteBtn)addNoteBtn.style.display=currentJournalBookId?'flex':'none';
+    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(notesList)notesList.style.display='none';
+    if(shelfPane)shelfPane.style.display=currentJournalBookId?'none':'block';
+    if(interiorPane)interiorPane.style.display=currentJournalBookId?'block':'none';
+    if(libraryPane)libraryPane.style.display='none';
+  }else if(notesPane==='notes'){
+    if(title)title.textContent='All Journal Pages';
+    if(sub)sub.textContent='All your pages across every book and loose notes.';
+    if(controls)controls.style.display='grid';
+    if(newBookBtn)newBookBtn.style.display='none';
+    if(addNoteBtn)addNoteBtn.style.display='flex';
+    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(notesList)notesList.style.display='grid';
+    if(shelfPane)shelfPane.style.display='none';
+    if(interiorPane)interiorPane.style.display='none';
+    if(libraryPane)libraryPane.style.display='none';
+  }else if(notesPane==='trash'){
+    if(title)title.textContent='Trash';
+    if(sub)sub.textContent='Trash shows deleted journal pages and deleted files.';
+    if(controls)controls.style.display='none';
+    if(newBookBtn)newBookBtn.style.display='none';
+    if(addNoteBtn)addNoteBtn.style.display='none';
+    if(tplBtn)tplBtn.style.display='none';
+    if(notesList)notesList.style.display='grid';
+    if(shelfPane)shelfPane.style.display='none';
+    if(interiorPane)interiorPane.style.display='none';
+    if(libraryPane)libraryPane.style.display='none';
+  }else if(notesPane==='library'){
+    if(title)title.textContent='Library';
+    if(sub)sub.textContent='Subject folders and uploaded study files.';
+    if(controls)controls.style.display='none';
+    if(newBookBtn)newBookBtn.style.display='none';
+    if(addNoteBtn)addNoteBtn.style.display='none';
+    if(tplBtn)tplBtn.style.display='none';
+    if(notesList)notesList.style.display='none';
+    if(shelfPane)shelfPane.style.display='none';
+    if(interiorPane)interiorPane.style.display='none';
+    if(libraryPane)libraryPane.style.display='grid';
+  }
+
   if(restoreAllBtn)restoreAllBtn.classList.toggle('show',notesPane==='trash');
   if(deleteAllBtn)deleteAllBtn.classList.toggle('show',notesPane==='trash');
   if(paneSeg)paneSeg.style.display=(notesPane==='library')?'none':'flex';
-  if(addNoteBtn) addNoteBtn.style.display=(notesPane==='notes')?'flex':'none';
-  if(controls)controls.style.display=(notesPane==='notes'||notesPane==='trash')?'grid':'none';
-  if(notesList)notesList.style.display=(notesPane==='notes'||notesPane==='trash')?'grid':'none';
-  if(libraryPane)libraryPane.style.display=(notesPane==='library'||notesPane==='trash')?'grid':'none';
   if(notesShell)notesShell.classList.toggle('library-mode',notesPane==='library');
 }
+
 function setNotesPane(next){
-  const target=(next==='trash'||next==='library')?next:'notes';
+  const target=['books','notes','trash','library'].includes(next)?next:'books';
   notesPane=target;
+  if(notesPane==='books')currentJournalBookId='';
   if(notesPane==='library')libraryView='folders';
   syncNotesPaneUI();
   renderNotesList();
 }
+
 function setNotesSort(val){
   notesSort=val||'edited';
   renderNotesList();
 }
+
 function setNotesView(val){
   notesView=['grid','list'].includes(val)?val:'grid';
   try{localStorage.setItem(NOTES_VIEW_KEY,notesView);}catch(e){}
   renderNotesList();
 }
+
 function toggleNotesView(){
   setNotesView(notesView==='grid'?'list':'grid');
 }
+
+/* ── JOURNAL BOOKS & BINDERS SUITE ── */
+function getStarterBooks(){
+  const now=Date.now();
+  return [
+    {id:'book_daily',title:'Daily Mindful Journal',desc:'Morning intentions, reflections, gratitude & daily thoughts.',coverTheme:'theme-blush',emblem:'🌸',createdAt:now-86400000*3,updatedAt:now-86400000*3},
+    {id:'book_scrap',title:'Reading & Scrapbook',desc:'Book reviews, aesthetic polaroids, quotes & creative clippings.',coverTheme:'theme-latte',emblem:'📖',createdAt:now-86400000*2,updatedAt:now-86400000*2},
+    {id:'book_study',title:'Study & Cornell Binder',desc:'Lecture notes, formulas, exam summaries & study trackers.',coverTheme:'theme-matcha',emblem:'🌿',createdAt:now-86400000,updatedAt:now-86400000},
+    {id:'book_vision',title:'Vision & Mood Board',desc:'Dreams, travel goals, aesthetic inspiration & memory boards.',coverTheme:'theme-lavender',emblem:'✨',createdAt:now,updatedAt:now}
+  ];
+}
+
+function loadJournalBooks(){
+  try{
+    const raw=localStorage.getItem(JOURNAL_BOOKS_KEY);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(Array.isArray(parsed)&&parsed.length>0){
+        JOURNAL_BOOKS=parsed;
+        return;
+      }
+    }
+  }catch(e){}
+  JOURNAL_BOOKS=getStarterBooks();
+  saveJournalBooks();
+}
+
+function saveJournalBooks(){
+  try{
+    localStorage.setItem(JOURNAL_BOOKS_KEY,JSON.stringify(JOURNAL_BOOKS));
+  }catch(e){}
+}
+
+function getJournalBookById(id){
+  if(!id)return null;
+  return JOURNAL_BOOKS.find(b=>b.id===id)||null;
+}
+
+let currentSelectedTheme='blush';
+let currentSelectedIcon='🌸';
+
+function selectBookTheme(theme,el){
+  currentSelectedTheme=theme;
+  document.querySelectorAll('#book-theme-picker .hl-swatch').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+}
+
+function selectBookIcon(icon,el){
+  currentSelectedIcon=icon;
+  document.querySelectorAll('#book-icon-picker .sticker-pick-btn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+}
+
+function openCreateBookModal(){
+  bookModalEditingId='';
+  const titleEl=document.getElementById('book-input-title');
+  const descEl=document.getElementById('book-input-desc');
+  const modalTitle=document.getElementById('book-modal-title');
+  if(modalTitle)modalTitle.textContent='📚 Create New Book';
+  if(titleEl)titleEl.value='';
+  if(descEl)descEl.value='';
+  const firstTheme=document.querySelector('#book-theme-picker .hl-swatch');
+  if(firstTheme)selectBookTheme(firstTheme.dataset.theme||'blush',firstTheme);
+  const firstIcon=document.querySelector('#book-icon-picker .sticker-pick-btn');
+  if(firstIcon)selectBookIcon('🌸',firstIcon);
+  const m=document.getElementById('journal-book-modal');
+  if(m)m.classList.add('show');
+}
+
+function openEditBookModal(bookId){
+  const book=getJournalBookById(bookId);
+  if(!book)return;
+  bookModalEditingId=bookId;
+  const titleEl=document.getElementById('book-input-title');
+  const descEl=document.getElementById('book-input-desc');
+  const modalTitle=document.getElementById('book-modal-title');
+  if(modalTitle)modalTitle.textContent='✏️ Edit Book';
+  if(titleEl)titleEl.value=book.title||'';
+  if(descEl)descEl.value=book.desc||'';
+  const themeClean=(book.coverTheme||'theme-blush').replace('theme-','');
+  const themeBtn=document.querySelector(`#book-theme-picker .hl-swatch[data-theme="${themeClean}"]`);
+  if(themeBtn)selectBookTheme(themeClean,themeBtn);
+  const iconBtns=document.querySelectorAll('#book-icon-picker .sticker-pick-btn');
+  iconBtns.forEach(btn=>{
+    if(btn.textContent.trim()===book.emblem)selectBookIcon(book.emblem,btn);
+  });
+  const m=document.getElementById('journal-book-modal');
+  if(m)m.classList.add('show');
+}
+
+function closeBookModal(){
+  const m=document.getElementById('journal-book-modal');
+  if(m)m.classList.remove('show');
+}
+
+function handleBookModalBackdrop(e){
+  if(e.target===document.getElementById('journal-book-modal'))closeBookModal();
+}
+
+function submitBookModal(){
+  const titleEl=document.getElementById('book-input-title');
+  const descEl=document.getElementById('book-input-desc');
+  const title=titleEl?titleEl.value.trim():'';
+  const desc=descEl?descEl.value.trim():'';
+  if(!title){
+    showToast('Please enter a book title');
+    titleEl?.focus();
+    return;
+  }
+  const coverTheme='theme-'+(currentSelectedTheme||'blush');
+  const emblem=currentSelectedIcon||'🌸';
+  const now=Date.now();
+  if(bookModalEditingId){
+    const book=getJournalBookById(bookModalEditingId);
+    if(book){
+      book.title=title;
+      book.desc=desc;
+      book.coverTheme=coverTheme;
+      book.emblem=emblem;
+      book.updatedAt=now;
+      saveJournalBooks();
+      showToast(`Saved "${title}" ✨`);
+    }
+  }else{
+    const newBook={
+      id:`book_${now}_${Math.random().toString(36).slice(2,7)}`,
+      title,
+      desc,
+      coverTheme,
+      emblem,
+      createdAt:now,
+      updatedAt:now
+    };
+    JOURNAL_BOOKS.push(newBook);
+    saveJournalBooks();
+    showToast(`Created "${title}" 📚✨`);
+  }
+  closeBookModal();
+  renderNotesList();
+}
+
+function deleteBookPrompt(bookId){
+  const book=getJournalBookById(bookId);
+  if(!book)return;
+  showAppDialog({
+    title:'Delete Book?',
+    message:`Are you sure you want to delete "${escapeHtml(book.title)}"? Any pages inside will stay safe in "All Pages".`,
+    confirmText:'Delete Book',
+    cancelText:'Keep Book',
+    tone:'warn',
+    onConfirm:()=>{
+      JOURNAL_BOOKS=JOURNAL_BOOKS.filter(b=>b.id!==bookId);
+      NOTES.forEach(n=>{
+        if(n.bookId===bookId)n.bookId='';
+      });
+      saveJournalBooks();
+      saveNotesData();
+      if(currentJournalBookId===bookId)currentJournalBookId='';
+      showToast('Book deleted');
+      renderNotesList();
+    }
+  });
+}
+
+function openBookView(bookId){
+  const book=getJournalBookById(bookId);
+  if(!book)return;
+  currentJournalBookId=bookId;
+  notesPane='books';
+  syncNotesPaneUI();
+  renderBookInteriorPane();
+  resetViewportTop();
+}
+
+function exitBookView(){
+  currentJournalBookId='';
+  syncNotesPaneUI();
+  renderBookshelfPane();
+  resetViewportTop();
+}
+
+function requestNewNoteInCurrentBook(){
+  requestNewNote({bookId:currentJournalBookId});
+}
+
+function syncNoteBookAssignSelect(selectedBookId=''){
+  const sel=document.getElementById('note-book-assign');
+  if(!sel)return;
+  const targetId=selectedBookId||currentJournalBookId||'';
+  const opts=['<option value="">📚 No Book</option>'];
+  JOURNAL_BOOKS.forEach(b=>{
+    const isSel=(b.id===targetId)?'selected':'';
+    opts.push(`<option value="${escapeHtml(b.id)}" ${isSel}>${escapeHtml(b.emblem||'📖')} ${escapeHtml(b.title)}</option>`);
+  });
+  sel.innerHTML=opts.join('');
+}
+
+function assignCurrentNoteToBook(bookId){
+  const note=getNoteById(currentNoteId);
+  if(!note)return;
+  note.bookId=bookId||'';
+  saveCurrentNote(false);
+  const book=getJournalBookById(bookId);
+  showToast(book?`Moved to "${book.title}"`:'Removed from book');
+}
+
+function renderBookshelfPane(){
+  const shelf=document.getElementById('bookshelf-pane');
+  if(!shelf)return;
+  shelf.style.display='block';
+  const interior=document.getElementById('book-interior-pane');
+  if(interior)interior.style.display='none';
+  const notesList=document.getElementById('notes-list');
+  if(notesList)notesList.style.display='none';
+
+  let html=`<div class="bookshelf-grid">`;
+  html+=`
+    <div class="book-card create-new" onclick="openCreateBookModal()">
+      <div class="book-create-ico">+</div>
+      <div class="book-create-txt">Create New Book</div>
+      <div class="book-create-sub">Design custom cover & stickers</div>
+    </div>
+  `;
+  JOURNAL_BOOKS.forEach(book=>{
+    const pageCount=NOTES.filter(n=>n.bookId===book.id).length;
+    const themeCls=book.coverTheme||'theme-blush';
+    html+=`
+      <div class="book-card ${themeCls}" onclick="openBookView('${book.id}')">
+        <div class="book-card-emblem">${book.emblem||'🌸'}</div>
+        <div>
+          <div class="book-card-title">${escapeHtml(book.title)}</div>
+          <div class="book-card-desc">${escapeHtml(book.desc||'')}</div>
+        </div>
+        <div class="book-card-footer">
+          <span>${pageCount} ${pageCount===1?'Page':'Pages'}</span>
+          <span>Open →</span>
+        </div>
+      </div>
+    `;
+  });
+  html+=`</div>`;
+  shelf.innerHTML=html;
+}
+
+function renderBookInteriorPane(){
+  const interior=document.getElementById('book-interior-pane');
+  const shelf=document.getElementById('bookshelf-pane');
+  const notesList=document.getElementById('notes-list');
+  if(!interior)return;
+  if(shelf)shelf.style.display='none';
+  if(notesList)notesList.style.display='none';
+  interior.style.display='block';
+
+  const book=getJournalBookById(currentJournalBookId);
+  if(!book){
+    currentJournalBookId='';
+    renderBookshelfPane();
+    return;
+  }
+
+  let notesInBook=NOTES.filter(n=>n.bookId===book.id);
+  if(notesSort==='created')notesInBook.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  else if(notesSort==='title')notesInBook.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
+  else notesInBook.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+
+  const themeCls=book.coverTheme||'theme-blush';
+  let html=`
+    <div class="book-interior-hero ${themeCls}">
+      <div class="book-hero-info">
+        <div class="book-hero-icon">${book.emblem||'📖'}</div>
+        <div>
+          <div class="book-hero-title">${escapeHtml(book.title)}</div>
+          <div class="book-hero-meta">${escapeHtml(book.desc||'')} · ${notesInBook.length} ${notesInBook.length===1?'Page':'Pages'}</div>
+        </div>
+      </div>
+      <div class="book-hero-actions">
+        <button type="button" class="book-hero-btn" onclick="exitBookView()">← Bookshelf</button>
+        <button type="button" class="book-hero-btn" onclick="requestNewNoteInCurrentBook()">+ New Page</button>
+        <button type="button" class="book-hero-btn" onclick="openTemplatePickerModal('list')">✨ Template</button>
+        <button type="button" class="book-hero-btn" onclick="openEditBookModal('${book.id}')">✏️ Edit</button>
+        <button type="button" class="book-hero-btn" onclick="deleteBookPrompt('${book.id}')">🗑️</button>
+      </div>
+    </div>
+  `;
+
+  if(!notesInBook.length){
+    html+=`
+      <div class="notes-empty">
+        <div class="notes-empty-ico">${book.emblem||'📖'}</div>
+        <div style="font-size:15px;font-weight:700;color:var(--t1)">No pages in this book yet.</div>
+        <div style="font-size:12px">Tap "+ New Page" or choose a "✨ Template" to write your first entry.</div>
+      </div>
+    `;
+  }else{
+    html+=`<div class="notes-list view-${notesView}">`;
+    html+=notesInBook.map(renderNoteCard).join('');
+    html+=`</div>`;
+  }
+  interior.innerHTML=html;
+}
+
 function renderNoteCard(note){
   const title=escapeHtml(getNoteDisplayTitle(note));
   const snippet=renderNotePreviewHtml(note);
-  return `<div class="note-card" onclick="openNoteEditor('${note.id}')"><div class="note-card-head"><div class="note-card-title">${title}</div><div class="note-card-meta">${escapeHtml(formatNoteStamp(note.updatedAt))}</div></div><div class="note-card-snippet">${snippet}</div><div class="note-card-actions"><button class="note-card-btn acc" onclick="event.stopPropagation();openNoteEditor('${note.id}',{edit:true})">Edit</button><button class="note-card-btn del" onclick="event.stopPropagation();deleteNote('${note.id}')">Delete</button></div></div>`;
+  const book=getJournalBookById(note.bookId);
+  const bookBadge=book?`<span class="note-book-tag ${escapeHtml(book.coverTheme||'theme-blush')}">${escapeHtml(book.emblem||'📖')} ${escapeHtml(book.title)}</span>`:'';
+  return `<div class="note-card" onclick="openNoteEditor('${note.id}')"><div class="note-card-head"><div class="note-card-title">${title}</div><div class="note-card-meta">${bookBadge}${escapeHtml(formatNoteStamp(note.updatedAt))}</div></div><div class="note-card-snippet">${snippet}</div><div class="note-card-actions"><button class="note-card-btn acc" onclick="event.stopPropagation();openNoteEditor('${note.id}',{edit:true})">Edit</button><button class="note-card-btn del" onclick="event.stopPropagation();deleteNote('${note.id}')">Delete</button></div></div>`;
 }
+
 function renderNotesList(){
   const listEl=document.getElementById('notes-list');
   const sortEl=document.getElementById('notes-sort');
   syncNotesPaneUI();
   if(sortEl&&sortEl.value!==notesSort)sortEl.value=notesSort;
+  if(notesPane==='books'){
+    if(currentJournalBookId)renderBookInteriorPane();
+    else renderBookshelfPane();
+    return;
+  }
   if(notesPane==='library'){
     renderLibraryPane();
     return;
@@ -5304,18 +5948,20 @@ function renderNotesList(){
     return;
   }
   syncViewToggle('notes-view-toggle',notesView);
-  listEl.className=`notes-list view-${notesView}`;
-  const list=getFilteredNotes();
-  if(!list.length){
-    if(notesPane==='vault'){
-      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🔒</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No hidden notes yet.</div><div style="font-size:12px">Tap + to create your first secret note. Everything is private.</div></div>`;
-    }else{
-      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗒️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No notes yet. Tap + to create one.</div><div style="font-size:12px">Everything saves locally, so your notes stay here even after refresh.</div></div>`;
+  if(listEl){
+    listEl.className=`notes-list view-${notesView}`;
+    const list=getFilteredNotes();
+    if(!list.length){
+      if(notesPane==='vault'){
+        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🔒</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No hidden journal pages yet.</div><div style="font-size:12px">Tap + to create your first secret page. Everything is private.</div></div>`;
+      }else{
+        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗒️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No journal pages yet. Tap + to create one.</div><div style="font-size:12px">Everything saves locally, so your journal stays safe even offline.</div></div>`;
+      }
+      return;
     }
-    return;
+    listEl.innerHTML=list.map(renderNoteCard).join('');
+    requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
   }
-  listEl.innerHTML=list.map(renderNoteCard).join('');
-  requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
 }
 
 function renderTrashedNoteCard(note){
@@ -5331,20 +5977,21 @@ function renderTrashPane(){
     listEl.className=`notes-list view-${notesView}`;
     const noteList=[...notesTrash];
     if(!noteList.length){
-      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗑️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No deleted notes.</div><div style="font-size:12px">Delete a note to see it here.</div></div>`;
+      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗑️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No deleted journal pages.</div><div style="font-size:12px">Delete a page to see it here.</div></div>`;
     }else{
       listEl.innerHTML=noteList.map(renderTrashedNoteCard).join('');
       requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
     }
   }
   if(pane){
-    // Upload trash uses the Library surface below the deleted notes list.
     renderLibraryTrashPane();
   }
 }
+
 function openNotes(opts={}){
   if(!opts?.keepVault){
-    notesPane='notes';
+    notesPane='books';
+    currentJournalBookId='';
     isVaultActive=false;
   }
   setBottomTab('notes');
@@ -5354,6 +6001,7 @@ function openNotes(opts={}){
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
 }
+
 function openVaultNotes(opts={}){
   notesPane='vault';
   isVaultActive=true;
@@ -5363,12 +6011,591 @@ function openVaultNotes(opts={}){
   renderNotesList();
   resetViewportTop();
 }
+
 function lockVault(){
   isVaultActive=false;
-  notesPane='notes';
+  notesPane='books';
+  currentJournalBookId='';
   syncNotesPaneUI();
   renderNotesList();
   showToast('Vault locked 🔒');
+}
+
+/* ── AESTHETIC STICKERS & WASHI TAPE DRAWER ── */
+const STICKER_PACKS = {
+  cute: ['🌸','🎀','✨','🧸','🍓','🌷','🩰','🍒','🍰','🧁','💌','🤍','💫','🍭','🥑','🕊️','🌼','🍯','🌿','🍧','🦄','👒','🥐','🪞','🦋','🫧','🧋','☁️','🌻','🪻','🍡','🍩','🍦','🍮','🐱','🐰','🐾','🥞','🍉','🍑','🍋','🍇','🍎','🍏','🫐','🍍'],
+  washi: [
+    { name: 'Blush Rose Strip', cls: 'washi-blush' },
+    { name: 'Matcha Sage Strip', cls: 'washi-matcha' },
+    { name: 'Lavender Mist Strip', cls: 'washi-lavender' },
+    { name: 'Kraft Vintage Strip', cls: 'washi-kraft' },
+    { name: 'Rainbow Foil Strip', cls: 'washi-foil' }
+  ],
+  cozy: ['☕','🕯️','📖','🥐','🍂','🧶','🍪','🧦','🥯','🍯','🪴','🥞','🥧','📻','🌧️','🧣','🪵','🍁','🤎','🫖','🛋️','🥮','🍫','🥨','🥪','☕','🏡','🪑','📚','☕','🐈','🐕','🫕','🍶'],
+  study: ['🎓','📚','✍️','💡','📌','📐','🔬','🗂️','📑','🔖','✏️','🎯','⏳','💻','🧠','🔍','📊','📝','🏷️','📋','🗓️','🔑','🏆','🥇','📎','📏','🧪','🧬','🔭','💻','⚡'],
+  mood: ['💭','🌙','⭐','☀️','🌈','🌊','🪐','🌿','🍀','🔮','🕊️','🎨','🎵','🎧','🫶','🧘','🌺','🌾','🌲','⛰️','🏕️','⛺','🌅','🌌','☄️','🌻','🌹','🍃','🍄','🪸','🏝️','🫧']
+};
+let currentStickerTab = 'cute';
+
+function openStickersModal(){
+  const m=document.getElementById('journal-stickers-modal');
+  if(m)m.classList.add('show');
+  filterStickerTab(currentStickerTab);
+}
+
+function closeStickersModal(){
+  const m=document.getElementById('journal-stickers-modal');
+  if(m)m.classList.remove('show');
+}
+
+function handleStickerModalBackdrop(e){
+  if(e.target===document.getElementById('journal-stickers-modal'))closeStickersModal();
+}
+
+function filterStickerTab(tab,btn){
+  currentStickerTab=tab;
+  const tabs=document.querySelectorAll('#journal-stickers-modal .tpl-tab-btn');
+  tabs.forEach(t=>t.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  else{
+    const activeBtn=Array.from(tabs).find(t=>t.getAttribute('onclick')?.includes(`'${tab}'`));
+    if(activeBtn)activeBtn.classList.add('on');
+  }
+  const box=document.getElementById('stickers-content-box');
+  if(!box)return;
+  if(tab==='washi'){
+    const items=STICKER_PACKS.washi.map(w=>`
+      <div class="washi-pick-item ${w.cls}" onclick="insertWashiTapeToJournal('${w.cls}')">
+        <span>${escapeHtml(w.name)}</span>
+      </div>
+    `).join('');
+    box.innerHTML=`<div class="washi-pick-grid">${items}</div>`;
+  }else{
+    const list=STICKER_PACKS[tab]||STICKER_PACKS.cute;
+    const items=list.map(s=>`
+      <button type="button" class="sticker-pick-btn" onclick="insertStickerToJournal('${s}')">${s}</button>
+    `).join('');
+    box.innerHTML=`<div class="stickers-grid">${items}</div>`;
+  }
+}
+
+function insertHtmlAtCursor(html,fallbackContainer){
+  const sel=window.getSelection();
+  if(sel && sel.rangeCount>0 && fallbackContainer && fallbackContainer.contains(sel.anchorNode)){
+    const range=sel.getRangeAt(0);
+    range.deleteContents();
+    const temp=document.createElement('div');
+    temp.innerHTML=html;
+    const frag=document.createDocumentFragment();
+    let node,lastNode;
+    while((node=temp.firstChild)){
+      lastNode=frag.appendChild(node);
+    }
+    range.insertNode(frag);
+    if(lastNode){
+      range.setStartAfter(lastNode);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }else if(fallbackContainer){
+    fallbackContainer.insertAdjacentHTML('beforeend',html);
+  }
+}
+
+function insertStickerToJournal(sticker){
+  closeStickersModal();
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+  const stickerHtml=`<span class="journal-sticker" data-size="m" contenteditable="false" onclick="handleStickerClick(this)">${sticker}</span>&nbsp;`;
+  insertHtmlAtCursor(stickerHtml,editor);
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
+  showToast(`Added sticker ${sticker} ✨`);
+}
+
+function insertWashiTapeToJournal(washiClass){
+  closeStickersModal();
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+  const washiHtml=`<div class="washi-tape-strip ${washiClass}" contenteditable="false"></div><p><br></p>`;
+  insertHtmlAtCursor(washiHtml,editor);
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
+  showToast('Added washi tape 📌');
+}
+
+function handleStickerClick(el){
+  if(!el)return;
+  const currentSize=el.getAttribute('data-size')||'m';
+  const nextSize=(currentSize==='s')?'m':(currentSize==='m')?'l':'s';
+  el.setAttribute('data-size',nextSize);
+  queueNoteSave();
+  try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
+}
+
+/* ── PHOTO UPLOAD & SCRAPBOOK FRAMES ── */
+function triggerPhotoUpload(){
+  const input=document.getElementById('journal-photo-input');
+  if(input){
+    input.value='';
+    input.click();
+  }
+}
+
+function handlePhotoUpload(e){
+  const file=e?.target?.files?.[0];
+  if(!file)return;
+  processAndInsertJournalPhoto(file);
+}
+
+function compressImageToDataUrl(source,maxDim=1200,quality=0.88){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      let w=img.width,h=img.height;
+      if(w>maxDim||h>maxDim){
+        if(w>h){
+          h=Math.round((h*maxDim)/w);
+          w=maxDim;
+        }else{
+          w=Math.round((w*maxDim)/h);
+          h=maxDim;
+        }
+      }
+      const canvas=document.createElement('canvas');
+      canvas.width=w;
+      canvas.height=h;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,w,h);
+      resolve(canvas.toDataURL('image/jpeg',quality));
+    };
+    img.onerror=reject;
+    if(typeof source==='string'){
+      img.src=source;
+    }else if(source instanceof Blob){
+      const reader=new FileReader();
+      reader.onload=(ev)=>img.src=ev.target.result;
+      reader.onerror=reject;
+      reader.readAsDataURL(source);
+    }
+  });
+}
+
+async function processAndInsertJournalPhoto(fileOrBlob){
+  try{
+    showToast('Processing photo...');
+    const dataUrl=await compressImageToDataUrl(fileOrBlob,1200,0.88);
+    insertPhotoHtmlToEditor(dataUrl);
+    showToast('Photo added ✨ Tap photo for frames & crop');
+  }catch(err){
+    console.error('Failed to load image:',err);
+    showToast('Could not load image');
+  }
+}
+
+function insertPhotoHtmlToEditor(dataUrl){
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+  const cardId=`jphoto_${Date.now()}_${Math.random().toString(36).slice(2,6)}`;
+  const photoHtml=`
+    <div class="journal-photo-wrap" id="${cardId}" data-size="m" contenteditable="false">
+      <div class="journal-photo-card frame-polaroid">
+        <img src="${dataUrl}" alt="Journal Memory">
+        <div class="journal-photo-caption" contenteditable="true" spellcheck="false" placeholder="Write a memory..."></div>
+      </div>
+      <div class="journal-photo-actions" contenteditable="false">
+        <button type="button" class="jphoto-btn" onclick="cyclePhotoFrame('${cardId}')" title="Cycle Frame">🖼️ Frame</button>
+        <button type="button" class="jphoto-btn" onclick="cyclePhotoSize('${cardId}')" title="Cycle Size">📐 Size</button>
+        <button type="button" class="jphoto-btn" onclick="openPhotoCropModalFromCard('${cardId}')" title="Crop & Cut">✂️ Crop</button>
+        <button type="button" class="jphoto-btn" onclick="deleteJournalPhoto('${cardId}')" title="Delete">🗑️</button>
+      </div>
+    </div>
+    <p><br></p>
+  `;
+  insertHtmlAtCursor(photoHtml,editor);
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
+}
+
+function cyclePhotoFrame(cardId){
+  const card=document.getElementById(cardId)?.querySelector('.journal-photo-card');
+  if(!card)return;
+  const frames=['frame-polaroid','frame-washi','frame-rounded','frame-minimal'];
+  let currentIdx=frames.findIndex(f=>card.classList.contains(f));
+  if(currentIdx===-1)currentIdx=0;
+  frames.forEach(f=>card.classList.remove(f));
+  const nextFrame=frames[(currentIdx+1)%frames.length];
+  card.classList.add(nextFrame);
+  queueNoteSave();
+  showToast(`Frame: ${nextFrame.replace('frame-','')}`);
+}
+
+function cyclePhotoSize(cardId){
+  const wrap=document.getElementById(cardId);
+  if(!wrap)return;
+  const cur=wrap.getAttribute('data-size')||'m';
+  const nextSizes={'s':'m','m':'l','l':'s'};
+  wrap.setAttribute('data-size',nextSizes[cur]||'m');
+  queueNoteSave();
+}
+
+function deleteJournalPhoto(cardId){
+  const wrap=document.getElementById(cardId);
+  if(wrap){
+    wrap.remove();
+    syncNoteEditorPlaceholder();
+    queueNoteSave();
+    showToast('Photo removed');
+  }
+}
+
+/* ── CANVA-STYLE PHOTO CROP & CUT TOOL ── */
+let cropState = {
+  cardId: '',
+  img: null,
+  rotation: 0,
+  aspectRatio: null,
+  cropRect: { x: 0.05, y: 0.05, w: 0.9, h: 0.9 },
+  isDragging: false,
+  dragMode: null,
+  dragStart: { x: 0, y: 0 },
+  cropStart: { x: 0, y: 0, w: 0, h: 0 }
+};
+
+function openPhotoCropModalFromCard(cardId){
+  const wrap=document.getElementById(cardId);
+  const imgEl=wrap?.querySelector('img');
+  if(!imgEl||!imgEl.src)return;
+  cropState.cardId=cardId;
+  cropState.rotation=0;
+  cropState.aspectRatio=null;
+  cropState.cropRect={x:0.05,y:0.05,w:0.9,h:0.9};
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=()=>{
+    cropState.img=img;
+    const m=document.getElementById('journal-crop-modal');
+    if(m)m.classList.add('show');
+    initCropCanvas();
+  };
+  img.src=imgEl.src;
+}
+
+function closeCropModal(){
+  const m=document.getElementById('journal-crop-modal');
+  if(m)m.classList.remove('show');
+}
+
+function handleCropModalBackdrop(e){
+  if(e.target===document.getElementById('journal-crop-modal'))closeCropModal();
+}
+
+function setCropRatio(ratio,btn){
+  document.querySelectorAll('#journal-crop-modal .crop-preset-btn').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  if(ratio==='free')cropState.aspectRatio=null;
+  else if(ratio==='1:1')cropState.aspectRatio=1;
+  else if(ratio==='4:3')cropState.aspectRatio=4/3;
+  else if(ratio==='16:9')cropState.aspectRatio=16/9;
+  else if(ratio==='9:16')cropState.aspectRatio=9/16;
+  adjustCropToAspectRatio();
+  drawCropOverlay();
+}
+
+function rotateCropImage(){
+  cropState.rotation=(cropState.rotation+90)%360;
+  adjustCropToAspectRatio();
+  drawCropOverlay();
+}
+
+function adjustCropToAspectRatio(){
+  if(!cropState.aspectRatio){
+    cropState.cropRect={x:0.05,y:0.05,w:0.9,h:0.9};
+    return;
+  }
+  const canvas=document.getElementById('crop-canvas');
+  if(!canvas)return;
+  const targetRatio=cropState.aspectRatio;
+  const canvasRatio=canvas.width/canvas.height;
+  let w=0.8,h=0.8;
+  if(targetRatio>canvasRatio){
+    w=0.85;
+    h=(w*canvas.width)/(targetRatio*canvas.height);
+  }else{
+    h=0.85;
+    w=(h*canvas.height*targetRatio)/canvas.width;
+  }
+  w=Math.min(0.95,Math.max(0.1,w));
+  h=Math.min(0.95,Math.max(0.1,h));
+  cropState.cropRect={
+    x:(1-w)/2,
+    y:(1-h)/2,
+    w,
+    h
+  };
+}
+
+function initCropCanvas(){
+  const canvas=document.getElementById('crop-canvas');
+  const box=document.getElementById('crop-canvas-box');
+  if(!canvas||!box||!cropState.img)return;
+  const maxW=Math.min(box.clientWidth||500,520);
+  const maxH=Math.min(window.innerHeight*0.48,380);
+  let iw=cropState.img.width,ih=cropState.img.height;
+  if(cropState.rotation===90||cropState.rotation===270){
+    const tmp=iw;iw=ih;ih=tmp;
+  }
+  const scale=Math.min(maxW/iw,maxH/ih,1);
+  canvas.width=Math.round(iw*scale);
+  canvas.height=Math.round(ih*scale);
+  setupCropCanvasEvents(canvas);
+  adjustCropToAspectRatio();
+  drawCropOverlay();
+}
+
+function drawCropOverlay(){
+  const canvas=document.getElementById('crop-canvas');
+  if(!canvas||!cropState.img)return;
+  const ctx=canvas.getContext('2d');
+  const cw=canvas.width,ch=canvas.height;
+  ctx.clearRect(0,0,cw,ch);
+  ctx.save();
+  ctx.translate(cw/2,ch/2);
+  ctx.rotate((cropState.rotation*Math.PI)/180);
+  let dw=cw,dh=ch;
+  if(cropState.rotation===90||cropState.rotation===270){
+    dw=ch;dh=cw;
+  }
+  ctx.drawImage(cropState.img,-dw/2,-dh/2,dw,dh);
+  ctx.restore();
+
+  const rx=cropState.cropRect.x*cw;
+  const ry=cropState.cropRect.y*ch;
+  const rw=cropState.cropRect.w*cw;
+  const rh=cropState.cropRect.h*ch;
+
+  ctx.fillStyle='rgba(0,0,0,0.55)';
+  ctx.fillRect(0,0,cw,ry);
+  ctx.fillRect(0,ry+rh,cw,ch-(ry+rh));
+  ctx.fillRect(0,ry,rx,rh);
+  ctx.fillRect(rx+rw,ry,cw-(rx+rw),rh);
+
+  ctx.strokeStyle='rgba(255,255,255,0.95)';
+  ctx.lineWidth=2;
+  ctx.strokeRect(rx,ry,rw,rh);
+
+  ctx.strokeStyle='rgba(255,255,255,0.3)';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(rx+rw/3,ry);ctx.lineTo(rx+rw/3,ry+rh);
+  ctx.moveTo(rx+(2*rw)/3,ry);ctx.lineTo(rx+(2*rw)/3,ry+rh);
+  ctx.moveTo(rx,ry+rh/3);ctx.lineTo(rx+rw,ry+rh/3);
+  ctx.moveTo(rx,ry+(2*rh)/3);ctx.lineTo(rx+rw,ry+(2*rh)/3);
+  ctx.stroke();
+
+  const hs=14;
+  ctx.fillStyle='#fff';
+  ctx.fillRect(rx-2,ry-2,hs,3);ctx.fillRect(rx-2,ry-2,3,hs);
+  ctx.fillRect(rx+rw-hs+2,ry-2,hs,3);ctx.fillRect(rx+rw-1,ry-2,3,hs);
+  ctx.fillRect(rx-2,ry+rh-1,hs,3);ctx.fillRect(rx-2,ry+rh-hs+2,3,hs);
+  ctx.fillRect(rx+rw-hs+2,ry+rh-1,hs,3);ctx.fillRect(rx+rw-1,ry+rh-hs+2,3,hs);
+}
+
+function setupCropCanvasEvents(canvas){
+  if(canvas.dataset.eventsAttached==='1')return;
+  canvas.dataset.eventsAttached='1';
+
+  function getCanvasPos(e){
+    const rect=canvas.getBoundingClientRect();
+    const clientX=e.touches?e.touches[0].clientX:e.clientX;
+    const clientY=e.touches?e.touches[0].clientY:e.clientY;
+    return {
+      x:(clientX-rect.left)*(canvas.width/rect.width),
+      y:(clientY-rect.top)*(canvas.height/rect.height)
+    };
+  }
+
+  function onPointerDown(e){
+    const pos=getCanvasPos(e);
+    const cw=canvas.width,ch=canvas.height;
+    const rx=cropState.cropRect.x*cw;
+    const ry=cropState.cropRect.y*ch;
+    const rw=cropState.cropRect.w*cw;
+    const rh=cropState.cropRect.h*ch;
+    const thresh=24;
+
+    cropState.isDragging=true;
+    cropState.dragStart=pos;
+    cropState.cropStart={...cropState.cropRect};
+
+    if(Math.hypot(pos.x-rx,pos.y-ry)<thresh)cropState.dragMode='nw';
+    else if(Math.hypot(pos.x-(rx+rw),pos.y-ry)<thresh)cropState.dragMode='ne';
+    else if(Math.hypot(pos.x-rx,pos.y-(ry+rh))<thresh)cropState.dragMode='sw';
+    else if(Math.hypot(pos.x-(rx+rw),pos.y-(ry+rh))<thresh)cropState.dragMode='se';
+    else if(pos.x>=rx && pos.x<=rx+rw && pos.y>=ry && pos.y<=ry+rh)cropState.dragMode='move';
+    else cropState.dragMode=null;
+    e.preventDefault();
+  }
+
+  function onPointerMove(e){
+    if(!cropState.isDragging||!cropState.dragMode)return;
+    const pos=getCanvasPos(e);
+    const cw=canvas.width,ch=canvas.height;
+    const dx=(pos.x-cropState.dragStart.x)/cw;
+    const dy=(pos.y-cropState.dragStart.y)/ch;
+    const s=cropState.cropStart;
+
+    if(cropState.dragMode==='move'){
+      let nx=Math.max(0,Math.min(1-s.w,s.x+dx));
+      let ny=Math.max(0,Math.min(1-s.h,s.y+dy));
+      cropState.cropRect.x=nx;
+      cropState.cropRect.y=ny;
+    }else if(cropState.dragMode==='se'){
+      let nw=Math.max(0.1,Math.min(1-s.x,s.w+dx));
+      let nh=Math.max(0.1,Math.min(1-s.y,s.h+dy));
+      cropState.cropRect.w=nw;
+      cropState.cropRect.h=nh;
+    }else if(cropState.dragMode==='nw'){
+      let nx=Math.max(0,Math.min(s.x+s.w-0.1,s.x+dx));
+      let ny=Math.max(0,Math.min(s.y+s.h-0.1,s.y+dy));
+      cropState.cropRect.w=s.w+(s.x-nx);
+      cropState.cropRect.h=s.h+(s.y-ny);
+      cropState.cropRect.x=nx;
+      cropState.cropRect.y=ny;
+    }
+    drawCropOverlay();
+    e.preventDefault();
+  }
+
+  function onPointerUp(){
+    cropState.isDragging=false;
+    cropState.dragMode=null;
+  }
+
+  canvas.addEventListener('mousedown',onPointerDown);
+  window.addEventListener('mousemove',onPointerMove);
+  window.addEventListener('mouseup',onPointerUp);
+  canvas.addEventListener('touchstart',onPointerDown,{passive:false});
+  window.addEventListener('touchmove',onPointerMove,{passive:false});
+  window.addEventListener('touchend',onPointerUp);
+}
+
+function applyPhotoCrop(){
+  const canvas=document.getElementById('crop-canvas');
+  if(!canvas||!cropState.img||!cropState.cardId)return;
+  const cw=canvas.width,ch=canvas.height;
+  const rx=cropState.cropRect.x*cw;
+  const ry=cropState.cropRect.y*ch;
+  const rw=cropState.cropRect.w*cw;
+  const rh=cropState.cropRect.h*ch;
+
+  const outCanvas=document.createElement('canvas');
+  outCanvas.width=Math.round(rw);
+  outCanvas.height=Math.round(rh);
+  const outCtx=outCanvas.getContext('2d');
+  outCtx.drawImage(canvas,rx,ry,rw,rh,0,0,rw,rh);
+  const croppedDataUrl=outCanvas.toDataURL('image/jpeg',0.92);
+
+  const wrap=document.getElementById(cropState.cardId);
+  const imgEl=wrap?.querySelector('img');
+  if(imgEl){
+    imgEl.src=croppedDataUrl;
+    queueNoteSave();
+    showToast('Photo cropped ✨');
+  }
+  closeCropModal();
+}
+
+/* ── STICKY NOTES & HIGHLIGHTER ── */
+function insertStickyNotePrompt(){
+  const colors=['yellow','pink','mint','lavender'];
+  const picked=colors[Math.floor(Math.random()*colors.length)];
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+  const stickyHtml=`
+    <div class="journal-sticky-note ${picked}" contenteditable="true" spellcheck="false">
+      ✨ Note to self: Click here to type your aesthetic thought...
+    </div>
+    <p><br></p>
+  `;
+  insertHtmlAtCursor(stickyHtml,editor);
+  syncNoteEditorPlaceholder();
+  queueNoteSave();
+  showToast('Added sticky note 📝');
+}
+
+function toggleHighlighterPalette(e){
+  e?.stopPropagation();
+  const pal=document.getElementById('journal-hl-palette');
+  if(pal)pal.classList.toggle('show');
+}
+
+function applyJournalHighlighter(color){
+  const pal=document.getElementById('journal-hl-palette');
+  if(pal)pal.classList.remove('show');
+  setNoteEditMode(true,false);
+  const editor=document.getElementById('note-editor');
+  if(!editor)return;
+  editor.focus();
+  if(color==='transparent'){
+    document.execCommand('hiliteColor',false,'transparent');
+    document.execCommand('removeFormat',false,null);
+  }else{
+    document.execCommand('hiliteColor',false,color);
+  }
+  queueNoteSave();
+}
+
+document.addEventListener('click',(e)=>{
+  const pal=document.getElementById('journal-hl-palette');
+  if(pal&&pal.classList.contains('show')&&!pal.contains(e.target)&&e.target.id!=='note-highlighter-btn'){
+    pal.classList.remove('show');
+  }
+});
+
+function initJournalMediaListeners(){
+  const editor=document.getElementById('note-editor');
+  if(!editor||editor.dataset.journalMediaReady==='1')return;
+  editor.dataset.journalMediaReady='1';
+
+  editor.addEventListener('paste',(e)=>{
+    const items=e.clipboardData?.items;
+    if(!items)return;
+    for(let i=0;i<items.length;i++){
+      if(items[i].type.indexOf('image')!==-1){
+        e.preventDefault();
+        const file=items[i].getAsFile();
+        if(file)processAndInsertJournalPhoto(file);
+        return;
+      }
+    }
+  });
+
+  editor.addEventListener('dragover',(e)=>{e.preventDefault();});
+  editor.addEventListener('drop',(e)=>{
+    const files=e.dataTransfer?.files;
+    if(files&&files.length>0&&files[0].type.startsWith('image/')){
+      e.preventDefault();
+      processAndInsertJournalPhoto(files[0]);
+    }
+  });
+
+  editor.addEventListener('click',(e)=>{
+    const wrap=e.target.closest('.journal-photo-wrap');
+    document.querySelectorAll('.journal-photo-wrap.active').forEach(w=>{
+      if(w!==wrap)w.classList.remove('active');
+    });
+    if(wrap)wrap.classList.toggle('active');
+  });
 }
 function openLibrary(opts={}){
   notesPane='library';
@@ -5577,7 +6804,7 @@ window.handleIncomingSharePayload=function(payload){
   }catch(e){}
 };
 let pendingNewNoteReward=false;
-function requestNewNote(){
+function requestNewNote(initialFields={}){
   if(notesPane==='vault'){
     createVaultNote();
     return;
@@ -5589,7 +6816,7 @@ function requestNewNote(){
       return;
     }
   }catch(e){}
-  createNote();
+  createNote(initialFields);
 }
 function createVaultNote(){
   const now=Date.now();
@@ -5604,9 +6831,25 @@ window.onNotesCreateRewarded=function(){
   pendingNewNoteReward=false;
   createNote();
 };
-function createNote(){
+function createNote(initialFields={}){
   const now=Date.now();
-  const note={id:`note_${now}_${Math.random().toString(36).slice(2,7)}`,title:'',content:'',createdAt:now,updatedAt:now,untitledIndex:noteUntitledSeed++,fontFamily:'clean',fontSize:'medium',textColor:getDefaultNoteTextColor(),textColorMode:'auto',tags:[]};
+  const bookId=(initialFields&&typeof initialFields.bookId==='string')
+    ?initialFields.bookId
+    :(currentJournalBookId||'');
+  const note={
+    id:`note_${now}_${Math.random().toString(36).slice(2,7)}`,
+    title:initialFields?.title||'',
+    content:initialFields?.content||'',
+    createdAt:now,
+    updatedAt:now,
+    untitledIndex:noteUntitledSeed++,
+    fontFamily:initialFields?.fontFamily||'clean',
+    fontSize:'medium',
+    textColor:getDefaultNoteTextColor(),
+    textColorMode:'auto',
+    bookId,
+    tags:[]
+  };
   NOTES.unshift(note);
   saveNotesData();
   renderNotesList();
@@ -5616,15 +6859,15 @@ function renameNotePrompt(id){
   const note=getNoteById(id);
   if(!note)return;
   showAppInputDialog({
-    title:'Rename Note',
-    message:'Update note title',
-    placeholder:'Enter note title',
+    title:'Rename Page',
+    message:'Update page title',
+    placeholder:'Enter page title',
     value:note.title||getNoteDisplayTitle(note),
     confirmText:'Save',
     cancelText:'Cancel',
     onConfirm:(nextRaw)=>{
       const next=String(nextRaw||'').trim();
-      if(!next){showToast('Note name required');return false;}
+      if(!next){showToast('Page name required');return false;}
       note.title=next;
       note.updatedAt=Date.now();
       if(note.isVault){
@@ -6032,7 +7275,9 @@ function openNoteEditor(id,opts={}){
   setBottomTab('notes');
   setActiveScreen('sNoteEdit','NoteEdit',opts||{});
   const backBtn=document.getElementById('note-edit-back');
-  if(backBtn)backBtn.textContent=note.isVault?'← Vault':'← Notes';
+  if(backBtn)backBtn.textContent=note.isVault?'← Vault':'← Journal';
+  syncNoteBookAssignSelect(note.bookId);
+  initJournalMediaListeners();
   const titleEl=document.getElementById('note-title');
   const editor=document.getElementById('note-editor');
   const fontSel=document.getElementById('note-font');
@@ -6074,6 +7319,8 @@ function saveCurrentNote(showFeedback=false){
   const nextContent=nextMode==='custom'?rawContent:stripInlineAutoInk(rawContent);
   const tagText=`${nextTitle}\n${notePlainText(nextContent)}`;
   const nextTags=[...new Set((tagText.match(/#[a-z0-9_]{2,24}/gi)||[]).map(v=>v.slice(1).toLowerCase()))].slice(0,12);
+  const bookSel=document.getElementById('note-book-assign');
+  const nextBookId=bookSel?bookSel.value:(note.bookId||'');
   const changed=(
     note.title!==nextTitle||
     note.content!==nextContent||
@@ -6081,6 +7328,7 @@ function saveCurrentNote(showFeedback=false){
     note.fontSize!==nextSize||
     note.textColor!==nextColor||
     note.textColorMode!==nextMode||
+    note.bookId!==nextBookId||
     JSON.stringify(note.tags||[])!==JSON.stringify(nextTags)
   );
   if(!changed&&!showFeedback)return;
@@ -6090,6 +7338,7 @@ function saveCurrentNote(showFeedback=false){
   note.fontSize=nextSize;
   note.textColor=nextColor;
   note.textColorMode=nextMode;
+  note.bookId=nextBookId;
   note.tags=nextTags;
   note.updatedAt=Date.now();
   if(note.isVault){
@@ -6102,7 +7351,7 @@ function saveCurrentNote(showFeedback=false){
   syncNotePaperLines();
   if(!noteEditMode)renderNoteReadView(note);
   if(curScr==='Notes')renderNotesList();
-  if(showFeedback)showToast('Note saved');
+  if(showFeedback)showToast('Page saved ✨');
 }
 function queueNoteSave(){
   clearTimeout(noteSaveTimer);
@@ -6112,6 +7361,7 @@ function initNotesFeature(){
   loadNotesData();
   loadLibraryData();
   loadVaultNotesData();
+  loadJournalBooks();
   syncNotesPaneUI();
   const editor=document.getElementById('note-editor');
   if(editor&&editor.dataset.ready!=='1'){
@@ -6647,6 +7897,7 @@ function createNoteFromTemplate(tpl){
     fontSize:'medium',
     textColor:getDefaultNoteTextColor(),
     textColorMode:'auto',
+    bookId:(!isVault && currentJournalBookId)?currentJournalBookId:'',
     tags:[...(tpl.tags||[])],
     isVault:isVault
   };
