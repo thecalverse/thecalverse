@@ -1126,6 +1126,119 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .note-action-btn{background:rgba(115,82,60,.09);border-color:rgba(131,98,74,.16);}
 [data-t=light] .note-action-btn.acc{color:#fff;}
 
+/* Note Templates & Aesthetic Components */
+.note-tpl-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px;line-height:1.2;}
+.note-tpl-badge.pink{background:rgba(255,140,190,.16);color:#ff9bc4;border:1px solid rgba(255,140,190,.28);}
+.note-tpl-badge.purple{background:rgba(168,140,255,.16);color:#c8b3ff;border:1px solid rgba(168,140,255,.28);}
+.note-tpl-badge.sage{background:rgba(120,210,160,.16);color:#92e6b7;border:1px solid rgba(120,210,160,.28);}
+.note-tpl-badge.amber{background:rgba(255,190,90,.16);color:#ffd080;border:1px solid rgba(255,190,90,.28);}
+.note-tpl-badge.sky{background:rgba(90,180,255,.16);color:#9fd3ff;border:1px solid rgba(90,180,255,.28);}
+
+[data-t=light] .note-tpl-badge.pink{background:rgba(215,100,145,.14);color:#9e325b;border-color:rgba(215,100,145,.3);}
+[data-t=light] .note-tpl-badge.purple{background:rgba(138,105,220,.14);color:#5d3da3;border-color:rgba(138,105,220,.3);}
+[data-t=light] .note-tpl-badge.sage{background:rgba(85,150,110,.14);color:#2d6342;border-color:rgba(85,150,110,.3);}
+[data-t=light] .note-tpl-badge.amber{background:rgba(200,135,50,.14);color:#875317;border-color:rgba(200,135,50,.3);}
+[data-t=light] .note-tpl-badge.sky{background:rgba(60,135,210,.14);color:#1c558c;border-color:rgba(60,135,210,.3);}
+
+.note-callout{position:relative;margin:12px 0;padding:14px 16px;border-radius:18px;border:1px solid var(--glb);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 20px rgba(0,0,0,.08);line-height:1.6;}
+.note-callout-hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:900;letter-spacing:.3px;margin-bottom:8px;color:var(--t1);}
+.note-callout.pink{border-color:rgba(255,140,190,.22);background:linear-gradient(135deg,rgba(255,140,190,.09),rgba(255,180,210,.03));border-left:4px solid #ff88b6;}
+.note-callout.purple{border-color:rgba(168,140,255,.22);background:linear-gradient(135deg,rgba(168,140,255,.09),rgba(200,180,255,.03));border-left:4px solid #9d7dff;}
+.note-callout.sage{border-color:rgba(120,210,160,.22);background:linear-gradient(135deg,rgba(120,210,160,.09),rgba(160,230,190,.03));border-left:4px solid #66d999;}
+.note-callout.amber{border-color:rgba(255,190,90,.22);background:linear-gradient(135deg,rgba(255,190,90,.09),rgba(255,220,140,.03));border-left:4px solid #ffb84d;}
+.note-callout.sky{border-color:rgba(90,180,255,.22);background:linear-gradient(135deg,rgba(90,180,255,.09),rgba(140,210,255,.03));border-left:4px solid #57aeff;}
+.note-callout.quote{border-left:3px solid var(--act);font-style:italic;background:linear-gradient(180deg,rgba(140,126,255,.07),rgba(255,255,255,.02));padding:16px 20px;font-family:'Georgia','Times New Roman',serif;}
+.note-callout.warn{border-color:rgba(255,100,100,.24);background:linear-gradient(135deg,rgba(255,90,90,.09),rgba(255,140,140,.03));border-left:4px solid #ff6363;}
+.note-callout.formula{background:linear-gradient(135deg,rgba(16,22,38,.94),rgba(24,32,54,.88));border:1px solid rgba(124,150,255,.28);box-shadow:0 12px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);}
+
+[data-t=light] .note-callout{background:linear-gradient(180deg,rgba(255,252,248,.92),rgba(245,236,225,.86));border-color:rgba(131,98,74,.14);box-shadow:0 8px 18px rgba(104,76,56,.08);}
+[data-t=light] .note-callout.pink{border-color:rgba(215,100,145,.24);background:linear-gradient(135deg,rgba(255,240,245,.95),rgba(250,225,235,.88));border-left:4px solid #c94c77;}
+[data-t=light] .note-callout.purple{border-color:rgba(138,105,220,.24);background:linear-gradient(135deg,rgba(246,242,255,.95),rgba(235,228,252,.88));border-left:4px solid #7c52d4;}
+[data-t=light] .note-callout.sage{border-color:rgba(85,150,110,.24);background:linear-gradient(135deg,rgba(240,252,244,.95),rgba(224,244,230,.88));border-left:4px solid #3c8257;}
+[data-t=light] .note-callout.amber{border-color:rgba(200,135,50,.24);background:linear-gradient(135deg,rgba(255,248,236,.95),rgba(250,237,218,.88));border-left:4px solid #b8741e;}
+[data-t=light] .note-callout.sky{border-color:rgba(60,135,210,.24);background:linear-gradient(135deg,rgba(240,247,255,.95),rgba(226,239,252,.88));border-left:4px solid #2872b8;}
+[data-t=light] .note-callout.formula{background:linear-gradient(135deg,rgba(248,240,230,.98),rgba(235,220,205,.94));border-color:rgba(131,98,74,.22);color:#342318;box-shadow:0 8px 18px rgba(104,76,56,.1);}
+
+.note-mood-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.note-mood-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--glb);background:rgba(255,255,255,.05);color:var(--t2);cursor:pointer;user-select:none;transition:all .18s var(--ease-flow);}
+.note-mood-pill:hover,.note-mood-pill.on{background:var(--acc);border-color:var(--acb);color:var(--t1);transform:scale(1.04);}
+[data-t=light] .note-mood-pill{border-color:rgba(131,98,74,.18);background:rgba(255,255,255,.5);color:#5d4231;}
+[data-t=light] .note-mood-pill.on{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
+
+.note-cornell-grid{display:grid;grid-template-columns:35% 65%;gap:12px;margin:12px 0;}
+@media (max-width:540px){.note-cornell-grid{grid-template-columns:1fr;gap:10px;}}
+.note-cornell-cue{padding:12px 14px;border-radius:16px;border:1px dashed rgba(168,140,255,.3);background:rgba(168,140,255,.035);}
+.note-cornell-notes{padding:12px 14px;border-radius:16px;border:1px solid var(--glb);background:rgba(255,255,255,.03);}
+[data-t=light] .note-cornell-cue{border-color:rgba(138,105,220,.3);background:rgba(246,242,255,.6);}
+[data-t=light] .note-cornell-notes{border-color:rgba(131,98,74,.14);background:rgba(255,255,255,.5);}
+
+.note-checklist{display:grid;gap:6px;margin:8px 0;}
+.note-check-item{display:flex;align-items:flex-start;gap:10px;padding:4px 6px;border-radius:8px;line-height:1.5;transition:background .15s var(--ease-flow);}
+.note-check-item:hover{background:rgba(255,255,255,.03);}
+.note-checkbox{flex-shrink:0;width:18px;height:18px;margin-top:2px;border-radius:6px;border:1.5px solid var(--glb);background:rgba(255,255,255,.06);cursor:pointer;display:grid;place-items:center;transition:all .18s var(--ease-flow);user-select:none;}
+.note-checkbox:hover{border-color:var(--act);transform:scale(1.1);}
+.note-check-item.done .note-checkbox{background:var(--accg);border-color:var(--acb);}
+.note-check-item.done .note-checkbox::after{content:'✓';font-size:12px;font-weight:900;color:#fff;}
+.note-check-item.done .note-check-text{text-decoration:line-through;opacity:.65;}
+.note-check-text{flex:1 1 0;min-width:0;outline:none;}
+[data-t=light] .note-checkbox{border-color:rgba(131,98,74,.3);background:rgba(255,255,255,.6);}
+[data-t=light] .note-check-item.done .note-checkbox{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);}
+
+.note-habit-table{width:100%;border-collapse:separate;border-spacing:4px;margin:10px 0;font-size:12px;}
+.note-habit-th{padding:6px 4px;text-align:center;color:var(--t3);font-weight:800;font-size:10.5px;}
+.note-habit-td-name{padding:6px 8px;font-weight:700;color:var(--t1);}
+.note-habit-cell{width:28px;height:28px;text-align:center;border-radius:8px;border:1px solid var(--glb);background:rgba(255,255,255,.04);cursor:pointer;user-select:none;font-size:11px;}
+.note-habit-cell.done{background:var(--accg);border-color:var(--acb);color:#fff;}
+[data-t=light] .note-habit-cell{border-color:rgba(131,98,74,.18);background:rgba(255,255,255,.5);color:#5d4231;}
+[data-t=light] .note-habit-cell.done{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
+
+.note-empty-tpl-banner{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:4px 0 16px;border-radius:18px;border:1px dashed rgba(140,126,255,.32);background:linear-gradient(135deg,rgba(140,126,255,.08),rgba(255,140,200,.04));cursor:pointer;transition:all .2s var(--ease-flow);}
+.note-empty-tpl-banner:hover{border-color:var(--act);background:linear-gradient(135deg,rgba(140,126,255,.14),rgba(255,140,200,.08));transform:translateY(-1px);}
+.note-empty-tpl-sparkle{font-size:24px;filter:drop-shadow(0 0 10px rgba(140,126,255,.5));}
+.note-empty-tpl-info{flex:1;min-width:0;}
+.note-empty-tpl-title{font-size:13px;font-weight:900;color:var(--t1);letter-spacing:.2px;}
+.note-empty-tpl-sub{font-size:11px;color:var(--t2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.note-empty-tpl-btn{height:28px;padding:0 12px;border-radius:10px;border:1px solid var(--acb);background:var(--acc);color:var(--act);font-size:11px;font-weight:800;cursor:pointer;}
+[data-t=light] .note-empty-tpl-banner{border-color:rgba(140,105,220,.35);background:linear-gradient(135deg,rgba(246,240,255,.9),rgba(255,238,245,.8));}
+
+/* Template Picker Modal */
+.tpl-modal-card{width:min(100%,740px);max-height:88vh;max-height:88dvh;background:linear-gradient(180deg,rgba(16,22,36,.98),rgba(10,14,24,.97));border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:22px 20px 18px;box-shadow:0 32px 64px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;gap:14px;overflow:hidden;}
+.tpl-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0;}
+.tpl-modal-title{font-size:19px;font-weight:900;color:var(--t1);letter-spacing:.2px;display:flex;align-items:center;gap:8px;}
+.tpl-modal-sub{font-size:12.5px;color:var(--t2);margin-top:3px;}
+.tpl-modal-close{width:34px;height:34px;border-radius:12px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t2);font-size:18px;display:grid;place-items:center;cursor:pointer;}
+.tpl-modal-close:hover{color:var(--t1);background:rgba(255,255,255,.12);}
+.tpl-modal-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;flex-shrink:0;-webkit-overflow-scrolling:touch;}
+.tpl-tab-btn{height:34px;padding:0 14px;border-radius:12px;border:1px solid var(--glb);background:rgba(255,255,255,.05);color:var(--t2);font-size:12px;font-weight:800;white-space:nowrap;cursor:pointer;transition:all .18s var(--ease-flow);}
+.tpl-tab-btn.on{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 4px 14px rgba(124,92,255,.24);}
+.tpl-modal-body{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-right:4px;}
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.tpl-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;border-radius:20px;border:1px solid var(--glb);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));padding:16px;cursor:pointer;transition:transform .2s var(--ease-flow),border-color .2s var(--ease-flow),box-shadow .2s var(--ease-flow);overflow:hidden;}
+.tpl-card:hover{transform:translateY(-3px);border-color:var(--acb);box-shadow:0 14px 28px rgba(0,0,0,.18),0 0 20px color-mix(in srgb,var(--act) 14%,transparent);}
+.tpl-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.tpl-card-badge{font-size:9.5px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:999px;}
+.tpl-card-name{font-size:15px;font-weight:900;color:var(--t1);letter-spacing:.2px;display:flex;align-items:center;gap:6px;}
+.tpl-card-desc{font-size:11.5px;color:var(--t2);line-height:1.5;margin-bottom:12px;}
+.tpl-mini-preview{height:76px;border-radius:12px;border:1px solid var(--glb);background:rgba(0,0,0,.18);padding:8px 10px;margin-bottom:12px;display:flex;flex-direction:column;gap:5px;overflow:hidden;pointer-events:none;}
+.tpl-mini-line{height:5px;border-radius:4px;background:rgba(255,255,255,.12);width:80%;}
+.tpl-mini-line.short{width:45%;}
+.tpl-mini-line.accent{background:var(--act);width:60%;opacity:.8;}
+.tpl-mini-box{flex:1;border-radius:6px;border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--t3);}
+.tpl-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;}
+.tpl-card-font{font-size:11px;color:var(--t3);}
+.tpl-card-btn{height:32px;padding:0 14px;border-radius:10px;border:1px solid var(--glb);background:rgba(255,255,255,.08);color:var(--t1);font-size:11.5px;font-weight:800;cursor:pointer;}
+.tpl-card:hover .tpl-card-btn{background:var(--accg);border-color:var(--acb);color:#fff;}
+
+[data-t=light] .tpl-modal-card{background:linear-gradient(180deg,rgba(255,250,244,.98),rgba(242,230,216,.96));border-color:rgba(131,98,74,.18);box-shadow:0 30px 60px rgba(104,76,56,.2);}
+[data-t=light] .tpl-card{background:linear-gradient(180deg,rgba(255,249,242,.94),rgba(240,226,211,.84));border-color:rgba(131,98,74,.12);}
+[data-t=light] .tpl-mini-preview{background:rgba(131,98,74,.06);border-color:rgba(131,98,74,.12);}
+[data-t=light] .tpl-mini-line{background:rgba(131,98,74,.2);}
+[data-t=light] .tpl-mini-box{background:rgba(255,255,255,.6);border-color:rgba(131,98,74,.2);color:#7c5c45;}
+[data-t=light] .tpl-tab-btn{border-color:rgba(131,98,74,.16);background:rgba(255,255,255,.5);color:#5d4231;}
+[data-t=light] .tpl-tab-btn.on{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
+[data-t=light] .tpl-card-btn{background:rgba(131,98,74,.08);border-color:rgba(131,98,74,.18);color:#3f2d22;}
+[data-t=light] .tpl-card:hover .tpl-card-btn{background:linear-gradient(135deg,rgba(160,108,78,.98),rgba(205,158,116,.9));border-color:rgba(187,142,103,.4);color:#fff;}
+
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
 .tracker-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -3214,6 +3327,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
             <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">Trash</button>
           </div>
+          <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
           <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
       </div>
@@ -3242,6 +3356,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       <div class="note-meta-row">
         <div class="note-meta" id="note-meta">Saved locally</div>
         <div class="note-editor-actions">
+          <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
           <button class="note-card-btn acc" id="note-act-done" onclick="setNoteEditMode(false,false)">Done</button>
         </div>
@@ -3284,6 +3399,14 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       </div>
       </div>
       <div class="note-paper" id="note-paper">
+        <div class="note-empty-tpl-banner" id="note-empty-tpl-banner" onclick="openTemplatePickerModal('editor')" style="display:none;">
+          <div class="note-empty-tpl-sparkle">✨</div>
+          <div class="note-empty-tpl-info">
+            <div class="note-empty-tpl-title">Start with an Aesthetic Template</div>
+            <div class="note-empty-tpl-sub">Daily Journal · Cornell Notes · Habit Reset · STEM Formula</div>
+          </div>
+          <button type="button" class="note-empty-tpl-btn">Explore →</button>
+        </div>
         <div id="note-view" class="note-view"></div>
         <div id="note-editor" class="note-editor" contenteditable="true" spellcheck="true" data-placeholder="Start writing here..." data-empty="true"></div>
       </div>
@@ -3401,6 +3524,28 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div class="app-dialog-title" id="vault-change-title">⚙️ Change Vault Passcode</div>
     <div class="app-dialog-body" id="vault-change-body"></div>
     <div class="app-dialog-actions" id="vault-change-actions"></div>
+  </div>
+</div>
+
+<div id="note-template-modal" class="app-dialog" onclick="handleTemplateModalBackdrop(event)">
+  <div class="tpl-modal-card" onclick="event.stopPropagation()">
+    <div class="tpl-modal-head">
+      <div>
+        <div class="tpl-modal-title"><span>✨</span> Aesthetic Note Templates</div>
+        <div class="tpl-modal-sub">Curated Canva & Pinterest-style layouts for mindful journaling, study notes & planners.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeTemplatePickerModal()" aria-label="Close templates modal">✕</button>
+    </div>
+    <div class="tpl-modal-tabs" id="tpl-modal-tabs">
+      <button type="button" class="tpl-tab-btn on" onclick="filterTemplateCategory('all',this)">🌟 All (12)</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('journal',this)">🌸 Journal & Mood</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('study',this)">🎓 Study & Cornell</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('planning',this)">📅 Habits & Planning</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('stem',this)">📐 STEM & Formulas</button>
+    </div>
+    <div class="tpl-modal-body">
+      <div class="tpl-grid" id="tpl-modal-grid"></div>
+    </div>
   </div>
 </div>
 
@@ -5615,7 +5760,10 @@ function openTrash(){
 function syncNoteEditorPlaceholder(){
   const editor=document.getElementById('note-editor');
   if(!editor)return;
-  editor.dataset.empty=notePlainText(editor.innerHTML)?'false':'true';
+  const isEmpty=!notePlainText(editor.innerHTML);
+  editor.dataset.empty=isEmpty?'true':'false';
+  const banner=document.getElementById('note-empty-tpl-banner');
+  if(banner)banner.style.display=isEmpty?'flex':'none';
 }
 function syncNotePaperLines(){
   if(notePaperSyncRaf)cancelAnimationFrame(notePaperSyncRaf);
@@ -6227,6 +6375,412 @@ function handleNoteEditBack(){
     openVaultNotes();
   }else{
     openNotes();
+  }
+}
+
+/* ── AESTHETIC NOTE TEMPLATES SUITE ── */
+let templateModalSource = 'list';
+let activeTemplateCategory = 'all';
+
+const NOTE_TEMPLATES = [
+  {
+    id: 'daily_reflection',
+    category: 'journal',
+    badge: 'Daily Reflection',
+    badgeColor: 'pink',
+    icon: '🌸',
+    name: 'Aesthetic Daily Journal',
+    desc: 'Pinterest-style mood check-in, 3 gratitudes, small daily joys & evening reflection.',
+    font: 'hand',
+    previewType: 'journal',
+    tags: ['journal', 'daily', 'gratitude', 'mindfulness'],
+    defaultTitle: () => `🌸 Daily Reflection — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+    content: `<div class="note-mood-row" contenteditable="false"><span style="font-size:12px;font-weight:800;color:var(--t2);margin-right:4px;">Today's Vibe:</span><span class="note-mood-pill on" onclick="toggleMoodPill(this,event)">☀️ Radiant</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌿 Peaceful</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">⚡ Energized</span><span class="note-mood-pill" onclick="toggleMoodPill(this,event)">🌧️ Slow & Soft</span></div><div class="note-callout pink"><div class="note-callout-hdr"><span>✨ 3 THINGS I AM GRATEFUL FOR</span><span>🌸</span></div><div>1. The warmth of fresh morning coffee and a calm start</div><div>2. A thoughtful message that made me smile</div><div>3. Having quiet time to create and reflect</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>🌿 TODAY'S SMALL JOYS & WINS</span><span>🌱</span></div><div>• Finished my most important task before noon</div><div>• Took a gentle 15-minute walk outside</div><div>• Honored my boundaries and rested without guilt</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>💭 BRAIN DUMP & REFLECTIONS</span><span>✨</span></div><div>Pouring out the day's swirling thoughts. Unfiltered, honest, letting it all settle onto the page...</div><div><br></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌙 GENTLE INTENTION FOR TOMORROW</span><span>🕯️</span></div><div>"Approach tomorrow with patience, steady focus, and kindness toward myself."</div></div>`
+  },
+  {
+    id: 'morning_pages',
+    category: 'journal',
+    badge: 'Morning Routine',
+    badgeColor: 'amber',
+    icon: '☕',
+    name: 'Morning Pages & Focus',
+    desc: 'Wake-up check-in, daily core priority, unfiltered brain dump & morning affirmation.',
+    font: 'handSoft',
+    previewType: 'journal',
+    tags: ['morning', 'mindset', 'focus'],
+    defaultTitle: () => `☕ Morning Pages — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+    content: `<div class="note-callout amber"><div class="note-callout-hdr"><span>☀️ MORNING CHECK-IN</span><span>07:30 AM</span></div><div><b>Sleep Quality:</b> 8 hrs · Rested & clear-headed</div><div><b>Energy Level:</b> ⚡⚡⚡⚡⚪ (4/5)</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>🎯 THE ONE THING (CORE PRIORITY)</span><span>⚡</span></div><div style="font-size:1.05em;font-weight:700;">If only ONE thing gets finished today, make it this:</div><div>• Complete and review today's study milestone</div></div><div class="note-callout quote">“You do not have to be good. You only have to let the soft animal of your body love what it loves.” — Mary Oliver</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 UNFILTERED MORNING STREAM</span><span>☕</span></div><div>Waking up to a fresh clean slate. Writing freely to clear morning mental clutter and ground intentions for the day...</div><div><br></div></div>`
+  },
+  {
+    id: 'book_journal',
+    category: 'journal',
+    badge: 'Book Journal',
+    badgeColor: 'purple',
+    icon: '📖',
+    name: 'Aesthetic Book & Reading Log',
+    desc: 'Canva-inspired reading review with star rating, favorite quotes & core takeaways.',
+    font: 'serif',
+    previewType: 'review',
+    tags: ['reading', 'books', 'review'],
+    defaultTitle: () => `📖 Book Review — Title Here`,
+    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>📖 BOOK DETAILS</span><span>★★★★★ (5/5)</span></div><div><b>Title:</b> Atomic Habits</div><div><b>Author:</b> James Clear</div><div><b>Genre:</b> Non-Fiction / Psychology · <b>Pages:</b> 320</div><div><b>Status:</b> Finished · Read in 5 days</div></div><div class="note-callout quote">“You do not rise to the level of your goals. You fall to the level of your systems.”</div><div class="note-callout sage"><div class="note-callout-hdr"><span>💡 CORE TAKEAWAYS & LESSONS</span><span>🌱</span></div><div>1. Small 1% daily improvements compound into gigantic results over a year.</div><div>2. Identity-based habits: decide who you want to be, then prove it to yourself with small wins.</div><div>3. Make good habits obvious, attractive, easy, and satisfying.</div></div><div class="note-callout pink"><div class="note-callout-hdr"><span>✨ PERSONAL REFLECTION & RATING</span><span>💬</span></div><div>This book fundamentally reframed how I approach daily study routines. The emphasis on identity over mere willpower is game-changing.</div></div>`
+  },
+  {
+    id: 'midnight_musings',
+    category: 'journal',
+    badge: 'Deep Musings',
+    badgeColor: 'purple',
+    icon: '💭',
+    name: 'Midnight Musings & Thoughts',
+    desc: 'Cozy late-night reflection canvas for unfiltered thoughts and peaceful wind-down.',
+    font: 'handInk',
+    previewType: 'journal',
+    tags: ['night', 'thoughts', 'reflection'],
+    defaultTitle: () => `💭 Midnight Thoughts — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>🕯️ LATE NIGHT VIBE</span><span>11:45 PM</span></div><div>Rain tapping gently on the windowpane · Warm tea on the desk · Lofi music in the background.</div></div><div class="note-callout quote">“There is a peace in the quiet hours that the day can never offer.”</div><div class="note-callout sky"><div class="note-callout-hdr"><span>🌊 STREAM OF CONSCIOUSNESS</span><span>UNFILTERED</span></div><div>The world has gone quiet. When all the noise drops away, thoughts begin to stretch out. I am realizing that so much of what felt urgent earlier today does not actually matter in the big picture...</div><div><br></div><div>What matters is staying curious, giving yourself grace, and doing work you believe in.</div><div><br></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🌙 A THOUGHT TO SLEEP ON</span><span>GOODNIGHT</span></div><div>"You did enough today. Let the day go, rest deeply, and begin anew tomorrow."</div></div>`
+  },
+  {
+    id: 'cornell_notes',
+    category: 'study',
+    badge: 'Cornell Method',
+    badgeColor: 'sky',
+    icon: '🎓',
+    name: 'Cornell Study Notes',
+    desc: 'Academic gold-standard 2-column split for cues, lecture notes & summary takeaways.',
+    font: 'clean',
+    previewType: 'cornell',
+    tags: ['study', 'cornell', 'lecture'],
+    defaultTitle: () => `🎓 Cornell Notes — Topic Here`,
+    content: `<div class="note-callout sky"><div class="note-callout-hdr"><span>🎓 TOPIC & COURSE INFO</span><span>CORNELL METHOD</span></div><div><b>Course:</b> Physics / Classical Mechanics</div><div><b>Topic:</b> Conservation of Angular Momentum</div><div><b>Date:</b> ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} · <b>Lecturer:</b> Dr. Harris</div></div><div class="note-cornell-grid"><div class="note-cornell-cue"><span class="note-tpl-badge purple">CUES / QUESTIONS</span><div>• What is L?</div><div><br></div><div>• Condition for conservation?</div><div><br></div><div>• Figure skater example?</div><div><br></div><div>• Potential exam question?</div></div><div class="note-cornell-notes"><span class="note-tpl-badge sky">LECTURE & STUDY NOTES</span><div><b>Angular Momentum:</b> L = I · ω (Moment of Inertia × Angular Velocity)</div><div><br></div><div><b>Conservation Law:</b> When net external torque τ = 0, the total angular momentum of the system remains strictly constant over time: dL/dt = 0.</div><div><br></div><div><b>Example:</b> Figure skater pulls arms in → I decreases → to keep L constant, ω must increase proportionally!</div></div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📌 SUMMARY & SYNTHESIS</span><span>TAKEAWAYS</span></div><div>Angular momentum L is conserved whenever external torque is zero. Decreasing moment of inertia accelerates rotation speed proportionally. Always check if external torque is present before applying conservation!</div></div>`
+  },
+  {
+    id: 'exam_cram',
+    category: 'study',
+    badge: 'Exam Revision',
+    badgeColor: 'pink',
+    icon: '🎯',
+    name: 'Exam Cram & Active Recall',
+    desc: 'High-yield checklist, active recall Q&A sprint, and common traps warning alert.',
+    font: 'clean',
+    previewType: 'checklist',
+    tags: ['exam', 'revision', 'activerecall'],
+    defaultTitle: () => `🎯 Exam Revision — Subject Here`,
+    content: `<div class="note-callout pink"><div class="note-callout-hdr"><span>🎯 EXAM TARGET & COUNTDOWN</span><span>HIGH YIELD</span></div><div><b>Subject:</b> Calculus & Linear Algebra</div><div><b>Target Score:</b> 95%+ · <b>Confidence:</b> 🟡 Reviewing Key Concepts</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🔥 HIGH-YIELD CONCEPTS (MUST MASTER)</span><span>EXAM ESSENTIALS</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Eigenvalues and Eigenvectors: det(A - λI) = 0</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Integration by Parts: ∫u dv = uv - ∫v du</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Taylor Series Expansion about x = a</span></div></div></div><div class="note-callout warn"><div class="note-callout-hdr"><span>⚠️ COMMON TRAPS & TRICK QUESTIONS</span><span>WATCH OUT</span></div><div>• Do not forget the constant of integration (+ C) on indefinite integrals!</div><div>• When dividing by (A - λI), verify that the matrix determinant is non-zero.</div><div>• Remember the chain rule on composite functions like sin(x²).</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>❓ ACTIVE RECALL SPRINT (TEST YOURSELF)</span><span>ACTIVE RECALL</span></div><div>1. <i>Q: What is the geometric meaning of the determinant of a 3×3 matrix?</i><br>→ Answer: The signed volume scaling factor of the parallelepiped.</div><div><br></div><div>2. <i>Q: State the Fundamental Theorem of Calculus.</i><br>→ Answer: If F'(x) = f(x), then ∫ₐᵇ f(x) dx = F(b) - F(a).</div></div>`
+  },
+  {
+    id: 'feynman_technique',
+    category: 'study',
+    badge: 'Feynman Method',
+    badgeColor: 'purple',
+    icon: '💡',
+    name: 'Concept Deep Dive (Feynman)',
+    desc: 'Master any complex topic: 10-year-old explanation, core analogy & knowledge gaps.',
+    font: 'book',
+    previewType: 'journal',
+    tags: ['study', 'feynman', 'deepdive'],
+    defaultTitle: () => `💡 Feynman Deep Dive — Topic Here`,
+    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>💡 TARGET CONCEPT</span><span>FEYNMAN METHOD</span></div><div><b>Concept:</b> Blockchain & Distributed Ledger Technology</div><div><b>One-Sentence Definition:</b> A tamper-proof chain of cryptographic records verified by a consensus network rather than a central bank.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>👶 STEP 1: EXPLAIN TO A 10-YEAR-OLD</span><span>SIMPLE ENGLISH</span></div><div>Imagine a classroom notebook where everyone writes down who gave lunch money to whom. Every student holds an exact twin copy. If one kid tries to secretly erase a line in their own book, all the other 29 books prove they are cheating!</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🧩 STEP 2: THE CORE ANALOGY</span><span>MENTAL MODEL</span></div><div>It is like a group chat where messages cannot ever be edited or deleted once sent, and every phone in the room keeps an identical certified record.</div></div><div class="note-callout warn"><div class="note-callout-hdr"><span>🔍 STEP 3: IDENTIFY KNOWLEDGE GAPS</span><span>TO RE-STUDY</span></div><div>• Review how Proof-of-Work prevents double-spending mathematically.</div><div>• Re-check how public/private cryptographic keys pair together.</div></div>`
+  },
+  {
+    id: 'weekly_reset',
+    category: 'planning',
+    badge: 'Weekly Reset',
+    badgeColor: 'sage',
+    icon: '🌿',
+    name: 'Weekly Reset & Habit Matrix',
+    desc: 'Mon–Sun interactive habit tracker matrix, weekly wins, and top 3 goals.',
+    font: 'modern',
+    previewType: 'habit',
+    tags: ['planning', 'habits', 'weekly'],
+    defaultTitle: () => `🌿 Weekly Reset — Week of ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+    content: `<div class="note-callout amber"><div class="note-callout-hdr"><span>🌿 WEEKLY THEME & INTENTION</span><span>WEEK RESET</span></div><div><b>Weekly Focus:</b> Consistent deep work & mindful nutrition</div><div><b>Affirmation:</b> Small daily progress compounds into life-changing mastery.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📊 WEEKLY HABIT MATRIX</span><span>MON – SUN</span></div><table class="note-habit-table" contenteditable="false"><tr><th class="note-habit-th" style="text-align:left;">HABIT</th><th class="note-habit-th">M</th><th class="note-habit-th">T</th><th class="note-habit-th">W</th><th class="note-habit-th">T</th><th class="note-habit-th">F</th><th class="note-habit-th">S</th><th class="note-habit-th">S</th></tr><tr><td class="note-habit-td-name">💧 Hydrate 2L</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">📚 Study 2h</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">🏃 30m Movement</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell done" onclick="toggleHabitCell(this)">✓</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr><tr><td class="note-habit-td-name">🧘 Unplug 10pm</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td><td class="note-habit-cell" onclick="toggleHabitCell(this)">·</td></tr></table></div><div class="note-callout sky"><div class="note-callout-hdr"><span>🎯 NEXT WEEK'S TOP 3 GOALS</span><span>TARGETS</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Complete 2 full practice mock test papers</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Consolidate summary flashcards for chemistry</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Take Sunday afternoon off for a refreshing nature walk</span></div></div></div>`
+  },
+  {
+    id: 'daily_planner',
+    category: 'planning',
+    badge: 'Daily Planner',
+    badgeColor: 'purple',
+    icon: '📅',
+    name: 'Daily Time-Block & Priorities',
+    desc: 'Canva-style daily planner with top 3 non-negotiables, time blocks & inbox.',
+    font: 'clean',
+    previewType: 'planner',
+    tags: ['planner', 'daily', 'productivity'],
+    defaultTitle: () => `📅 Daily Plan — ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}`,
+    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>⚡ TOP 3 NON-NEGOTIABLES TODAY</span><span>PRIORITY</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Revise organic chemistry reaction pathways</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Submit lab report draft</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">45 minutes active movement & stretching</span></div></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>⏰ TIME BLOCKS SCHEDULE</span><span>FOCUS</span></div><div><b>🌅 08:00 – 11:30 | Deep Work Block</b><br>• High-cognitive study session & problem solving</div><div><br></div><div><b>☀️ 12:30 – 16:30 | Classes & Labs</b><br>• Attend lectures, take Cornell notes, lab work</div><div><br></div><div><b>🌙 18:00 – 21:00 | Review & Practice</b><br>• Flashcard review, exercise, dinner & relaxation</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📥 QUICK INBOX & REMINDERS</span><span>NOTES</span></div><div>• Email professor regarding question #4</div><div>• Pick up stationery on the way home</div></div>`
+  },
+  {
+    id: 'project_canvas',
+    category: 'planning',
+    badge: 'Project Sprint',
+    badgeColor: 'sky',
+    icon: '🚀',
+    name: 'Project & Assignment Sprint',
+    desc: 'Deliverables checklist, phased timeline milestones & citation references.',
+    font: 'clean',
+    previewType: 'checklist',
+    tags: ['project', 'assignment', 'sprint'],
+    defaultTitle: () => `🚀 Project Sprint — Title Here`,
+    content: `<div class="note-callout purple"><div class="note-callout-hdr"><span>🚀 PROJECT BRIEF</span><span>SPRINT CANVAS</span></div><div><b>Project Name:</b> AI-Powered Calverse Notes Redesign</div><div><b>Due Date:</b> November 15, 2026 · <b>Weight:</b> 35% of Final Grade</div><div><b>Key Objective:</b> Design and ship responsive aesthetic journal & study templates.</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📋 DELIVERABLES CHECKLIST</span><span>RUBRIC</span></div><div class="note-checklist"><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">User research & Pinterest aesthetic benchmark review</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Frontend template modal & responsive grid layouts</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Light & dark theme glassmorphism styling</span></div><div class="note-check-item"><span class="note-checkbox" contenteditable="false" onclick="toggleNoteCheckbox(this,event)"></span><span class="note-check-text">Deploy and run cross-browser verification tests</span></div></div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>⏳ MILESTONE TIMELINE</span><span>STAGES</span></div><div>• <b>Phase 1 (Week 1):</b> Requirements, mood board & wireframes</div><div>• <b>Phase 2 (Week 2):</b> Implementation & interactive checklist bindings</div><div>• <b>Phase 3 (Week 3):</b> Final polish, documentation & submission</div></div>`
+  },
+  {
+    id: 'formula_cheatsheet',
+    category: 'stem',
+    badge: 'Formula Sheet',
+    badgeColor: 'sky',
+    icon: '📐',
+    name: 'STEM Formula & Cheat Sheet',
+    desc: 'High-contrast formula box, SI units breakdown table, worked example & pro-tip.',
+    font: 'mono',
+    previewType: 'formula',
+    tags: ['stem', 'physics', 'math', 'formula'],
+    defaultTitle: () => `📐 Formula Sheet — Topic Here`,
+    content: `<div class="note-callout formula"><div class="note-callout-hdr" style="color:#d8d0ff;"><span>📐 KEY FORMULA SHOWCASE</span><span>PHYSICS / ENERGETICS</span></div><div style="font-size:22px;font-weight:900;text-align:center;letter-spacing:1px;padding:8px 0;color:#9df3ff;font-family:'Cambria Math','Georgia',monospace;">W = ∫ F · dr = ΔK = ½ m(v₂² - v₁²)</div><div style="text-align:center;font-size:12px;color:rgba(255,255,255,.6);">Work-Energy Theorem: Total work done equals change in kinetic energy.</div></div><div class="note-callout sky"><div class="note-callout-hdr"><span>📊 VARIABLES & SI UNITS</span><span>BREAKDOWN</span></div><div>• <b>W:</b> Work done (Joules, J = N·m = kg·m²/s²)</div><div>• <b>F:</b> Net force vector applied (Newtons, N)</div><div>• <b>m:</b> Mass of object (Kilograms, kg)</div><div>• <b>v:</b> Velocity of object (Meters per second, m/s)</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📝 WORKED PROBLEM & SOLUTION</span><span>EXAMPLE</span></div><div><b>Problem:</b> A 1200 kg car accelerates from 10 m/s to 25 m/s. Find work done.</div><div><br></div><div><b>Step 1:</b> Initial kinetic energy K₁ = ½(1200)(10)² = 60,000 J</div><div><b>Step 2:</b> Final kinetic energy K₂ = ½(1200)(25)² = 375,000 J</div><div><b>Step 3:</b> Work W = K₂ - K₁ = 375,000 - 60,000 = <b>315,000 J (315 kJ)</b></div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>⚡ PRO-TIP & EXAM SHORTCUT</span><span>REMEMBER</span></div><div>If net force is perpendicular to displacement (like uniform circular motion), W = 0 J because cos(90°) = 0. No work is done!</div></div>`
+  },
+  {
+    id: 'lab_report',
+    category: 'stem',
+    badge: 'Lab Journal',
+    badgeColor: 'sage',
+    icon: '🔬',
+    name: 'Lab Experiment & Investigation',
+    desc: 'Full lab journal: apparatus list, observation data table & error analysis.',
+    font: 'modern',
+    previewType: 'formula',
+    tags: ['stem', 'lab', 'experiment'],
+    defaultTitle: () => `🔬 Lab Report — Experiment Title`,
+    content: `<div class="note-callout sky"><div class="note-callout-hdr"><span>🔬 EXPERIMENT OVERVIEW</span><span>LAB JOURNAL</span></div><div><b>Experiment:</b> Determination of Acceleration Due to Gravity (g) via Simple Pendulum</div><div><b>Date:</b> ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} · <b>Partner:</b> Alex Chen</div><div><b>Objective:</b> Measure period T for various lengths L and deduce g from T = 2π√(L/g).</div></div><div class="note-callout amber"><div class="note-callout-hdr"><span>🧪 APPARATUS & SETUP</span><span>EQUIPMENT</span></div><div>• Metallic bob, non-elastic thread, vernier caliper, digital stopwatch (±0.01s), meter rod.</div></div><div class="note-callout sage"><div class="note-callout-hdr"><span>📊 OBSERVATIONS & DATA TABLE</span><span>MEASUREMENTS</span></div><div>• Length L₁ = 0.50 m → Mean time for 20 oscillations: 28.32 s → T₁ = 1.416 s</div><div>• Length L₂ = 0.70 m → Mean time for 20 oscillations: 33.56 s → T₂ = 1.678 s</div><div>• Length L₃ = 0.90 m → Mean time for 20 oscillations: 38.08 s → T₃ = 1.904 s</div></div><div class="note-callout purple"><div class="note-callout-hdr"><span>✅ CONCLUSION & ERROR ANALYSIS</span><span>RESULTS</span></div><div><b>Calculated g:</b> 9.78 m/s² (Theoretical: 9.81 m/s², Error: 0.31%). Primary source of error: air drag and reaction time on stopwatch.</div></div>`
+  }
+];
+
+function renderMiniPreviewHTML(type){
+  if(type==='cornell'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:grid;grid-template-columns:1fr 2fr;gap:4px;flex:1;"><div class="tpl-mini-box" style="font-size:7.5px;">CUES</div><div class="tpl-mini-box" style="font-size:7.5px;">NOTES</div></div><div class="tpl-mini-line" style="width:100%;height:6px;background:rgba(120,210,160,.28);border-radius:4px;"></div></div>';
+  }
+  if(type==='habit'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:flex;gap:4px;align-items:center;flex:1;"><div class="tpl-mini-box" style="border-radius:4px;">✓</div><div class="tpl-mini-box" style="border-radius:4px;">✓</div><div class="tpl-mini-box" style="border-radius:4px;">·</div><div class="tpl-mini-box" style="border-radius:4px;">·</div><div class="tpl-mini-box" style="border-radius:4px;">·</div></div><div class="tpl-mini-line short"></div></div>';
+  }
+  if(type==='formula'){
+    return '<div class="tpl-mini-preview"><div style="background:rgba(90,180,255,.18);border:1px solid rgba(90,180,255,.3);border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:900;color:var(--t1);font-family:monospace;">W = ∫ F · dr = ΔK</div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div>';
+  }
+  if(type==='review'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="font-size:10px;color:#ffcc60;">★★★★★</div><div class="tpl-mini-box" style="font-style:italic;font-size:8px;">“Favorite quote...”</div></div>';
+  }
+  if(type==='planner'){
+    return '<div class="tpl-mini-preview"><div class="tpl-mini-line accent"></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:10px;height:10px;border-radius:3px;border:1px solid var(--act);background:var(--acc);"></div><div class="tpl-mini-line" style="width:75%;"></div></div><div style="display:flex;gap:4px;align-items:center;"><div style="width:10px;height:10px;border-radius:3px;border:1px solid var(--glb);"></div><div class="tpl-mini-line" style="width:60%;"></div></div></div>';
+  }
+  return '<div class="tpl-mini-preview"><div style="display:flex;gap:4px;"><span style="font-size:9px;">☀️</span><span style="font-size:9px;">🌿</span><span style="font-size:9px;">⚡</span></div><div class="tpl-mini-line accent"></div><div class="tpl-mini-line"></div><div class="tpl-mini-line short"></div></div>';
+}
+
+function renderTemplateGrid(category='all'){
+  const grid=document.getElementById('tpl-modal-grid');
+  if(!grid)return;
+  const list=(category==='all')?NOTE_TEMPLATES:NOTE_TEMPLATES.filter(t=>t.category===category);
+  grid.innerHTML=list.map(t=>{
+    const fontLabel=NOTE_FONT_META[t.font]?.label||'Clean Sans';
+    return `<div class="tpl-card" onclick="selectTemplate('${t.id}')">
+      <div>
+        <div class="tpl-card-top">
+          <span class="note-tpl-badge ${t.badgeColor}">${escapeHtml(t.badge)}</span>
+        </div>
+        <div class="tpl-card-name"><span>${t.icon}</span> <span>${escapeHtml(t.name)}</span></div>
+        <div class="tpl-card-desc">${escapeHtml(t.desc)}</div>
+        ${renderMiniPreviewHTML(t.previewType)}
+      </div>
+      <div class="tpl-card-footer">
+        <span class="tpl-card-font">Font: ${escapeHtml(fontLabel)}</span>
+        <button type="button" class="tpl-card-btn" onclick="event.stopPropagation();selectTemplate('${t.id}')">Use Template →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterTemplateCategory(cat, btn){
+  activeTemplateCategory=cat;
+  const container=document.getElementById('tpl-modal-tabs');
+  if(container)container.querySelectorAll('.tpl-tab-btn').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  renderTemplateGrid(cat);
+}
+
+function openTemplatePickerModal(source='list'){
+  templateModalSource=source;
+  renderTemplateGrid(activeTemplateCategory);
+  const modal=document.getElementById('note-template-modal');
+  if(modal)modal.classList.add('show');
+}
+
+function closeTemplatePickerModal(){
+  const modal=document.getElementById('note-template-modal');
+  if(modal)modal.classList.remove('show');
+}
+
+function handleTemplateModalBackdrop(e){
+  if(e && e.target === document.getElementById('note-template-modal')){
+    closeTemplatePickerModal();
+  }
+}
+
+function selectTemplate(tplId){
+  const tpl=NOTE_TEMPLATES.find(t=>t.id===tplId);
+  if(!tpl)return;
+  if(templateModalSource==='editor'){
+    applyTemplateToCurrentNote(tpl);
+  }else{
+    createNoteFromTemplate(tpl);
+  }
+}
+
+function createNoteFromTemplate(tpl){
+  closeTemplatePickerModal();
+  const now=Date.now();
+  const title=typeof tpl.defaultTitle==='function'?tpl.defaultTitle():(tpl.name||'Untitled Template');
+  const isVault=(notesPane==='vault'||isVaultActive);
+  const note={
+    id:isVault?`vault_${now}_${Math.random().toString(36).slice(2,7)}`:`note_${now}_${Math.random().toString(36).slice(2,7)}`,
+    title:title,
+    content:tpl.content,
+    createdAt:now,
+    updatedAt:now,
+    untitledIndex:isVault?vaultUntitledSeed++:noteUntitledSeed++,
+    fontFamily:tpl.font||'clean',
+    fontSize:'medium',
+    textColor:getDefaultNoteTextColor(),
+    textColorMode:'auto',
+    tags:[...(tpl.tags||[])],
+    isVault:isVault
+  };
+  if(isVault){
+    VAULT_NOTES.unshift(note);
+    saveVaultNotesData();
+  }else{
+    NOTES.unshift(note);
+    saveNotesData();
+  }
+  renderNotesList();
+  openNoteEditor(note.id,{edit:true});
+  showToast(`Applied ${tpl.name} ✨`);
+}
+
+function applyTemplateToCurrentNote(tpl){
+  const note=getNoteById(currentNoteId);
+  if(!note){
+    createNoteFromTemplate(tpl);
+    return;
+  }
+  const hasContent=!!notePlainText(note.content||'');
+  if(hasContent){
+    showAppDialog({
+      title:'Apply Template?',
+      message:`This will replace current content with "${escapeHtml(tpl.name)}". Proceed?`,
+      confirmText:'Apply Template',
+      cancelText:'Keep Current',
+      tone:'warn',
+      onConfirm:()=>{
+        doApplyTemplate(note, tpl);
+      }
+    });
+  }else{
+    doApplyTemplate(note, tpl);
+  }
+}
+
+function doApplyTemplate(note, tpl){
+  closeTemplatePickerModal();
+  if(!note.title || note.title.startsWith('Untitled Note')){
+    note.title=typeof tpl.defaultTitle==='function'?tpl.defaultTitle():tpl.name;
+    const titleEl=document.getElementById('note-title');
+    if(titleEl)titleEl.value=note.title;
+  }
+  note.content=tpl.content;
+  note.fontFamily=tpl.font||'clean';
+  note.tags=[...new Set([...(note.tags||[]),...(tpl.tags||[])])];
+  note.updatedAt=Date.now();
+
+  const fontSel=document.getElementById('note-font');
+  if(fontSel)fontSel.value=note.fontFamily;
+  const editor=document.getElementById('note-editor');
+  if(editor){
+    editor.innerHTML=note.content;
+    editor.dataset.noteFont=note.fontFamily;
+  }
+  applyNoteTypography();
+  renderNoteReadView(note);
+  syncNoteEditorPlaceholder();
+  if(note.isVault){
+    saveVaultNotesData();
+  }else{
+    saveNotesData();
+  }
+  renderNotesList();
+  setNoteEditMode(true, true);
+  showToast(`Applied ${tpl.name} ✨`);
+}
+
+function toggleNoteCheckbox(el, event){
+  if(event){event.stopPropagation();event.preventDefault();}
+  const item=el.closest('.note-check-item');
+  if(!item)return;
+  const isDone=item.classList.toggle('done');
+  item.setAttribute('data-checked',isDone?'true':'false');
+  if(noteEditMode){
+    queueNoteSave();
+  }else{
+    const note=getNoteById(currentNoteId);
+    const view=document.getElementById('note-view');
+    if(note && view){
+      note.content=view.innerHTML;
+      note.updatedAt=Date.now();
+      if(note.isVault)saveVaultNotesData();
+      else saveNotesData();
+      const editor=document.getElementById('note-editor');
+      if(editor)editor.innerHTML=note.content;
+      updateNoteMeta(note);
+    }
+  }
+}
+
+function toggleHabitCell(td){
+  const done=td.classList.toggle('done');
+  td.textContent=done?'✓':'·';
+  if(noteEditMode){
+    queueNoteSave();
+  }else{
+    const note=getNoteById(currentNoteId);
+    const view=document.getElementById('note-view');
+    if(note && view){
+      note.content=view.innerHTML;
+      note.updatedAt=Date.now();
+      if(note.isVault)saveVaultNotesData();
+      else saveNotesData();
+      const editor=document.getElementById('note-editor');
+      if(editor)editor.innerHTML=note.content;
+      updateNoteMeta(note);
+    }
+  }
+}
+
+function toggleMoodPill(el, event){
+  if(event){event.stopPropagation();event.preventDefault();}
+  const parent=el.closest('.note-mood-row');
+  if(parent){
+    parent.querySelectorAll('.note-mood-pill').forEach(p=>p.classList.remove('on'));
+  }
+  el.classList.add('on');
+  if(noteEditMode){
+    queueNoteSave();
+  }else{
+    const note=getNoteById(currentNoteId);
+    const view=document.getElementById('note-view');
+    if(note && view){
+      note.content=view.innerHTML;
+      note.updatedAt=Date.now();
+      if(note.isVault)saveVaultNotesData();
+      else saveNotesData();
+      const editor=document.getElementById('note-editor');
+      if(editor)editor.innerHTML=note.content;
+      updateNoteMeta(note);
+    }
   }
 }
 
