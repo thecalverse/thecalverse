@@ -2143,7 +2143,7 @@ html[data-platform=android-app] .topbar{
 }
 .brand{pointer-events:auto!important;}
 /* Notes must stay canvas-clean: no wrapper/toolbar box behind Notes, Trash, or +. */
-#sNotes .notes-shell,#sNotes .notes-top,#sNotes .notes-top-copy,#sNotes .notes-top-actions,#sNotes .notes-controls,#sNotes .note-surface,#sNotes .note-surface.gp,#sNoteEdit .note-editor-head{
+#sNotes .notes-shell,#sNotes .notes-top,#sNotes .notes-top-copy,#sNotes .notes-top-actions,#sNotes .notes-controls,#sNotes .note-surface,#sNotes .note-surface.gp,#sJournal .notes-shell,#sJournal .notes-top,#sJournal .notes-top-copy,#sJournal .notes-top-actions,#sJournal .notes-controls,#sJournal .note-surface,#sJournal .note-surface.gp,#sNoteEdit .note-editor-head{
   background:transparent!important;
   background-image:none!important;
   border:none!important;
@@ -2152,9 +2152,9 @@ html[data-platform=android-app] .topbar{
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
 }
-#sNotes .note-surface,#sNotes .note-surface.gp{padding:0!important;border-radius:0!important;overflow:visible!important;}
-#sNotes .note-surface::before,#sNotes .note-surface::after,#sNotes .notes-top::before,#sNotes .notes-top::after,#sNoteEdit .note-editor-head::before,#sNoteEdit .note-editor-head::after{display:none!important;content:none!important;}
-#sNotes .notes-empty{background:transparent!important;background-image:none!important;border:none!important;box-shadow:none!important;}
+#sNotes .note-surface,#sNotes .note-surface.gp,#sJournal .note-surface,#sJournal .note-surface.gp{padding:0!important;border-radius:0!important;overflow:visible!important;}
+#sNotes .note-surface::before,#sNotes .note-surface::after,#sNotes .notes-top::before,#sNotes .notes-top::after,#sJournal .note-surface::before,#sJournal .note-surface::after,#sJournal .notes-top::before,#sJournal .notes-top::after,#sNoteEdit .note-editor-head::before,#sNoteEdit .note-editor-head::after{display:none!important;content:none!important;}
+#sNotes .notes-empty,#sJournal .notes-empty{background:transparent!important;background-image:none!important;border:none!important;box-shadow:none!important;}
 .hist-sub{margin:-8px 0 12px;}
 html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .mc,html[data-platform=android-app] .gp,html[data-platform=android-app] .ic,html[data-platform=android-app] .rb,html[data-platform=android-app] .hi,html[data-platform=android-app] .note-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
 html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .home-folder-grid .folder-btn{box-shadow:0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06)!important;}
@@ -3517,27 +3517,26 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     </div>
   </div>
 
-  <!-- JOURNAL -->
+  <!-- STUDY NOTES -->
   <div class="screen" id="sNotes">
     <div class="notes-shell">
       <div class="notes-top">
         <div class="notes-top-copy" onclick="handleNotesHeaderTap()">
-          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Journal</div>
-          <div class="notes-sub" id="notes-page-sub">Your aesthetic notebook & creative journal for memories, study & plans.</div>
+          <div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes</div>
+          <div class="notes-sub" id="notes-page-sub">Your study notebook for formulas, concepts & revision notes.</div>
         </div>
         <div class="notes-top-actions">
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
           <button class="notes-top-btn ghost warn" id="notes-delete-all" onclick="deleteAllTrash()">Delete All</button>
           <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
-          <div class="notes-pane-seg" role="tablist" aria-label="Journal panes">
+          <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
             <button class="notes-pane-btn on" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 Notes</button>
-            <button class="notes-pane-btn" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Bookshelf</button>
+            <button class="notes-pane-btn" id="notes-pane-library" onclick="setNotesPane('library')" type="button">📁 Library</button>
             <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">🗑️ Trash</button>
           </div>
-          <button class="notes-top-btn" id="notes-new-book-btn" onclick="openCreateBookModal()" type="button" style="display:inline-flex;align-items:center;gap:5px;">📚 + Book</button>
           <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
-          <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create page"><span class="notes-add-ico">+</span><span class="notes-add-label">New Page</span></button>
+          <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
       </div>
       <div class="gp note-surface">
@@ -3550,10 +3549,34 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button type="button" class="view-toggle-btn" id="notes-view-toggle" onclick="toggleNotesView()" aria-label="Toggle notes view"><span class="view-toggle-ico" id="notes-view-toggle-ico">▦</span><span class="view-toggle-label" id="notes-view-toggle-label">Grid</span></button>
         </div>
         <input type="file" id="library-file-input" multiple style="display:none" onchange="handleLibraryFileInput(event)">
+        <div class="notes-list" id="notes-list"></div>
+        <div class="library-pane" id="library-pane" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AESTHETIC JOURNAL & BINDERS -->
+  <div class="screen" id="sJournal">
+    <div class="notes-shell">
+      <div class="notes-top">
+        <div class="notes-top-copy">
+          <div class="stitle" id="journal-page-title" style="margin-bottom:0">Journal</div>
+          <div class="notes-sub" id="journal-page-sub">Aesthetic digital binders, scrapbooks, polaroids & Canva templates.</div>
+        </div>
+        <div class="notes-top-actions">
+          <div class="notes-pane-seg" role="tablist" aria-label="Journal panes">
+            <button class="notes-pane-btn on" id="journal-pane-books" onclick="setJournalPane('books')" type="button">📚 Books</button>
+            <button class="notes-pane-btn" id="journal-pane-pages" onclick="setJournalPane('pages')" type="button">📄 All Pages</button>
+          </div>
+          <button class="notes-top-btn" id="journal-new-book-btn" onclick="openCreateBookModal()" type="button" style="display:inline-flex;align-items:center;gap:5px;">📚 + Book</button>
+          <button class="notes-top-btn" id="journal-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
+          <button class="notes-add" id="journal-add-btn" onclick="requestNewJournalPage()" aria-label="Create page"><span class="notes-add-ico">+</span><span class="notes-add-label">New Page</span></button>
+        </div>
+      </div>
+      <div class="gp note-surface">
         <div class="bookshelf-pane" id="bookshelf-pane"></div>
         <div class="book-interior-pane" id="book-interior-pane" style="display:none;"></div>
-        <div class="notes-list" id="notes-list" style="display:none;"></div>
-        <div class="library-pane" id="library-pane" style="display:none"></div>
+        <div class="notes-list" id="journal-pages-list" style="display:none;"></div>
       </div>
     </div>
   </div>
@@ -5579,40 +5602,34 @@ function syncNotesPaneUI(){
   const title=document.getElementById('notes-page-title');
   const sub=document.getElementById('notes-page-sub');
   const trashBtn=document.getElementById('notes-pane-trash');
-  const booksBtn=document.getElementById('notes-pane-books');
   const notesBtn=document.getElementById('notes-pane-notes');
+  const libBtn=document.getElementById('notes-pane-library');
   const restoreAllBtn=document.getElementById('notes-restore-all');
   const deleteAllBtn=document.getElementById('notes-delete-all');
   const addNoteBtn=document.getElementById('notes-add-btn');
-  const newBookBtn=document.getElementById('notes-new-book-btn');
   const tplBtn=document.getElementById('notes-tpl-btn');
   const lockBtn=document.getElementById('notes-vault-lock');
   const passBtn=document.getElementById('notes-vault-change-pass');
-  const paneSeg=document.querySelector('.notes-pane-seg');
-  const controls=document.querySelector('.notes-controls');
+  const paneSeg=document.querySelector('#sNotes .notes-pane-seg');
+  const controls=document.querySelector('#sNotes .notes-controls');
   const notesList=document.getElementById('notes-list');
-  const shelfPane=document.getElementById('bookshelf-pane');
-  const interiorPane=document.getElementById('book-interior-pane');
   const libraryPane=document.getElementById('library-pane');
 
   if(notesPane==='vault'){
-    if(title)title.textContent='🔒 Hidden Journal';
+    if(title)title.textContent='🔒 Hidden Notes';
     if(sub)sub.textContent='Private hidden notebook · Tap Lock to exit';
     if(trashBtn)trashBtn.classList.remove('on');
-    if(booksBtn)booksBtn.classList.remove('on');
     if(notesBtn)notesBtn.classList.remove('on');
+    if(libBtn)libBtn.classList.remove('on');
     if(restoreAllBtn)restoreAllBtn.classList.remove('show');
     if(deleteAllBtn)deleteAllBtn.classList.remove('show');
     if(paneSeg)paneSeg.style.display='none';
     if(lockBtn)lockBtn.classList.add('show');
     if(passBtn)passBtn.classList.add('show');
     if(addNoteBtn)addNoteBtn.style.display='flex';
-    if(newBookBtn)newBookBtn.style.display='none';
     if(tplBtn)tplBtn.style.display='inline-flex';
     if(controls)controls.style.display='grid';
     if(notesList)notesList.style.display='grid';
-    if(shelfPane)shelfPane.style.display='none';
-    if(interiorPane)interiorPane.style.display='none';
     if(libraryPane)libraryPane.style.display='none';
     if(notesShell)notesShell.classList.remove('library-mode');
     return;
@@ -5621,59 +5638,33 @@ function syncNotesPaneUI(){
   if(lockBtn)lockBtn.classList.remove('show');
   if(passBtn)passBtn.classList.remove('show');
 
-  if(booksBtn)booksBtn.classList.toggle('on',notesPane==='books');
   if(notesBtn)notesBtn.classList.toggle('on',notesPane==='notes');
+  if(libBtn)libBtn.classList.toggle('on',notesPane==='library');
   if(trashBtn)trashBtn.classList.toggle('on',notesPane==='trash');
 
-  if(notesPane==='books'){
-    if(currentJournalBookId){
-      const b=getJournalBookById(currentJournalBookId);
-      if(title)title.textContent=b?b.title:'Journal Book';
-      if(sub)sub.textContent=b?(b.desc||'Pages in this book'):'Your journal entries';
-    }else{
-      if(title)title.textContent='Journal Books';
-      if(sub)sub.textContent='Aesthetic digital binders & scrapbooks for your memories, study & thoughts.';
-    }
-    if(controls)controls.style.display=currentJournalBookId?'grid':'none';
-    if(newBookBtn)newBookBtn.style.display=currentJournalBookId?'none':'inline-flex';
-    if(addNoteBtn)addNoteBtn.style.display=currentJournalBookId?'flex':'none';
-    if(tplBtn)tplBtn.style.display='inline-flex';
-    if(notesList)notesList.style.display='none';
-    if(shelfPane)shelfPane.style.display=currentJournalBookId?'none':'block';
-    if(interiorPane)interiorPane.style.display=currentJournalBookId?'block':'none';
-    if(libraryPane)libraryPane.style.display='none';
-  }else if(notesPane==='notes'){
-    if(title)title.textContent='Study Notes';
+  if(notesPane==='notes'){
+    if(title)title.textContent='Notes';
     if(sub)sub.textContent='Your study notebook for formulas, concepts & revision notes.';
     if(controls)controls.style.display='grid';
-    if(newBookBtn)newBookBtn.style.display='none';
     if(addNoteBtn)addNoteBtn.style.display='flex';
     if(tplBtn)tplBtn.style.display='inline-flex';
     if(notesList)notesList.style.display='grid';
-    if(shelfPane)shelfPane.style.display='none';
-    if(interiorPane)interiorPane.style.display='none';
     if(libraryPane)libraryPane.style.display='none';
   }else if(notesPane==='trash'){
     if(title)title.textContent='Trash';
-    if(sub)sub.textContent='Trash shows deleted journal pages and deleted files.';
+    if(sub)sub.textContent='Trash shows deleted notes and deleted files.';
     if(controls)controls.style.display='none';
-    if(newBookBtn)newBookBtn.style.display='none';
     if(addNoteBtn)addNoteBtn.style.display='none';
     if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='grid';
-    if(shelfPane)shelfPane.style.display='none';
-    if(interiorPane)interiorPane.style.display='none';
     if(libraryPane)libraryPane.style.display='none';
   }else if(notesPane==='library'){
     if(title)title.textContent='Library';
     if(sub)sub.textContent='Subject folders and uploaded study files.';
     if(controls)controls.style.display='none';
-    if(newBookBtn)newBookBtn.style.display='none';
     if(addNoteBtn)addNoteBtn.style.display='none';
     if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='none';
-    if(shelfPane)shelfPane.style.display='none';
-    if(interiorPane)interiorPane.style.display='none';
     if(libraryPane)libraryPane.style.display='grid';
   }
 
@@ -5684,12 +5675,69 @@ function syncNotesPaneUI(){
 }
 
 function setNotesPane(next){
-  const target=['books','notes','trash','library'].includes(next)?next:'books';
+  const target=['notes','library','trash'].includes(next)?next:'notes';
   notesPane=target;
-  if(notesPane==='books')currentJournalBookId='';
   if(notesPane==='library')libraryView='folders';
   syncNotesPaneUI();
   renderNotesList();
+}
+
+let journalPane='books';
+function setJournalPane(pane){
+  journalPane=['books','pages'].includes(pane)?pane:'books';
+  const booksBtn=document.getElementById('journal-pane-books');
+  const pagesBtn=document.getElementById('journal-pane-pages');
+  if(booksBtn)booksBtn.classList.toggle('on',journalPane==='books');
+  if(pagesBtn)pagesBtn.classList.toggle('on',journalPane==='pages');
+  const shelf=document.getElementById('bookshelf-pane');
+  const interior=document.getElementById('book-interior-pane');
+  const pagesList=document.getElementById('journal-pages-list');
+  const newBookBtn=document.getElementById('journal-new-book-btn');
+  const addBtn=document.getElementById('journal-add-btn');
+
+  if(journalPane==='books'){
+    if(currentJournalBookId){
+      renderBookInteriorPane();
+    }else{
+      renderBookshelfPane();
+    }
+  }else{
+    if(shelf)shelf.style.display='none';
+    if(interior)interior.style.display='none';
+    if(pagesList)pagesList.style.display='grid';
+    if(newBookBtn)newBookBtn.style.display='none';
+    if(addBtn)addBtn.style.display='flex';
+    renderJournalAllPages();
+  }
+}
+
+function syncJournalPaneUI(){
+  setJournalPane(journalPane||'books');
+}
+
+function renderJournalPane(){
+  setJournalPane(journalPane||'books');
+}
+
+function renderJournalAllPages(){
+  const listEl=document.getElementById('journal-pages-list');
+  if(!listEl)return;
+  listEl.className=`notes-list view-${notesView}`;
+  const list=[...NOTES];
+  if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  else if(notesSort==='title')list.sort((a,b)=>getNoteDisplayTitle(a).localeCompare(getNoteDisplayTitle(b)));
+  else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+
+  if(!list.length){
+    listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">📖</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No journal pages yet.</div><div style="font-size:12px">Create a book or tap "+ New Page" to start your first entry.</div></div>`;
+    return;
+  }
+  listEl.innerHTML=list.map(renderNoteCard).join('');
+  requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
+}
+
+function requestNewJournalPage(){
+  requestNewNote({bookId:currentJournalBookId||''});
 }
 
 function setNotesSort(val){
@@ -5875,15 +5923,14 @@ function openBookView(bookId){
   if(!book)return;
   currentJournalBookId=bookId;
   notesPane='books';
-  syncNotesPaneUI();
-  renderBookInteriorPane();
+  journalPane='books';
+  setJournalPane('books');
   resetViewportTop();
 }
 
 function exitBookView(){
   currentJournalBookId='';
-  syncNotesPaneUI();
-  renderBookshelfPane();
+  setJournalPane('books');
   resetViewportTop();
 }
 
@@ -5918,8 +5965,8 @@ function renderBookshelfPane(){
   shelf.style.display='block';
   const interior=document.getElementById('book-interior-pane');
   if(interior)interior.style.display='none';
-  const notesList=document.getElementById('notes-list');
-  if(notesList)notesList.style.display='none';
+  const pagesList=document.getElementById('journal-pages-list');
+  if(pagesList)pagesList.style.display='none';
 
   let html=`<div class="bookshelf-grid">`;
   html+=`
@@ -5953,10 +6000,10 @@ function renderBookshelfPane(){
 function renderBookInteriorPane(){
   const interior=document.getElementById('book-interior-pane');
   const shelf=document.getElementById('bookshelf-pane');
-  const notesList=document.getElementById('notes-list');
+  const pagesList=document.getElementById('journal-pages-list');
   if(!interior)return;
   if(shelf)shelf.style.display='none';
-  if(notesList)notesList.style.display='none';
+  if(pagesList)pagesList.style.display='none';
   interior.style.display='block';
 
   const book=getJournalBookById(currentJournalBookId);
@@ -6080,7 +6127,7 @@ function openNotes(opts={}){
     isVaultActive=false;
   }
   setBottomTab('notes');
-  setActiveScreen('sNotes','Notes',opts||{});
+  setActiveScreen('sNotes','Notes',{...opts,tab:'notes'});
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
@@ -6088,15 +6135,13 @@ function openNotes(opts={}){
 }
 
 function openJournal(opts={}){
-  if(!opts?.keepVault){
-    notesPane='books';
-    currentJournalBookId='';
-    isVaultActive=false;
-  }
+  notesPane='books';
+  currentJournalBookId='';
+  isVaultActive=false;
   setBottomTab('journal');
-  setActiveScreen('sNotes','Notes',opts||{});
-  syncNotesPaneUI();
-  renderNotesList();
+  setActiveScreen('sJournal','Journal',{...opts,tab:'journal'});
+  syncJournalPaneUI();
+  renderJournalPane();
   resetViewportTop();
   if(opts?.push!==false)rememberView({type:'journal'},!!opts?.replace);
 }
@@ -9680,7 +9725,7 @@ function handleSearchKey(e){
 }
 
 /* ── NAVIGATION ── */
-const SM={Basic:'sBasic',Sci:'sSci',Trig:'sTrig',Pct:'sPct',Age:'sAge',Bmi:'sBmi',Emi:'sEmi',Unit:'sUnit',Matrix:'sMatrix',Stat:'sStat',Graph:'sGraph',Base:'sBase',Quad:'sQuad',Lcm:'sLcm',Prime:'sPrime',Si:'sSi',Pl:'sPl',Disc:'sDisc',Frac:'sFrac',TimeC:'sTimeC',Rng:'sRng',Ncr:'sNcr',Area:'sArea',Vol:'sVol',Prob:'sProb',Physics:'sPhysics',Chem:'sChem',Hist:'sHist',Timer:'sTimer',Tracker:'sTracker',Notes:'sNotes',NoteEdit:'sNoteEdit',Settings:'sSettings',Info:'sInfo',C11:'sC11',Calcs:'sCalcs'};
+const SM={Basic:'sBasic',Sci:'sSci',Trig:'sTrig',Pct:'sPct',Age:'sAge',Bmi:'sBmi',Emi:'sEmi',Unit:'sUnit',Matrix:'sMatrix',Stat:'sStat',Graph:'sGraph',Base:'sBase',Quad:'sQuad',Lcm:'sLcm',Prime:'sPrime',Si:'sSi',Pl:'sPl',Disc:'sDisc',Frac:'sFrac',TimeC:'sTimeC',Rng:'sRng',Ncr:'sNcr',Area:'sArea',Vol:'sVol',Prob:'sProb',Physics:'sPhysics',Chem:'sChem',Hist:'sHist',Timer:'sTimer',Tracker:'sTracker',Notes:'sNotes',Journal:'sJournal',NoteEdit:'sNoteEdit',Settings:'sSettings',Info:'sInfo',C11:'sC11',Calcs:'sCalcs'};
 function setBottomTab(tab){
   const nextTab=tab||'home';
   if(nextTab!=='notes'&&isVaultActive){
@@ -9789,11 +9834,12 @@ function getTabForScreen(name,id){
   if(id==='sTimer'||name==='Timer')return 'timer';
   if(id==='sTracker'||name==='Tracker')return 'tracker';
   if(id==='sNotes'||name==='Notes')return notesPane==='library'?'library':'notes';
-  if(id==='sNoteEdit'||name==='NoteEdit')return 'notes';
+  if(id==='sJournal'||name==='Journal')return 'journal';
+  if(id==='sNoteEdit'||name==='NoteEdit')return (notesPane==='books'||currentJournalBookId)?'journal':'notes';
   if(id==='sHist'||name==='Hist')return 'hist';
   if(id==='sInfo'||name==='Info')return currentInfoKey||'about';
   if(id==='sSettings'||name==='Settings')return 'sett';
-  const nonCalcScreens=new Set(['Home','Hist','Timer','Tracker','Notes','NoteEdit','Settings','Info','Calcs','Folder','C11']);
+  const nonCalcScreens=new Set(['Home','Hist','Timer','Tracker','Notes','Journal','NoteEdit','Settings','Info','Calcs','Folder','C11']);
   if(name && !nonCalcScreens.has(name))return 'calcs';
   return 'home';
 }
