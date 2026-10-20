@@ -1707,6 +1707,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   user-select:none;
   box-sizing:border-box;
   z-index:10;
+  transform-origin:center center;
   transition:box-shadow .15s ease;
 }
 .canvas-item.is-selected{
@@ -1725,7 +1726,7 @@ canvas#gc{display:block;width:100%;height:240px;}
 /* Floating Action Toolbar */
 .canvas-item-bar{
   position:absolute;
-  top:-38px;
+  top:-46px;
   left:0;
   display:inline-flex;
   align-items:center;
@@ -1745,7 +1746,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   white-space:nowrap;
 }
 .canvas-item-bar.mini{
-  top:-34px;
+  top:-42px;
   padding:2px 6px;
 }
 .canvas-item:hover .canvas-item-bar,
@@ -2027,30 +2028,41 @@ canvas#gc{display:block;width:100%;height:240px;}
 .washi-tape-label[data-font-size="l"]{font-size:19px;}
 .washi-tape-label[data-font-size="xl"]{font-size:24px;font-weight:900;}
 
-/* Free Rotation Handle Knob */
+/* Free Rotation Handle Knob & Stem */
 .canvas-rotate-handle{
   position:absolute;
-  top:-14px;
+  top:-24px;
   left:50%;
   transform:translateX(-50%) scale(.7);
-  width:22px;
-  height:22px;
+  width:24px;
+  height:24px;
   border-radius:50%;
   background:#fff;
   border:2px solid var(--act);
   color:var(--act);
-  font-size:11px;
+  font-size:12px;
   font-weight:900;
   line-height:1;
   display:grid;
   place-items:center;
   cursor:grab;
   touch-action:none;
-  box-shadow:0 2px 8px rgba(0,0,0,.35);
+  box-shadow:0 3px 10px rgba(0,0,0,.35);
   z-index:92;
   opacity:0;
   pointer-events:none;
-  transition:opacity .15s ease,transform .15s ease;
+  transition:opacity .15s ease,transform .15s ease,background .15s ease;
+}
+.canvas-rotate-handle::before{
+  content:'';
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  width:1.5px;
+  height:12px;
+  background:var(--act);
+  pointer-events:none;
 }
 .canvas-rotate-handle:active{cursor:grabbing;}
 .canvas-item:hover .canvas-rotate-handle,
@@ -2058,6 +2070,46 @@ canvas#gc{display:block;width:100%;height:240px;}
   opacity:1;
   pointer-events:auto;
   transform:translateX(-50%) scale(1);
+}
+.canvas-item.is-rotating .canvas-rotate-handle{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) scale(1.18);
+  cursor:grabbing;
+  background:var(--act);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(140,126,255,.5);
+}
+
+/* Floating Real-Time Angle Degree Badge */
+.canvas-rotate-badge{
+  position:absolute;
+  top:-58px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(18,24,38,.96);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;
+  padding:3px 10px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.4px;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:99;
+  box-shadow:0 6px 18px rgba(0,0,0,.4);
+  animation:popInBadge .15s ease-out;
+}
+[data-t=light] .canvas-rotate-badge{
+  background:rgba(255,250,244,.96);
+  color:#2c2c2c;
+  border-color:rgba(131,98,74,.3);
+  box-shadow:0 6px 18px rgba(104,76,56,.25);
+}
+@keyframes popInBadge{
+  from{opacity:0;transform:translateX(-50%) scale(.8);}
+  to{opacity:1;transform:translateX(-50%) scale(1);}
 }
 
 /* All-Way Resize Handles */
@@ -8874,38 +8926,49 @@ function cleanCanvasHtmlBeforeSave(editorEl){
 
 function upgradeLegacyIpadElements(editorEl){
   if(!editorEl) return;
-  // Upgrade washi tape to have inner editable label and rotation handle
-  editorEl.querySelectorAll(".canvas-item.canvas-washi").forEach(tape => {
-    const strip = tape.querySelector(".washi-tape-strip");
-    if(strip && !strip.querySelector(".washi-tape-label")){
-      strip.innerHTML = '<div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape ✨</div>';
-    }
-    if(!tape.querySelector(".canvas-rotate-handle")){
-      tape.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
-    }
-    if(!tape.querySelector(".canvas-resize-e")){
-      tape.insertAdjacentHTML("beforeend", '<div class="canvas-resize-e" data-dir="e" title="Drag to resize length (width)"></div><div class="canvas-resize-s" data-dir="s" title="Drag to resize thickness (height)"></div><div class="canvas-resize-w" data-dir="w" title="Drag to resize length from left"></div><div class="canvas-resize-n" data-dir="n" title="Drag to resize thickness from top"></div>');
-    }
-    if(!tape.querySelector(".cbar-angles-popover")){
-      const bar = tape.querySelector(".canvas-item-bar");
-      if(bar){
-        bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 0)">0° Flat</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -5)">-5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 5)">+5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -15)">-15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 15)">+15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -30)">-30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 30)">+30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', -45)">-45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 45)">+45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${tape.id}', 90)">90° Vertical ↕</button>
-          </div>
-        `);
+  // Upgrade all canvas items to have free rotation handle, resize handles, and angle controls
+  editorEl.querySelectorAll(".canvas-item").forEach(item => {
+    const id = item.id;
+    // 1. Washi tape label
+    if(item.classList.contains("canvas-washi")){
+      const strip = item.querySelector(".washi-tape-strip");
+      if(strip && !strip.querySelector(".washi-tape-label")){
+        strip.innerHTML = '<div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape ✨</div>';
+      }
+      if(!item.querySelector(".canvas-resize-e")){
+        item.insertAdjacentHTML("beforeend", '<div class="canvas-resize-e" data-dir="e" title="Drag to resize length (width)"></div><div class="canvas-resize-s" data-dir="s" title="Drag to resize thickness (height)"></div><div class="canvas-resize-w" data-dir="w" title="Drag to resize length from left"></div><div class="canvas-resize-n" data-dir="n" title="Drag to resize thickness from top"></div>');
       }
     }
+    // 2. Free rotation handle on every canvas item
+    if(!item.querySelector(".canvas-rotate-handle")){
+      item.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
+    }
+    // 3. Corner resize handle
+    if(!item.querySelector(".canvas-resize-handle")){
+      item.insertAdjacentHTML("beforeend", '<div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>');
+    }
+    // 4. Angle presets popover on item bar
+    const bar = item.querySelector(".canvas-item-bar");
+    if(bar && !bar.querySelector(".cbar-angles-popover")){
+      bar.insertAdjacentHTML("beforeend", `
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Scrapbook</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Scrapbook</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+        </div>
+      `);
+    }
   });
+
+  // Upgrade legacy inline photos to canvas photos
   editorEl.querySelectorAll(".journal-photo-wrap:not(.canvas-item)").forEach((wrap, i) => {
     const id = wrap.id || ("cphoto_" + Date.now() + "_" + i);
     wrap.id = id;
@@ -8926,17 +8989,34 @@ function upgradeLegacyIpadElements(editorEl){
             <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame">🖼️ Frame</button>
             <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
             <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size">📐 Size</button>
-            <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+            <button type="button" class="cbar-btn" data-action="toggle-angles" title="Rotate Angles">↻ <span class="cbar-angle-val">0°</span></button>
             <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+          </div>
+          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Polaroid</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Polaroid</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
           </div>
         </div>
       `);
+    }
+    if(!wrap.querySelector(".canvas-rotate-handle")){
+      wrap.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
     }
     if(!wrap.querySelector(".canvas-resize-handle")){
       wrap.insertAdjacentHTML("beforeend", `<div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>`);
     }
   });
 
+  // Upgrade legacy inline stickies to canvas stickies
   editorEl.querySelectorAll(".journal-sticky-note:not(.canvas-sticky-body)").forEach((note, i) => {
     if(note.closest(".canvas-item")) return;
     const parent = note.parentElement;
@@ -8958,11 +9038,21 @@ function upgradeLegacyIpadElements(editorEl){
         <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
         <div class="canvas-bar-btns">
           <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Rotate Angles">↻ <span class="cbar-angle-val">-1°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -3)">-3° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 3)">+3° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -10)">-10° Tilted</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 10)">+10° Tilted</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Corner</button>
         </div>
       </div>
       <div class="journal-sticky-note ${color} canvas-sticky-body" contenteditable="true" spellcheck="true">${note.innerHTML}</div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     `;
     if(parent) parent.replaceChild(wrapper, note);
@@ -8999,24 +9089,37 @@ function insertIpadTextBox(){
   const id = "ctext_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(280, 100);
   const html = `
-    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
       <div class="canvas-item-bar">
         <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
         <div class="canvas-bar-btns">
           <button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>
           <button type="button" class="cbar-btn" data-action="font-size" title="Font Size (S / M / L / XL)">🔠 Size</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Angle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Angle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
         </div>
       </div>
       <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." data-font-size="m">Type notes, title, or formula...</div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast("Text box placed! Drag or type anywhere 🔤");
+  showToast("Text box placed! Drag, resize, or rotate anywhere 🔤");
   const box = document.getElementById(id);
   const body = box?.querySelector(".canvas-text-body");
   if(body) setTimeout(() => body.focus(), 60);
@@ -9073,18 +9176,20 @@ function insertIpadWashiTape(pattern="washi-blush"){
   if(label) setTimeout(() => label.focus(), 60);
 }
 
-function applySpecificWashiAngle(itemId, angle){
+function applySpecificCanvasAngle(itemId, angle){
   const item = document.getElementById(itemId);
   if(!item) return;
-  item.dataset.rotation = "" + angle;
-  item.style.transform = (angle !== 0) ? ("rotate(" + angle + "deg)") : "none";
+  const numAngle = Number(angle) || 0;
+  item.dataset.rotation = "" + numAngle;
+  item.style.transform = (numAngle !== 0) ? ("rotate(" + numAngle + "deg)") : "none";
   const valEl = item.querySelector(".cbar-angle-val");
-  if(valEl) valEl.textContent = angle + "°";
+  if(valEl) valEl.textContent = numAngle + "°";
   const popover = item.querySelector(".cbar-angles-popover");
   if(popover) popover.style.display = "none";
   queueIpadSave();
-  showToast("Washi angle: " + angle + "° 📐");
+  showToast("Rotated to " + numAngle + "° 📐");
 }
+const applySpecificWashiAngle = applySpecificCanvasAngle;
 
 function insertIpadPhotoFromDataUrl(dataUrl){
   const editor = document.getElementById("ipad-page-editor");
@@ -9092,28 +9197,42 @@ function insertIpadPhotoFromDataUrl(dataUrl){
   const id = "cphoto_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(320, 240);
   const html = `
-    <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${++canvasMaxZIndex};" contenteditable="false">
       <div class="canvas-item-bar">
         <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
         <div class="canvas-bar-btns">
           <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame (Polaroid / Washi / Rounded / Minimal / Gold)">🖼️ Frame</button>
           <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
           <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size (S / M / L / Fit)">📐 Size</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Tilt / Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Polaroid</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Polaroid</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
         </div>
       </div>
       <div class="canvas-photo-card frame-washi">
         <img src="${dataUrl}" alt="Study Diagram" style="width:100%;height:auto;object-fit:contain;display:block;border-radius:inherit;pointer-events:none;">
         <div class="canvas-photo-caption" contenteditable="true" spellcheck="false" placeholder="Figure caption...">Figure 1.1 Study Diagram</div>
       </div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast("Photo placed! Drag or resize with corner knob 🎀");
+  showToast("Photo placed! Drag, resize or rotate anywhere 🎀");
 }
 
 function handleIpadPhotoUpload(e){
@@ -9133,22 +9252,33 @@ function insertIpadSticker(stickerEmoji){
   const id = "csticker_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(64, 64);
   const html = `
-    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${++canvasMaxZIndex};" contenteditable="false">
       <div class="canvas-item-bar mini">
         <span class="canvas-drag-handle" title="Drag to move">⋮⋮</span>
         <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -12)">-12° Tilt</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 12)">+12° Tilt</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Playful</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Playful</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Diag</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Diag</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Side</button>
         </div>
       </div>
       <div class="canvas-sticker-glyph">${stickerEmoji}</div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast(`Added sticker ${stickerEmoji} ✨`);
+  showToast(`Added sticker ${stickerEmoji} ✨ Drag, resize or rotate!`);
 }
 
 function insertIpadStickyPrompt(){
@@ -9164,20 +9294,30 @@ function insertIpadStickyPrompt(){
         <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
         <div class="canvas-bar-btns">
           <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">-1°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -3)">-3° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 3)">+3° Subtle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -10)">-10° Tilted</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 10)">+10° Tilted</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Corner</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Corner</button>
         </div>
       </div>
       <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true">
         <b>📌 Note:</b> Type key study takeaway or formula here...
       </div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast("Sticky note pinned! Move anywhere 📝");
+  showToast("Sticky note pinned! Move, resize or rotate anywhere 📝");
 }
 
 function insertIpadShape(shapeType='rounded'){
@@ -9243,12 +9383,21 @@ function insertIpadShape(shapeType='rounded'){
           <button type="button" class="cbar-btn" data-action="shape-style" title="Cycle Color Fill">🎨 Fill</button>
           <button type="button" class="cbar-btn" data-action="shape-border" title="Cycle Border Style">── Border</button>
           <button type="button" class="cbar-btn" data-action="shape-font-size" title="Text Size">🔠 Size</button>
-          <button type="button" class="cbar-btn" data-action="rotate" title="Rotate">↻</button>
+          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
           <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+        </div>
+        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">45° Diagonal</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 135)">135° Angle</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -90)">-90° Left ➔</button>
+          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Tilt</button>
         </div>
       </div>
       ${shapeContent}
-      <div class="canvas-rotate-handle" title="Drag to rotate">↻</div>
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>
       <div class="canvas-resize-e" data-dir="e" title="Drag to resize width"></div>
       <div class="canvas-resize-s" data-dir="s" title="Drag to resize height"></div>
@@ -9260,7 +9409,7 @@ function insertIpadShape(shapeType='rounded'){
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
-  showToast(`Added ${shapeType} shape! Drag or type inside 📐`);
+  showToast(`Added ${shapeType} shape! Drag, resize or rotate anywhere 📐`);
   const menu = document.getElementById("ipad-shapes-menu");
   if(menu) menu.style.display = "none";
   const box = document.getElementById(id);
@@ -9280,16 +9429,13 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "rotate"){
-    const angles = [0, 6, 15, 30, -30, -15, -6];
+  if(action === "rotate" || action === "rotate-step"){
+    const angles = [0, 5, 15, 30, 45, 90, 180, -90, -45, -30, -15, -5];
     const cur = Number(item.dataset.rotation || 0);
     let idx = angles.indexOf(cur);
     if(idx === -1) idx = 0;
     const next = angles[(idx + 1) % angles.length];
-    item.dataset.rotation = "" + next;
-    item.style.transform = (next !== 0) ? ("rotate(" + next + "deg)") : "none";
-    queueIpadSave();
-    showToast("Rotated " + next + "° ↻");
+    applySpecificCanvasAngle(item.id, next);
     return;
   }
 
@@ -9593,15 +9739,34 @@ function initIpadCanvasEngine(){
       let degrees = Math.round(radians * (180 / Math.PI)) + 90;
       while(degrees > 180) degrees -= 360;
       while(degrees < -180) degrees += 360;
-      // Snap to 0, 5, 15, 30, 45, 90 if within 3 degrees
-      const snapPoints = [0, 5, -5, 15, -15, 30, -30, 45, -45, 90, -90];
-      for(let p of snapPoints){
-        if(Math.abs(degrees - p) <= 3){ degrees = p; break; }
+
+      let isSnapped = false;
+      if(e.shiftKey){
+        degrees = Math.round(degrees / 15) * 15;
+        isSnapped = true;
+      } else {
+        const snapPoints = [0, 5, -5, 15, -15, 30, -30, 45, -45, 90, -90, 180, -180];
+        for(let p of snapPoints){
+          if(Math.abs(degrees - p) <= 3.5){
+            degrees = p;
+            isSnapped = true;
+            break;
+          }
+        }
       }
+
       s.item.dataset.rotation = "" + degrees;
       s.item.style.transform = (degrees !== 0) ? ("rotate(" + degrees + "deg)") : "none";
       const valEl = s.item.querySelector(".cbar-angle-val");
       if(valEl) valEl.textContent = degrees + "°";
+
+      let badge = s.item.querySelector(".canvas-rotate-badge");
+      if(!badge){
+        badge = document.createElement("div");
+        badge.className = "canvas-rotate-badge";
+        s.item.appendChild(badge);
+      }
+      badge.textContent = degrees + "°" + (isSnapped ? " 🎯" : "");
       return;
     }
 
@@ -9663,7 +9828,11 @@ function initIpadCanvasEngine(){
   function endPointerInteractions(e){
     if(activeRotateState && activeRotateState.pointerId === e.pointerId){
       try { activeRotateState.handle.releasePointerCapture(e.pointerId); } catch(_){}
+      const badge = activeRotateState.item.querySelector(".canvas-rotate-badge");
+      if(badge) badge.remove();
       activeRotateState.item.classList.remove("is-rotating");
+      const deg = activeRotateState.item.dataset.rotation || "0";
+      showToast("Rotated to " + deg + "° ↻");
       activeRotateState = null;
       queueIpadSave();
     }
@@ -10560,6 +10729,7 @@ function insertPhotoHtmlToEditor(dataUrl){
       <div class="journal-photo-actions" contenteditable="false">
         <button type="button" class="jphoto-btn" onclick="cyclePhotoFrame('${cardId}')" title="Cycle Frame">🖼️ Frame</button>
         <button type="button" class="jphoto-btn" onclick="cyclePhotoSize('${cardId}')" title="Cycle Size">📐 Size</button>
+        <button type="button" class="jphoto-btn" onclick="rotateNotePhoto('${cardId}')" title="Tilt / Rotate">↻ Rotate</button>
         <button type="button" class="jphoto-btn" onclick="openPhotoCropModalFromCard('${cardId}')" title="Crop & Cut">✂️ Crop</button>
         <button type="button" class="jphoto-btn" onclick="deleteJournalPhoto('${cardId}')" title="Delete">🗑️</button>
       </div>
@@ -10591,6 +10761,20 @@ function cyclePhotoSize(cardId){
   const nextSizes={'s':'m','m':'l','l':'s'};
   wrap.setAttribute('data-size',nextSizes[cur]||'m');
   queueNoteSave();
+}
+
+function rotateNotePhoto(cardId){
+  const wrap=document.getElementById(cardId);
+  if(!wrap)return;
+  const angles=[0,-4,4,-10,10,-20,20];
+  const cur=Number(wrap.dataset.rotation||0);
+  let idx=angles.indexOf(cur);
+  if(idx===-1)idx=0;
+  const next=angles[(idx+1)%angles.length];
+  wrap.dataset.rotation=""+next;
+  wrap.style.transform=(next!==0)?("rotate("+next+"deg)"):"none";
+  queueNoteSave();
+  showToast("Photo tilted "+next+"° ↻");
 }
 
 function deleteJournalPhoto(cardId){
