@@ -5272,7 +5272,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   <div class="screen" id="sJournal">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 10px 0;">
       <div class="journal-view-tabs" role="tablist">
-        <button type="button" class="jview-tab-btn on" id="jview-tab-books" onclick="switchJournalMainView('books')">📚 Bookshelf</button>
+        <button type="button" class="jview-tab-btn on" id="jview-tab-books" onclick="handleBookshelfTabClick()">📚 Bookshelf</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-notebook" onclick="switchJournalMainView('notebook')">📓 Open Notebook</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-calendar" onclick="switchJournalMainView('calendar')">📅 Daily Journal &amp; Calendar</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-sparks" onclick="switchJournalMainView('sparks')">💭 Thought Sparks</button>
@@ -5281,14 +5281,13 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       <div style="display:flex;gap:6px;align-items:center;" id="journal-header-actions">
         <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 10px;">+ New Book</button>
         <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">+ Write Entry</button>
-        <button type="button" class="notes-top-btn" onclick="openVaultAuthModal('journal')" title="Secret Diary Vault" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;height:34px;padding:0 10px;background:rgba(255,255,255,0.06);">🔒 Secret</button>
       </div>
     </div>
 
     <!-- VIEW 0: BOOKSHELF (DEFAULT VIEW IN JOURNAL) -->
     <div class="journal-bookshelf-view" id="journal-bookshelf-view" style="display:block;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-        <div style="cursor:pointer;user-select:none;" onclick="handleJournalHeaderTap()" title="Tap header 5 times to unlock Secret Diary">
+        <div style="cursor:pointer;user-select:none;" onclick="handleJournalHeaderTap()">
           <div style="font-size:17px;font-weight:900;color:var(--t1);" id="journal-bookshelf-title">📚 Digital Notebooks &amp; Binders</div>
           <div style="font-size:12px;color:var(--t2);" id="journal-bookshelf-sub">Choose a notebook to open its authentic iPad handwriting &amp; study canvas.</div>
         </div>
@@ -5307,7 +5306,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <!-- Top Control Bar -->
         <div class="ipad-top-bar">
           <div class="ipad-notebook-meta">
-            <button type="button" class="ipad-step-btn" onclick="switchJournalMainView('books')" title="Return to Bookshelf" style="font-weight:700;padding:0 9px;gap:4px;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">← Bookshelf</button>
+            <button type="button" class="ipad-step-btn" onclick="handleBookshelfReturnClick()" title="Return to Bookshelf" style="font-weight:700;padding:0 9px;gap:4px;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">← Bookshelf</button>
             <select id="ipad-notebook-select" class="ipad-notebook-select" onchange="handleIpadNotebookChange(this.value)" title="Active Notebook">
               <!-- Dynamically populated with notebooks -->
             </select>
@@ -9917,7 +9916,6 @@ function renderJournalBookshelf(){
       actionsEl.innerHTML = `
         <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="font-size:12px;height:32px;padding:0 10px;">+ New Book</button>
         <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="background:var(--acc);color:var(--t1);border-color:var(--acb);font-size:12px;height:32px;padding:0 12px;">+ Write Entry</button>
-        <button type="button" class="notes-top-btn" onclick="openVaultAuthModal('journal')" title="Secret Diary Vault" style="font-size:12px;height:32px;padding:0 10px;background:rgba(255,255,255,0.06);">🔒 Secret</button>
       `;
     }
   }
@@ -9932,7 +9930,6 @@ function renderJournalBookshelf(){
       topActionsEl.innerHTML = `
         <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 10px;">+ New Book</button>
         <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">+ Write Entry</button>
-        <button type="button" class="notes-top-btn" onclick="openVaultAuthModal('journal')" title="Secret Diary Vault" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;height:34px;padding:0 10px;background:rgba(255,255,255,0.06);">🔒 Secret</button>
       `;
     }
   }
@@ -10009,6 +10006,13 @@ function filterJournalMood(mood){
 
 function getJournalEntriesForDate(dateStr){
   return NOTES.filter(n => {
+    // Exclude all secret/vault notes and pages from calendar
+    if(n.isVault || (n.id && n.id.startsWith('vault_'))) return false;
+    if(n.bookId && n.bookId.startsWith('vault_')) return false;
+    const curBook = getJournalBookById(n.bookId);
+    if(curBook && (curBook.isVault || (curBook.id && curBook.id.startsWith('vault_')))) return false;
+    if(Array.isArray(n.tags) && (n.tags.includes('#secret') || n.tags.includes('secret') || n.tags.includes('private'))) return false;
+
     const d = n.journalDate || (n.createdAt ? new Date(n.createdAt).toISOString().slice(0, 10) : '');
     return d === dateStr;
   });
@@ -14716,21 +14720,39 @@ function handleNotesHeaderTap(){
   }
 }
 
-function handleJournalHeaderTap(){
-  if(isJournalVaultActive)return;
-  secretJournalHeaderTapCount++;
-  clearTimeout(secretJournalHeaderTapTimer);
-  secretJournalHeaderTapTimer=setTimeout(()=>{
-    secretJournalHeaderTapCount=0;
-  },2400);
-  if(secretJournalHeaderTapCount>=5){
-    secretJournalHeaderTapCount=0;
-    clearTimeout(secretJournalHeaderTapTimer);
-    try{if(typeof vib==='function')vib();}catch(_){}
-    setTimeout(()=>{
+let secretBookshelfTapCount = 0;
+let secretBookshelfTapTimer = null;
+
+function handleBookshelfTripleClick(){
+  if(isJournalVaultActive) return;
+  secretBookshelfTapCount++;
+  clearTimeout(secretBookshelfTapTimer);
+  secretBookshelfTapTimer = setTimeout(() => {
+    secretBookshelfTapCount = 0;
+  }, 2200);
+
+  if(secretBookshelfTapCount >= 3){
+    secretBookshelfTapCount = 0;
+    clearTimeout(secretBookshelfTapTimer);
+    try { if(typeof vib === 'function') vib(); } catch(_) {}
+    setTimeout(() => {
       openVaultAuthModal('journal');
-    },120);
+    }, 80);
   }
+}
+
+function handleBookshelfTabClick(){
+  switchJournalMainView('books');
+  handleBookshelfTripleClick();
+}
+
+function handleBookshelfReturnClick(){
+  switchJournalMainView('books');
+  handleBookshelfTripleClick();
+}
+
+function handleJournalHeaderTap(){
+  handleBookshelfTripleClick();
 }
 
 async function openVaultAuthModal(target='notes'){
