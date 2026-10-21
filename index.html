@@ -1077,23 +1077,28 @@ canvas#gc{display:block;width:100%;height:240px;}
 .note-editor-wrap.view-mode .note-title-input{pointer-events:none;opacity:.96;}
 .note-meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .note-meta{font-size:11px;color:var(--t3);}
-.note-editor-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.note-editor-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .note-editor-actions #note-act-done{display:none;}
-.note-toolbar{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:18px;border:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.022));}
+.note-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 10px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));box-shadow:0 8px 24px rgba(0,0,0,.14);}
+[data-t=light] .note-toolbar{background:linear-gradient(180deg,rgba(240,228,214,.92),rgba(224,208,190,.85));border-color:rgba(131,98,74,.2);box-shadow:0 6px 18px rgba(104,76,56,.1);}
 .note-editor-wrap.view-mode .note-toolbar,.note-editor-wrap.view-mode .note-editor-footer{display:none;}
-.note-tool-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.note-tool-btn{min-width:38px;height:38px;padding:0 12px;border-radius:12px;border:1px solid var(--glb);background:var(--gl);color:var(--t1);font-size:14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transform:translateZ(0);}
-.note-tool-btn:active{transform:scale(.96);}
-.note-tool-btn.on{background:var(--acc);border-color:var(--acb);color:var(--t1);text-shadow:0 0 18px color-mix(in srgb,var(--act) 62%,transparent);box-shadow:0 0 0 1px rgba(140,126,255,.28),0 0 34px color-mix(in srgb,var(--act) 28%,transparent),0 12px 24px rgba(72,82,168,.2),inset 0 1px 0 rgba(255,255,255,.18);}
-.note-tool-select{min-width:120px;height:38px;padding:0 34px 0 12px;border-radius:12px;font-size:13px;}
-.note-font-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;padding:4px 2px 0;}
-.note-font-tag{font-size:11px;color:var(--t3);letter-spacing:.2px;}
-.note-font-preview{font-size:14px;color:var(--t2);opacity:.96;line-height:1.4;}
-.note-color-palette{display:flex;flex-wrap:wrap;gap:8px;max-width:100%;}
-.note-color-palette::before{content:'Text color';display:block;width:100%;font-size:11px;letter-spacing:.22px;color:var(--t3);margin:0 0 2px 2px;}
-.note-color-swatch{width:30px;height:30px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:var(--swatch,#fff);cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 12px rgba(0,0,0,.08);transition:transform var(--dur-hover) var(--ease-flow),box-shadow var(--dur-card) var(--ease-flow),border-color var(--dur-card) var(--ease-flow);}
+.note-tool-group{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:4px 6px;flex-wrap:wrap;}
+[data-t=light] .note-tool-group{background:rgba(255,255,255,.55);border-color:rgba(131,98,74,.18);}
+.note-tool-btn{min-width:32px;height:32px;padding:0 9px;border-radius:9px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:var(--t1);font-size:12.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;transition:all .15s ease;white-space:nowrap;}
+.note-tool-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);}
+.note-tool-btn:active{transform:scale(.95);}
+.note-tool-btn.on{background:var(--acc);border-color:var(--acb);color:var(--t1);text-shadow:0 0 16px color-mix(in srgb,var(--act) 60%,transparent);box-shadow:0 0 0 1px rgba(140,126,255,.28),0 0 24px color-mix(in srgb,var(--act) 28%,transparent);}
+.note-tool-select{height:32px;padding:0 24px 0 8px;border-radius:9px;font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:var(--t1);cursor:pointer;outline:none;}
+[data-t=light] .note-tool-select{background:rgba(255,255,255,.8);border-color:rgba(131,98,74,.22);color:var(--t1);}
+.note-size-stepper{display:inline-flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;height:32px;padding:0 2px;}
+[data-t=light] .note-size-stepper{background:rgba(255,255,255,.6);border-color:rgba(131,98,74,.2);}
+.note-font-meta{display:none;}
+.note-color-palette{display:inline-flex;align-items:center;gap:5px;padding:0 2px;}
+.note-color-palette::before{display:none;}
+.note-color-swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:var(--swatch,#fff);cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 4px rgba(0,0,0,.15);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease;padding:0;margin:0;}
+.note-color-swatch:hover{transform:scale(1.22);}
 .note-color-swatch:active{transform:scale(.94);}
-.note-color-swatch.on{border-color:rgba(255,255,255,.38);box-shadow:0 0 0 2px rgba(124,92,255,.18),0 0 14px rgba(124,92,255,.12),inset 0 1px 0 rgba(255,255,255,.24);}
+.note-color-swatch.on{transform:scale(1.25);border-color:#fff;box-shadow:0 0 0 2px var(--acc, rgba(140,126,255,.6));}
 .note-paper{--note-line-gap:32px;--note-pad-top:20px;--note-pad-right:18px;--note-pad-bottom:28px;--note-pad-left:38px;--note-text-shift:4px;--note-ruled-height:100%;position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));box-shadow:0 12px 26px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 312px);max-height:calc(100dvh - 312px);}
 .note-paper::before{content:'';position:absolute;top:var(--note-pad-top);left:0;right:0;height:var(--note-ruled-height);pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) calc(var(--note-line-gap) - 1px),rgba(146,166,210,.12) calc(var(--note-line-gap) - 1px),rgba(146,166,210,.12) var(--note-line-gap));opacity:.92;}
 .note-paper::after{content:'';position:absolute;top:0;left:24px;width:1px;height:var(--note-ruled-height);background:rgba(255,126,126,.14);pointer-events:none;}
@@ -1404,12 +1409,6 @@ canvas#gc{display:block;width:100%;height:240px;}
 .ipad-frame{position:relative;width:100%;background:linear-gradient(145deg,#1c202a,#11141b);border-radius:28px;padding:12px 14px 18px;box-shadow:0 24px 60px rgba(0,0,0,.45),0 2px 0 rgba(255,255,255,.08) inset,0 -2px 0 rgba(0,0,0,.6) inset;border:1px solid rgba(255,255,255,.1);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;}
 @media (max-width:580px){.ipad-frame{border-radius:20px;padding:10px 8px 14px;}}
 [data-t=light] .ipad-frame{background:linear-gradient(145deg,#e9e1d8,#d5c8b7);border-color:rgba(131,98,74,.22);box-shadow:0 20px 48px rgba(104,76,56,.18),0 1px 0 rgba(255,255,255,.8) inset;}
-
-/* Apple Pencil Magnetic Dock */
-.ipad-pencil-dock{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:130px;height:7px;background:linear-gradient(180deg,#303642,#1a1d24);border-radius:4px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 6px rgba(0,0,0,.3);}
-.ipad-pencil-dock::after{content:'⚡ Stylus Ready';font-size:7.5px;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.5px;line-height:1;}
-[data-t=light] .ipad-pencil-dock{background:linear-gradient(180deg,#eee3d7,#ccc0ae);border-color:rgba(131,98,74,.25);}
-[data-t=light] .ipad-pencil-dock::after{color:#5d4231;}
 
 /* iPad Top Bar */
 .ipad-top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:4px 4px 2px;}
@@ -5249,8 +5248,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <!-- VIEW 1: AUTHENTIC IPAD STAGE -->
     <div class="ipad-stage" id="journal-notebook-view" style="display:none;">
       <div class="ipad-frame">
-        <div class="ipad-pencil-dock" title="Apple Pencil Ready"></div>
-        
         <!-- Top Control Bar -->
         <div class="ipad-top-bar">
           <div class="ipad-notebook-meta">
@@ -5546,8 +5543,9 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         </div>
       </div>
         <div class="note-toolbar">
-          <div class="note-tool-group">
-            <select id="note-font" class="note-tool-select" onchange="applyNoteTypography()">
+          <!-- SEGMENT 1: Typography & Paper Style -->
+          <div class="note-tool-group" title="Typography &amp; Paper">
+            <select id="note-font" class="note-tool-select" onchange="applyNoteTypography()" title="Font Style">
               <option value="caveat">✨ Aesthetic Cursive (Caveat)</option>
               <option value="patrick" selected>📝 Study Notebook (Patrick Hand)</option>
               <option value="kalam">🖋️ Ink Ballpoint (Kalam)</option>
@@ -5559,59 +5557,66 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <option value="modern">Modern Sans - crisp</option>
               <option value="mono">Mono Focus - tidy</option>
             </select>
-            <select id="note-size" class="note-tool-select" onchange="applyNoteTypography()">
-              <option value="small">Small</option>
-              <option value="medium" selected>Medium</option>
-              <option value="large">Large</option>
-              <option value="xlarge">Extra Large</option>
-            </select>
+            <div class="note-size-stepper" title="Font Size (pt)">
+              <button type="button" class="note-tool-btn" style="min-width:28px;height:30px;padding:0 5px;border:none;background:transparent;font-size:11px;" onclick="stepGeneralNoteFontSize(-2)" title="Smaller (A▾)">A▾</button>
+              <select id="note-size" class="note-tool-select" onchange="applyNoteTypography()" style="min-width:62px;height:30px;border:none;background:transparent;padding:0 18px 0 6px;font-size:12px;font-weight:800;text-align:center;">
+                <option value="12">12 pt</option>
+                <option value="14">14 pt</option>
+                <option value="16">16 pt</option>
+                <option value="18" selected>18 pt</option>
+                <option value="20">20 pt</option>
+                <option value="24">24 pt</option>
+                <option value="28">28 pt</option>
+                <option value="32">32 pt</option>
+                <option value="36">36 pt</option>
+              </select>
+              <button type="button" class="note-tool-btn" style="min-width:28px;height:30px;padding:0 5px;border:none;background:transparent;font-size:11px;" onclick="stepGeneralNoteFontSize(2)" title="Larger (A▴)">A▴</button>
+            </div>
             <select id="note-paper-style" class="note-tool-select" onchange="applyNotePaperStyle(this.value)" title="Paper Background">
               <option value="ruled">📜 Lined Notebook</option>
               <option value="obsidian">🖤 Obsidian Grid</option>
               <option value="cream">📑 Cream Dots</option>
               <option value="blank">🤍 Blank Page</option>
             </select>
-            <div class="note-font-meta">
-              <div class="note-font-tag" id="note-font-tag">Study Notebook</div>
-              <div class="note-font-preview" id="note-font-preview">Quick study notes</div>
+          </div>
+
+          <!-- SEGMENT 2: Formatting & Color Swatches -->
+          <div class="note-tool-group" title="Formatting &amp; Colors">
+            <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('undo')" title="Undo">↶</button>
+            <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('redo')" title="Redo">↷</button>
+            <button class="note-tool-btn" id="note-bold" onmousedown="event.preventDefault()" onclick="noteCommand('bold')" title="Bold">B</button>
+            <button class="note-tool-btn" id="note-italic" onmousedown="event.preventDefault()" onclick="noteCommand('italic')" title="Italic"><i>I</i></button>
+            <button class="note-tool-btn" id="note-underline" onmousedown="event.preventDefault()" onclick="noteCommand('underline')" title="Underline"><u>U</u></button>
+            <button class="note-tool-btn" type="button" onclick="toggleHighlighterPalette(event)" title="Highlighter Marker" id="note-highlighter-btn">🖍️ Marker</button>
+            <div id="journal-hl-palette" class="hl-palette" onclick="event.stopPropagation()">
+              <div class="hl-swatch" style="background:#fff176;" title="Sunshine Yellow" onclick="applyJournalHighlighter('rgba(255,241,118,0.5)')"></div>
+              <div class="hl-swatch" style="background:#f48fb1;" title="Sakura Pink" onclick="applyJournalHighlighter('rgba(244,143,177,0.5)')"></div>
+              <div class="hl-swatch" style="background:#a5d6a7;" title="Fresh Mint" onclick="applyJournalHighlighter('rgba(165,214,167,0.5)')"></div>
+              <div class="hl-swatch" style="background:#ce93d8;" title="Lavender Mist" onclick="applyJournalHighlighter('rgba(206,147,216,0.5)')"></div>
+              <div class="hl-swatch" style="background:transparent;border:1px dashed #fff;display:grid;place-items:center;font-size:10px;color:#fff;" title="Clear" onclick="applyJournalHighlighter('transparent')">✕</div>
+            </div>
+            <div class="note-color-palette" id="note-color-palette" title="Text Color"></div>
+          </div>
+
+          <!-- SEGMENT 3: Insert Tools & Interactive Elements -->
+          <div class="note-tool-group" style="position:relative;" title="Insert Tools">
+            <button class="note-tool-btn" type="button" onclick="insertChecklistItem('editor')" title="Interactive Checklist">☑️ Check</button>
+            <button class="note-tool-btn" type="button" onclick="openMathSymbolsPalette('editor')" title="Math &amp; STEM Symbols">🔢 Math</button>
+            <button class="note-tool-btn" type="button" onclick="insertCalculatorResult('editor')" title="Insert from Calculator">➗ Calc</button>
+            <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers">🎀 Stickers</button>
+            <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo">🖼️ Photo</button>
+            <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note">📝 Sticky</button>
+            <button class="note-tool-btn" type="button" onclick="toggleStudyBlocksMenu(event)" title="Study Callouts &amp; Layouts" id="note-study-blocks-btn">📦 Blocks ▾</button>
+            <div id="study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:215px;padding:8px;top:38px;left:0;" onclick="event.stopPropagation()">
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('split')">📊 2-Col Diagram + Notes</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-pink')">🌸 Key Point (Pink)</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-mint')">🌿 Key Point (Mint)</button>
+              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertStudyBlock('callout-lavender')">✨ Key Point (Lavender)</button>
             </div>
           </div>
-        <div class="note-tool-group">
-          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('undo')" title="Undo">↶</button>
-          <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('redo')" title="Redo">↷</button>
-          <button class="note-tool-btn" id="note-bold" onmousedown="event.preventDefault()" onclick="noteCommand('bold')">B</button>
-          <button class="note-tool-btn" id="note-italic" onmousedown="event.preventDefault()" onclick="noteCommand('italic')"><i>I</i></button>
-          <button class="note-tool-btn" id="note-underline" onmousedown="event.preventDefault()" onclick="noteCommand('underline')"><u>U</u></button>
         </div>
-        <div class="note-tool-group" style="position:relative;">
-          <button class="note-tool-btn" type="button" onclick="insertChecklistItem('editor')" title="Interactive Checklist" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">☑️ Check</button>
-          <button class="note-tool-btn" type="button" onclick="openMathSymbolsPalette('editor')" title="Math &amp; STEM Symbols" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🔢 Math</button>
-          <button class="note-tool-btn" type="button" onclick="insertCalculatorResult('editor')" title="Insert from Calculator" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">➗ Calc</button>
-          <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🎀 Stickers</button>
-          <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">🖼️ Photo</button>
-          <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📝 Sticky</button>
-          <button class="note-tool-btn" type="button" onclick="toggleStudyBlocksMenu(event)" title="Study Callouts & Layouts" id="note-study-blocks-btn" style="display:inline-flex;align-items:center;gap:4px;font-weight:800;color:var(--t1);">📦 Blocks ▾</button>
-          <div id="study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:215px;padding:8px;top:38px;left:0;" onclick="event.stopPropagation()">
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('split')">📊 2-Col Diagram + Notes</button>
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-pink')">🌸 Key Point (Pink)</button>
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-mint')">🌿 Key Point (Mint)</button>
-            <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertStudyBlock('callout-lavender')">✨ Key Point (Lavender)</button>
-          </div>
-          <button class="note-tool-btn" type="button" onclick="toggleHighlighterPalette(event)" title="Highlighter" id="note-highlighter-btn">🖍️ Marker</button>
-          <div id="journal-hl-palette" class="hl-palette" onclick="event.stopPropagation()">
-            <div class="hl-swatch" style="background:#fff176;" title="Sunshine Yellow" onclick="applyJournalHighlighter('rgba(255,241,118,0.5)')"></div>
-            <div class="hl-swatch" style="background:#f48fb1;" title="Sakura Pink" onclick="applyJournalHighlighter('rgba(244,143,177,0.5)')"></div>
-            <div class="hl-swatch" style="background:#a5d6a7;" title="Fresh Mint" onclick="applyJournalHighlighter('rgba(165,214,167,0.5)')"></div>
-            <div class="hl-swatch" style="background:#ce93d8;" title="Lavender Mist" onclick="applyJournalHighlighter('rgba(206,147,216,0.5)')"></div>
-            <div class="hl-swatch" style="background:transparent;border:1px dashed #fff;display:grid;place-items:center;font-size:10px;color:#fff;" title="Clear" onclick="applyJournalHighlighter('transparent')">✕</div>
-          </div>
-        </div>
-        <div class="note-tool-group">
-          <div class="note-color-palette" id="note-color-palette"></div>
-        </div>
-      </div>
       </div>
       <input type="file" id="journal-photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
       <div class="note-paper" id="note-paper">
@@ -6224,10 +6229,19 @@ const NOTE_FONT_META={
   handLoose:{label:'Aesthetic Script',sample:'Relaxed handwritten cursive'}
 };
 const NOTE_SIZE_MAP={
+  12:{font:'12px',line:'22px'},
+  14:{font:'14px',line:'26px'},
+  16:{font:'16px',line:'28px'},
+  18:{font:'18px',line:'32px'},
+  20:{font:'20px',line:'36px'},
+  24:{font:'24px',line:'42px'},
+  28:{font:'28px',line:'48px'},
+  32:{font:'32px',line:'54px'},
+  36:{font:'36px',line:'60px'},
   small:{font:'16px',line:'28px'},
   medium:{font:'18px',line:'32px'},
   large:{font:'20px',line:'36px'},
-  xlarge:{font:'22px',line:'40px'}
+  xlarge:{font:'24px',line:'42px'}
 };
 const NOTE_THEME_COLORS={
   black:['#f5efe7','#dccbb8','#bfd2e7','#9fdfff','#a9e3c5','#f1d29d','#ffb4bc','#d0c2ff'],
@@ -6269,7 +6283,12 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
   const updatedAt=Number(note.updatedAt)||createdAt;
   const untitledIndex=Math.max(1,Number(note.untitledIndex)||1);
   const fontFamily=(String(note.fontFamily||'clean') in NOTE_FONT_MAP)?String(note.fontFamily):'clean';
-  const fontSize=(String(note.fontSize||'medium') in NOTE_SIZE_MAP)?String(note.fontSize):'medium';
+  let fsVal=String(note.fontSize||'18');
+  if(fsVal==='small')fsVal='16';
+  else if(fsVal==='medium')fsVal='18';
+  else if(fsVal==='large')fsVal='20';
+  else if(fsVal==='xlarge')fsVal='24';
+  const fontSize=(fsVal in NOTE_SIZE_MAP)?fsVal:'18';
   const incomingColor=normalizeColorHex(note.textColor);
   const incomingMode=note.textColorMode==='custom'?'custom':'auto';
   const inferredCustom=!!incomingColor && !AUTO_NOTE_DEFAULT_COLORS.has(incomingColor);
@@ -10712,23 +10731,6 @@ function initIpadCanvasEngine(){
         const glyph = s.item.querySelector(".canvas-sticker-glyph");
         if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
       }
-
-      // Automatically scale written text inside washi tape, sticky notes, text boxes, and shapes!
-      if(s.textTarget && s.startFontSize){
-        let scale = 1;
-        if(s.type === "washi"){
-          const curH = s.item.offsetHeight || s.startHeight;
-          scale = curH / (s.startHeight || 1);
-        } else {
-          const wRatio = (s.item.offsetWidth || s.startWidth) / (s.startWidth || 1);
-          const hRatio = (s.item.offsetHeight || s.startHeight) / (s.startHeight || 1);
-          scale = (wRatio + hRatio) / 2;
-        }
-        const newFs = Math.max(9, Math.min(84, Math.round(s.startFontSize * scale)));
-        s.textTarget.style.fontSize = newFs + "px";
-        const labelEl = s.item.querySelector(".cbar-font-num-label");
-        if(labelEl) labelEl.textContent = newFs + "pt";
-      }
       return;
     }
 
@@ -12776,6 +12778,26 @@ function refreshNoteFontPreview(){
   preview.textContent=meta.sample;
   preview.style.fontFamily=NOTE_FONT_MAP[fontSel.value]||NOTE_FONT_MAP.clean;
 }
+function stepGeneralNoteFontSize(delta){
+  const sel=document.getElementById('note-size');
+  if(!sel)return;
+  const sizes=['12','14','16','18','20','24','28','32','36'];
+  let cur=sel.value;
+  if(cur==='small')cur='16';
+  else if(cur==='medium')cur='18';
+  else if(cur==='large')cur='20';
+  else if(cur==='xlarge')cur='24';
+  let idx=sizes.indexOf(cur);
+  if(idx===-1){
+    const num=parseInt(cur,10)||18;
+    idx=sizes.findIndex(s=>parseInt(s,10)>=num);
+    if(idx===-1)idx=sizes.length-1;
+  }
+  if(delta>0)idx=Math.min(sizes.length-1,idx+1);
+  else idx=Math.max(0,idx-1);
+  sel.value=sizes[idx];
+  applyNoteTypography();
+}
 function applyNoteTypography(){
   const editor=document.getElementById('note-editor');
   const view=document.getElementById('note-view');
@@ -12783,7 +12805,7 @@ function applyNoteTypography(){
   const fontSel=document.getElementById('note-font');
   const sizeSel=document.getElementById('note-size');
   if(!editor||!paper||!fontSel||!sizeSel)return;
-  const sizeCfg=NOTE_SIZE_MAP[sizeSel.value]||NOTE_SIZE_MAP.medium;
+  const sizeCfg=NOTE_SIZE_MAP[sizeSel.value]||NOTE_SIZE_MAP['18']||NOTE_SIZE_MAP.medium;
   const nextFont=NOTE_FONT_MAP[fontSel.value]||NOTE_FONT_MAP.clean;
   const note=getNoteById(currentNoteId);
   const resolvedInk=editor?.dataset?.noteColor||resolveNoteTextColor(note);
@@ -12943,7 +12965,14 @@ function openNoteEditor(id,opts={}){
     editor.dataset.noteColor=resolveNoteTextColor(note);
   }
   if(fontSel)fontSel.value=note.fontFamily||'clean';
-  if(sizeSel)sizeSel.value=note.fontSize||'medium';
+  if(sizeSel){
+    let sVal=String(note.fontSize||'18');
+    if(sVal==='small')sVal='16';
+    else if(sVal==='medium')sVal='18';
+    else if(sVal==='large')sVal='20';
+    else if(sVal==='xlarge')sVal='24';
+    sizeSel.value=(sVal in NOTE_SIZE_MAP)?sVal:'18';
+  }
   if(paperSel)paperSel.value=note.paperStyle||'ruled';
   applyNotePaperStyle(note.paperStyle||'ruled');
   renderNoteColorPalette(resolveNoteTextColor(note));
@@ -12986,7 +13015,7 @@ function saveCurrentNote(showFeedback=false){
     }
   }
   const nextFont=(fontSel&&fontSel.value in NOTE_FONT_MAP)?fontSel.value:'clean';
-  const nextSize=(sizeSel&&sizeSel.value in NOTE_SIZE_MAP)?sizeSel.value:'medium';
+  const nextSize=(sizeSel&&sizeSel.value in NOTE_SIZE_MAP)?sizeSel.value:'18';
   const nextPaper=(paperSel&&['ruled','obsidian','cream','blank'].includes(paperSel.value))?paperSel.value:'ruled';
   const pickedColor=normalizeColorHex(editor?.dataset?.noteColor||note.textColor||'');
   const nextMode=note.textColorMode==='custom'&&pickedColor?'custom':'auto';
