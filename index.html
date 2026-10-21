@@ -2436,6 +2436,11 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 
 /* View Mode Locked Clean Reading */
+.ipad-frame.is-view-mode .ipad-stylus-dock,
+.ipad-frame.is-view-mode .ipad-ink-subbar,
+.ipad-frame.is-view-mode .ipad-edit-only{
+  display:none!important;
+}
 .ipad-paper-sheet.is-view-mode{
   user-select:text;
 }
@@ -5555,35 +5560,33 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <div class="ipad-top-bar">
           <div class="ipad-notebook-meta">
             <button type="button" class="ipad-step-btn" onclick="handleBookshelfReturnClick()" title="Return to Bookshelf" style="font-weight:700;padding:0 9px;gap:4px;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">← Bookshelf</button>
-            <select id="ipad-notebook-select" class="ipad-notebook-select" onchange="handleIpadNotebookChange(this.value)" title="Active Notebook">
-              <!-- Dynamically populated with notebooks -->
-            </select>
-            <button type="button" class="ipad-step-btn" onclick="openCreateBookModal(isJournalVaultActive)" title="Create New Notebook" style="font-size:15px;padding:0 6px;">📚+</button>
-            <button type="button" class="ipad-step-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
+            <div class="ipad-book-badge" id="ipad-book-badge" title="Active Notebook" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--t1);padding:0 9px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+              <span id="ipad-current-book-name">📖 Notebook</span>
+            </div>
+            <button type="button" class="ipad-step-btn" id="ipad-pages-toggle-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 10px;font-size:12px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
           </div>
           
           <div class="ipad-page-stepper">
             <button type="button" class="ipad-step-btn" id="ipad-prev-page-btn" onclick="flipIpadPage(-1)" title="Previous Page">‹</button>
             <span class="ipad-page-counter" id="ipad-page-counter">Page 1 of 1</span>
             <button type="button" class="ipad-step-btn" id="ipad-next-page-btn" onclick="flipIpadPage(1)" title="Next Page">›</button>
-            <button type="button" class="ipad-step-btn" onclick="addIpadPage()" title="Add New Page" style="border-left:1px solid rgba(255,255,255,0.15);padding-left:6px;margin-left:2px;color:var(--act);">+ Page</button>
+            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-add-page-btn" onclick="addIpadPage()" title="Add New Page" style="border-left:1px solid rgba(255,255,255,0.15);padding-left:6px;margin-left:2px;color:var(--act);">+ Page</button>
           </div>
 
           <div style="display:flex;align-items:center;gap:6px;">
-            <div class="ipad-zoom-pill" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
+            <div class="ipad-zoom-pill ipad-edit-only" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
               <button type="button" class="ipad-step-btn" onclick="zoomIpad(-0.15)" title="Zoom Out" style="width:22px;height:24px;">−</button>
               <span id="ipad-zoom-val" style="font-size:11px;font-weight:800;min-width:34px;text-align:center;user-select:none;">100%</span>
               <button type="button" class="ipad-step-btn" onclick="zoomIpad(0.15)" title="Zoom In" style="width:22px;height:24px;">＋</button>
               <button type="button" class="ipad-step-btn" onclick="setIpadZoom(1.0)" title="Reset Zoom" style="font-size:10px;padding:0 5px;border-left:1px solid rgba(255,255,255,0.12);">Fit</button>
             </div>
-            <button type="button" class="ipad-step-btn" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
-            <button type="button" class="ipad-step-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
-            <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;color:var(--act);">👁️ View</button>
-            <button type="button" class="ipad-step-btn" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
+            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
+            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
+            <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);">✏️ Edit</button>
+            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
           </div>
         </div>
 
-        <!-- Penly & Apple Freeform Stylus Tool Dock -->
         <div class="ipad-stylus-dock">
           <!-- Primary Tool Switcher (Segmented Dock) -->
           <div class="ipad-tool-segmented">
@@ -8447,8 +8450,9 @@ function openNotebookInJournal(bookId){
   openJournal({ keepView: true });
   switchJournalMainView('notebook');
   loadIpadActivePage();
+  setIpadViewMode(true);
   const book = getJournalBookById(bookId);
-  showToast(`Opened "${book?.title || 'Notebook'}" 📓`);
+  showToast(`Opened "${book?.title || 'Notebook'}" 📖`);
 }
 
 function renderStudyWorkspace(){
@@ -10540,19 +10544,25 @@ function getIpadPagesForCurrentBook(){
 }
 
 function syncIpadNotebookSelect(){
-  const sel = document.getElementById('ipad-notebook-select');
-  if(!sel) return;
   const isVault = (isJournalVaultActive || (currentJournalBookId && currentJournalBookId.startsWith('vault_')));
   const books = isVault ? VAULT_JOURNAL_BOOKS : JOURNAL_BOOKS;
   if(!currentJournalBookId && books.length > 0){
     currentJournalBookId = books[0].id;
   }
-  let html = '';
-  books.forEach(b => {
-    const isSel = (b.id === currentJournalBookId) ? 'selected' : '';
-    html += `<option value="${escapeHtml(b.id)}" ${isSel}>${escapeHtml(b.emblem||(isVault?'🔐':'📖'))} ${escapeHtml(b.title)}</option>`;
-  });
-  sel.innerHTML = html;
+  const currentBook = books.find(b => b.id === currentJournalBookId) || books[0];
+  const nameEl = document.getElementById('ipad-current-book-name');
+  if(nameEl && currentBook){
+    nameEl.textContent = `${currentBook.emblem || (isVault ? '🔐' : '📖')} ${currentBook.title}`;
+  }
+  const sel = document.getElementById('ipad-notebook-select');
+  if(sel){
+    let html = '';
+    books.forEach(b => {
+      const isSel = (b.id === currentJournalBookId) ? 'selected' : '';
+      html += `<option value="${escapeHtml(b.id)}" ${isSel}>${escapeHtml(b.emblem||(isVault?'🔐':'📖'))} ${escapeHtml(b.title)}</option>`;
+    });
+    sel.innerHTML = html;
+  }
 }
 
 function handleIpadNotebookChange(bookId){
@@ -10957,10 +10967,10 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   clone.querySelectorAll(".canvas-item").forEach(el => {
     el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
   });
-  clone.querySelectorAll(".cbar-angles-popover, .cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
+  clone.querySelectorAll(".cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
     p.style.display = "none";
   });
-  clone.querySelectorAll("[class*=layer-popover], [class*=flow-popover], [data-action*=layer], [data-action*=flow]").forEach(el => el.remove());
+  clone.querySelectorAll(".cbar-angles-popover, [class*=layer-popover], [class*=flow-popover], [data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow]").forEach(el => el.remove());
   return clone.innerHTML;
 }
 
@@ -10968,7 +10978,6 @@ function buildCanvasItemBar(id, type, options={}){
   const hasFont = !!options.hasFont;
   const initialPt = options.initialPt || 16;
   const extraBtns = options.extraBtns || '';
-  const angle = options.angle !== undefined ? options.angle : 0;
   return `
     <div class="canvas-item-bar ${options.isMini ? 'mini' : ''}">
       <span class="canvas-drag-handle" title="Drag to move">⋮⋮ ${options.dragLabel || 'Move'}</span>
@@ -10980,7 +10989,6 @@ function buildCanvasItemBar(id, type, options={}){
           <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">${initialPt}pt</span> ▾</button>
           <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
         ` : ''}
-        <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">${angle}°</span></button>
         <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
       </div>
       ${hasFont ? `
@@ -11009,19 +11017,6 @@ function buildCanvasItemBar(id, type, options={}){
         <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 48)">48</button>
         <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 64)">64</button>
       </div>` : ''}
-      <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 0)">0° Flat</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -5)">-5° Subtle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 5)">+5° Subtle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -15)">-15° Angle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 15)">+15° Angle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -30)">-30° Tilt</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 30)">+30° Tilt</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -45)">-45° Corner</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 45)">+45° Corner</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 90)">90° Sideways ↕</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 180)">180° Invert</button>
-      </div>
     </div>
   `;
 }
@@ -11122,6 +11117,7 @@ function toggleIpadViewMode(){
 }
 function setIpadViewMode(isView){
   ipadIsViewMode = !!isView;
+  const frame = document.querySelector(".ipad-frame");
   const sheet = document.getElementById("ipad-paper-sheet");
   const editor = document.getElementById("ipad-page-editor");
   const title = document.getElementById("ipad-page-title");
@@ -11130,6 +11126,7 @@ function setIpadViewMode(isView){
   const inkSubbar = document.getElementById("ipad-ink-subbar");
   const inkCanvas = document.getElementById("ipad-ink-canvas");
 
+  if(frame) frame.classList.toggle("is-view-mode", ipadIsViewMode);
   if(sheet) sheet.classList.toggle("is-view-mode", ipadIsViewMode);
   if(editor) editor.contentEditable = ipadIsViewMode ? "false" : "true";
   if(title) title.readOnly = ipadIsViewMode;
@@ -11141,14 +11138,23 @@ function setIpadViewMode(isView){
   }
 
   if(toggleBtn){
-    toggleBtn.innerHTML = ipadIsViewMode ? "✏️ Edit" : "👁️ View";
-    toggleBtn.style.color = ipadIsViewMode ? "var(--acg)" : "var(--act)";
-    toggleBtn.title = ipadIsViewMode ? "Switch to Edit Mode" : "Switch to View Mode (Clean reading)";
+    if(ipadIsViewMode){
+      toggleBtn.innerHTML = "✏️ Edit";
+      toggleBtn.style.background = "var(--acc)";
+      toggleBtn.style.color = "var(--act)";
+      toggleBtn.style.borderColor = "var(--acb)";
+      toggleBtn.title = "Click Edit to open all tools and customize your journal";
+    } else {
+      toggleBtn.innerHTML = "👁️ View";
+      toggleBtn.style.background = "rgba(255,255,255,0.08)";
+      toggleBtn.style.color = "var(--t1)";
+      toggleBtn.style.borderColor = "rgba(255,255,255,0.2)";
+      toggleBtn.title = "Switch back to View Mode (Clean reading)";
+    }
   }
 
   if(dock){
-    dock.style.opacity = ipadIsViewMode ? "0.45" : "1";
-    dock.style.pointerEvents = ipadIsViewMode ? "none" : "auto";
+    dock.style.display = ipadIsViewMode ? "none" : "";
   }
   if(inkSubbar && ipadIsViewMode){
     inkSubbar.style.display = "none";
@@ -11157,11 +11163,15 @@ function setIpadViewMode(isView){
     inkCanvas.classList.remove("is-active", "is-eraser");
   }
 
+  document.querySelectorAll(".ipad-edit-only").forEach(el => {
+    el.style.display = ipadIsViewMode ? "none" : "";
+  });
+
   if(ipadIsViewMode){
     deselectAllCanvasItems();
-    showToast("👁️ View Mode: Clean distraction-free reading");
+    showToast("👁️ View Mode: Distraction-free reading. Click Edit to customize!");
   } else {
-    showToast("✏️ Edit Mode: Full editing enabled");
+    showToast("✏️ Edit Mode: All tools and options unlocked! ✨");
   }
 }
 
@@ -11194,11 +11204,11 @@ function upgradeLegacyIpadElements(editorEl){
       const barBtns = bar.querySelector(".canvas-bar-btns");
       const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
 
-      // Strip legacy layer & flow buttons and popovers completely
+      // Strip legacy buttons and popovers completely
       if(barBtns){
-        barBtns.querySelectorAll("[data-action*=layer], [data-action*=flow]").forEach(b => b.remove());
+        barBtns.querySelectorAll("[data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow]").forEach(b => b.remove());
       }
-      bar.querySelectorAll("[class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
+      bar.querySelectorAll(".cbar-angles-popover, [class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
 
       // Add font controls if text item and missing
       if(hasText && barBtns){
@@ -11218,24 +11228,6 @@ function upgradeLegacyIpadElements(editorEl){
           if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fontHtml);
           else barBtns.insertAdjacentHTML("beforeend", fontHtml);
         }
-      }
-
-      if(!bar.querySelector(".cbar-angles-popover")){
-        bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 0)">0° Flat</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -5)">-5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 5)">+5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -15)">-15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 15)">+15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -30)">-30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 30)">+30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -45)">-45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 45)">+45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 90)">90° Vertical ↕</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 180)">180° Invert</button>
-          </div>
-        `);
       }
 
       if(hasText && !bar.querySelector(".cbar-font-family-popover")){
@@ -11416,9 +11408,7 @@ function insertIpadWashiTape(pattern="washi-blush"){
     extraBtns: `
       <button type="button" class="cbar-btn" data-action="washi-pattern" title="Choose from 36 Tape Patterns Grid">🎨 Patterns</button>
       <button type="button" class="cbar-btn" data-action="washi-custom-color" title="Custom Tape Color Dial">🌈 Color</button>
-      <button type="button" class="cbar-btn" data-action="washi-thickness" title="Cycle Thickness">📏 Height</button>
       <button type="button" class="cbar-btn" data-action="washi-text-color" title="Text Color Dial & Intensity">✒️ Text Dial</button>
-      <button type="button" class="cbar-btn" data-action="rotate-step" title="Step Angle (+5°)">↻ <span class="cbar-angle-val">-6°</span></button>
     `
   });
 
@@ -11664,15 +11654,7 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "rotate" || action === "rotate-step"){
-    const angles = [0, 5, 15, 30, 45, 90, 180, -90, -45, -30, -15, -5];
-    const cur = Number(item.dataset.rotation || 0);
-    let idx = angles.indexOf(cur);
-    if(idx === -1) idx = 0;
-    const next = angles[(idx + 1) % angles.length];
-    applySpecificCanvasAngle(item.id, next);
-    return;
-  }
+  
 
   if(action === "box-style"){
     const styles = ["paper", "clear", "postit", "dark", "mint", "lavender"];
@@ -11716,15 +11698,7 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "toggle-angles"){
-    const popover = item.querySelector(".cbar-angles-popover");
-    if(popover){
-      const isShown = popover.style.display === "grid";
-      item.querySelectorAll(".cbar-font-family-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
-      popover.style.display = isShown ? "none" : "grid";
-    }
-    return;
-  }
+  
 
   if(action === "font-size"){
     const body = item.querySelector(".canvas-text-body");
@@ -11773,19 +11747,7 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "washi-thickness"){
-    const heights = [26, 40, 58, 80];
-    const curH = item.offsetHeight || 40;
-    let nextH = 40;
-    if(curH < 32) nextH = 40;
-    else if(curH < 48) nextH = 58;
-    else if(curH < 70) nextH = 80;
-    else nextH = 26;
-    item.style.height = nextH + "px";
-    queueIpadSave();
-    showToast("Tape thickness: " + nextH + "px 📏");
-    return;
-  }
+  
 
   if(action === "washi-custom-color"){
     const curColor = item.dataset.customColor || "#f48fb1";
@@ -11867,20 +11829,7 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "rotate-step"){
-    const angles = [0, 5, 15, 30, 45, 90, -45, -30, -15, -5];
-    const cur = Number(item.dataset.rotation || 0);
-    let idx = angles.indexOf(cur);
-    if(idx === -1) idx = 0;
-    const next = angles[(idx + 1) % angles.length];
-    item.dataset.rotation = "" + next;
-    item.style.transform = (next !== 0) ? ("rotate(" + next + "deg)") : "none";
-    const valEl = item.querySelector(".cbar-angle-val");
-    if(valEl) valEl.textContent = next + "°";
-    queueIpadSave();
-    showToast("Angle: " + next + "° ↻");
-    return;
-  }
+  
 
   if(action === "sticky-color"){
     const noteEl = item.querySelector(".journal-sticky-note");
