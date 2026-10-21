@@ -2343,10 +2343,9 @@ canvas#gc{display:block;width:100%;height:240px;}
   color:#fff;
 }
 
-/* Layer, Flow & PowerPoint-Style Font Popovers */
-.cbar-layer-popover,
-.cbar-flow-popover,
-.cbar-font-popover{
+/* PowerPoint-Style Font Size & Family Popovers */
+.cbar-font-popover,
+.cbar-font-family-popover{
   position:absolute;
   top:32px;
   right:0;
@@ -2356,22 +2355,29 @@ canvas#gc{display:block;width:100%;height:240px;}
   border:1px solid rgba(255,255,255,.18);
   border-radius:14px;
   padding:6px;
-  display:grid;
   gap:4px;
   box-shadow:0 12px 32px rgba(0,0,0,.45);
   z-index:250;
   min-width:185px;
 }
-[data-t=light] .cbar-layer-popover,
-[data-t=light] .cbar-flow-popover,
-[data-t=light] .cbar-font-popover{
+[data-t=light] .cbar-font-popover,
+[data-t=light] .cbar-font-family-popover{
   background:rgba(255,250,244,.98);
   border-color:rgba(131,98,74,.3);
   box-shadow:0 10px 26px rgba(104,76,56,.2);
 }
 .cbar-font-popover{
+  display:grid;
   grid-template-columns:repeat(4,1fr);
   min-width:190px;
+}
+.cbar-font-family-popover{
+  display:none;
+  flex-direction:column;
+  min-width:205px;
+  max-height:240px;
+  overflow-y:auto;
+  scrollbar-width:thin;
 }
 .cbar-pop-opt{
   height:28px;
@@ -4304,6 +4310,184 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     font-size:18px!important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE & TABLET RESPONSIVE ENGINE (PHONE & TABLET LAYOUT POLISH)
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 860px) {
+  /* Bookshelf Grid: 2 clean columns on phone, auto-fit on tablet */
+  .notebooks-shelf-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  /* Stylus Dock: Touch-friendly horizontal swipe bar without ugly jagged wrapping */
+  .ipad-stylus-dock {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    border-radius: 14px !important;
+  }
+  .ipad-stylus-dock::-webkit-scrollbar { display: none !important; }
+  .ipad-tool-segmented { flex-shrink: 0 !important; }
+  .ipad-tool-grp { flex-shrink: 0 !important; flex-wrap: nowrap !important; gap: 4px !important; }
+  .dock-divider { flex-shrink: 0 !important; margin: 0 1px !important; }
+  .dock-tool-btn { padding: 0 8px !important; font-size: 11px !important; height: 26px !important; }
+  .note-tool-btn { padding: 0 6px !important; font-size: 11px !important; height: 28px !important; }
+  .note-tool-select { height: 28px !important; font-size: 11px !important; }
+
+  /* Inking Subbar: Touch-friendly horizontal swipe bar */
+  .ipad-ink-subbar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    justify-content: flex-start !important;
+    padding: 5px 8px !important;
+    gap: 8px !important;
+    border-radius: 12px !important;
+  }
+  .ipad-ink-subbar::-webkit-scrollbar { display: none !important; }
+  .ink-sub-group { flex-shrink: 0 !important; }
+
+  /* Floating Item Bar: Never overflows screen width on mobile/tablet */
+  .canvas-item-bar {
+    max-width: calc(100vw - 24px) !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .canvas-item-bar::-webkit-scrollbar { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  /* Phone Bookshelf: 2 tidy columns */
+  .notebooks-shelf-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .notebook-cover-card {
+    padding: 14px 12px 12px 16px !important;
+    border-radius: 14px !important;
+  }
+  .notebook-cover-title {
+    font-size: 13.5px !important;
+  }
+  .notebook-cover-count {
+    font-size: 10.5px !important;
+  }
+
+  /* Top Control Bar on Phone */
+  .ipad-top-bar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+    padding: 3px 2px !important;
+  }
+  .ipad-notebook-meta {
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+    gap: 3px !important;
+  }
+  .ipad-notebook-select {
+    max-width: 105px !important;
+    font-size: 11px !important;
+    padding: 0 16px 0 6px !important;
+    height: 28px !important;
+    text-overflow: ellipsis !important;
+  }
+  .ipad-zoom-pill {
+    display: none !important; /* Mobile devices pinch-to-zoom natively */
+  }
+  .ipad-page-stepper {
+    padding: 1px 3px !important;
+  }
+  .ipad-page-counter {
+    font-size: 10.5px !important;
+    padding: 0 3px !important;
+  }
+  .ipad-step-btn {
+    height: 26px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* Compact Frame & Sheet for maximum screen space on Phone */
+  .ipad-stage {
+    padding: 2px 2px 20px !important;
+  }
+  .ipad-frame {
+    border-radius: 16px !important;
+    padding: 6px !important;
+    gap: 6px !important;
+  }
+  .ipad-screen-glass {
+    border-radius: 12px !important;
+  }
+  .ipad-paper-sheet {
+    padding: 14px 12px 28px !important;
+    min-height: 400px !important;
+    font-size: 15px !important;
+  }
+  .ipad-paper-title {
+    font-size: 18px !important;
+    padding: 2px 0 8px !important;
+    margin-bottom: 10px !important;
+  }
+  .ipad-side-tabs {
+    display: none !important; /* Hide side tabs on phone so canvas is 100% unobstructed */
+  }
+
+  /* Journal View Tabs scroll smoothly on phone */
+  .journal-view-tabs {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 2px !important;
+    margin-bottom: 8px !important;
+  }
+  .journal-view-tabs::-webkit-scrollbar { display: none !important; }
+  .jview-tab-btn {
+    height: 28px !important;
+    padding: 0 8px !important;
+    font-size: 11px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Modals on Phone */
+  .app-dialog-card {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+    max-height: 90vh !important;
+    width: 95vw !important;
+  }
+  .journal-bg-tabs, .washi-category-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    white-space: nowrap !important;
+    padding: 2px 0 !important;
+    gap: 4px !important;
+  }
+  .journal-bg-tabs::-webkit-scrollbar,
+  .washi-category-tabs::-webkit-scrollbar { display: none !important; }
+  .journal-bg-tab, .washi-category-tab {
+    flex-shrink: 0 !important;
+    padding: 0 10px !important;
+    height: 28px !important;
+    font-size: 11px !important;
+  }
+  .journal-bg-grid, .washi-pattern-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -5460,14 +5644,21 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <option value="blank">🤍 Blank Page</option>
             </select>
 
-            <select id="ipad-font-select" class="note-tool-select" onchange="applyIpadTypography()" style="min-width:135px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Handwriting Font Style">
+            <select id="ipad-font-select" class="note-tool-select" onchange="applyIpadTypography()" style="min-width:125px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Handwriting Font Style">
               <option value="patrick" selected>📝 Study Notebook</option>
               <option value="caveat">✨ Aesthetic Cursive</option>
               <option value="shantell">🌸 Modern Print</option>
               <option value="kalam">🖋️ Ink Ballpoint</option>
               <option value="architect">📐 Technical Hand</option>
               <option value="clean">Clean Sans</option>
+              <option value="serif">Vintage Serif</option>
+              <option value="mono">Typewriter Mono</option>
             </select>
+
+            <label class="ipad-font-page-toggle" title="Apply font to whole page. When unchecked, font only applies to selected text or text box." style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--t2);cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:0 7px;height:28px;user-select:none;white-space:nowrap;">
+              <input type="checkbox" id="ipad-font-whole-page" style="width:13px;height:13px;accent-color:var(--act);cursor:pointer;">
+              <span>Whole page</span>
+            </label>
 
             <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:1px 3px;gap:2px;">
               <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(-2)" title="Decrease Font Size (A-)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▾</button>
@@ -10435,7 +10626,9 @@ function loadIpadActivePage(){
   if(nextBtn) nextBtn.disabled = (currentJournalPageIndex >= pages.length - 1);
 
   applyIpadPaperStyle(activeNote.paperStyle || 'obsidian');
-  applyIpadTypography();
+  const wholePageCheck = document.getElementById('ipad-font-whole-page');
+  if(wholePageCheck) wholePageCheck.checked = false;
+  applyIpadTypography(true);
   upgradeLegacyIpadElements(editorEl);
   initIpadCanvasEngine();
   initIpadInkEngine();
@@ -10616,19 +10809,55 @@ function applyIpadPaperStyle(style){
   }
 }
 
-function applyIpadTypography(){
+function applyIpadTypography(forceWholePage = false){
   const editor = document.getElementById('ipad-page-editor');
   const sel = document.getElementById('ipad-font-select');
   if(!editor || !sel) return;
   const fontVal = sel.value;
   const fontCss = NOTE_FONT_MAP[fontVal] || NOTE_FONT_MAP.patrick || 'cursive';
-  editor.style.fontFamily = fontCss;
-  editor.dataset.noteFont = fontVal;
-  const note = getNoteById(currentNoteId);
-  if(note && note.fontFamily !== fontVal){
-    note.fontFamily = fontVal;
-    queueIpadSave();
+  const wholePageCheck = document.getElementById('ipad-font-whole-page');
+  const shouldApplyWhole = forceWholePage || (wholePageCheck && wholePageCheck.checked);
+
+  if(shouldApplyWhole){
+    editor.style.fontFamily = fontCss;
+    editor.dataset.noteFont = fontVal;
+    const note = getNoteById(currentNoteId);
+    if(note && note.fontFamily !== fontVal){
+      note.fontFamily = fontVal;
+      queueIpadSave();
+    }
+    if(!forceWholePage) showToast(`Whole page font: ${fontVal} 📄✨`);
+    return;
   }
+
+  // When "Whole page" is NOT checked:
+  // 1. Check if a canvas item (e.g. text box, washi) is currently selected
+  const selectedItem = editor.querySelector('.canvas-item.is-selected');
+  if(selectedItem){
+    setCanvasItemFontFamily(selectedItem.id, fontVal);
+    return;
+  }
+
+  // 2. Check if text is currently highlighted in the window selection
+  const userSel = window.getSelection();
+  if(userSel && !userSel.isCollapsed && userSel.rangeCount > 0){
+    try {
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('fontName', false, fontCss);
+      queueIpadSave();
+      showToast(`Font applied to selection ✨`);
+      return;
+    } catch(e) {}
+  }
+
+  // 3. Check if active element is inside a textbox
+  const activeBox = document.activeElement ? document.activeElement.closest('.canvas-item') : null;
+  if(activeBox){
+    setCanvasItemFontFamily(activeBox.id, fontVal);
+    return;
+  }
+
+  showToast(`Select text or a text box, or check "Whole page" 💡`);
 }
 
 function applyIpadHighlighter(color){
@@ -10728,9 +10957,10 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   clone.querySelectorAll(".canvas-item").forEach(el => {
     el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
   });
-  clone.querySelectorAll(".cbar-angles-popover, .cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
+  clone.querySelectorAll(".cbar-angles-popover, .cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
     p.style.display = "none";
   });
+  clone.querySelectorAll("[class*=layer-popover], [class*=flow-popover], [data-action*=layer], [data-action*=flow]").forEach(el => el.remove());
   return clone.innerHTML;
 }
 
@@ -10745,276 +10975,55 @@ function buildCanvasItemBar(id, type, options={}){
       <div class="canvas-bar-btns">
         ${extraBtns}
         ${hasFont ? `
+          <button type="button" class="cbar-btn" data-action="toggle-font-family" title="Choose Font Style"><span class="cbar-font-fam-label">Aa Font</span> ▾</button>
           <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
           <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">${initialPt}pt</span> ▾</button>
           <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
         ` : ''}
-        <button type="button" class="cbar-btn" data-action="toggle-layer" title="Depth Layer (Put Behind Text / In Front)">🥞 Layer ▾</button>
-        <button type="button" class="cbar-btn" data-action="toggle-flow" title="Text Flow (Floating / Wrap / Break)">🔄 Flow ▾</button>
         <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">${angle}°</span></button>
         <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
       </div>
-      <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
-        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Stack Order</div>
-        <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemToFront('${id}')">🔝 Bring to Front</button>
-        <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemForward('${id}')">⬆️ Bring Forward</button>
-        <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemBackward('${id}')">⬇️ Send Backward</button>
-        <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemToBack('${id}')">🔚 Send to Back</button>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:2px 0;"></div>
-        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Text Depth</div>
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
-      </div>
-      <div class="cbar-flow-popover" style="display:none;" onclick="event.stopPropagation()">
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'none')">✨ Free Floating</button>
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'left')">👈 Wrap Text Left</button>
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'right')">👉 Wrap Text Right</button>
-        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'clear')">⏬ Next Line (Break)</button>
-      </div>
       ${hasFont ? `
+      <div class="cbar-font-family-popover" style="display:none;" onclick="event.stopPropagation()">
+        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Font Style</div>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Patrick Hand',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'patrick')">📝 Study Notebook</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Caveat',cursive;font-size:14px;" onclick="setCanvasItemFontFamily('\${id}', 'caveat')">✨ Aesthetic Cursive</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Shantell Sans',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'shantell')">🌸 Modern Print</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Kalam',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'kalam')">🖋️ Ink Ballpoint</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Architects Daughter',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'architect')">📐 Technical Hand</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Segoe UI',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'clean')">🔤 Clean Sans</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:Georgia,serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'serif')">📜 Vintage Serif</button>
+        <button type="button" class="cbar-pop-opt" style="font-family:'Courier New',monospace;font-size:12.5px;" onclick="setCanvasItemFontFamily('\${id}', 'mono')">⌨️ Typewriter Mono</button>
+      </div>
       <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 12)">12</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 14)">14</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 16)">16</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 18)">18</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 20)">20</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 24)">24</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 28)">28</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 32)">32</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 36)">36</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 42)">42</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 48)">48</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 64)">64</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 12)">12</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 14)">14</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 16)">16</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 18)">18</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 20)">20</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 24)">24</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 28)">28</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 32)">32</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 36)">36</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 42)">42</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 48)">48</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 64)">64</button>
       </div>` : ''}
       <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Angle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Angle</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
-        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 0)">0° Flat</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -5)">-5° Subtle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 5)">+5° Subtle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -15)">-15° Angle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 15)">+15° Angle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -30)">-30° Tilt</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 30)">+30° Tilt</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -45)">-45° Corner</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 45)">+45° Corner</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 90)">90° Sideways ↕</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 180)">180° Invert</button>
       </div>
     </div>
   `;
-}
-
-function getCanvasItemsInStack(editor){
-  if(!editor) return [];
-  const items = Array.from(editor.querySelectorAll(".canvas-item"));
-  return items.map((el, domIdx) => {
-    const isBehind = el.classList.contains("is-behind-text");
-    const rawZ = parseInt(el.style.zIndex, 10);
-    const z = isNaN(rawZ) ? (isBehind ? -1 : 10) : rawZ;
-    return { el, isBehind, z, domIdx };
-  }).sort((a, b) => {
-    if(a.isBehind !== b.isBehind) return a.isBehind ? -1 : 1;
-    if(a.z !== b.z) return a.z - b.z;
-    return a.domIdx - b.domIdx;
-  }).map(obj => obj.el);
-}
-
-function bringCanvasItemToFront(itemId){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const editor = document.getElementById("ipad-page-editor");
-  if(!editor) return;
-
-  item.classList.remove("is-behind-text");
-  item.classList.add("is-front-text");
-
-  let maxZ = 10;
-  editor.querySelectorAll(".canvas-item").forEach(it => {
-    if(it !== item){
-      const z = parseInt(it.style.zIndex, 10);
-      if(!isNaN(z) && z > maxZ) maxZ = z;
-    }
-  });
-  item.style.zIndex = "" + (maxZ + 2);
-  editor.appendChild(item);
-  canvasMaxZIndex = Math.max(canvasMaxZIndex, maxZ + 2);
-
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-  queueIpadSave();
-  showToast("Layer: Brought to Top 🔝");
-}
-
-function sendCanvasItemToBack(itemId){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const editor = document.getElementById("ipad-page-editor");
-  if(!editor) return;
-
-  const allItems = Array.from(editor.querySelectorAll(".canvas-item")).filter(it => it !== item);
-
-  if(item.classList.contains("is-behind-text")){
-    let minZ = -1;
-    allItems.forEach(it => {
-      if(it.classList.contains("is-behind-text")){
-        const z = parseInt(it.style.zIndex, 10);
-        if(!isNaN(z) && z < minZ) minZ = z;
-      }
-    });
-    item.style.zIndex = "" + (minZ - 2);
-    if(allItems.length > 0) editor.insertBefore(item, allItems[0]);
-  } else {
-    let minZ = 10;
-    allItems.forEach(it => {
-      if(!it.classList.contains("is-behind-text")){
-        const z = parseInt(it.style.zIndex, 10);
-        if(!isNaN(z) && z < minZ) minZ = z;
-      }
-    });
-    item.style.zIndex = "" + Math.max(4, minZ - 2);
-    const firstFront = allItems.find(it => !it.classList.contains("is-behind-text"));
-    if(firstFront) editor.insertBefore(item, firstFront);
-    else if(allItems.length > 0) editor.insertBefore(item, allItems[0]);
-  }
-
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-  queueIpadSave();
-  showToast("Layer: Sent to Bottom 🔚");
-}
-
-function bringCanvasItemForward(itemId){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const editor = document.getElementById("ipad-page-editor");
-  if(!editor) return;
-
-  const stack = getCanvasItemsInStack(editor);
-  const idx = stack.indexOf(item);
-  if(idx === -1 || idx >= stack.length - 1){
-    showToast("Already at topmost layer 🔝");
-    const popover = item.querySelector(".cbar-layer-popover");
-    if(popover) popover.style.display = "none";
-    return;
-  }
-
-  const nextItem = stack[idx + 1];
-
-  if(item.classList.contains("is-behind-text") && !nextItem.classList.contains("is-behind-text")){
-    item.classList.remove("is-behind-text");
-    item.classList.add("is-front-text");
-    item.style.zIndex = "10";
-  }
-
-  if(nextItem.nextSibling){
-    editor.insertBefore(item, nextItem.nextSibling);
-  } else {
-    editor.appendChild(item);
-  }
-
-  const nextZ = parseInt(nextItem.style.zIndex, 10) || 10;
-  const curZ = parseInt(item.style.zIndex, 10) || 10;
-  if(curZ <= nextZ){
-    item.style.zIndex = "" + (nextZ + 1);
-  }
-  if(parseInt(item.style.zIndex, 10) > canvasMaxZIndex){
-    canvasMaxZIndex = parseInt(item.style.zIndex, 10);
-  }
-
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-  queueIpadSave();
-  showToast("Layer: Brought Forward ⬆️");
-}
-
-function sendCanvasItemBackward(itemId){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const editor = document.getElementById("ipad-page-editor");
-  if(!editor) return;
-
-  const stack = getCanvasItemsInStack(editor);
-  const idx = stack.indexOf(item);
-  if(idx <= 0){
-    showToast("Already at bottommost layer 🔚");
-    const popover = item.querySelector(".cbar-layer-popover");
-    if(popover) popover.style.display = "none";
-    return;
-  }
-
-  const prevItem = stack[idx - 1];
-
-  if(!item.classList.contains("is-behind-text") && prevItem.classList.contains("is-behind-text")){
-    item.classList.add("is-behind-text");
-    item.classList.remove("is-front-text");
-    item.style.zIndex = "-1";
-  }
-
-  editor.insertBefore(item, prevItem);
-
-  const prevZ = parseInt(prevItem.style.zIndex, 10) || 10;
-  const curZ = parseInt(item.style.zIndex, 10) || 10;
-  if(curZ >= prevZ){
-    item.style.zIndex = "" + Math.max(1, prevZ - 1);
-  }
-
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-  queueIpadSave();
-  showToast("Layer: Sent Backward ⬇️");
-}
-
-function setCanvasItemLayer(itemId, mode){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const editor = document.getElementById("ipad-page-editor");
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-
-  if(mode === "behind"){
-    item.classList.add("is-behind-text");
-    item.classList.remove("is-front-text");
-    item.style.zIndex = "-1";
-    if(editor && editor.firstChild && editor.firstChild !== item){
-      editor.insertBefore(item, editor.firstChild);
-    }
-    showToast("Layer: Sent behind text (Depth effect) 🥞");
-  } else if(mode === "front"){
-    item.classList.remove("is-behind-text");
-    item.classList.add("is-front-text");
-    const nextZ = Math.max(10, ++canvasMaxZIndex);
-    item.style.zIndex = "" + nextZ;
-    if(editor) editor.appendChild(item);
-    showToast("Layer: In front of text 🥞");
-  }
-  queueIpadSave();
-}
-
-function stepCanvasItemZIndex(itemId, delta){
-  if(delta > 0) bringCanvasItemForward(itemId);
-  else sendCanvasItemBackward(itemId);
-}
-
-function setCanvasItemFlow(itemId, flow){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  item.classList.remove("wrap-float-left", "wrap-float-right", "wrap-clear");
-  const popover = item.querySelector(".cbar-flow-popover");
-  if(popover) popover.style.display = "none";
-
-  if(flow === "left"){
-    item.classList.add("wrap-float-left");
-    showToast("Flow: Float Left & Wrap Right 👈");
-  } else if(flow === "right"){
-    item.classList.add("wrap-float-right");
-    showToast("Flow: Float Right & Wrap Left 👉");
-  } else if(flow === "clear"){
-    item.classList.add("wrap-clear");
-    showToast("Flow: Break to Next Line ⏬");
-  } else {
-    item.style.position = "absolute";
-    showToast("Flow: Free Floating ✨");
-  }
-  queueIpadSave();
 }
 
 function setCanvasItemFontSize(itemId, sizePt){
@@ -11033,6 +11042,35 @@ function setCanvasItemFontSize(itemId, sizePt){
   showToast("Font size: " + pt + "pt 🔠");
 }
 
+function setCanvasItemFontFamily(itemId, fontKey){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const fontCss = NOTE_FONT_MAP[fontKey] || NOTE_FONT_MAP.patrick;
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption") || item;
+  if(target){
+    target.style.fontFamily = fontCss;
+  }
+  item.dataset.customFont = fontKey;
+  const labelEl = item.querySelector(".cbar-font-fam-label");
+  if(labelEl){
+    const names = {
+      patrick: 'Study',
+      caveat: 'Cursive',
+      shantell: 'Print',
+      kalam: 'Ink',
+      architect: 'Hand',
+      clean: 'Sans',
+      serif: 'Serif',
+      mono: 'Mono'
+    };
+    labelEl.textContent = names[fontKey] || fontKey;
+  }
+  const popover = item.querySelector(".cbar-font-family-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Font: " + (fontKey || 'custom') + " ✍️");
+}
+
 function stepCanvasItemFontSize(itemId, deltaPt){
   const item = document.getElementById(itemId);
   if(!item) return;
@@ -11048,12 +11086,14 @@ function stepCanvasItemFontSize(itemId, deltaPt){
 function applyIpadNumericFontSize(sizeVal){
   const pt = Number(sizeVal) || 18;
   const editor = document.getElementById("ipad-page-editor");
-  if(editor){
-    editor.style.fontSize = pt + "px";
-  }
+  const wholePageCheck = document.getElementById('ipad-font-whole-page');
   const selectedItem = document.querySelector("#ipad-paper-sheet .canvas-item.is-selected");
   if(selectedItem){
     setCanvasItemFontSize(selectedItem.id, pt);
+  } else if(!wholePageCheck || wholePageCheck.checked || !selectedItem){
+    if(editor){
+      editor.style.fontSize = pt + "px";
+    }
   }
   const sel = document.getElementById("ipad-font-size-select");
   if(sel) sel.value = "" + pt;
@@ -11154,70 +11194,62 @@ function upgradeLegacyIpadElements(editorEl){
       const barBtns = bar.querySelector(".canvas-bar-btns");
       const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
 
-      // Add font controls if text item and missing
-      if(hasText && barBtns && !barBtns.querySelector("[data-action='toggle-font-sizes']")){
-        const delBtn = barBtns.querySelector(".del");
-        const fontHtml = `
-          <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
-          <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">16pt</span> ▾</button>
-          <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
-        `;
-        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fontHtml);
-        else barBtns.insertAdjacentHTML("beforeend", fontHtml);
+      // Strip legacy layer & flow buttons and popovers completely
+      if(barBtns){
+        barBtns.querySelectorAll("[data-action*=layer], [data-action*=flow]").forEach(b => b.remove());
       }
+      bar.querySelectorAll("[class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
 
-      // Add layer & flow buttons if missing
-      if(barBtns && !barBtns.querySelector("[data-action='toggle-layer']")){
-        const delBtn = barBtns.querySelector(".del");
-        const layerFlowHtml = `
-          <button type="button" class="cbar-btn" data-action="toggle-layer" title="Depth Layer (Put Behind Text / In Front)">🥞 Layer ▾</button>
-          <button type="button" class="cbar-btn" data-action="toggle-flow" title="Text Flow (Floating / Wrap / Break)">🔄 Flow ▾</button>
-        `;
-        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", layerFlowHtml);
-        else barBtns.insertAdjacentHTML("beforeend", layerFlowHtml);
+      // Add font controls if text item and missing
+      if(hasText && barBtns){
+        if(!barBtns.querySelector("[data-action='toggle-font-family']")){
+          const target = barBtns.querySelector("[data-action='step-font-down']") || barBtns.querySelector(".del");
+          const famBtn = `<button type="button" class="cbar-btn" data-action="toggle-font-family" title="Font Style"><span class="cbar-font-fam-label">Aa Font</span> ▾</button>`;
+          if(target) target.insertAdjacentHTML("beforebegin", famBtn);
+          else barBtns.insertAdjacentHTML("afterbegin", famBtn);
+        }
+        if(!barBtns.querySelector("[data-action='toggle-font-sizes']")){
+          const delBtn = barBtns.querySelector(".del");
+          const fontHtml = `
+            <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
+            <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">16pt</span> ▾</button>
+            <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
+          `;
+          if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fontHtml);
+          else barBtns.insertAdjacentHTML("beforeend", fontHtml);
+        }
       }
 
       if(!bar.querySelector(".cbar-angles-popover")){
         bar.insertAdjacentHTML("beforeend", `
           <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Scrapbook</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 0)">0° Flat</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -5)">-5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 5)">+5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -15)">-15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 15)">+15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -30)">-30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 30)">+30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', -45)">-45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 45)">+45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 90)">90° Vertical ↕</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('\${id}', 180)">180° Invert</button>
           </div>
         `);
       }
 
-      if(!bar.querySelector(".cbar-layer-popover")){
+      if(hasText && !bar.querySelector(".cbar-font-family-popover")){
         bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
-            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Stack Order</div>
-            <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemToFront('${id}')">🔝 Bring to Front</button>
-            <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemForward('${id}')">⬆️ Bring Forward</button>
-            <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemBackward('${id}')">⬇️ Send Backward</button>
-            <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemToBack('${id}')">🔚 Send to Back</button>
-            <div style="height:1px;background:rgba(255,255,255,.1);margin:2px 0;"></div>
-            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Text Depth</div>
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
-          </div>
-        `);
-      }
-
-      if(!bar.querySelector(".cbar-flow-popover")){
-        bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-flow-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'none')">✨ Free Floating</button>
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'left')">👈 Wrap Text Left</button>
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'right')">👉 Wrap Text Right</button>
-            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'clear')">⏬ Next Line (Break)</button>
+          <div class="cbar-font-family-popover" style="display:none;" onclick="event.stopPropagation()">
+            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Font Style</div>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Patrick Hand',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'patrick')">📝 Study Notebook</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Caveat',cursive;font-size:14px;" onclick="setCanvasItemFontFamily('\${id}', 'caveat')">✨ Aesthetic Cursive</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Shantell Sans',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'shantell')">🌸 Modern Print</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Kalam',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'kalam')">🖋️ Ink Ballpoint</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Architects Daughter',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'architect')">📐 Technical Hand</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Segoe UI',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'clean')">🔤 Clean Sans</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:Georgia,serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'serif')">📜 Vintage Serif</button>
+            <button type="button" class="cbar-pop-opt" style="font-family:'Courier New',monospace;font-size:12.5px;" onclick="setCanvasItemFontFamily('\${id}', 'mono')">⌨️ Typewriter Mono</button>
           </div>
         `);
       }
@@ -11225,20 +11257,28 @@ function upgradeLegacyIpadElements(editorEl){
       if(hasText && !bar.querySelector(".cbar-font-popover")){
         bar.insertAdjacentHTML("beforeend", `
           <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 12)">12</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 14)">14</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 16)">16</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 18)">18</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 20)">20</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 24)">24</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 28)">28</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 32)">32</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 36)">36</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 42)">42</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 48)">48</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 64)">64</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 12)">12</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 14)">14</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 16)">16</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 18)">18</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 20)">20</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 24)">24</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 28)">28</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 32)">32</button>
           </div>
         `);
+      }
+
+      // Restore custom font if saved
+      if(item.dataset.customFont){
+        const fontCss = NOTE_FONT_MAP[item.dataset.customFont] || item.dataset.customFont;
+        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body');
+        if(body) body.style.fontFamily = fontCss;
+        const famLabel = item.querySelector('.cbar-font-fam-label');
+        if(famLabel){
+          const names = { patrick: 'Study', caveat: 'Cursive', shantell: 'Print', kalam: 'Ink', architect: 'Hand', clean: 'Sans', serif: 'Serif', mono: 'Mono' };
+          famLabel.textContent = names[item.dataset.customFont] || item.dataset.customFont;
+        }
       }
     }
   });
@@ -11646,22 +11686,12 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "toggle-layer"){
-    const popover = item.querySelector(".cbar-layer-popover");
+  if(action === "toggle-font-family"){
+    const popover = item.querySelector(".cbar-font-family-popover");
     if(popover){
-      const isShown = popover.style.display === "grid";
-      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
-      popover.style.display = isShown ? "none" : "grid";
-    }
-    return;
-  }
-
-  if(action === "toggle-flow"){
-    const popover = item.querySelector(".cbar-flow-popover");
-    if(popover){
-      const isShown = popover.style.display === "grid";
-      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
-      popover.style.display = isShown ? "none" : "grid";
+      const isShown = popover.style.display === "flex";
+      item.querySelectorAll(".cbar-font-family-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      popover.style.display = isShown ? "none" : "flex";
     }
     return;
   }
@@ -11670,7 +11700,7 @@ function handleCanvasAction(btn, e){
     const popover = item.querySelector(".cbar-font-popover");
     if(popover){
       const isShown = popover.style.display === "grid";
-      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      item.querySelectorAll(".cbar-font-family-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
       popover.style.display = isShown ? "none" : "grid";
     }
     return;
@@ -11690,7 +11720,7 @@ function handleCanvasAction(btn, e){
     const popover = item.querySelector(".cbar-angles-popover");
     if(popover){
       const isShown = popover.style.display === "grid";
-      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      item.querySelectorAll(".cbar-font-family-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
       popover.style.display = isShown ? "none" : "grid";
     }
     return;
