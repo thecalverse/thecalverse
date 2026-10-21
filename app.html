@@ -1551,19 +1551,19 @@ canvas#gc{display:block;width:100%;height:240px;}
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:180;
+  z-index:50;
   touch-action:none;
   border-radius:inherit;
 }
 .ipad-ink-canvas.is-active{
   pointer-events:auto;
   cursor:crosshair;
-  z-index:220;
+  z-index:50;
 }
 .ipad-ink-canvas.is-eraser{
   pointer-events:auto;
   cursor:cell;
-  z-index:220;
+  z-index:50;
 }
 .ipad-ink-canvas.is-highlighter{
   mix-blend-mode:multiply;
@@ -1864,8 +1864,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   color:inherit;
   line-height:1.75;
   word-break:break-word;
-  z-index:5;
-  isolation:isolate;
+  z-index:auto;
 }
 .ipad-paper-canvas > :not(.canvas-item){
   position:relative;
@@ -1883,18 +1882,24 @@ canvas#gc{display:block;width:100%;height:240px;}
   touch-action:none;
   user-select:none;
   box-sizing:border-box;
-  z-index:10;
+  z-index:80;
   transform-origin:center center;
   transition:box-shadow .15s ease;
 }
+.canvas-item.is-below-ink{
+  z-index:20 !important;
+}
+.canvas-item.is-below-ink.is-selected{
+  z-index:250 !important;
+}
 .canvas-item.is-behind-text{
-  z-index:-1;
+  z-index:20;
 }
 .canvas-item.is-behind-text.is-selected{
-  z-index:120;
+  z-index:250;
 }
 .canvas-item.is-front-text{
-  z-index:10;
+  z-index:80;
 }
 .canvas-item.wrap-float-left{
   position:relative!important;
@@ -1902,7 +1907,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   margin:10px 18px 10px 0!important;
   top:auto!important;
   left:auto!important;
-  z-index:15!important;
+  z-index:85!important;
 }
 .canvas-item.wrap-float-right{
   position:relative!important;
@@ -1910,7 +1915,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   margin:10px 0 10px 18px!important;
   top:auto!important;
   left:auto!important;
-  z-index:15!important;
+  z-index:85!important;
 }
 .canvas-item.wrap-clear{
   position:relative!important;
@@ -1919,11 +1924,12 @@ canvas#gc{display:block;width:100%;height:240px;}
   margin:16px auto!important;
   top:auto!important;
   left:auto!important;
-  z-index:15!important;
+  z-index:85!important;
 }
 .canvas-item.is-selected{
   outline:2px dashed var(--act);
   outline-offset:3px;
+  z-index:250 !important;
 }
 .canvas-item.is-dragging{
   opacity:.88;
@@ -7056,6 +7062,11 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
     textColorMode,
     bookId: typeof note.bookId==='string'?note.bookId:'',
     paperStyle: typeof note.paperStyle==='string'?note.paperStyle:'ruled',
+    pageBg: typeof note.pageBg==='string'?note.pageBg:(note.pageBg||null),
+    pageBgId: typeof note.pageBgId==='string'?note.pageBgId:(note.pageBgId||null),
+    pageBgDim: (note.pageBgDim !== undefined && note.pageBgDim !== null) ? Number(note.pageBgDim) : 100,
+    inkStrokes: Array.isArray(note.inkStrokes) ? note.inkStrokes : [],
+    tags: Array.isArray(note.tags) ? note.tags : [],
     isVault: !!isVault
   };
   if(fromTrash){
@@ -10289,14 +10300,14 @@ function applyJournalPaperBackground(bg){
     note.pageBg = null;
     note.pageBgId = bg.id;
     applyPageBackgroundToSheet(null);
-    queueIpadSave();
+    saveCurrentIpadPage(false);
     renderJournalBackgroundGrid(journalBgActiveCategory);
     showToast(`Background set: ${bg.name} ✨`);
   } else if(bg.value){
     note.pageBg = bg.value;
     note.pageBgId = bg.id;
     applyPageBackgroundToSheet(note.pageBg, note.pageBgDim || 100);
-    queueIpadSave();
+    saveCurrentIpadPage(false);
     renderJournalBackgroundGrid(journalBgActiveCategory);
     showToast(`Custom background set 🖼️✨`);
   }
@@ -10308,7 +10319,7 @@ function applyJournalPageBackground(bgValue, bgId = null){
   note.pageBg = bgValue;
   if(bgId) note.pageBgId = bgId;
   applyPageBackgroundToSheet(note.pageBg, note.pageBgDim || 100);
-  queueIpadSave();
+  saveCurrentIpadPage(false);
   renderJournalBackgroundGrid(journalBgActiveCategory);
   showToast('Page background set 🖼️✨');
 }
@@ -10321,7 +10332,7 @@ function removeJournalPageBackground(){
   note.paperStyle = 'blank';
   applyPageBackgroundToSheet(null);
   applyIpadPaperStyle('blank');
-  queueIpadSave();
+  saveCurrentIpadPage(false);
   renderJournalBackgroundGrid(journalBgActiveCategory);
   showToast('Background removed from page 🚫');
 }
@@ -10334,7 +10345,7 @@ function resetToObsidianGrid(){
   note.paperStyle = 'obsidian';
   applyPageBackgroundToSheet(null);
   applyIpadPaperStyle('obsidian');
-  queueIpadSave();
+  saveCurrentIpadPage(false);
   renderJournalBackgroundGrid(journalBgActiveCategory);
   showToast('Reset to Obsidian Black Grid 🖤');
 }
@@ -12101,7 +12112,16 @@ function saveCurrentIpadPage(showFeedback=false){
   note.fontFamily = nextFont;
   note.paperStyle = nextPaper;
   if(note.pageBg !== undefined) note.pageBg = note.pageBg;
+  if(note.pageBgId !== undefined) note.pageBgId = note.pageBgId;
   if(note.pageBgDim !== undefined) note.pageBgDim = note.pageBgDim;
+  const bgLayer = document.getElementById('ipad-paper-bg-layer');
+  if(bgLayer && bgLayer.classList.contains('is-active') && !note.pageBg){
+    const bgImg = bgLayer.style.backgroundImage;
+    if(bgImg && bgImg !== 'none'){
+      const m = bgImg.match(/^url\(['"]?(.*?)['"]?\)$/);
+      if(m && m[1]) note.pageBg = m[1];
+    }
+  }
   note.inkStrokes = currentInkStrokes || [];
   note.updatedAt = Date.now();
   const isVault = (note.isVault || (note.id && note.id.startsWith('vault_')) || isJournalVaultActive);
@@ -12508,11 +12528,13 @@ function buildCanvasItemBar(id, type, options={}){
   const initialFont = options.initialFont || 'patrick';
   const extraBtns = options.extraBtns || '';
   const cleanId = String(id).replace(/[^a-zA-Z0-9_-]/g, '');
+  const isBelow = !!options.isBelowInk;
   return `
     <div class="canvas-item-bar ${options.isMini ? 'mini' : ''}">
       <span class="canvas-drag-handle" title="Drag to move">⋮⋮ ${options.dragLabel || 'Move'}</span>
       <div class="canvas-bar-btns">
         ${extraBtns}
+        <button type="button" class="cbar-btn cbar-layer-btn" data-action="toggle-ink-layer" title="Layer: Put below written pen/highlighter or bring above">${isBelow ? '⬆️ Over Ink' : '⬇️ Below Ink'}</button>
         ${hasFont ? buildCanvasItemTypographyHtml(cleanId, initialFont, initialPt) : ''}
         <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
       </div>
@@ -12834,6 +12856,20 @@ function upgradeLegacyIpadElements(editorEl){
       bar.querySelectorAll(".cbar-angles-popover, .cbar-font-family-popover, .cbar-font-popover, [class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
       if(barBtns){
         barBtns.querySelectorAll("[data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow], [data-action='toggle-font-family'], [data-action='toggle-font-sizes'], [data-action='step-font-down'], [data-action='step-font-up']").forEach(b => b.remove());
+      }
+
+      // Add layer toggle button (Below/Over Ink) if missing
+      if(barBtns && !barBtns.querySelector("[data-action='toggle-ink-layer']")){
+        const delBtn = barBtns.querySelector(".del");
+        const isBelow = item.classList.contains("is-below-ink");
+        const layerBtnHtml = `<button type="button" class="cbar-btn cbar-layer-btn" data-action="toggle-ink-layer" title="Layer: Put below written pen/highlighter or bring above">${isBelow ? '⬆️ Over Ink' : '⬇️ Below Ink'}</button>`;
+        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", layerBtnHtml);
+        else barBtns.insertAdjacentHTML("beforeend", layerBtnHtml);
+      }
+      if(item.classList.contains("is-below-ink")){
+        item.style.zIndex = "20";
+        const lBtn = barBtns?.querySelector("[data-action='toggle-ink-layer']");
+        if(lBtn) lBtn.textContent = "⬆️ Over Ink";
       }
 
       // Add combined typography pill if text item and missing
@@ -13274,6 +13310,25 @@ function handleCanvasAction(btn, e){
     item.remove();
     queueIpadSave();
     showToast("Deleted 🗑️");
+    return;
+  }
+
+  if(action === "toggle-ink-layer"){
+    const isBelow = item.classList.toggle("is-below-ink");
+    if(isBelow){
+      item.dataset.layer = "below-ink";
+      item.style.zIndex = "20";
+      btn.textContent = "⬆️ Over Ink";
+      btn.title = "Bring item above written pen / highlighter strokes";
+      showToast("Placed below written pen & highlighter ⬇️✨");
+    } else {
+      item.dataset.layer = "above-ink";
+      item.style.zIndex = "" + (++canvasMaxZIndex);
+      btn.textContent = "⬇️ Below Ink";
+      btn.title = "Put item below written pen / highlighter strokes";
+      showToast("Brought above written pen & highlighter ⬆️✨");
+    }
+    queueIpadSave();
     return;
   }
 
@@ -14277,6 +14332,122 @@ function initIpadInkEngine(){
 
   canvas.addEventListener("pointerdown", (e) => {
     if(ipadActiveTool !== "pen" && ipadActiveTool !== "highlighter" && ipadActiveTool !== "eraser") return;
+
+    // Check if user clicked on a toolbar button, handle, or item
+    const elements = document.elementsFromPoint(e.clientX, e.clientY);
+    const cbarBtn = elements.find(el => el.classList && el.classList.contains("cbar-btn"));
+    if(cbarBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      const item = cbarBtn.closest(".canvas-item");
+      if(item) selectCanvasItem(item);
+      handleCanvasAction(cbarBtn, e);
+      return;
+    }
+
+    const rotateHandle = elements.find(el => el.classList && el.classList.contains("canvas-rotate-handle"));
+    if(rotateHandle){
+      const item = rotateHandle.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { rotateHandle.setPointerCapture(e.pointerId); } catch(_){}
+        const rect = item.getBoundingClientRect();
+        activeRotateState = {
+          pointerId: e.pointerId,
+          handle: rotateHandle,
+          item: item,
+          centerX: rect.left + rect.width / 2,
+          centerY: rect.top + rect.height / 2
+        };
+        item.classList.add("is-rotating");
+        return;
+      }
+    }
+
+    const resizeHandle = elements.find(el => el.classList && (el.classList.contains("canvas-resize-handle") || (typeof el.className === "string" && el.className.includes("canvas-resize-"))));
+    if(resizeHandle){
+      const item = resizeHandle.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
+        const dir = resizeHandle.dataset.dir || "se";
+        const textTarget = item.querySelector(".washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body, .canvas-photo-caption");
+        let initialFs = 16;
+        if(textTarget){
+          initialFs = parseFloat(window.getComputedStyle(textTarget).fontSize) || 16;
+        }
+        activeResizeState = {
+          pointerId: e.pointerId,
+          handle: resizeHandle,
+          item: item,
+          dir: dir,
+          startX: e.clientX,
+          startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop,
+          startWidth: item.offsetWidth,
+          startHeight: item.offsetHeight,
+          startFontSize: initialFs,
+          textTarget: textTarget,
+          type: item.dataset.type || ""
+        };
+        item.classList.add("is-resizing");
+        return;
+      }
+    }
+
+    const dragHandle = elements.find(el => el.classList && (el.classList.contains("canvas-drag-handle") || el.classList.contains("canvas-item-bar")));
+    if(dragHandle){
+      const item = dragHandle.closest(".canvas-item");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        try { dragHandle.setPointerCapture(e.pointerId); } catch(_){}
+        activeDragState = {
+          pointerId: e.pointerId,
+          handle: dragHandle,
+          item: item,
+          startX: e.clientX,
+          startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop
+        };
+        item.classList.add("is-dragging");
+        return;
+      }
+    }
+
+    const item = elements.find(el => el.classList && (el.classList.contains("canvas-item") || el.closest(".canvas-item")))?.closest(".canvas-item");
+    if(item){
+      // If item was intentionally placed below ink, let pen/highlighter draw over it!
+      if(item.classList.contains("is-below-ink") && (ipadActiveTool === "pen" || ipadActiveTool === "highlighter")){
+        // proceed to drawing ink over the item below
+      } else {
+        // Direct move for tape, photo, sticker, sticky note even when pen mode is ON!
+        e.preventDefault();
+        e.stopPropagation();
+        selectCanvasItem(item);
+        const dragTarget = elements.find(el => el.classList && (el.classList.contains("canvas-photo-card") || el.classList.contains("washi-tape-strip") || el.classList.contains("canvas-sticker-glyph") || el.classList.contains("journal-sticky-note") || el.classList.contains("canvas-shape-container"))) || item;
+        try { dragTarget.setPointerCapture(e.pointerId); } catch(_){}
+        activeDragState = {
+          pointerId: e.pointerId,
+          handle: dragTarget,
+          item: item,
+          startX: e.clientX,
+          startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop
+        };
+        item.classList.add("is-dragging");
+        return;
+      }
+    }
+
     e.preventDefault();
     e.stopPropagation();
     try { canvas.setPointerCapture(e.pointerId); } catch(_){}
@@ -14298,6 +14469,7 @@ function initIpadInkEngine(){
   });
 
   canvas.addEventListener("pointermove", (e) => {
+    if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk || !currentStroke) return;
     e.preventDefault();
     const pt = getInkCanvasCoords(e, canvas);
@@ -14306,6 +14478,7 @@ function initIpadInkEngine(){
   });
 
   function stopInkDrawing(e){
+    if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk) return;
     isDrawingInk = false;
     try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
