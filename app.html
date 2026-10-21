@@ -1698,6 +1698,11 @@ canvas#gc{display:block;width:100%;height:240px;}
   line-height:1.75;
   word-break:break-word;
   z-index:5;
+  isolation:isolate;
+}
+.ipad-paper-canvas > :not(.canvas-item){
+  position:relative;
+  z-index:2;
 }
 .ipad-paper-canvas:empty::before{
   content:attr(data-placeholder);
@@ -1716,10 +1721,13 @@ canvas#gc{display:block;width:100%;height:240px;}
   transition:box-shadow .15s ease;
 }
 .canvas-item.is-behind-text{
-  z-index:2!important;
+  z-index:-1;
+}
+.canvas-item.is-behind-text.is-selected{
+  z-index:120;
 }
 .canvas-item.is-front-text{
-  z-index:50!important;
+  z-index:10;
 }
 .canvas-item.wrap-float-left{
   position:relative!important;
@@ -2303,8 +2311,8 @@ canvas#gc{display:block;width:100%;height:240px;}
   display:grid;
   gap:4px;
   box-shadow:0 12px 32px rgba(0,0,0,.45);
-  z-index:130;
-  min-width:175px;
+  z-index:250;
+  min-width:185px;
 }
 [data-t=light] .cbar-layer-popover,
 [data-t=light] .cbar-flow-popover,
@@ -9607,10 +9615,15 @@ function buildCanvasItemBar(id, type, options={}){
         <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
       </div>
       <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
+        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Stack Order</div>
+        <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemToFront('${id}')">🔝 Bring to Front</button>
+        <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemForward('${id}')">⬆️ Bring Forward</button>
+        <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemBackward('${id}')">⬇️ Send Backward</button>
+        <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemToBack('${id}')">🔚 Send to Back</button>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:2px 0;"></div>
+        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Text Depth</div>
         <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
         <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
-        <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', 1)">⬆️ Bring Forward (+1)</button>
-        <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', -1)">⬇️ Send Backward (-1)</button>
       </div>
       <div class="cbar-flow-popover" style="display:none;" onclick="event.stopPropagation()">
         <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'none')">✨ Free Floating</button>
@@ -9650,37 +9663,195 @@ function buildCanvasItemBar(id, type, options={}){
   `;
 }
 
+function getCanvasItemsInStack(editor){
+  if(!editor) return [];
+  const items = Array.from(editor.querySelectorAll(".canvas-item"));
+  return items.map((el, domIdx) => {
+    const isBehind = el.classList.contains("is-behind-text");
+    const rawZ = parseInt(el.style.zIndex, 10);
+    const z = isNaN(rawZ) ? (isBehind ? -1 : 10) : rawZ;
+    return { el, isBehind, z, domIdx };
+  }).sort((a, b) => {
+    if(a.isBehind !== b.isBehind) return a.isBehind ? -1 : 1;
+    if(a.z !== b.z) return a.z - b.z;
+    return a.domIdx - b.domIdx;
+  }).map(obj => obj.el);
+}
+
+function bringCanvasItemToFront(itemId){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+
+  item.classList.remove("is-behind-text");
+  item.classList.add("is-front-text");
+
+  let maxZ = 10;
+  editor.querySelectorAll(".canvas-item").forEach(it => {
+    if(it !== item){
+      const z = parseInt(it.style.zIndex, 10);
+      if(!isNaN(z) && z > maxZ) maxZ = z;
+    }
+  });
+  item.style.zIndex = "" + (maxZ + 2);
+  editor.appendChild(item);
+  canvasMaxZIndex = Math.max(canvasMaxZIndex, maxZ + 2);
+
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Layer: Brought to Top 🔝");
+}
+
+function sendCanvasItemToBack(itemId){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+
+  const allItems = Array.from(editor.querySelectorAll(".canvas-item")).filter(it => it !== item);
+
+  if(item.classList.contains("is-behind-text")){
+    let minZ = -1;
+    allItems.forEach(it => {
+      if(it.classList.contains("is-behind-text")){
+        const z = parseInt(it.style.zIndex, 10);
+        if(!isNaN(z) && z < minZ) minZ = z;
+      }
+    });
+    item.style.zIndex = "" + (minZ - 2);
+    if(allItems.length > 0) editor.insertBefore(item, allItems[0]);
+  } else {
+    let minZ = 10;
+    allItems.forEach(it => {
+      if(!it.classList.contains("is-behind-text")){
+        const z = parseInt(it.style.zIndex, 10);
+        if(!isNaN(z) && z < minZ) minZ = z;
+      }
+    });
+    item.style.zIndex = "" + Math.max(4, minZ - 2);
+    const firstFront = allItems.find(it => !it.classList.contains("is-behind-text"));
+    if(firstFront) editor.insertBefore(item, firstFront);
+    else if(allItems.length > 0) editor.insertBefore(item, allItems[0]);
+  }
+
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Layer: Sent to Bottom 🔚");
+}
+
+function bringCanvasItemForward(itemId){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+
+  const stack = getCanvasItemsInStack(editor);
+  const idx = stack.indexOf(item);
+  if(idx === -1 || idx >= stack.length - 1){
+    showToast("Already at topmost layer 🔝");
+    const popover = item.querySelector(".cbar-layer-popover");
+    if(popover) popover.style.display = "none";
+    return;
+  }
+
+  const nextItem = stack[idx + 1];
+
+  if(item.classList.contains("is-behind-text") && !nextItem.classList.contains("is-behind-text")){
+    item.classList.remove("is-behind-text");
+    item.classList.add("is-front-text");
+    item.style.zIndex = "10";
+  }
+
+  if(nextItem.nextSibling){
+    editor.insertBefore(item, nextItem.nextSibling);
+  } else {
+    editor.appendChild(item);
+  }
+
+  const nextZ = parseInt(nextItem.style.zIndex, 10) || 10;
+  const curZ = parseInt(item.style.zIndex, 10) || 10;
+  if(curZ <= nextZ){
+    item.style.zIndex = "" + (nextZ + 1);
+  }
+  if(parseInt(item.style.zIndex, 10) > canvasMaxZIndex){
+    canvasMaxZIndex = parseInt(item.style.zIndex, 10);
+  }
+
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Layer: Brought Forward ⬆️");
+}
+
+function sendCanvasItemBackward(itemId){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+
+  const stack = getCanvasItemsInStack(editor);
+  const idx = stack.indexOf(item);
+  if(idx <= 0){
+    showToast("Already at bottommost layer 🔚");
+    const popover = item.querySelector(".cbar-layer-popover");
+    if(popover) popover.style.display = "none";
+    return;
+  }
+
+  const prevItem = stack[idx - 1];
+
+  if(!item.classList.contains("is-behind-text") && prevItem.classList.contains("is-behind-text")){
+    item.classList.add("is-behind-text");
+    item.classList.remove("is-front-text");
+    item.style.zIndex = "-1";
+  }
+
+  editor.insertBefore(item, prevItem);
+
+  const prevZ = parseInt(prevItem.style.zIndex, 10) || 10;
+  const curZ = parseInt(item.style.zIndex, 10) || 10;
+  if(curZ >= prevZ){
+    item.style.zIndex = "" + Math.max(1, prevZ - 1);
+  }
+
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Layer: Sent Backward ⬇️");
+}
+
 function setCanvasItemLayer(itemId, mode){
   const item = document.getElementById(itemId);
   if(!item) return;
+  const editor = document.getElementById("ipad-page-editor");
   const popover = item.querySelector(".cbar-layer-popover");
   if(popover) popover.style.display = "none";
 
   if(mode === "behind"){
     item.classList.add("is-behind-text");
     item.classList.remove("is-front-text");
-    item.style.zIndex = "2";
+    item.style.zIndex = "-1";
+    if(editor && editor.firstChild && editor.firstChild !== item){
+      editor.insertBefore(item, editor.firstChild);
+    }
     showToast("Layer: Sent behind text (Depth effect) 🥞");
   } else if(mode === "front"){
     item.classList.remove("is-behind-text");
     item.classList.add("is-front-text");
-    item.style.zIndex = "" + (++canvasMaxZIndex);
+    const nextZ = Math.max(10, ++canvasMaxZIndex);
+    item.style.zIndex = "" + nextZ;
+    if(editor) editor.appendChild(item);
     showToast("Layer: In front of text 🥞");
   }
   queueIpadSave();
 }
 
 function stepCanvasItemZIndex(itemId, delta){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const curZ = parseInt(item.style.zIndex || window.getComputedStyle(item).zIndex) || 10;
-  const nextZ = Math.max(1, curZ + delta);
-  item.style.zIndex = "" + nextZ;
-  if(nextZ > canvasMaxZIndex) canvasMaxZIndex = nextZ;
-  const popover = item.querySelector(".cbar-layer-popover");
-  if(popover) popover.style.display = "none";
-  queueIpadSave();
-  showToast("Layer depth: Z-" + nextZ);
+  if(delta > 0) bringCanvasItemForward(itemId);
+  else sendCanvasItemBackward(itemId);
 }
 
 function setCanvasItemFlow(itemId, flow){
@@ -9887,10 +10058,15 @@ function upgradeLegacyIpadElements(editorEl){
       if(!bar.querySelector(".cbar-layer-popover")){
         bar.insertAdjacentHTML("beforeend", `
           <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
+            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Stack Order</div>
+            <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemToFront('${id}')">🔝 Bring to Front</button>
+            <button type="button" class="cbar-pop-opt" onclick="bringCanvasItemForward('${id}')">⬆️ Bring Forward</button>
+            <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemBackward('${id}')">⬇️ Send Backward</button>
+            <button type="button" class="cbar-pop-opt" onclick="sendCanvasItemToBack('${id}')">🔚 Send to Back</button>
+            <div style="height:1px;background:rgba(255,255,255,.1);margin:2px 0;"></div>
+            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Text Depth</div>
             <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
             <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
-            <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', 1)">⬆️ Bring Forward (+1)</button>
-            <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', -1)">⬇️ Send Backward (-1)</button>
           </div>
         `);
       }
@@ -10647,7 +10823,20 @@ function initIpadCanvasEngine(){
       }
     }
 
-    const item = e.target.closest(".canvas-item");
+    let item = e.target.closest(".canvas-item");
+    if(!item){
+      const allItems = Array.from(editor.querySelectorAll(".canvas-item"));
+      for(let i = allItems.length - 1; i >= 0; i--){
+        const it = allItems[i];
+        const r = it.getBoundingClientRect();
+        if(e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top - 46 && e.clientY <= r.bottom){
+          if(e.clientY <= r.top + 32 || it.classList.contains("is-selected")){
+            item = it;
+            break;
+          }
+        }
+      }
+    }
     if(item){
       selectCanvasItem(item);
       return;
