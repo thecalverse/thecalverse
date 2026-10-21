@@ -2568,142 +2568,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   cursor:default!important;
 }
 
-/* ── FULLSCREEN EDIT & VIEW SUITE (JOURNAL & NOTES) ── */
-body.calverse-journal-fullscreen,
-body.calverse-notes-fullscreen {
-  overflow: hidden !important;
-}
-
-body.calverse-journal-fullscreen .topbar,
-body.calverse-journal-fullscreen .bnav,
-body.calverse-journal-fullscreen #bnav,
-body.calverse-journal-fullscreen .journal-view-tabs,
-body.calverse-journal-fullscreen #journal-header-actions,
-body.calverse-journal-fullscreen #journal-bookshelf-view,
-body.calverse-journal-fullscreen #journal-calendar-view,
-body.calverse-journal-fullscreen #journal-sparks-view,
-body.calverse-journal-fullscreen #journal-trash-view {
-  display: none !important;
-}
-
-body.calverse-journal-fullscreen #sJournal {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 150 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  max-width: 100vw !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: var(--bg) !important;
-  overflow: hidden !important;
-}
-
-body.calverse-journal-fullscreen #journal-notebook-view {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 8px 12px 14px !important;
-  box-sizing: border-box !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-body.calverse-journal-fullscreen #journal-notebook-view .ipad-frame {
-  max-width: 1240px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  flex: 1 0 auto !important;
-  border-radius: 18px !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5) !important;
-}
-
-body.calverse-journal-fullscreen .ipad-screen-glass {
-  flex: 1 1 auto !important;
-  min-height: calc(100vh - 120px) !important;
-  min-height: calc(100dvh - 120px) !important;
-}
-
-body.calverse-journal-fullscreen .ipad-paper-sheet {
-  min-height: calc(100vh - 120px) !important;
-  min-height: calc(100dvh - 120px) !important;
-}
-
-body.calverse-journal-fullscreen .ipad-frame.is-view-mode .ipad-screen-glass,
-body.calverse-journal-fullscreen .ipad-frame.is-view-mode .ipad-paper-sheet {
-  min-height: calc(100vh - 84px) !important;
-  min-height: calc(100dvh - 84px) !important;
-}
-
-/* Fullscreen for Notes */
-body.calverse-notes-fullscreen .topbar,
-body.calverse-notes-fullscreen .bnav,
-body.calverse-notes-fullscreen #bnav {
-  display: none !important;
-}
-
-body.calverse-notes-fullscreen #sNoteEdit {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 150 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  max-width: 100vw !important;
-  margin: 0 !important;
-  padding: 8px 14px 20px !important;
-  background: var(--bg) !important;
-  box-sizing: border-box !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-body.calverse-notes-fullscreen #note-editor-wrap {
-  max-width: 1100px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  min-height: calc(100vh - 28px) !important;
-  min-height: calc(100dvh - 28px) !important;
-}
-
-body.calverse-notes-fullscreen #sNoteEdit .note-editor-head {
-  top: 0 !important;
-  z-index: 100 !important;
-  background: var(--bg2) !important;
-  padding: 8px 12px 10px !important;
-  border-radius: 14px !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.22) !important;
-}
-
-body.calverse-notes-fullscreen .note-editor {
-  min-height: calc(100vh - 200px) !important;
-  min-height: calc(100dvh - 200px) !important;
-}
-
-body.calverse-notes-fullscreen .note-view {
-  min-height: calc(100vh - 160px) !important;
-  min-height: calc(100dvh - 160px) !important;
-}
-
-body.calverse-journal-fullscreen .copy-toast,
-body.calverse-notes-fullscreen .copy-toast,
-body.calverse-journal-fullscreen .note-action-toast,
-body.calverse-notes-fullscreen .note-action-toast {
-  bottom: 24px !important;
-  z-index: 350 !important;
-}
-
-@media (max-width: 580px) {
-  #ipad-fullscreen-label, #note-fullscreen-label {
-    display: none;
-  }
-}
+/* ── FULLSCREEN REMOVED ── */
 
 /* Custom Stickers Drawer Styles */
 .custom-stickers-grid{
@@ -5824,7 +5689,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             </div>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
-            <button type="button" class="ipad-step-btn" id="ipad-fullscreen-btn" onclick="toggleJournalFullscreen()" title="Toggle Fullscreen Mode" style="padding:0 9px;font-size:12px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);"><span id="ipad-fullscreen-icon">⛶</span> <span id="ipad-fullscreen-label">Fullscreen</span></button>
             <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);">✏️ Edit</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
           </div>
@@ -5850,8 +5714,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable planner stickers">🎀 Stickers</button>
             <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert photo or diagram">🖼️ Photo</button>
             <button type="button" class="note-tool-btn" onclick="openMathSymbolsPalette('ipad')" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Mathematical &amp; STEM Symbols">🔢 Math</button>
-            <button type="button" class="note-tool-btn" onclick="insertCalculatorResult('ipad')" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert calculation result">➗ Calc</button>
-            <button type="button" class="note-tool-btn" onclick="toggleIpadStudyBlocksMenu(event)" id="ipad-blocks-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Study callouts & formula blocks">📦 Blocks ▾</button>
 
             <!-- Freeform Shapes Menu Popover -->
             <div id="ipad-shapes-menu" class="hl-palette" style="display:none;grid-template-columns:repeat(4,1fr);gap:6px;min-width:270px;padding:10px;top:38px;right:0;" onclick="event.stopPropagation()">
@@ -5863,16 +5725,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="jphoto-btn" onclick="insertIpadShape('star')" title="Star">⭐ Star</button>
               <button type="button" class="jphoto-btn" onclick="insertIpadShape('heart')" title="Heart">❤️ Heart</button>
               <button type="button" class="jphoto-btn" onclick="insertIpadShape('diamond')" title="Diamond">🔷 Diamond</button>
-            </div>
-
-            <!-- Study Blocks Popover -->
-            <div id="ipad-study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:220px;padding:8px;top:38px;right:0;" onclick="event.stopPropagation()">
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('split')">📊 2-Col Diagram + Notes</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-pink')">🌸 Key Concept (Pink)</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertIpadStudyBlock('callout-mint')">🌿 Key Concept (Mint)</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertIpadStudyBlock('callout-lavender')">✨ Key Concept (Lavender)</button>
             </div>
           </div>
 
@@ -6104,7 +5956,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="note-card-btn" id="note-act-convert" onclick="promptConvertNoteToBookPage()" style="display:inline-flex;align-items:center;gap:4px;" title="Convert to Notebook Page">📚 To Page</button>
           <button class="note-card-btn" id="note-act-backup" onclick="openNotesBackupModal()" style="display:inline-flex;align-items:center;gap:4px;" title="Export / Backup">📥 Export</button>
           <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
-          <button type="button" class="note-card-btn" id="note-fullscreen-btn" onclick="toggleNotesFullscreen()" style="display:inline-flex;align-items:center;gap:4px;" title="Toggle Fullscreen Mode"><span id="note-fullscreen-icon">⛶</span> <span id="note-fullscreen-label">Fullscreen</span></button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
           <button class="note-card-btn acc" id="note-act-done" onclick="setNoteEditMode(false,false)">Done</button>
         </div>
@@ -6171,19 +6022,9 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <div class="note-tool-group" style="position:relative;" title="Insert Tools">
             <button class="note-tool-btn" type="button" onclick="insertChecklistItem('editor')" title="Interactive Checklist">☑️ Check</button>
             <button class="note-tool-btn" type="button" onclick="openMathSymbolsPalette('editor')" title="Math &amp; STEM Symbols">🔢 Math</button>
-            <button class="note-tool-btn" type="button" onclick="insertCalculatorResult('editor')" title="Insert from Calculator">➗ Calc</button>
             <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers">🎀 Stickers</button>
             <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo">🖼️ Photo</button>
             <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note">📝 Sticky</button>
-            <button class="note-tool-btn" type="button" onclick="toggleStudyBlocksMenu(event)" title="Study Callouts &amp; Layouts" id="note-study-blocks-btn">📦 Blocks ▾</button>
-            <div id="study-blocks-menu" class="hl-palette" style="display:none;flex-direction:column;min-width:215px;padding:8px;top:38px;left:0;" onclick="event.stopPropagation()">
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('function')">🏷️ Header Box [FUNCTION]</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('split')">📊 2-Col Diagram + Notes</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('formula')">📐 Formula Box [CO = SV×HR]</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-pink')">🌸 Key Point (Pink)</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;margin-bottom:3px;" onclick="insertStudyBlock('callout-mint')">🌿 Key Point (Mint)</button>
-              <button type="button" class="jphoto-btn" style="width:100%;text-align:left;height:28px;" onclick="insertStudyBlock('callout-lavender')">✨ Key Point (Lavender)</button>
-            </div>
           </div>
         </div>
       </div>
@@ -10179,9 +10020,6 @@ let currentSelectedJournalDate = new Date().toISOString().slice(0, 10);
 let currentJournalMoodFilter = 'all';
 
 function switchJournalMainView(viewName){
-  if(viewName!=='notebook'&&typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen){
-    exitJournalFullscreen();
-  }
   currentJournalMainView = viewName;
   document.querySelectorAll('#sJournal .jview-tab-btn').forEach(btn => {
     btn.classList.toggle('on', btn.id === `jview-tab-${viewName}`);
@@ -11179,18 +11017,23 @@ function applyFontToSelectedText(fontCss){
   }
   if(sel && !sel.isCollapsed && sel.rangeCount > 0){
     try{
-      document.execCommand('styleWithCSS', false, true);
-      document.execCommand('fontName', false, fontCss);
+      const range = sel.getRangeAt(0);
+      const container = range.commonAncestorContainer;
+      const el = container.nodeType === 1 ? container : container.parentElement;
+      if(!el?.closest('#ipad-page-editor')) return false;
+
+      const span = document.createElement('span');
+      span.style.fontFamily = fontCss;
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+      sel.removeAllRanges();
+      const newRange = document.createRange();
+      newRange.selectNodeContents(span);
+      sel.addRange(newRange);
+      lastSavedRange = newRange.cloneRange();
       return true;
     }catch(e){
-      try{
-        const range = sel.getRangeAt(0);
-        const span = document.createElement('span');
-        span.style.fontFamily = fontCss;
-        span.appendChild(range.extractContents());
-        range.insertNode(span);
-        return true;
-      }catch(_){}
+      console.warn("Failed to apply font to selection:", e);
     }
   }
   return false;
@@ -11205,6 +11048,10 @@ function applyFontSizeToSelectedText(sizePt){
   if(sel && !sel.isCollapsed && sel.rangeCount > 0){
     try{
       const range = sel.getRangeAt(0);
+      const container = range.commonAncestorContainer;
+      const el = container.nodeType === 1 ? container : container.parentElement;
+      if(!el?.closest('#ipad-page-editor')) return false;
+
       const span = document.createElement('span');
       span.style.fontSize = sizePt + 'px';
       span.style.lineHeight = '1.3';
@@ -11216,7 +11063,9 @@ function applyFontSizeToSelectedText(sizePt){
       sel.addRange(newRange);
       lastSavedRange = newRange.cloneRange();
       return true;
-    }catch(e){}
+    }catch(e){
+      console.warn("Failed to apply size to selection:", e);
+    }
   }
   return false;
 }
@@ -11232,7 +11081,19 @@ document.addEventListener('selectionchange', () => {
     if(item || editor){
       lastSavedRange = range.cloneRange();
       lastSavedRangeItem = item ? item.id : 'editor';
-      if(item) lastActiveTextBoxId = item.id;
+      if(item){
+        lastActiveTextBoxId = item.id;
+      }
+    }
+  }
+});
+
+document.addEventListener('focusin', (e) => {
+  const item = e.target.closest('.canvas-item');
+  if(item){
+    lastActiveTextBoxId = item.id;
+    if(!item.classList.contains('is-selected')){
+      selectCanvasItem(item);
     }
   }
 });
@@ -11275,10 +11136,13 @@ function applyIpadTypography(forceWholePage = false){
 
   // When "Whole page" is NOT checked:
   // 1. If text is currently highlighted, apply font only to that selected text!
-  if(applyFontToSelectedText(fontCss)){
-    queueIpadSave();
-    showToast(`Font applied to selected text ✨`);
-    return;
+  const winSel = window.getSelection();
+  if(winSel && !winSel.isCollapsed && winSel.rangeCount > 0){
+    if(applyFontToSelectedText(fontCss)){
+      queueIpadSave();
+      showToast(`Font applied to selected text ✨`);
+      return;
+    }
   }
 
   // 2. Check if a canvas item or active textbox is selected:
@@ -11322,54 +11186,6 @@ function applyIpadHighlighter(color){
   showToast('Highlighted 🖍️');
 }
 
-function insertIpadStickyPrompt(){
-  const editor = document.getElementById('ipad-page-editor');
-  if(!editor) return;
-  editor.focus();
-  const stickyHtml = `
-    <div class="journal-sticky-note yellow" contenteditable="true" onclick="cycleStickyColor(this)" title="Tap to change color" style="margin:12px auto;max-width:320px;">
-      <b>📌 Note:</b> Type key study takeaway or formula here... (tap edge to cycle color)
-    </div><p><br></p>
-  `;
-  insertHtmlAtCursor(stickyHtml, editor);
-  queueIpadSave();
-  showToast('Sticky note pinned 📝');
-}
-
-function toggleIpadStudyBlocksMenu(e){
-  if(e) e.stopPropagation();
-  const m = document.getElementById('ipad-study-blocks-menu');
-  if(!m) return;
-  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-}
-
-function insertIpadStudyBlock(type){
-  const m = document.getElementById('ipad-study-blocks-menu');
-  if(m) m.style.display = 'none';
-  const editor = document.getElementById('ipad-page-editor');
-  if(!editor) return;
-  editor.focus();
-
-  let html = '';
-  if(type === 'function'){
-    html = `<div class="study-box box-pink" contenteditable="false"><div class="study-box-tag">FUNCTION / CONCEPT</div><div class="study-box-body" contenteditable="true">• Core concept definition or rule<br>• Important biochemical mechanism or theorem<br>• Key exam takeaway points</div></div><p><br></p>`;
-  }else if(type === 'split'){
-    html = `<div class="study-split-col" contenteditable="false"><div class="study-col-card" contenteditable="false"><div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--act);margin-bottom:6px;">📊 Diagram / Figure</div><button type="button" class="jphoto-btn" onclick="triggerIpadPhotoUpload()">📸 Insert Diagram</button></div><div class="study-col-card" contenteditable="true" style="border-style:solid;"><b>Diagram Notes:</b><br>• Primary structure & labels<br>• Pathway flow & reaction steps</div></div><p><br></p>`;
-  }else if(type === 'formula'){
-    html = `<div class="study-formula-card" contenteditable="false"><div class="study-formula-title">FORMULA / LAW</div><div class="study-formula-equation" contenteditable="true">CO = SV × HR</div><div class="study-formula-sub" contenteditable="true">Cardiac Output = Stroke Volume × Heart Rate</div></div><p><br></p>`;
-  }else if(type === 'callout-pink'){
-    html = `<div class="study-callout-card callout-pink" contenteditable="true">🌸 <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
-  }else if(type === 'callout-mint'){
-    html = `<div class="study-callout-card callout-mint" contenteditable="true">🌿 <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
-  }else if(type === 'callout-lavender'){
-    html = `<div class="study-callout-card callout-lavender" contenteditable="true">✨ <b>Key Concept:</b> Type key takeaway or definition here...</div><p><br></p>`;
-  }
-
-  insertHtmlAtCursor(html, editor);
-  queueIpadSave();
-  showToast('Study block added ✨');
-}
-
 function triggerIpadPhotoUpload(){
   const inp = document.getElementById('ipad-photo-input');
   if(inp) inp.click();
@@ -11403,7 +11219,7 @@ function cleanCanvasHtmlBeforeSave(editorEl){
       });
     }
   });
-  clone.querySelectorAll(".cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
+  clone.querySelectorAll(".cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu").forEach(p => {
     p.style.display = "none";
   });
   clone.querySelectorAll(".cbar-angles-popover, [class*=layer-popover], [class*=flow-popover], [data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow]").forEach(el => el.remove());
@@ -11452,14 +11268,47 @@ function buildCanvasItemBar(id, type, options={}){
   `;
 }
 
+function syncTopbarTypographyForItem(item){
+  if(!item) return;
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+  let fontKey = item.dataset.customFont;
+  if(!fontKey && target && target.style.fontFamily){
+    const fam = target.style.fontFamily.toLowerCase();
+    for(const [k, v] of Object.entries(NOTE_FONT_MAP)){
+      if(fam.includes(k.toLowerCase())){
+        fontKey = k;
+        break;
+      }
+    }
+  }
+  if(fontKey){
+    const fontSel = document.getElementById("ipad-font-select");
+    if(fontSel) fontSel.value = fontKey;
+  }
+  let pt = item.dataset.customFontSize;
+  if(!pt && target){
+    pt = Math.round(parseFloat(target.style.fontSize || window.getComputedStyle(target).fontSize)) || null;
+  }
+  if(pt){
+    const sizeSel = document.getElementById("ipad-font-size-select");
+    if(sizeSel){
+      let opt = Array.from(sizeSel.options).find(o => Number(o.value) === Number(pt));
+      if(!opt){
+        sizeSel.add(new Option("" + pt, "" + pt));
+      }
+      sizeSel.value = "" + pt;
+    }
+  }
+}
+
 function handleCanvasItemFontChange(itemId, fontKey){
   const item = document.getElementById(itemId);
   if(!item) return;
   const fontCss = NOTE_FONT_MAP[fontKey] || NOTE_FONT_MAP.patrick;
 
-  // 1. If text is highlighted inside this item, apply font only to that highlighted text!
-  if(lastSavedRange && isRangeInsideItem(lastSavedRange, itemId)){
-    restoreSelection(lastSavedRange);
+  // 1. If text is currently highlighted inside this item, apply font only to that highlighted text!
+  const sel = window.getSelection();
+  if(sel && !sel.isCollapsed && sel.rangeCount > 0 && isRangeInsideItem(sel.getRangeAt(0), itemId)){
     if(applyFontToSelectedText(fontCss)){
       queueIpadSave();
       showToast(`Font applied to selected text ✨`);
@@ -11467,7 +11316,7 @@ function handleCanvasItemFontChange(itemId, fontKey){
     }
   }
 
-  // 2. Otherwise apply font to the whole text box:
+  // 2. Otherwise apply font to the whole canvas item (washi tape, sticky note, text box, shape):
   setCanvasItemFontFamily(itemId, fontKey);
 }
 
@@ -11476,9 +11325,9 @@ function handleCanvasItemSizeChange(itemId, sizeVal){
   if(!item) return;
   const pt = Number(sizeVal) || 16;
 
-  // 1. If text is highlighted inside this item, apply font size only to that highlighted text!
-  if(lastSavedRange && isRangeInsideItem(lastSavedRange, itemId)){
-    restoreSelection(lastSavedRange);
+  // 1. If text is currently highlighted inside this item, apply font size only to that highlighted text!
+  const sel = window.getSelection();
+  if(sel && !sel.isCollapsed && sel.rangeCount > 0 && isRangeInsideItem(sel.getRangeAt(0), itemId)){
     if(applyFontSizeToSelectedText(pt)){
       queueIpadSave();
       showToast(`Size ${pt}pt applied to selected text 🔠`);
@@ -11486,7 +11335,7 @@ function handleCanvasItemSizeChange(itemId, sizeVal){
     }
   }
 
-  // 2. Otherwise apply font size to the whole text box:
+  // 2. Otherwise apply font size to the whole canvas item:
   setCanvasItemFontSize(itemId, pt);
 }
 
@@ -11494,7 +11343,7 @@ function stepCanvasItemFontSize(itemId, deltaPt){
   const item = document.getElementById(itemId);
   if(!item) return;
   const sizeSelect = item.querySelector('.cbar-size-select');
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
   let curPt = sizeSelect ? (Number(sizeSelect.value) || 16) : (target ? (Math.round(parseFloat(window.getComputedStyle(target).fontSize)) || 16) : 16);
   const nextPt = Math.max(10, Math.min(72, curPt + deltaPt));
   if(sizeSelect){
@@ -11512,15 +11361,29 @@ function setCanvasItemFontSize(itemId, sizePt){
   const item = document.getElementById(itemId);
   if(!item) return;
   const pt = Number(sizePt) || 16;
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
-  if(target){
-    target.style.fontSize = pt + "px";
+  const targets = item.querySelectorAll(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+  if(targets && targets.length > 0){
+    targets.forEach(t => {
+      t.style.fontSize = pt + "px";
+      t.style.lineHeight = "1.3";
+      if(t.hasAttribute("data-font-size")) t.removeAttribute("data-font-size");
+      t.querySelectorAll("[style*='font-size']").forEach(ch => {
+        ch.style.fontSize = pt + "px";
+      });
+    });
   }
+  item.dataset.customFontSize = "" + pt;
   const sizeSelect = item.querySelector(".cbar-size-select");
   if(sizeSelect && sizeSelect.value !== "" + pt){
     let opt = Array.from(sizeSelect.options).find(o => Number(o.value) === pt);
     if(!opt) sizeSelect.add(new Option("" + pt, "" + pt));
     sizeSelect.value = "" + pt;
+  }
+  const topSizeSelect = document.getElementById("ipad-font-size-select");
+  if(topSizeSelect){
+    let opt = Array.from(topSizeSelect.options).find(o => Number(o.value) === pt);
+    if(!opt) topSizeSelect.add(new Option("" + pt, "" + pt));
+    topSizeSelect.value = "" + pt;
   }
   queueIpadSave();
   showToast("Font size: " + pt + "pt 🔠");
@@ -11530,17 +11393,29 @@ function setCanvasItemFontFamily(itemId, fontKey){
   const item = document.getElementById(itemId);
   if(!item) return;
   const fontCss = NOTE_FONT_MAP[fontKey] || NOTE_FONT_MAP.patrick;
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption") || item;
-  if(target){
-    target.style.fontFamily = fontCss;
+  const targets = item.querySelectorAll(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+  if(targets && targets.length > 0){
+    targets.forEach(t => {
+      t.style.fontFamily = fontCss;
+      t.querySelectorAll("font[face], [style*='font-family']").forEach(ch => {
+        ch.style.fontFamily = fontCss;
+        if(ch.hasAttribute("face")) ch.setAttribute("face", fontCss);
+      });
+    });
+  } else {
+    item.style.fontFamily = fontCss;
   }
   item.dataset.customFont = fontKey;
   const fontSelect = item.querySelector(".cbar-font-select");
   if(fontSelect && fontSelect.value !== fontKey){
     fontSelect.value = fontKey;
   }
+  const topFontSelect = document.getElementById("ipad-font-select");
+  if(topFontSelect && topFontSelect.value !== fontKey){
+    topFontSelect.value = fontKey;
+  }
   queueIpadSave();
-  showToast("Font: " + (fontKey || 'custom') + " ✍️");
+  showToast("Font: " + (NOTE_FONT_META[fontKey]?.label || fontKey) + " ✍️");
 }
 
 function applyIpadNumericFontSize(sizeVal){
@@ -11562,10 +11437,13 @@ function applyIpadNumericFontSize(sizeVal){
 
   // When "Whole page" is NOT checked:
   // 1. If text is currently highlighted, apply size only to that selected text!
-  if(applyFontSizeToSelectedText(pt)){
-    queueIpadSave();
-    showToast(`Size ${pt}pt applied to selected text 🔠`);
-    return;
+  const winSel = window.getSelection();
+  if(winSel && !winSel.isCollapsed && winSel.rangeCount > 0){
+    if(applyFontSizeToSelectedText(pt)){
+      queueIpadSave();
+      showToast(`Size ${pt}pt applied to selected text 🔠`);
+      return;
+    }
   }
 
   // 2. Check if a canvas item or active textbox is selected:
@@ -11595,158 +11473,13 @@ function stepIpadFontSize(deltaPt){
   applyIpadNumericFontSize(nextPt);
 }
 
-/* ── FULLSCREEN EDIT & VIEW SUITE (JOURNAL & NOTES) ── */
+/* ── FULLSCREEN ENGINE REMOVED ── */
 let journalIsFullscreen = false;
 let notesIsFullscreen = false;
-
-async function requestCalverseFullscreen(){
-  try{
-    const el = document.documentElement;
-    if(!document.fullscreenElement && !document.webkitFullscreenElement){
-      if(el.requestFullscreen){
-        await el.requestFullscreen({navigationUI:'hide'});
-      }else if(el.webkitRequestFullscreen){
-        el.webkitRequestFullscreen();
-      }
-    }
-  }catch(e){
-    console.debug('Fullscreen API bypassed or unsupported:', e);
-  }
-}
-
-async function exitCalverseFullscreen(){
-  try{
-    if(document.fullscreenElement || document.webkitFullscreenElement){
-      if(document.exitFullscreen){
-        await document.exitFullscreen();
-      }else if(document.webkitExitFullscreen){
-        document.webkitExitFullscreen();
-      }
-    }
-  }catch(e){
-    console.debug('Exit fullscreen bypassed:', e);
-  }
-}
-
-function updateJournalFullscreenUI(){
-  const btn = document.getElementById("ipad-fullscreen-btn");
-  const icon = document.getElementById("ipad-fullscreen-icon");
-  const label = document.getElementById("ipad-fullscreen-label");
-  if(!btn) return;
-  if(journalIsFullscreen){
-    if(icon) icon.textContent = "⤢";
-    if(label) label.textContent = "Exit Full";
-    btn.title = "Exit Fullscreen (Esc)";
-    btn.style.background = "var(--acc)";
-    btn.style.borderColor = "var(--acb)";
-    btn.style.color = "var(--act)";
-  }else{
-    if(icon) icon.textContent = "⛶";
-    if(label) label.textContent = "Fullscreen";
-    btn.title = "Toggle Fullscreen Mode";
-    btn.style.background = "rgba(255,255,255,0.08)";
-    btn.style.borderColor = "rgba(255,255,255,0.16)";
-    btn.style.color = "var(--t1)";
-  }
-}
-
-async function enterJournalFullscreen(){
-  journalIsFullscreen = true;
-  document.body.classList.add("calverse-journal-fullscreen");
-  updateJournalFullscreenUI();
-  await requestCalverseFullscreen();
-  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 120);
-  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 360);
-  showToast("⛶ Journal Fullscreen: View & edit with maximum screen space!");
-}
-
-async function exitJournalFullscreen(triggerApi = true){
-  journalIsFullscreen = false;
-  document.body.classList.remove("calverse-journal-fullscreen");
-  updateJournalFullscreenUI();
-  if(triggerApi && (document.fullscreenElement || document.webkitFullscreenElement)){
-    await exitCalverseFullscreen();
-  }
-  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 120);
-  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 360);
-}
-
-function toggleJournalFullscreen(){
-  if(journalIsFullscreen){
-    exitJournalFullscreen(true);
-  }else{
-    enterJournalFullscreen();
-  }
-}
-
-function updateNotesFullscreenUI(){
-  const btn = document.getElementById("note-fullscreen-btn");
-  const icon = document.getElementById("note-fullscreen-icon");
-  const label = document.getElementById("note-fullscreen-label");
-  if(!btn) return;
-  if(notesIsFullscreen){
-    if(icon) icon.textContent = "⤢";
-    if(label) label.textContent = "Exit Full";
-    btn.title = "Exit Fullscreen (Esc)";
-    btn.classList.add("acc");
-  }else{
-    if(icon) icon.textContent = "⛶";
-    if(label) label.textContent = "Fullscreen";
-    btn.title = "Toggle Fullscreen Mode";
-    btn.classList.remove("acc");
-  }
-}
-
-async function enterNotesFullscreen(){
-  notesIsFullscreen = true;
-  document.body.classList.add("calverse-notes-fullscreen");
-  updateNotesFullscreenUI();
-  await requestCalverseFullscreen();
-  setTimeout(() => {
-    if(typeof syncNotePaperLines === 'function') syncNotePaperLines();
-  }, 120);
-  showToast("⛶ Notes Fullscreen: Immersive writing & reading mode!");
-}
-
-async function exitNotesFullscreen(triggerApi = true){
-  notesIsFullscreen = false;
-  document.body.classList.remove("calverse-notes-fullscreen");
-  updateNotesFullscreenUI();
-  if(triggerApi && (document.fullscreenElement || document.webkitFullscreenElement)){
-    await exitCalverseFullscreen();
-  }
-  setTimeout(() => {
-    if(typeof syncNotePaperLines === 'function') syncNotePaperLines();
-  }, 120);
-}
-
-function toggleNotesFullscreen(){
-  if(notesIsFullscreen){
-    exitNotesFullscreen(true);
-  }else{
-    enterNotesFullscreen();
-  }
-}
-
-// Global fullscreen listeners to sync state when user exits via Escape or browser gestures
-document.addEventListener("fullscreenchange", () => {
-  if(!document.fullscreenElement && !document.webkitFullscreenElement){
-    if(journalIsFullscreen) exitJournalFullscreen(false);
-    if(notesIsFullscreen) exitNotesFullscreen(false);
-  }
-});
-document.addEventListener("webkitfullscreenchange", () => {
-  if(!document.fullscreenElement && !document.webkitFullscreenElement){
-    if(journalIsFullscreen) exitJournalFullscreen(false);
-    if(notesIsFullscreen) exitNotesFullscreen(false);
-  }
-});
-document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape" || e.keyCode === 27){
-    if(journalIsFullscreen) exitJournalFullscreen(true);
-    else if(notesIsFullscreen) exitNotesFullscreen(true);
-  }
-});
+function exitJournalFullscreen(){}
+function exitNotesFullscreen(){}
+function toggleJournalFullscreen(){}
+function toggleNotesFullscreen(){}
 
 let ipadIsViewMode = false;
 function toggleIpadViewMode(){
@@ -11769,7 +11502,7 @@ function setIpadViewMode(isView){
   if(title) title.readOnly = ipadIsViewMode;
 
   if(sheet){
-    sheet.querySelectorAll(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption").forEach(el => {
+    sheet.querySelectorAll(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption").forEach(el => {
       el.contentEditable = ipadIsViewMode ? "false" : "true";
     });
   }
@@ -11839,7 +11572,7 @@ function upgradeLegacyIpadElements(editorEl){
     const bar = item.querySelector(".canvas-item-bar");
     if(bar){
       const barBtns = bar.querySelector(".canvas-bar-btns");
-      const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+      const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body");
 
       // Strip legacy buttons and popovers completely
       bar.querySelectorAll(".cbar-angles-popover, .cbar-font-family-popover, .cbar-font-popover, [class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
@@ -11850,7 +11583,7 @@ function upgradeLegacyIpadElements(editorEl){
       // Add combined typography pill if text item and missing
       if(hasText && barBtns && !barBtns.querySelector(".cbar-typo-pill")){
         const delBtn = barBtns.querySelector(".del");
-        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body');
+        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body');
         const curPt = body ? (Math.round(parseFloat(window.getComputedStyle(body).fontSize)) || 16) : 16;
         const curFont = item.dataset.customFont || 'patrick';
         const typoHtml = buildCanvasItemTypographyHtml(id, curFont, curPt);
@@ -11861,10 +11594,17 @@ function upgradeLegacyIpadElements(editorEl){
       // Restore custom font if saved
       if(item.dataset.customFont){
         const fontCss = NOTE_FONT_MAP[item.dataset.customFont] || item.dataset.customFont;
-        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body');
+        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body');
         if(body) body.style.fontFamily = fontCss;
         const fontSel = bar.querySelector('.cbar-font-select');
         if(fontSel) fontSel.value = item.dataset.customFont;
+      }
+      // Restore custom font size if saved
+      if(item.dataset.customFontSize){
+        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body');
+        if(body) body.style.fontSize = item.dataset.customFontSize + "px";
+        const sizeSel = bar.querySelector('.cbar-size-select');
+        if(sizeSel) sizeSel.value = item.dataset.customFontSize;
       }
     }
   });
@@ -11951,6 +11691,8 @@ function selectCanvasItem(item){
   if(!item) return;
   item.classList.add("is-selected");
   item.style.zIndex = "" + (++canvasMaxZIndex);
+  lastActiveTextBoxId = item.id;
+  syncTopbarTypographyForItem(item);
 }
 
 function deselectAllCanvasItems(){
@@ -11967,24 +11709,26 @@ function insertIpadTextBox(){
   const barHtml = buildCanvasItemBar(id, "textbox", {
     dragLabel: "Move",
     hasFont: true,
+    initialFont: "patrick",
     initialPt: 16,
     angle: 0,
     extraBtns: '<button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>'
   });
 
   const html = `
-    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
       ${barHtml}
-      <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." data-font-size="m" style="font-size:16px;">Type notes, title, or formula...</div>
+      <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Type notes, title, or formula...</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
+  const box = document.getElementById(id);
+  if(box) selectCanvasItem(box);
   queueIpadSave();
   showToast("Text box placed! Drag, resize, or rotate anywhere 🔤");
-  const box = document.getElementById(id);
   const body = box?.querySelector(".canvas-text-body");
   if(body) setTimeout(() => body.focus(), 60);
 }
@@ -11997,6 +11741,7 @@ function insertIpadWashiTape(pattern="washi-blush"){
   const barHtml = buildCanvasItemBar(id, "washi", {
     dragLabel: "Tape",
     hasFont: true,
+    initialFont: "patrick",
     initialPt: 14,
     angle: -6,
     extraBtns: `
@@ -12007,10 +11752,10 @@ function insertIpadWashiTape(pattern="washi-blush"){
   });
 
   const html = `
-    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-custom-font="patrick" data-custom-font-size="14" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
       ${barHtml}
       <div class="washi-tape-strip ${pattern}">
-        <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m" style="font-size:14px;">Washi Tape Label ✨</div>
+        <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." style="font-family:'Patrick Hand',cursive;font-size:14px;">Washi Tape Label ✨</div>
       </div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize width & height in all ways">⤡</div>
@@ -12022,9 +11767,10 @@ function insertIpadWashiTape(pattern="washi-blush"){
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
+  const box = document.getElementById(id);
+  if(box) selectCanvasItem(box);
   queueIpadSave();
   showToast("Washi tape placed! Click inside to type, drag to move 📌");
-  const box = document.getElementById(id);
   const label = box?.querySelector(".washi-tape-label");
   if(label) setTimeout(() => label.focus(), 60);
 }
@@ -12123,15 +11869,16 @@ function insertIpadStickyPrompt(){
     isMini: true,
     dragLabel: "Sticky",
     hasFont: true,
+    initialFont: "patrick",
     initialPt: 15,
     angle: -1,
     extraBtns: '<button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>'
   });
 
   const html = `
-    <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-custom-font="patrick" data-custom-font-size="15" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
       ${barHtml}
-      <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true" style="font-size:15px;">
+      <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true" style="font-family:'Patrick Hand',cursive;font-size:15px;">
         <b>📌 Note:</b> Type key study takeaway or formula here...
       </div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -12140,8 +11887,12 @@ function insertIpadStickyPrompt(){
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
+  const box = document.getElementById(id);
+  if(box) selectCanvasItem(box);
   queueIpadSave();
   showToast("Sticky note pinned! Move, resize or rotate anywhere 📝");
+  const noteEl = box?.querySelector(".journal-sticky-note");
+  if(noteEl) setTimeout(() => noteEl.focus(), 60);
 }
 
 function insertIpadShape(shapeType='rounded'){
@@ -12152,18 +11903,18 @@ function insertIpadShape(shapeType='rounded'){
 
   let shapeContent = '';
   if(shapeType === 'rect'){
-    shapeContent = `<div class="canvas-shape-container shape-rect"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Note Card</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-rect"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Note Card</div></div>`;
   } else if(shapeType === 'rounded'){
-    shapeContent = `<div class="canvas-shape-container shape-rounded"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Concept Pill</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-rounded"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Concept Pill</div></div>`;
   } else if(shapeType === 'circle'){
-    shapeContent = `<div class="canvas-shape-container shape-circle"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Idea 💡</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-circle"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Idea 💡</div></div>`;
   } else if(shapeType === 'arrow'){
     shapeContent = `
       <div class="canvas-shape-container shape-custom">
         <svg class="canvas-shape-svg" viewBox="0 0 200 80" preserveAspectRatio="none">
           <path d="M 10 25 L 140 25 L 140 10 L 190 40 L 140 70 L 140 55 L 10 55 Z" fill="currentColor" opacity="0.88" />
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-size:16px;" data-placeholder="...">Process ➔</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-family:'Patrick Hand',cursive;font-size:16px;" data-placeholder="...">Process ➔</div>
       </div>`;
   } else if(shapeType === 'speech'){
     shapeContent = `
@@ -12171,7 +11922,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 200 120" preserveAspectRatio="none">
           <path d="M 20 10 C 10 10 10 20 10 20 L 10 80 C 10 90 20 90 20 90 L 40 90 L 30 115 L 75 90 L 180 90 C 190 90 190 80 190 80 L 190 20 C 190 10 180 10 180 10 Z" fill="currentColor" opacity="0.9" />
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Quote..." style="font-size:16px;">Takeaway 💬</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Quote..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Takeaway 💬</div>
       </div>`;
   } else if(shapeType === 'star'){
     shapeContent = `
@@ -12179,7 +11930,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="currentColor" opacity="0.92"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="margin-top:10px;font-size:16px;" data-placeholder="Key">⭐ Key</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="margin-top:10px;font-family:'Patrick Hand',cursive;font-size:16px;" data-placeholder="Key">⭐ Key</div>
       </div>`;
   } else if(shapeType === 'heart'){
     shapeContent = `
@@ -12187,7 +11938,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path d="M 50 88 A 35 35 0 0 1 10 45 A 22 22 0 0 1 50 25 A 22 22 0 0 1 90 45 A 35 35 0 0 1 50 88 Z" fill="currentColor" opacity="0.9"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-size:16px;" data-placeholder="Love">❤️ Focus</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-family:'Patrick Hand',cursive;font-size:16px;" data-placeholder="Love">❤️ Focus</div>
       </div>`;
   } else if(shapeType === 'diamond'){
     shapeContent = `
@@ -12195,13 +11946,14 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <polygon points="50,5 95,50 50,95 5,50" fill="currentColor" opacity="0.9"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Decision" style="font-size:16px;">Decision? 🔷</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Decision" style="font-family:'Patrick Hand',cursive;font-size:16px;">Decision? 🔷</div>
       </div>`;
   }
 
   const barHtml = buildCanvasItemBar(id, "shape", {
     dragLabel: "Shape",
     hasFont: true,
+    initialFont: "patrick",
     initialPt: 16,
     angle: 0,
     extraBtns: `
@@ -12213,7 +11965,7 @@ function insertIpadShape(shapeType='rounded'){
   });
 
   const html = `
-    <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${++canvasMaxZIndex};" contenteditable="false">
       ${barHtml}
       ${shapeContent}
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -12227,11 +11979,12 @@ function insertIpadShape(shapeType='rounded'){
 
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
+  const box = document.getElementById(id);
+  if(box) selectCanvasItem(box);
   queueIpadSave();
   showToast(`Added ${shapeType} shape! Drag, resize or rotate anywhere 📐`);
   const menu = document.getElementById("ipad-shapes-menu");
   if(menu) menu.style.display = "none";
-  const box = document.getElementById(id);
   const body = box?.querySelector(".canvas-shape-body");
   if(body) setTimeout(() => body.focus(), 60);
 }
@@ -12490,7 +12243,25 @@ function initIpadCanvasEngine(){
     const actionBtn = e.target.closest(".cbar-btn");
     if(actionBtn){
       e.stopPropagation();
-      handleCanvasAction(actionBtn, e);
+      const item = actionBtn.closest(".canvas-item");
+      if(item){
+        selectCanvasItem(item);
+        lastActiveTextBoxId = item.id;
+      }
+      if(actionBtn.dataset.action){
+        handleCanvasAction(actionBtn, e);
+      }
+      return;
+    }
+
+    const typoControl = e.target.closest(".cbar-select, .cbar-typo-pill, select, input, textarea");
+    if(typoControl){
+      e.stopPropagation();
+      const item = typoControl.closest(".canvas-item");
+      if(item){
+        selectCanvasItem(item);
+        lastActiveTextBoxId = item.id;
+      }
       return;
     }
 
@@ -12524,7 +12295,7 @@ function initIpadCanvasEngine(){
         selectCanvasItem(item);
         try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
         const dir = resizeHandle.dataset.dir || "se";
-        const textTarget = item.querySelector(".washi-tape-label, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body, .canvas-photo-caption");
+        const textTarget = item.querySelector(".washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body, .canvas-photo-caption");
         let initialFs = 16;
         if(textTarget){
           initialFs = parseFloat(window.getComputedStyle(textTarget).fontSize) || 16;
@@ -12549,15 +12320,19 @@ function initIpadCanvasEngine(){
       return;
     }
 
-    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
+    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .journal-sticky-note, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
     if(editable){
       const item = editable.closest(".canvas-item");
-      if(item) selectCanvasItem(item);
+      if(item){
+        selectCanvasItem(item);
+        lastActiveTextBoxId = item.id;
+      }
       return;
     }
 
     const dragTarget = e.target.closest(".canvas-drag-handle, .canvas-item-bar, .canvas-photo-card, .washi-tape-strip, .canvas-sticker-glyph, .journal-sticky-note, .canvas-shape-container");
     if(dragTarget){
+      if(e.target.closest("button, select, input, textarea, .cbar-select, .cbar-btn, .cbar-typo-pill")) return;
       const item = dragTarget.closest(".canvas-item");
       if(item){
         e.preventDefault();
@@ -13398,8 +13173,6 @@ function clearAllIpadInk(){
 function toggleIpadShapesMenu(e){
   if(e) e.stopPropagation();
   const menu = document.getElementById("ipad-shapes-menu");
-  const blocksMenu = document.getElementById("ipad-study-blocks-menu");
-  if(blocksMenu) blocksMenu.style.display = "none";
   if(!menu) return;
   menu.style.display = (menu.style.display === "grid") ? "none" : "grid";
 }
@@ -13472,10 +13245,6 @@ document.addEventListener("click", (e) => {
   if(!e.target.closest("#ipad-shapes-btn, #ipad-shapes-menu")){
     const m = document.getElementById("ipad-shapes-menu");
     if(m) m.style.display = "none";
-  }
-  if(!e.target.closest("#ipad-blocks-btn, #ipad-study-blocks-menu")){
-    const b = document.getElementById("ipad-study-blocks-menu");
-    if(b) b.style.display = "none";
   }
 });
 
@@ -15377,7 +15146,6 @@ function handleBookshelfTabClick(){
 }
 
 function handleBookshelfReturnClick(){
-  if(typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen) exitJournalFullscreen();
   switchJournalMainView('books');
   handleBookshelfTripleClick();
 }
@@ -15585,7 +15353,6 @@ async function submitVaultChangePass(){
 }
 
 function handleNoteEditBack(){
-  if(typeof notesIsFullscreen!=='undefined'&&notesIsFullscreen) exitNotesFullscreen();
   try{ saveCurrentNote(false); }catch(e){}
   const note=getNoteById(currentNoteId);
   if(isJournalVaultActive){
@@ -18271,12 +18038,6 @@ function getTabForScreen(name,id){
   return 'home';
 }
 function setActiveScreen(id,name,opts={}){
-  if(id!=='sJournal'&&typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen){
-    exitJournalFullscreen();
-  }
-  if(id!=='sNoteEdit'&&typeof notesIsFullscreen!=='undefined'&&notesIsFullscreen){
-    exitNotesFullscreen();
-  }
   if(id!=='sNotes'&&id!=='sNoteEdit'&&isVaultActive){
     isVaultActive=false;
     notesPane='notes';
