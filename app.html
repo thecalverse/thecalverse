@@ -2605,93 +2605,10 @@ canvas#gc{display:block;width:100%;height:240px;}
 
 .ipad-paper-canvas:empty::before{content:attr(data-placeholder);opacity:.35;pointer-events:none;}
 
-/* ── NOTEBOOK TEMPLATE SELECTOR MODAL ── */
-.book-tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;max-height:60vh;overflow-y:auto;padding:6px 2px;}
-.book-tpl-card{position:relative;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;cursor:pointer;transition:all 0.2s cubic-bezier(0.2,0.8,0.2,1);display:flex;flex-direction:column;justify-content:space-between;gap:10px;user-select:none;}
-[data-t=light] .book-tpl-card{background:rgba(255,250,244,0.7);border-color:rgba(131,98,74,0.2);}
-.book-tpl-card:hover{transform:translateY(-2px);border-color:var(--act);background:rgba(255,255,255,0.08);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.book-tpl-card.is-selected{border-color:var(--act);background:color-mix(in srgb,var(--act) 12%,rgba(255,255,255,0.06));box-shadow:0 0 0 2px var(--act),0 8px 24px rgba(0,0,0,0.25);}
-.book-tpl-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-.book-tpl-emblem-wrap{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:24px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
-.book-tpl-number-badge{font-size:10px;font-weight:900;letter-spacing:0.5px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,0.1);color:var(--t2);text-transform:uppercase;}
-.book-tpl-card.is-selected .book-tpl-number-badge{background:var(--act);color:#fff;}
-.book-tpl-title{font-size:15px;font-weight:800;color:var(--t1);margin-top:4px;line-height:1.3;}
-.book-tpl-sub{font-size:11.5px;font-weight:700;color:var(--act);margin-top:2px;}
-.book-tpl-desc{font-size:12px;color:var(--t2);line-height:1.45;}
-.book-tpl-features{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
-.book-tpl-pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,0.06);color:var(--t2);border:1px solid rgba(255,255,255,0.08);}
-.book-tpl-check{display:none;position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--act);color:#fff;font-size:12px;font-weight:900;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.3);}
-.book-tpl-card.is-selected .book-tpl-check{display:grid;}
-
 /* ── UNIVERSAL COLOR DIAL & INTENSITY MODAL ── */
 .ucp-quick-swatch{aspect-ratio:1;border-radius:8px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:transform 0.15s ease,box-shadow 0.15s ease;padding:0;}
 .ucp-quick-swatch:hover{transform:scale(1.18);z-index:2;box-shadow:0 3px 8px rgba(0,0,0,0.3);}
 .ucp-quick-swatch.on{transform:scale(1.15);box-shadow:0 0 0 2px #fff,0 4px 10px rgba(0,0,0,0.4);}
-
-/* ── AESTHETIC MAGAZINE & SCRAPBOOK CUTOUTS ENGINE ── */
-.mag-cutout-page{position:relative;width:100%;max-width:820px;margin:0 auto;padding:10px 4px 40px;box-sizing:border-box;font-family:inherit;color:inherit;}
-.mag-torn-card{position:relative;background:#f6efe2;color:#2b231d;padding:18px 20px;border-radius:4px;margin-bottom:20px;box-shadow:0 6px 18px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.1);clip-path:polygon(0% 0%,100% 0%,100% calc(100% - 6px),98% 100%,95% calc(100% - 4px),92% 100%,88% calc(100% - 5px),85% 100%,80% calc(100% - 3px),75% 100%,70% calc(100% - 5px),65% 100%,60% calc(100% - 4px),55% 100%,50% calc(100% - 6px),45% 100%,40% calc(100% - 4px),35% 100%,30% calc(100% - 5px),25% 100%,20% calc(100% - 3px),15% 100%,10% calc(100% - 5px),5% 100%,0% calc(100% - 4px));}
-[data-t=black] .mag-torn-card,[data-t=dark] .mag-torn-card{background:#2a241f;color:#eedec8;box-shadow:0 8px 22px rgba(0,0,0,0.4);}
-.mag-masthead{border-bottom:2px solid #2b231d;padding-bottom:8px;margin-bottom:16px;text-align:center;}
-[data-t=black] .mag-masthead,[data-t=dark] .mag-masthead{border-bottom-color:#eedec8;}
-.mag-masthead-title{font-family:'Times New Roman',Georgia,serif;font-size:26px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin:0;line-height:1.1;}
-.mag-masthead-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.75;margin-top:5px;border-top:1px solid rgba(0,0,0,0.15);border-bottom:1px solid rgba(0,0,0,0.15);padding:3px 0;}
-[data-t=black] .mag-masthead-meta,[data-t=dark] .mag-masthead-meta{border-color:rgba(255,255,255,0.15);}
-.mag-columns{column-count:2;column-gap:24px;column-rule:1px solid rgba(80,60,40,0.18);font-size:14.5px;line-height:1.6;}
-@media(max-width:640px){.mag-columns{column-count:1;}}
-.mag-dropcap{float:left;font-size:44px;line-height:0.8;font-family:'Times New Roman',Georgia,serif;font-weight:900;margin-right:8px;margin-top:2px;color:#7a3e20;}
-[data-t=black] .mag-dropcap,[data-t=dark] .mag-dropcap{color:#f09f6e;}
-.mag-washi-pin{position:absolute;height:20px;width:80px;background:rgba(244,143,177,0.75);box-shadow:0 1px 4px rgba(0,0,0,0.2);top:-8px;left:30px;transform:rotate(-3deg);pointer-events:none;z-index:2;}
-.mag-washi-pin.right{left:auto;right:30px;transform:rotate(4deg);background:rgba(165,214,167,0.75);}
-.mag-polaroid-frame{background:#fffdfa;color:#1e1e1e;padding:10px 10px 24px 10px;box-shadow:0 6px 18px rgba(0,0,0,0.2);border-radius:3px;display:inline-block;transform:rotate(2deg);position:relative;margin:10px;max-width:260px;}
-.mag-polaroid-photo{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#d7ccc8,#a1887f);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:36px;color:rgba(255,255,255,0.8);}
-.mag-polaroid-caption{font-family:'Caveat',cursive,sans-serif;font-size:16px;text-align:center;margin-top:8px;outline:none;}
-.mag-postage-stamp{width:70px;height:85px;background:#f4ecd8;color:#5c3b1e;border:3px dashed #bcaaa4;border-radius:4px;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 4px 10px rgba(0,0,0,0.15);transform:rotate(-5deg);user-select:none;}
-.mag-stamp-inner{border:1px solid #8d6e63;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;}
-.mag-coffee-ring{position:absolute;width:110px;height:110px;border-radius:50%;border:4px solid rgba(139,94,60,0.2);box-shadow:inset 0 0 10px rgba(139,94,60,0.12),0 0 8px rgba(139,94,60,0.15);pointer-events:none;opacity:0.65;filter:blur(0.5px);}
-.mag-editable-area{outline:none;min-height:40px;}
-.mag-editable-area:empty::before{content:attr(data-placeholder);opacity:0.45;pointer-events:none;}
-
-/* ── CANVA "PAGE BROWN" SCRAPBOOK & JOURNAL ENGINE ── */
-.canva-brown-page{position:relative;width:100%;max-width:820px;margin:0 auto;padding:8px 4px 40px;box-sizing:border-box;font-family:inherit;color:inherit;}
-.canva-paper-spread{position:relative;background:#ece1d1;background-image:radial-gradient(ellipse at 50% 15%,rgba(255,255,255,0.45) 0%,rgba(130,95,65,0.08) 100%),repeating-linear-gradient(0deg,rgba(80,50,25,0.018) 0px,rgba(80,50,25,0.018) 1px,transparent 1px,transparent 3px);color:#2c2117;border-radius:6px;padding:24px 22px;box-shadow:0 10px 32px rgba(0,0,0,0.16),0 2px 6px rgba(0,0,0,0.08),inset 0 0 50px rgba(110,75,40,0.12);margin-bottom:24px;border:1px solid rgba(135,100,70,0.25);box-sizing:border-box;}
-[data-t=black] .canva-paper-spread,[data-t=dark] .canva-paper-spread{background:#241f1a;background-image:radial-gradient(ellipse at 50% 15%,rgba(255,255,255,0.04) 0%,rgba(0,0,0,0.25) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 3px);color:#ecdcc9;border-color:rgba(255,255,255,0.12);box-shadow:0 12px 36px rgba(0,0,0,0.5),inset 0 0 50px rgba(0,0,0,0.4);}
-.canva-header-banner{border-top:2px solid #5a3d28;border-bottom:2px solid #5a3d28;padding:10px 14px;margin-bottom:18px;text-align:center;background:rgba(255,255,255,0.3);border-radius:2px;}
-[data-t=black] .canva-header-banner,[data-t=dark] .canva-header-banner{border-color:#a67c52;background:rgba(255,255,255,0.04);}
-.canva-polaroid{position:relative;background:#fffdf9;color:#222;padding:10px 10px 20px 10px;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,0.18),0 2px 6px rgba(0,0,0,0.08);display:inline-block;box-sizing:border-box;transform:rotate(-1.5deg);transition:transform 0.2s ease,box-shadow 0.2s ease;}
-.canva-polaroid:hover{transform:scale(1.02) rotate(-0.5deg);box-shadow:0 12px 30px rgba(0,0,0,0.25);}
-.canva-polaroid-photo{width:100%;aspect-ratio:1.05;background:linear-gradient(135deg,#c4a482,#8b6544);border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:32px;color:#fff;overflow:hidden;position:relative;}
-.canva-polaroid-caption{font-family:'Caveat',cursive,sans-serif;font-size:17px;text-align:center;margin-top:8px;color:#3b2a1a;outline:none;}
-.canva-washi-strip{position:absolute;height:18px;width:76px;background:rgba(214,180,150,0.85);box-shadow:0 1px 3px rgba(0,0,0,0.22);pointer-events:none;z-index:3;border-left:2px dashed rgba(255,255,255,0.45);border-right:2px dashed rgba(255,255,255,0.45);}
-.canva-torn-clipping{position:relative;background:#fdf6ec;color:#2c221a;padding:16px 18px;border-radius:3px;box-shadow:0 4px 14px rgba(0,0,0,0.12);border:1px dashed rgba(110,80,50,0.3);margin-bottom:16px;}
-[data-t=black] .canva-torn-clipping,[data-t=dark] .canva-torn-clipping{background:#1e1a16;color:#edd9c2;border-color:rgba(255,255,255,0.15);box-shadow:0 4px 16px rgba(0,0,0,0.4);}
-.canva-kraft-memo{background:#dfcfbc;color:#2b2017;border-radius:4px;padding:14px 16px;box-shadow:0 3px 10px rgba(0,0,0,0.12);border-left:4px solid #8c6747;margin-bottom:16px;}
-[data-t=black] .canva-kraft-memo,[data-t=dark] .canva-kraft-memo{background:#2b241e;color:#ecdcc9;border-left-color:#c49a6c;box-shadow:0 3px 12px rgba(0,0,0,0.35);}
-.canva-ruled-lines{background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(120,85,55,0.18) 28px);line-height:28px;font-size:15px;min-height:120px;outline:none;}
-[data-t=black] .canva-ruled-lines,[data-t=dark] .canva-ruled-lines{background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(230,200,165,0.15) 28px);}
-.canva-coffee-ring{position:absolute;width:120px;height:120px;border-radius:50%;border:5px solid rgba(110,65,30,0.18);box-shadow:inset 0 0 12px rgba(110,65,30,0.12),0 0 10px rgba(110,65,30,0.1);pointer-events:none;opacity:0.7;filter:blur(0.4px);}
-.canva-ticket-stub{background:#ecd9c4;color:#3b2816;border:1px dashed #8b6b4c;border-radius:4px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:relative;box-shadow:0 3px 8px rgba(0,0,0,0.1);margin-bottom:14px;}
-[data-t=black] .canva-ticket-stub,[data-t=dark] .canva-ticket-stub{background:#2b221a;color:#ecd9c4;border-color:#a67c52;}
-.canva-postage-stamp-mini{width:58px;height:72px;background:#f4ecdc;color:#53351d;border:2px dashed #9c7a59;border-radius:3px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 3px 8px rgba(0,0,0,0.14);transform:rotate(-3deg);user-select:none;font-size:10px;font-weight:800;}
-.canva-receipt-card{background:#fcf9f2;color:#2b2016;border:1px dashed rgba(90,60,35,0.3);padding:14px 16px;border-radius:2px;font-family:'Courier New',Courier,monospace;font-size:12px;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,0.08);margin-bottom:16px;}
-[data-t=black] .canva-receipt-card,[data-t=dark] .canva-receipt-card{background:#1c1814;color:#ead4be;border-color:rgba(255,255,255,0.16);}
-.canva-botanical-card{background:#f7f1e5;color:#2b2117;border:1px solid rgba(100,75,45,0.25);border-radius:4px;padding:14px 16px;box-shadow:inset 0 0 20px rgba(120,90,55,0.08);margin-bottom:16px;}
-[data-t=black] .canva-botanical-card,[data-t=dark] .canva-botanical-card{background:#231e19;color:#ecdcc9;border-color:rgba(255,255,255,0.12);box-shadow:inset 0 0 20px rgba(0,0,0,0.3);}
-.canva-dropcap{float:left;font-size:42px;line-height:0.8;font-family:'Playfair Display','Times New Roman',Georgia,serif;font-weight:900;margin-right:8px;margin-top:2px;color:#6d4223;}
-[data-t=black] .canva-dropcap,[data-t=dark] .canva-dropcap{color:#df9e66;}
-.canva-editable{outline:none;min-height:24px;}
-.canva-editable:empty::before{content:attr(data-placeholder);opacity:0.45;pointer-events:none;}
-
-/* Brown Kraft Paper Sheet for iPad Journal */
-.ipad-paper-sheet.paper-brown-kraft{background:#d8c3ab!important;background-image:radial-gradient(ellipse at center,rgba(255,255,255,0.16) 0%,rgba(0,0,0,0.08) 100%),repeating-linear-gradient(45deg,rgba(80,50,25,0.02) 0px,rgba(80,50,25,0.02) 2px,transparent 2px,transparent 4px)!important;color:#2b1f17!important;box-shadow:inset 0 0 45px rgba(80,50,25,0.12),0 10px 30px rgba(0,0,0,0.2)!important;}
-.ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(60,40,20,0.25)!important;color:#2b1f17!important;}
-.ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#2b1f17!important;}
-.ipad-paper-sheet.paper-brown-kraft .study-box-body{color:#2b1f17!important;}
-[data-t=black] .ipad-paper-sheet.paper-brown-kraft,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft{background:#25201b!important;background-image:radial-gradient(ellipse at center,rgba(255,255,255,0.04) 0%,rgba(0,0,0,0.3) 100%),repeating-linear-gradient(45deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 2px,transparent 2px,transparent 4px)!important;color:#edd9c2!important;box-shadow:inset 0 0 50px rgba(0,0,0,0.45),0 10px 30px rgba(0,0,0,0.4)!important;}
-[data-t=black] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-title,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(255,255,255,0.15)!important;color:#edd9c2!important;}
-[data-t=black] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#edd9c2!important;}
-
-
 
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
@@ -5428,7 +5345,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <div class="ipad-tool-grp">
             <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:130px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Digital Paper Template">
               <option value="obsidian" selected>🖤 Obsidian Grid</option>
-              <option value="brown">🤎 Brown Kraft Scrapbook</option>
               <option value="cream">📑 Cream Dots</option>
               <option value="ruled">📜 Lined Notebook</option>
               <option value="graph">📐 Engineering Graph</option>
@@ -5895,36 +5811,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         </div>
       </div>
       <div class="tpl-grid" id="tpl-modal-grid"></div>
-    </div>
-  </div>
-</div>
-
-<!-- NOTEBOOK TEMPLATE SELECTION MODAL -->
-<div id="journal-book-template-modal" class="app-dialog" onclick="if(event.target===this)closeBookTemplatePickerModal()">
-  <div class="app-dialog-card" style="width:min(100%,720px);max-width:720px;padding:22px 24px;" onclick="event.stopPropagation()">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;border-bottom:1px solid var(--glb);padding-bottom:12px;">
-      <div>
-        <div class="app-dialog-title" id="book-tpl-modal-title" style="margin:0 0 4px;font-size:18px;">📚 Choose Notebook Template</div>
-        <div style="font-size:12.5px;color:var(--t2);">Select an aesthetic design foundation. All pages added to this book will follow this collection.</div>
-      </div>
-      <button type="button" class="ipad-step-btn" onclick="closeBookTemplatePickerModal()" style="font-size:15px;width:30px;height:30px;flex-shrink:0;">✕</button>
-    </div>
-
-    <!-- Template Cards Grid (No. 1 is Blank Canvas, 2-7 are themed templates) -->
-    <div class="book-tpl-grid" id="book-tpl-cards-container">
-      <!-- Populated dynamically by renderBookTemplateCards() -->
-    </div>
-
-    <!-- Modal Footer Actions -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--glb);flex-wrap:wrap;gap:10px;">
-      <div id="book-tpl-selected-info" style="font-size:12px;color:var(--t2);font-weight:700;">
-        Selected: <span id="book-tpl-selected-name" style="color:var(--act);font-weight:800;">🤍 Blank Clean Canvas</span>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button type="button" class="app-dialog-btn" onclick="closeBookTemplatePickerModal()">Cancel</button>
-        <button type="button" class="app-dialog-btn" onclick="customizeSelectedBookTemplate()" title="Customize title, description, cover theme and icon">✏️ Customize Details</button>
-        <button type="button" class="app-dialog-btn acc" onclick="confirmSelectedBookTemplate()" id="book-tpl-confirm-btn">Create Notebook ✨</button>
-      </div>
     </div>
   </div>
 </div>
@@ -8249,10 +8135,10 @@ function toggleNotesView(){
 function getStarterBooks(){
   const now=Date.now();
   return [
-    {id:'book_daily',title:'Beige & Brown Scrapbook',desc:'Coffee journal, polaroid snapshots & aesthetic memory collage.',coverTheme:'theme-latte',emblem:'☕',templateId:'canva_brown_collage',createdAt:now-86400000*3,updatedAt:now-86400000*3},
-    {id:'book_scrap',title:'Botanical Herbarium Page',desc:'Pressed wildflowers, leaf specimens, field notes & vintage borders.',coverTheme:'theme-matcha',emblem:'🌿',templateId:'canva_botanical_border',createdAt:now-86400000*2,updatedAt:now-86400000*2},
-    {id:'book_study',title:'Autumn Blank Notes & Receipts',desc:'Cozy fall reflections, coffeehouse receipts & reading ledger.',coverTheme:'theme-honey',emblem:'🍂',templateId:'canva_autumn_notes',createdAt:now-86400000,updatedAt:now-86400000},
-    {id:'book_vision',title:'Minimalist Photo Collage',desc:'Curated polaroid film, travel tickets, quotes & aesthetic moodboards.',coverTheme:'theme-noir',emblem:'📸',templateId:'canva_minimal_photo',createdAt:now,updatedAt:now}
+    {id:'book_daily',title:'Daily Mindful Journal',desc:'Morning intentions, reflections, gratitude & daily thoughts.',coverTheme:'theme-blush',emblem:'🌸',createdAt:now-86400000*3,updatedAt:now-86400000*3},
+    {id:'book_scrap',title:'Reading & Scrapbook',desc:'Book reviews, aesthetic polaroids, quotes & creative clippings.',coverTheme:'theme-latte',emblem:'📖',createdAt:now-86400000*2,updatedAt:now-86400000*2},
+    {id:'book_study',title:'Study & Cornell Binder',desc:'Lecture notes, formulas, exam summaries & study trackers.',coverTheme:'theme-matcha',emblem:'🌿',createdAt:now-86400000,updatedAt:now-86400000},
+    {id:'book_vision',title:'Vision & Mood Board',desc:'Dreams, travel goals, aesthetic inspiration & memory boards.',coverTheme:'theme-lavender',emblem:'✨',createdAt:now,updatedAt:now}
   ];
 }
 
@@ -8342,894 +8228,6 @@ function selectBookIcon(icon,el){
   currentSelectedIcon=icon;
   document.querySelectorAll('#book-icon-picker .sticker-pick-btn').forEach(b=>b.classList.remove('on'));
   if(el)el.classList.add('on');
-}
-
-/* ── CANVA "PAGE BROWN" AESTHETIC SCRAPBOOK & NOTEBOOK TEMPLATES ── */
-
-const BOOK_TEMPLATES = {
-  blank: {
-    id: 'blank',
-    number: '1',
-    badge: 'No. 1 • Minimal Canvas',
-    name: 'Blank Clean Canvas',
-    subtitle: 'Pure minimal freedom',
-    desc: 'Uncluttered blank pages for freeform sketching, inking, notes, diagrams, and custom scrapbooking.',
-    emblem: '🤍',
-    coverTheme: 'obsidian',
-    paperStyle: 'blank',
-    fontFamily: 'clean',
-    defaultTitle: 'My Digital Notebook',
-    getPageTitle: (idx) => `Page ${idx + 1}`,
-    getPageContent: (idx) => ''
-  },
-
-  canva_brown_collage: {
-    id: 'canva_brown_collage',
-    number: '2',
-    badge: 'No. 2 • Canva Page Brown',
-    name: 'Beige Cream & Brown Vintage Scrapbook',
-    subtitle: 'Canva Coffee Journal & Photo Book Collage',
-    desc: 'Inspired directly by Canva’s "page brown" scrapbook collage: warm beige & cream paper, coffee cup ring stains, polaroid snapshot frames with washi tape, vintage newsprint clippings, and lined kraft memo pads.',
-    emblem: '📰',
-    coverTheme: 'latte',
-    paperStyle: 'brown',
-    fontFamily: 'caveat',
-    defaultTitle: 'Vintage Brown Scrapbook Journal',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Vol. I — Vintage Coffee Journal & Memory Collage',
-        'Vol. II — Editorial Columnist & Pressed Botanical',
-        'Vol. III — Scrapbook Moodboard & Polaroid Snapshots',
-        'Vol. IV — Autumn Reflections & Daily Compendium'
-      ];
-      return titles[idx % titles.length] || `Vol. ${idx + 1} — Brown Scrapbook`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div class="canva-coffee-ring" style="top:20px;right:30px;"></div>
-    
-    <!-- Top Header Banner -->
-    <div class="canva-header-banner">
-      <div class="canva-washi-strip" style="top:-10px;left:40px;background:rgba(215,204,200,0.85);transform:rotate(-2deg);"></div>
-      <div class="canva-washi-strip" style="top:-10px;right:40px;background:rgba(210,180,140,0.85);transform:rotate(3deg);"></div>
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#8d6e63;">CANVA VINTAGE COLLECTION • ISSUE N° 0${idx + 1}</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3e2723;letter-spacing:1px;margin:2px 0;">COFFEE, MEMORIES &amp; QUIET PAGES</div>
-      <div style="font-size:11px;font-style:italic;color:#5d4037;border-top:1px dashed rgba(93,64,55,0.3);border-bottom:1px dashed rgba(93,64,55,0.3);padding:3px 0;margin-top:4px;">
-        A curated space for reflections, polaroid memories, and daily gratitude
-      </div>
-    </div>
-
-    <!-- Main Content Grid -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:18px;position:relative;z-index:2;">
-      <!-- Left: Polaroid Photo Card -->
-      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
-        <div class="canva-washi-strip" style="top:-8px;left:50%;transform:translateX(-50%) rotate(1deg);width:80px;background:rgba(224,200,170,0.9);"></div>
-        <div class="canva-polaroid-photo">
-          <div style="font-size:36px;">☕📖</div>
-        </div>
-        <div class="canva-polaroid-caption" contenteditable="true">Cozy Morning Coffee &amp; Thoughts</div>
-      </div>
-
-      <!-- Right: Torn Newspaper Clipping Card -->
-      <div class="canva-torn-clipping" style="transform:rotate(1deg);">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;text-transform:uppercase;border-bottom:1px solid rgba(109,76,65,0.3);padding-bottom:4px;margin-bottom:8px;">
-          THE DAILY REFLECTION // DISPATCH
-        </div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Write your morning reflection, thoughts, or daily quote here...">
-          <span class="canva-dropcap">T</span>he beauty of a brown paper journal lies in its warmth. Words feel gentler against coffee-toned pages. Take a breath, write down what sparked joy today, and let thoughts settle naturally.
-        </div>
-      </div>
-    </div>
-
-    <!-- Lined Kraft Memo Section -->
-    <div class="canva-kraft-memo">
-      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(93,64,55,0.3);padding-bottom:6px;margin-bottom:10px;">
-        <span style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;">📌 DAILY TAKEAWAYS &amp; CREATIVE SYNTHESIS</span>
-        <span style="font-size:11px;font-weight:700;color:#795548;">PAGE // 0${idx + 1}</span>
-      </div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your key goals, notes, or memories on these lines...">
-        1. Cherish the quiet morning hour before the world wakes up.<br>
-        2. Progress over perfection: one small paragraph every day compounds into a rich archive.<br>
-        3. Today’s creative spark: observing how light hits the autumn leaves outside.
-      </div>
-    </div>
-
-    <!-- Bottom Ephemera Strip -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:10px;border-top:1px dashed rgba(93,64,55,0.3);font-size:11px;color:#6d4c41;">
-      <div class="canva-postage-stamp-mini">
-        <div style="font-size:8px;font-weight:900;">POSTE</div>
-        <div style="font-size:14px;">🌸</div>
-        <div style="font-size:7px;">1924</div>
-      </div>
-      <span style="font-style:italic;" contenteditable="true">“Every page is a quiet celebration of everyday moments.”</span>
-      <span style="font-size:9.5px;font-weight:800;letter-spacing:1px;">CALVERSE ARCHIVE</span>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div style="display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px;">
-      <!-- Left Columnist Article Card -->
-      <div class="canva-torn-clipping" style="flex:1.2;min-width:270px;background:#f3e9db;">
-        <div class="canva-washi-strip" style="top:-8px;left:20px;background:rgba(215,204,200,0.9);transform:rotate(-3deg);"></div>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:6px;margin-bottom:10px;">
-          <span style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#4e342e;">CHRONICLES // ESSAY</span>
-          <span style="font-size:10px;font-weight:700;color:#795548;">OCTOBER ENTRY</span>
-        </div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:18px;font-weight:800;color:#3e2723;margin-bottom:8px;">ON THE PLEASURE OF SLOW JOURNALING</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Type your essay or lecture insights here...">
-          <span class="canva-dropcap">I</span>n our hurried digital world, the tactile simplicity of brown paper invites stillness. Write with intention today. What ideas are taking shape in your studies? What questions linger in your mind?
-        </div>
-        <div class="canva-ruled-lines canva-editable" contenteditable="true" style="margin-top:12px;" data-placeholder="List key takeaways...">
-          • Core principle discovered today:<br>
-          • Favorite quote or passage:<br>
-          • A moment of gratitude:
-        </div>
-      </div>
-
-      <!-- Right Pressed Botanical Specimen Card -->
-      <div class="canva-botanical-card" style="flex:0.8;min-width:230px;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div class="canva-postage-stamp-mini">
-            <div style="font-size:8px;font-weight:900;">AIR MAIL</div>
-            <div style="font-size:14px;">🌿</div>
-            <div style="font-size:7px;">PARIS</div>
-          </div>
-          <div style="text-align:right;font-size:9.5px;font-weight:800;color:#795548;letter-spacing:1px;">FLORA N° 0${idx + 1}</div>
-        </div>
-        <div style="text-align:center;padding:18px 0;font-size:42px;">🥀🌾✨</div>
-        <div style="background:rgba(255,255,255,0.6);padding:10px;border-radius:4px;border:1px solid rgba(93,64,55,0.2);margin-top:auto;">
-          <div style="font-size:10px;font-weight:900;color:#4e342e;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">BOTANICAL MEMO</div>
-          <div class="canva-editable" contenteditable="true" style="font-size:13px;font-style:italic;" data-placeholder="Botanical note...">
-            “Like dried flowers between aged pages, our memories retain their fragrance long after the seasons change.”
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div class="canva-coffee-ring" style="top:10px;left:20px;"></div>
-    
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:16px;position:relative;z-index:2;">
-      <!-- Polaroid Card -->
-      <div class="canva-polaroid" style="margin:0 auto;width:100%;max-width:270px;">
-        <div class="canva-washi-strip" style="top:-8px;left:50%;transform:translateX(-50%) rotate(-1deg);width:85px;background:rgba(215,190,160,0.9);"></div>
-        <div class="canva-polaroid-photo" style="aspect-ratio:4/3;font-size:40px;">🎨🍂</div>
-        <div class="canva-polaroid-caption" contenteditable="true">Autumn Memories &amp; Studio Desk</div>
-      </div>
-
-      <!-- French Dictionary Ephemera Cutout -->
-      <div class="canva-torn-clipping" style="background:#ede0cc;transform:rotate(-1deg);margin:0;">
-        <div style="font-size:9.5px;font-weight:900;letter-spacing:1px;color:#7a5230;text-transform:uppercase;margin-bottom:6px;">DICTIONNAIRE CANVA // P. 142</div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:17px;font-weight:900;color:#3e2723;margin-bottom:4px;">Flâneur /n. m./</div>
-        <div style="font-size:13px;line-height:1.45;color:#5d4037;font-style:italic;margin-bottom:10px;">
-          A passionate observer who wanders through life with eyes open to beauty, taking in every small miracle.
-        </div>
-        <div style="border-top:1px dashed rgba(93,64,55,0.3);padding-top:8px;">
-          <div style="font-size:10px;font-weight:900;color:#4e342e;text-transform:uppercase;margin-bottom:4px;">PERSONAL REFLECTION</div>
-          <div class="canva-editable" contenteditable="true" data-placeholder="Write how you observed beauty today...">
-            Today I paused during my afternoon walk to sketch the architecture of the courtyard.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Wide Lined Journal Block -->
-    <div class="canva-kraft-memo">
-      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(93,64,55,0.3);padding-bottom:6px;margin-bottom:10px;">
-        <span style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;">AUTUMN SKETCHPAD &amp; JOURNAL LOG</span>
-        <span style="font-size:11px;font-weight:700;color:#795548;">PAGE // 0${idx + 1}</span>
-      </div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Continue typing thoughts, pasting washi tape or sketching formulas..." style="min-height:90px;font-size:15px;line-height:1.7;">
-        Record your creative brainstorming, study takeaways, or poetry here. Feel free to drop washi tape across the corners, place stickers, or write with the Penly/Apple stylus!
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div class="canva-header-banner" style="margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#8d6e63;">CANVA AESTHETIC COMPENDIUM</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;margin-top:2px;">THE THREE-PART DAILY REFLECTION</div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:16px;">
-      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 01 // THE HEADLINE ]</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Headline of the day...">
-          Conquered key physics formulas and spent an hour reading in the café.
-        </div>
-      </div>
-      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 02 // IN DEPTH ]</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Deep insights or thoughts...">
-          Real progress happens when you embrace difficult problems with calm curiosity instead of rushing.
-        </div>
-      </div>
-      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 03 // GRATITUDE ]</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Gratitude & next actions...">
-          • Warm cup of cinnamon tea<br>
-          • Quiet study desk<br>
-          • Peaceful evening ahead
-        </div>
-      </div>
-    </div>
-
-    <div class="canva-kraft-memo">
-      <div class="canva-editable" contenteditable="true" data-placeholder="Closing thoughts for the evening..." style="font-style:italic;font-size:14.5px;line-height:1.7;">
-        “In the garden of the mind, every gentle thought planted today blooms into peace tomorrow.”
-      </div>
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-
-  canva_botanical_border: {
-    id: 'canva_botanical_border',
-    number: '3',
-    badge: 'No. 3 • Canva Page Brown',
-    name: 'Beige Brown Vintage Botanical Border',
-    subtitle: 'Canva A4 Botanical Journal & Herbarium Page Border',
-    desc: 'Inspired directly by Canva’s "beige brown aesthetic vintage scrapbook page border": full vintage A4 border, pressed eucalyptus & daisy illustrations, herbarium specimen tags, ticket stubs, and lined aged paper.',
-    emblem: '🌿',
-    coverTheme: 'matcha',
-    paperStyle: 'brown',
-    fontFamily: 'kalam',
-    defaultTitle: 'Aesthetic Botanical Herbarium',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Herbarium Specimen 01 — Botanical Border & Field Notes',
-        'Herbarium Specimen 02 — Dried Daisy & Morphology Log',
-        'Herbarium Specimen 03 — Secret Garden Log & Daily Gratitude',
-        'Herbarium Specimen 04 — Botanical Collector’s Ledger'
-      ];
-      return titles[idx % titles.length] || `Specimen ${idx + 1} — Field Notes`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
-    <!-- Corner Washi Tapes -->
-    <div class="canva-washi-strip" style="top:-10px;left:-10px;width:70px;background:rgba(180,150,120,0.85);transform:rotate(-45deg);"></div>
-    <div class="canva-washi-strip" style="top:-10px;right:-10px;width:70px;background:rgba(180,150,120,0.85);transform:rotate(45deg);"></div>
-    
-    <!-- Top Herbarium Header -->
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #5a422d;padding-bottom:10px;margin-bottom:14px;">
-      <div>
-        <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#7a5230;">CANVA BOTANICAL COLLECTION • A4 SERIES</div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3b2a1d;margin-top:2px;">HERBARIUM SPECIMEN ARCHIVE</div>
-      </div>
-      <div style="font-size:32px;">🌿🌼</div>
-    </div>
-
-    <!-- Classification Metadata Table -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;background:rgba(255,255,255,0.65);border:1px solid rgba(90,66,45,0.3);border-radius:6px;padding:10px;margin-bottom:16px;font-size:12px;color:#3b2a1d;">
-      <div><b>Species:</b> <span contenteditable="true">Eucalyptus cinerea</span></div>
-      <div><b>Common Name:</b> <span contenteditable="true">Silver Dollar Gum</span></div>
-      <div><b>Locality:</b> <span contenteditable="true">Botanical Glasshouse Quad</span></div>
-      <div><b>Collector:</b> <span contenteditable="true">Canva Brown Journal #01</span></div>
-    </div>
-
-    <!-- Main Botanical Journal Lines -->
-    <div class="canva-kraft-memo" style="background:rgba(255,255,255,0.5);border:1px solid rgba(90,66,45,0.25);">
-      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">FIELD OBSERVATIONS &amp; STUDY NOTES</div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Record morphology, cellular biology or personal thoughts..." style="min-height:120px;font-size:15px;line-height:1.75;">
-        Aromatic blue-grey foliage with smooth juvenile leaves. Studied the cellular chloroplast distribution under magnification today. Write your lecture revision or nature reflections here...
-      </div>
-    </div>
-
-    <!-- Bottom Ticket Stub & Seal -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:10px;border-top:1px dashed rgba(90,66,45,0.3);">
-      <div class="canva-ticket-stub">
-        <div style="font-size:8px;font-weight:900;letter-spacing:1px;">HERBARIUM PASS</div>
-        <div style="font-size:11px;font-weight:800;">N° 84920</div>
-      </div>
-      <span style="font-size:12px;font-style:italic;color:#5a422d;" contenteditable="true">“Every leaf tells a story of sunlight and patience.”</span>
-      <div style="font-size:24px;">🏷️</div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-      <!-- Morphology Card -->
-      <div class="canva-torn-clipping" style="background:#f4ece0;margin:0;">
-        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">PLANT TAXONOMY &amp; MORPHOLOGY</div>
-        <div style="font-size:36px;text-align:center;padding:12px 0;">🌱🍃</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Plant physiology notes...">
-          • Photosynthetic pathways and water retention mechanisms.<br>
-          • Adaptation to dry autumn temperatures.<br>
-          • Microscopic leaf stomata observations.
-        </div>
-      </div>
-
-      <!-- Field Journal Card -->
-      <div class="canva-torn-clipping" style="background:#ede3d2;margin:0;">
-        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">DAILY FIELD LOG &amp; MEMORIES</div>
-        <div style="font-size:36px;text-align:center;padding:12px 0;">🥀✨</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Personal memories and observations...">
-          • Crisp breeze and amber sunlight through the trees.<br>
-          • Completed revision goal for today.<br>
-          • Ready for peaceful evening study.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
-    <div class="canva-header-banner" style="margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#7a5230;">GARDEN COMPENDIUM</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3b2a1d;">THREE DAILY GRATITUDES</div>
-    </div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your three daily gratitudes here..." style="min-height:100px;font-size:15px;line-height:1.75;">
-        1. Fresh morning air and a clear mind for studying.<br>
-        2. A difficult equation finally clicking into place.<br>
-        3. A quiet corner surrounded by inspiring books and tea.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
-    <div style="text-align:center;border-bottom:2px solid #5a422d;padding-bottom:8px;margin-bottom:14px;">
-      <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#5a422d;">BOTANICAL COLLECTOR’S LEDGER // SUMMARY</div>
-    </div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Weekly summary or study synthesis..." style="min-height:120px;font-size:15px;line-height:1.75;">
-        Summary of this week’s learnings: cultivate patience, review flashcards daily, and enjoy every small discovery along the way.
-      </div>
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-
-  canva_autumn_notes: {
-    id: 'canva_autumn_notes',
-    number: '4',
-    badge: 'No. 4 • Canva Page Brown',
-    name: 'Brown Aesthetic Autumn Scrapbook',
-    subtitle: 'Canva Autumn Blank Notes & Memories Spread',
-    desc: 'Inspired directly by Canva’s "brown aesthetic scrapbook autumn blank notes A4": warm autumn browns, café receipt cutouts, coffee cup watermarks, polaroid picture slots, and cozy study memos.',
-    emblem: '☕',
-    coverTheme: 'honey',
-    paperStyle: 'brown',
-    fontFamily: 'caveat',
-    defaultTitle: 'Autumn Brown Scrapbook & Notes',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Autumn Notes 01 — Coffee Receipt & Daily Focus',
-        'Autumn Notes 02 — Cozy Reading Log & Book Review',
-        'Autumn Notes 03 — Evening Musings & Candlelight',
-        'Autumn Notes 04 — Creative Brain Dump & Warm Prose'
-      ];
-      return titles[idx % titles.length] || `Autumn Entry ${idx + 1}`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#f6eedf;">
-    <div class="canva-coffee-ring" style="top:15px;right:25px;"></div>
-    
-    <!-- Receipt Header Strip -->
-    <div class="canva-receipt-card">
-      <div style="text-align:center;border-bottom:1px dashed #795548;padding-bottom:6px;margin-bottom:8px;">
-        <div style="font-size:14px;font-weight:900;letter-spacing:1px;color:#3e2723;">CALVERSE AUTUMN CAFÉ</div>
-        <div style="font-size:9.5px;font-family:monospace;color:#5d4037;">ORDER #8491 • TABLE 03 • 08:30 AM</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:monospace;margin-bottom:4px;">
-        <span>1x Oat Cinnamon Latte</span>
-        <span>$4.50</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:monospace;margin-bottom:8px;">
-        <span>1x Fresh Butter Croissant</span>
-        <span>$3.75</span>
-      </div>
-      <div style="border-top:1px dashed #795548;padding-top:4px;font-size:10px;text-align:center;font-style:italic;">
-        “Thank you for visiting! May your studies be fruitful.”
-      </div>
-    </div>
-
-    <!-- Main Autumn Journal Area -->
-    <div class="canva-kraft-memo" style="margin-top:16px;">
-      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">AUTUMN INTENTIONS &amp; STUDY NOTES</div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your morning reflections, daily intentions, or study tasks..." style="min-height:110px;font-size:15.5px;line-height:1.75;">
-        The air is crisp, the coffee is warm, and the notebooks are open. Outline your day’s tasks, key equations to conquer, and thoughts to reflect upon...
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#f6eedf;">
-    <div class="canva-header-banner" style="margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">AUTUMN READING LOG</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;">COFFEE &amp; CURRENT BOOK REVIEW</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;background:rgba(255,255,255,0.6);padding:10px;border-radius:6px;border:1px solid rgba(121,85,72,0.3);margin-bottom:14px;font-size:12px;">
-      <div><b>Book:</b> <span contenteditable="true">Atomic Habits</span></div>
-      <div><b>Author:</b> <span contenteditable="true">James Clear</span></div>
-      <div><b>Rating:</b> <span contenteditable="true">★★★★★</span></div>
-    </div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Favorite quotes and chapter takeaways..." style="min-height:90px;font-size:15px;line-height:1.75;">
-        “Every action you take is a vote for the type of person you wish to become.” Write down how this inspires your current habits...
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#f6eedf;">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:8px;text-align:center;">CANDLELIGHT &amp; EVENING CONTEMPLATION</div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Unwind with peaceful thoughts..." style="min-height:120px;font-size:15px;line-height:1.75;">
-        As the day comes to a close, let go of what wasn't finished. Celebrate what you accomplished, and rest deeply.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#f6eedf;">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:8px;text-align:center;">AUTUMN BRAIN DUMP &amp; DOODLES</div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Stream of consciousness..." style="min-height:120px;font-size:15px;line-height:1.75;">
-        Write without filtering. Let your ideas, sketches, and plans flow across the page.
-      </div>
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-
-  canva_travel_ephemera: {
-    id: 'canva_travel_ephemera',
-    number: '5',
-    badge: 'No. 5 • Canva Page Brown',
-    name: 'Brown Beige Retro Travel Scrapbook',
-    subtitle: 'Canva Vintage Travelogue & Ticket Ephemera',
-    desc: 'Inspired directly by Canva’s "brown beige retro travel journal": vintage luggage tags, perforated travel ticket stubs, airmail stamps, postmarks, and two-column travel memoirs.',
-    emblem: '✈️',
-    coverTheme: 'latte',
-    paperStyle: 'brown',
-    fontFamily: 'caveat',
-    defaultTitle: 'Retro Travel & Voyage Journal',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Voyage Entry 01 — Travel Ticket & Luggage Tag',
-        'Voyage Entry 02 — Postcard from Paris & Old Streets',
-        'Voyage Entry 03 — Culinary Notes & Local Cafés',
-        'Voyage Entry 04 — Journey Summary & Memories'
-      ];
-      return titles[idx % titles.length] || `Voyage Entry ${idx + 1}`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #5d4037;padding-bottom:10px;margin-bottom:14px;">
-      <div>
-        <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">VINTAGE EXPEDITION • ARCHIVE</div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3e2723;">VOYAGES, TRAINS &amp; OLD CITIES</div>
-      </div>
-      <div class="canva-ticket-stub" style="transform:rotate(2deg);">
-        <div style="font-size:8px;font-weight:900;">BOARDING PASS</div>
-        <div style="font-size:11px;font-weight:800;">EXP-782</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:16px;">
-      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
-        <div class="canva-polaroid-photo" style="font-size:36px;">🏛️🚂</div>
-        <div class="canva-polaroid-caption" contenteditable="true">Train Station in Florence</div>
-      </div>
-
-      <div class="canva-torn-clipping">
-        <div style="font-size:10.5px;font-weight:900;color:#5d4037;margin-bottom:6px;">LUGGAGE TAG // N° 402</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Destination, sights and impressions...">
-          <b>Destination:</b> Florence &amp; Tuscany<br>
-          <b>Date:</b> October 21<br>
-          <b>Impressions:</b> Cobblestone alleys, acoustic guitar echoes under terracotta roofs, and the scent of roasted espresso beans.
-        </div>
-      </div>
-    </div>
-
-    <div class="canva-kraft-memo">
-      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">TRAVEL MEMOIRS &amp; HIGHLIGHTS</div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your travelogue or wanderlust memories..." style="min-height:90px;font-size:15px;line-height:1.75;">
-        Every city speaks its own secret language. The joy of traveling is in slowing down to listen. Record your observations and discoveries here...
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">POSTCARD FROM PARIS // MEMORIES</div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Postcard notes and thoughts..." style="min-height:110px;font-size:15px;line-height:1.75;">
-        Sitting at an outdoor bistro in Montmartre with a warm café au lait. Sketching the rooftops while autumn leaves flutter across the pavement.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">LOCAL CAFÉS &amp; FLAVOR DIARY</div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Culinary notes..." style="min-height:110px;font-size:15px;line-height:1.75;">
-        Record the flavors, pastry recipes, and coffee roasts discovered along the way.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">JOURNEY SUMMARY &amp; WHAT’S NEXT</div>
-    <div class="canva-kraft-memo">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Reflections on returning home..." style="min-height:110px;font-size:15px;line-height:1.75;">
-        Traveling changes not the places you see, but the eyes with which you see the world.
-      </div>
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-
-  canva_minimal_photo: {
-    id: 'canva_minimal_photo',
-    number: '6',
-    badge: 'No. 6 • Canva Page Brown',
-    name: 'Minimalist White & Brown Photo Collage',
-    subtitle: 'Canva Modern Aesthetic Scrapbook',
-    desc: 'Inspired directly by Canva’s "beige white and brown minimalist photo collage scrapbook": clean modern-vintage aesthetic, staggered polaroid collage frames, kraft paper sticky memos with tape, and delicate captions.',
-    emblem: '🌸',
-    coverTheme: 'blush',
-    paperStyle: 'blank',
-    fontFamily: 'shantell',
-    defaultTitle: 'Minimalist Aesthetic Photo Scrapbook',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Photo Collage 01 — Polaroid Moodboard & Aesthetic Moments',
-        'Photo Collage 02 — Cozy Snapshots & Heartfelt Captions',
-        'Photo Collage 03 — Weekly Self-Care & Habit Glow-Up',
-        'Photo Collage 04 — Creative Doodles & Aesthetic Memories'
-      ];
-      return titles[idx % titles.length] || `Collage Spread ${idx + 1}`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
-    <div style="text-align:center;margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">MINIMALIST PHOTO COLLAGE</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;">EVERYDAY BEAUTY IN FRAMES</div>
-    </div>
-
-    <!-- Triple Polaroid Collage Grid -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;">
-      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
-        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">🌸✨</div>
-        <div class="canva-polaroid-caption" contenteditable="true">Morning Light</div>
-      </div>
-      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(2deg);">
-        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">☕🍂</div>
-        <div class="canva-polaroid-caption" contenteditable="true">Coffee Time</div>
-      </div>
-      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-1deg);">
-        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">📖🕯️</div>
-        <div class="canva-polaroid-caption" contenteditable="true">Quiet Reading</div>
-      </div>
-    </div>
-
-    <div class="canva-kraft-memo" style="background:#f4ede0;">
-      <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">SWEET NOTES &amp; MEMORIES</div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your sweet moments..." style="min-height:80px;font-size:14.5px;line-height:1.75;">
-        A gentle collection of small joys. Today brought clarity, restful conversation, and progress in my creative projects.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">COZY SNAPSHOTS &amp; MEMORIES</div>
-    <div class="canva-kraft-memo" style="background:#f4ede0;">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Type memories..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
-        Cherish simple moments: laughter with friends, warm tea on a rainy afternoon, and clean notebook pages waiting to be filled.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">WEEKLY GLOW-UP &amp; SELF-CARE</div>
-    <div class="canva-kraft-memo" style="background:#f4ede0;">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Habits..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
-        ☑ Drank fresh lemon water<br>
-        ☑ Walked 30 minutes in nature<br>
-        ☑ Wrote 3 thoughtful pages in journal
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">CREATIVE DOODLE CANVAS</div>
-    <div class="canva-kraft-memo" style="background:#f4ede0;">
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Doodles & notes..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
-        Use the stickers, washi tape, and shapes menus to turn this page into your own aesthetic scrapbook!
-      </div>
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-
-  canva_dark_academia: {
-    id: 'canva_dark_academia',
-    number: '7',
-    badge: 'No. 7 • Canva Page Brown',
-    name: 'Antique Sepia & Dark Academia Study',
-    subtitle: 'Canva Classical Scholar & Archival Bookplate',
-    desc: 'Inspired directly by Canva’s "dark academia vintage scrapbook": antique bookplates, illuminated drop caps, Latin dialectic inquiry columns, and midnight sepia library tags.',
-    emblem: '🏛️',
-    coverTheme: 'noir',
-    paperStyle: 'brown',
-    fontFamily: 'serif',
-    defaultTitle: 'Dark Academia Classical Archive',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Scholar Archive 01 — Classical Preface & Thesis',
-        'Scholar Archive 02 — Dialectic Argumentation & Inquiry',
-        'Scholar Archive 03 — Library Excerpt & Manuscript Notes',
-        'Scholar Archive 04 — Nocturne Contemplation & Philosophy'
-      ];
-      return titles[idx % titles.length] || `Chapter ${idx + 1} — Academic Archive`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
-    <div style="text-align:center;border-bottom:2px solid #5a4b3a;padding-bottom:10px;margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;">AD ASTRA PER ASPERA • ARCHIVUM ACADEMIAE</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;margin-top:4px;">PROLOGUE: THE CLASSICAL COMPENDIUM</div>
-      <div style="font-size:10px;letter-spacing:1px;opacity:0.8;font-style:italic;">BODLEIAN &amp; HEIDELBERG MANUSCRIPT ARCHIVE</div>
-    </div>
-    <div class="canva-editable" contenteditable="true" data-placeholder="State your thesis or scholarly inquiry here..." style="font-size:15px;line-height:1.75;min-height:90px;">
-      <span class="canva-dropcap" style="color:#d4af37;">K</span>nowledge is a fortress built stone by stone. In literature, natural philosophy, and dialectics, we preserve the timeless pursuit of truth. State your research thesis and key observations below...
-    </div>
-    <div class="canva-kraft-memo" style="background:#1f1b14;border:1px solid #3d3224;margin-top:14px;color:#ded3c0;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ PRIMARY THEOREM / CORROBORATION ]</div>
-      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Derivations, textual citations, or thesis points..." style="min-height:80px;font-size:14.5px;line-height:1.75;">
-        • Core assertion backed by primary textual sources.<br>
-        • Critical distinctions and dialectic counterpoints.<br>
-        • Synthesized conclusion.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
-      <div class="canva-torn-clipping" style="background:#201b14;color:#ded3c0;border:1px solid #3d3224;margin:0;">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ THESIS ]</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Thesis arguments...">
-          State the affirmative arguments and analytical proofs here.
-        </div>
-      </div>
-      <div class="canva-torn-clipping" style="background:#201b14;color:#ded3c0;border:1px solid #3d3224;margin:0;">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ ANTITHESIS ]</div>
-        <div class="canva-editable" contenteditable="true" data-placeholder="Counter arguments...">
-          State objections, alternative hypotheses, and resolution here.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
-    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #5a4b3a;padding-bottom:6px;margin-bottom:10px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;">
-      <span>BODLEIAN ARCHIVE REF: CAL-892</span>
-      <span>MANUSCRIPT NOTE</span>
-    </div>
-    <div class="canva-editable" contenteditable="true" data-placeholder="Manuscript citations..." style="min-height:100px;font-size:15px;line-height:1.75;">
-      Record textual analysis, Latin translations, and archival research notes.
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="canva-brown-page">
-  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
-    <div style="text-align:center;border-bottom:1px solid #5a4b3a;padding-bottom:6px;margin-bottom:10px;">
-      <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#c9a96e;">NOCTURNE: CONTEMPLATION UNDER CANDLELIGHT</div>
-    </div>
-    <div class="canva-editable" contenteditable="true" data-placeholder="Midnight reflections..." style="min-height:110px;font-size:15px;line-height:1.75;">
-      In the quiet solitude of midnight, truth reveals itself to those who persevere.
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  }
-};
-
-/* Legacy template ID aliases for backward-compatibility with previously created books */
-BOOK_TEMPLATES.magazine_cutout = BOOK_TEMPLATES.canva_brown_collage;
-BOOK_TEMPLATES.vintage_botanical = BOOK_TEMPLATES.canva_botanical_border;
-BOOK_TEMPLATES.pastel_cutouts = BOOK_TEMPLATES.canva_autumn_notes;
-BOOK_TEMPLATES.cornell_study = BOOK_TEMPLATES.canva_travel_ephemera;
-
-
-let selectedBookTemplateId = 'blank';
-
-function openBookTemplatePickerModal(isVault = false){
-  isCreatingVaultBook = (isVault === true || isJournalVaultActive);
-  selectedBookTemplateId = 'blank';
-  const modalTitle = document.getElementById('book-tpl-modal-title');
-  if(modalTitle) modalTitle.textContent = isCreatingVaultBook ? '🔒 Choose Secret Diary Template' : '📚 Choose Notebook Template';
-  renderBookTemplateCards();
-  const m = document.getElementById('journal-book-template-modal');
-  if(m) m.classList.add('show');
-}
-
-function closeBookTemplatePickerModal(){
-  const m = document.getElementById('journal-book-template-modal');
-  if(m) m.classList.remove('show');
-}
-
-function renderBookTemplateCards(){
-  const container = document.getElementById('book-tpl-cards-container');
-  if(!container) return;
-  const primaryTemplateOrder = ['blank', 'canva_brown_collage', 'canva_botanical_border', 'canva_autumn_notes', 'canva_travel_ephemera', 'canva_minimal_photo', 'canva_dark_academia'];
-  const list = primaryTemplateOrder.map(id => BOOK_TEMPLATES[id]).filter(Boolean);
-  let html = '';
-  list.forEach(tpl => {
-    const isSel = (tpl.id === selectedBookTemplateId);
-    html += `
-      <div class="book-tpl-card ${isSel ? 'is-selected' : ''}" data-template-id="${tpl.id}" onclick="selectBookTemplateCard('${tpl.id}')">
-        <div class="book-tpl-check">✓</div>
-        <div>
-          <div class="book-tpl-head">
-            <div class="book-tpl-emblem-wrap" style="background:var(--gl);">${tpl.emblem}</div>
-            <span class="book-tpl-number-badge">${escapeHtml(tpl.badge || `No. ${tpl.number}`)}</span>
-          </div>
-          <div class="book-tpl-title">${escapeHtml(tpl.name)}</div>
-          <div class="book-tpl-sub">${escapeHtml(tpl.subtitle)}</div>
-          <div class="book-tpl-desc" style="margin-top:6px;">${escapeHtml(tpl.desc)}</div>
-        </div>
-        <div class="book-tpl-features">
-          <span class="book-tpl-pill">Theme: ${tpl.coverTheme}</span>
-          <span class="book-tpl-pill">Font: ${tpl.fontFamily}</span>
-          <span class="book-tpl-pill">${tpl.id === 'blank' ? 'Blank canvas' : '4 Page Layouts'}</span>
-        </div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
-  updateBookTemplateSelectionFooter();
-}
-
-function selectBookTemplateCard(tplId){
-  selectedBookTemplateId = tplId;
-  const cards = document.querySelectorAll('.book-tpl-card');
-  cards.forEach(c => {
-    if(c.dataset.templateId === tplId) c.classList.add('is-selected');
-    else c.classList.remove('is-selected');
-  });
-  updateBookTemplateSelectionFooter();
-  try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
-}
-
-function updateBookTemplateSelectionFooter(){
-  const tpl = BOOK_TEMPLATES[selectedBookTemplateId] || BOOK_TEMPLATES.blank;
-  const nameEl = document.getElementById('book-tpl-selected-name');
-  const btn = document.getElementById('book-tpl-confirm-btn');
-  if(nameEl) nameEl.textContent = `${tpl.emblem} ${tpl.name}`;
-  if(btn) btn.textContent = `Create Notebook ✨`;
-}
-
-function confirmSelectedBookTemplate(){
-  const tpl = BOOK_TEMPLATES[selectedBookTemplateId] || BOOK_TEMPLATES.blank;
-  const now = Date.now();
-  const isVault = isCreatingVaultBook || isJournalVaultActive;
-  const title = isVault ? `Private ${tpl.defaultTitle} 🔐` : `${tpl.defaultTitle} ✨`;
-  const desc = tpl.subtitle || tpl.desc;
-  const coverTheme = 'theme-' + (tpl.coverTheme || (isVault ? 'noir' : 'blush'));
-  const emblem = tpl.emblem || (isVault ? '🔐' : '🌸');
-
-  const newBook = {
-    id: isVault ? `vault_book_${now}_${Math.random().toString(36).slice(2,7)}` : `book_${now}_${Math.random().toString(36).slice(2,7)}`,
-    title,
-    desc,
-    coverTheme,
-    emblem,
-    templateId: tpl.id,
-    isVault: isVault,
-    createdAt: now,
-    updatedAt: now
-  };
-
-  if(isVault){
-    VAULT_JOURNAL_BOOKS.push(newBook);
-    saveVaultJournalBooks();
-    showToast(`Created secret diary with ${tpl.name} template 🔐✨`);
-  } else {
-    JOURNAL_BOOKS.push(newBook);
-    saveJournalBooks();
-    showToast(`Created notebook with ${tpl.name} template 📚✨`);
-  }
-
-  currentJournalBookId = newBook.id;
-  currentJournalPageIndex = 0;
-  closeBookTemplatePickerModal();
-  syncIpadNotebookSelect();
-  renderJournalBookshelf();
-  if(notesPane === 'books') renderNotebooksShelf();
-
-  // If in journal screen, immediately load and view
-  if(curScr === 'Journal' || document.getElementById('sJournal')?.classList.contains('active')){
-    switchJournalMainView('notebook');
-    loadIpadActivePage();
-  }
-}
-
-function customizeSelectedBookTemplate(){
-  const tpl = BOOK_TEMPLATES[selectedBookTemplateId] || BOOK_TEMPLATES.blank;
-  closeBookTemplatePickerModal();
-  bookModalEditingId = '';
-  const titleEl = document.getElementById('book-input-title');
-  const descEl = document.getElementById('book-input-desc');
-  const modalTitle = document.getElementById('book-modal-title');
-  if(modalTitle) modalTitle.textContent = isCreatingVaultBook ? `🔒 Create Secret Book (${tpl.name})` : `📚 Create Book (${tpl.name})`;
-  if(titleEl) titleEl.value = isCreatingVaultBook ? `Private ${tpl.defaultTitle} 🔐` : tpl.defaultTitle;
-  if(descEl) descEl.value = tpl.subtitle;
-  const themeClean = tpl.coverTheme || 'blush';
-  const themeBtn = document.querySelector(`#book-theme-picker .hl-swatch[data-theme="${themeClean}"]`) || document.querySelector('#book-theme-picker .hl-swatch');
-  if(themeBtn) selectBookTheme(themeClean, themeBtn);
-  const iconBtns = document.querySelectorAll('#book-icon-picker .sticker-pick-btn');
-  let matchedIcon = false;
-  iconBtns.forEach(btn => {
-    if(btn.textContent.trim() === tpl.emblem){
-      selectBookIcon(tpl.emblem, btn);
-      matchedIcon = true;
-    }
-  });
-  if(!matchedIcon && iconBtns[0]) selectBookIcon(iconBtns[0].textContent.trim(), iconBtns[0]);
-  const m = document.getElementById('journal-book-modal');
-  if(m) m.classList.add('show');
 }
 
 /* ── UNIVERSAL COLOR DIAL & INTENSITY CONTROLLER ── */
@@ -9644,7 +8642,35 @@ function setShapeCustomBorderColor(item, hex){
 
 
 function openCreateBookModal(isVault = false){
-  openBookTemplatePickerModal(isVault);
+  isCreatingVaultBook = (isVault === true || isJournalVaultActive);
+  bookModalEditingId='';
+  const titleEl=document.getElementById('book-input-title');
+  const descEl=document.getElementById('book-input-desc');
+  const modalTitle=document.getElementById('book-modal-title');
+  if(modalTitle)modalTitle.textContent = isCreatingVaultBook ? '🔒 Create Secret Diary Book' : '📚 Create New Book';
+  if(titleEl){
+    titleEl.value='';
+    titleEl.placeholder = isCreatingVaultBook ? 'e.g. Midnight Whispers & Confessions 🔐' : 'e.g. Daily Mindful Journal 🌸';
+  }
+  if(descEl){
+    descEl.value='';
+    descEl.placeholder = isCreatingVaultBook ? 'e.g. Private thoughts, secret memories & unsent letters' : 'e.g. Thoughts, memories & daily plans';
+  }
+  const defaultTheme = isCreatingVaultBook ? 'noir' : 'blush';
+  const defaultIcon = isCreatingVaultBook ? '🔐' : '🌸';
+  const themeBtn=document.querySelector(`#book-theme-picker .hl-swatch[data-theme="${defaultTheme}"]`) || document.querySelector('#book-theme-picker .hl-swatch');
+  if(themeBtn)selectBookTheme(themeBtn.dataset.theme||defaultTheme,themeBtn);
+  const iconBtns=document.querySelectorAll('#book-icon-picker .sticker-pick-btn');
+  let matchedIcon=false;
+  iconBtns.forEach(btn=>{
+    if(btn.textContent.trim()===defaultIcon){
+      selectBookIcon(defaultIcon,btn);
+      matchedIcon=true;
+    }
+  });
+  if(!matchedIcon && iconBtns[0]) selectBookIcon(iconBtns[0].textContent.trim(), iconBtns[0]);
+  const m=document.getElementById('journal-book-modal');
+  if(m)m.classList.add('show');
 }
 
 function openEditBookModal(bookId){
@@ -9715,7 +8741,6 @@ function submitBookModal(){
       desc,
       coverTheme,
       emblem,
-      templateId: selectedBookTemplateId || 'blank',
       isVault: isVault,
       createdAt:now,
       updatedAt:now
@@ -10685,28 +9710,21 @@ function loadIpadActivePage(){
   const isVault = (isJournalVaultActive || (currentJournalBookId && currentJournalBookId.startsWith('vault_')));
   if(!pages.length){
     const now = Date.now();
-    const curBook = getJournalBookById(currentJournalBookId);
-    const tplId = curBook?.templateId || 'blank';
-    const tpl = BOOK_TEMPLATES[tplId] || BOOK_TEMPLATES.blank;
-    const starterTitle = isVault ? 'Private Entry 1 🔐' : tpl.getPageTitle(0);
-    const starterContent = tpl.getPageContent(0);
-    const starterFont = tpl.fontFamily || (isVault ? 'caveat' : 'patrick');
-    const starterPaper = tpl.paperStyle || (isVault ? 'cream' : 'obsidian');
-
+    const starterTitle = isVault ? 'Private Entry 1 🔐' : 'Page 1 — Notes';
     const starterNote = {
       id: isVault ? `vault_note_${now}_${Math.random().toString(36).slice(2,7)}` : `note_${now}_${Math.random().toString(36).slice(2,7)}`,
       title: starterTitle,
-      content: starterContent,
+      content: '',
       createdAt: now,
       updatedAt: now,
       isVault: isVault,
       untitledIndex: isVault ? vaultUntitledSeed++ : noteUntitledSeed++,
-      fontFamily: starterFont,
+      fontFamily: isVault ? 'caveat' : 'patrick',
       fontSize: 'medium',
       textColor: getDefaultNoteTextColor(),
       textColorMode: 'auto',
       bookId: currentJournalBookId,
-      paperStyle: starterPaper,
+      paperStyle: isVault ? 'cream' : 'obsidian',
       tags: isVault ? ['#secret', '#diary'] : []
     };
     if(isVault){
@@ -10773,21 +9791,17 @@ function addIpadPage(){
   saveCurrentIpadPage(false);
   const isVault = (isJournalVaultActive || (currentJournalBookId && currentJournalBookId.startsWith('vault_')));
   const pages = getIpadPagesForCurrentBook();
-  const curBook = getJournalBookById(currentJournalBookId);
-  const tplId = curBook?.templateId || 'blank';
-  const tpl = BOOK_TEMPLATES[tplId] || BOOK_TEMPLATES.blank;
   const currentNote = getNoteById(currentNoteId);
-  const preferredFont = tpl.fontFamily || (currentNote?.fontFamily || (isVault ? 'caveat' : 'patrick'));
-  const preferredPaper = tpl.paperStyle || (currentNote?.paperStyle || (isVault ? 'cream' : 'obsidian'));
+  const preferredFont = currentNote?.fontFamily || (isVault ? 'caveat' : 'patrick');
+  const preferredPaper = currentNote?.paperStyle || (isVault ? 'cream' : 'obsidian');
   const now = Date.now();
   const nextNum = pages.length + 1;
-  const pageTitle = isVault ? `Private Entry ${nextNum} 🔐` : tpl.getPageTitle(pages.length);
-  const pageContent = tpl.getPageContent(pages.length);
+  const pageTitle = isVault ? `Private Entry ${nextNum} 🔐` : `Page ${nextNum}`;
 
   const newNote = {
     id: isVault ? `vault_note_${now}_${Math.random().toString(36).slice(2,7)}` : `note_${now}_${Math.random().toString(36).slice(2,7)}`,
     title: pageTitle,
-    content: pageContent,
+    content: '',
     createdAt: now,
     updatedAt: now,
     isVault: isVault,
