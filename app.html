@@ -1602,6 +1602,27 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 
 .ipad-paper-sheet{position:relative;min-height:560px;padding:30px 36px 48px;box-sizing:border-box;transition:background .2s ease,transform .15s ease;font-size:18px;line-height:1.75;}
+
+/* ── JOURNAL PAGE BACKGROUND ENGINE ── */
+.ipad-paper-bg-layer{position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:1;display:none;transition:opacity .2s ease,filter .2s ease;}
+.ipad-paper-bg-layer.is-active{display:block;}
+
+.journal-bg-tabs{display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.journal-bg-tabs::-webkit-scrollbar{display:none;}
+.journal-bg-tab{height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--glb);background:rgba(255,255,255,0.06);color:var(--t2);font-size:11.5px;font-weight:800;cursor:pointer;white-space:nowrap;transition:all 0.15s ease;}
+.journal-bg-tab:hover{background:rgba(255,255,255,0.12);color:var(--t1);}
+.journal-bg-tab.is-active{background:var(--accg);color:#fff;border-color:var(--acb);}
+
+.journal-bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;overflow-y:auto;padding:8px 2px;flex:1;min-height:220px;max-height:50vh;}
+.journal-bg-card{position:relative;border-radius:12px;border:1.5px solid var(--glb);overflow:hidden;aspect-ratio:4/3;cursor:pointer;background:rgba(255,255,255,0.05);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;display:flex;flex-direction:column;justify-content:flex-end;}
+.journal-bg-card:hover{transform:translateY(-3px) scale(1.02);border-color:var(--act);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.journal-bg-card.is-active{border-color:var(--act);box-shadow:0 0 0 2px var(--act),0 8px 24px rgba(0,0,0,0.35);}
+.journal-bg-card-preview{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform .2s ease;}
+.journal-bg-card:hover .journal-bg-card-preview{transform:scale(1.04);}
+.journal-bg-card-footer{position:relative;z-index:2;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.85) 60%);padding:8px 10px;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:space-between;}
+.journal-bg-card-check{display:none;width:18px;height:18px;border-radius:50%;background:var(--act);color:#fff;font-size:10px;font-weight:900;place-items:center;}
+.journal-bg-card.is-active .journal-bg-card-check{display:grid;}
+
 @media (max-width:580px){.ipad-paper-sheet{padding:18px 14px 36px;min-height:460px;font-size:16px;}}
 
 .ipad-paper-sheet.paper-obsidian-grid{
@@ -5409,6 +5430,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(2)" title="Increase Font Size (A+)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▴</button>
             </div>
             <button type="button" class="ipad-step-btn" onclick="openUniversalColorPickerForIpadText()" title="Ink &amp; Text Color Dial" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:inline-flex;align-items:center;height:28px;">🎨 Ink</button>
+            <button type="button" class="ipad-step-btn" id="ipad-bg-btn" onclick="openJournalBackgroundModal()" title="Journal Page Background Collection" style="padding:0 9px;font-size:11.5px;font-weight:800;gap:5px;display:inline-flex;align-items:center;height:28px;">🖼️ Background</button>
           </div>
         </div>
 
@@ -5445,6 +5467,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           </div>
 
           <div class="ipad-paper-sheet paper-obsidian-grid" id="ipad-paper-sheet">
+            <div id="ipad-paper-bg-layer" class="ipad-paper-bg-layer"></div>
             <input type="text" id="ipad-page-title" class="ipad-paper-title" placeholder="Page Title (e.g. Bioenergetics & ATP Cycle...)" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(true)">
             <!-- Freehand Inking Canvas Layer -->
             <canvas id="ipad-ink-canvas" class="ipad-ink-canvas"></canvas>
@@ -5838,6 +5861,52 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         </div>
       </div>
       <div class="tpl-grid" id="tpl-modal-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNAL PAGE BACKGROUND MODAL -->
+<div id="journal-background-modal" class="app-dialog" onclick="if(event.target===this)closeJournalBackgroundModal()">
+  <div class="app-dialog-card" style="width:min(100%,780px);max-width:780px;padding:20px 22px;max-height:85vh;display:flex;flex-direction:column;gap:12px;" onclick="event.stopPropagation()">
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--glb);padding-bottom:12px;">
+      <div>
+        <div class="app-dialog-title" style="margin:0 0 3px;font-size:18px;">🖼️ Journal Background Collection</div>
+        <div style="font-size:12px;color:var(--t2);">Choose an aesthetic background for this page or upload your own. Write, ink, and place stickers freely on top!</div>
+      </div>
+      <button type="button" class="ipad-step-btn" onclick="closeJournalBackgroundModal()" style="font-size:15px;width:30px;height:30px;flex-shrink:0;">✕</button>
+    </div>
+
+    <!-- Quick Action Bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:2px 0;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <input type="file" id="journal-bg-file-input" accept="image/*" style="display:none;" onchange="handleJournalBgUpload(event)">
+        <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:12px;height:32px;display:inline-flex;align-items:center;gap:5px;">📤 Upload Background</button>
+        <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;color:var(--rdc);">✕ Remove Background</button>
+      </div>
+
+      <!-- Dim / Softness Slider -->
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:10px;border:1px solid var(--glb);">
+        <span style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Softness:</span>
+        <input type="range" id="journal-bg-dim-slider" min="20" max="100" step="5" value="100" oninput="setJournalBgDim(this.value)" style="width:75px;accent-color:var(--act);cursor:pointer;">
+        <span id="journal-bg-dim-label" style="font-size:11px;font-weight:900;color:var(--act);min-width:32px;">100%</span>
+      </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="journal-bg-tabs" id="journal-bg-tabs">
+      <button type="button" class="journal-bg-tab is-active" data-cat="all" onclick="filterJournalBgTab('all', this)">All</button>
+      <button type="button" class="journal-bg-tab" data-cat="vintage" onclick="filterJournalBgTab('vintage', this)">🤎 Vintage &amp; Kraft</button>
+      <button type="button" class="journal-bg-tab" data-cat="botanical" onclick="filterJournalBgTab('botanical', this)">🌿 Botanical</button>
+      <button type="button" class="journal-bg-tab" data-cat="pastel" onclick="filterJournalBgTab('pastel', this)">☁️ Pastel</button>
+      <button type="button" class="journal-bg-tab" data-cat="dark" onclick="filterJournalBgTab('dark', this)">🏛️ Dark Academia</button>
+      <button type="button" class="journal-bg-tab" data-cat="minimalist" onclick="filterJournalBgTab('minimalist', this)">🤍 Minimalist</button>
+      <button type="button" class="journal-bg-tab" data-cat="uploads" onclick="filterJournalBgTab('uploads', this)">📁 My Uploads</button>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="journal-bg-grid" id="journal-bg-grid">
+      <!-- Populated dynamically by renderJournalBackgroundGrid() -->
     </div>
   </div>
 </div>
@@ -8257,6 +8326,338 @@ function selectBookIcon(icon,el){
   if(el)el.classList.add('on');
 }
 
+/* ── JOURNAL PAGE BACKGROUND ENGINE & COLLECTION ── */
+const JOURNAL_BACKGROUNDS = [
+  {
+    id: 'kraft_vintage',
+    name: 'Warm Vintage Kraft',
+    category: 'vintage',
+    badge: '🤎 Kraft',
+    value: 'radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.4) 0%, rgba(138,105,75,0.1) 100%), repeating-linear-gradient(45deg, rgba(100,70,40,0.02) 0px, rgba(100,70,40,0.02) 2px, transparent 2px, transparent 4px), #d8c3ab'
+  },
+  {
+    id: 'coffee_parchment',
+    name: 'Coffee Stained Paper',
+    category: 'vintage',
+    badge: '☕ Coffee',
+    value: 'radial-gradient(circle at 75% 30%, rgba(139,94,60,0.25) 0%, transparent 45%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.2) 0%, transparent 40%), repeating-linear-gradient(0deg, rgba(80,50,25,0.02) 0px, rgba(80,50,25,0.02) 1px, transparent 1px, transparent 3px), #e8dac8'
+  },
+  {
+    id: 'golden_scroll',
+    name: 'Aged Golden Scroll',
+    category: 'vintage',
+    badge: '📜 Scroll',
+    value: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, rgba(160,120,70,0.25) 100%), #f0e2cd'
+  },
+  {
+    id: 'antique_scrapbook',
+    name: 'Antique Cream Journal',
+    category: 'vintage',
+    badge: '📖 Cream',
+    value: 'radial-gradient(ellipse at center, rgba(255,255,255,0.45) 0%, rgba(120,90,55,0.12) 100%), #f4ecd8'
+  },
+  {
+    id: 'botanical_sage',
+    name: 'Sage Herbarium',
+    category: 'botanical',
+    badge: '🌿 Sage',
+    value: 'radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.5) 0%, rgba(120,150,110,0.15) 100%), #e2ebd9'
+  },
+  {
+    id: 'pressed_meadow',
+    name: 'Pressed Wildflowers',
+    category: 'botanical',
+    badge: '🌸 Meadow',
+    value: 'radial-gradient(circle at 80% 20%, rgba(244,143,177,0.2) 0%, transparent 40%), radial-gradient(circle at 15% 85%, rgba(165,214,167,0.25) 0%, transparent 45%), #f5f2ea'
+  },
+  {
+    id: 'daisy_cream',
+    name: 'Daisy Floral Cream',
+    category: 'botanical',
+    badge: '🌼 Floral',
+    value: 'radial-gradient(circle at 50% 10%, rgba(255,241,118,0.2) 0%, transparent 50%), #f9f6ed'
+  },
+  {
+    id: 'blush_watercolor',
+    name: 'Cloud Nine Blush',
+    category: 'pastel',
+    badge: '☁️ Blush',
+    value: 'radial-gradient(circle at 25% 25%, rgba(255,182,193,0.45) 0%, transparent 55%), radial-gradient(circle at 75% 75%, rgba(255,218,185,0.4) 0%, transparent 55%), #fdf3f5'
+  },
+  {
+    id: 'matcha_watercolor',
+    name: 'Matcha Mist Wash',
+    category: 'pastel',
+    badge: '🍵 Matcha',
+    value: 'radial-gradient(circle at 30% 30%, rgba(165,214,167,0.45) 0%, transparent 55%), radial-gradient(circle at 70% 70%, rgba(178,235,242,0.35) 0%, transparent 55%), #f0f7f1'
+  },
+  {
+    id: 'lavender_sky',
+    name: 'Lavender Dreams',
+    category: 'pastel',
+    badge: '💜 Lavender',
+    value: 'radial-gradient(circle at 40% 30%, rgba(206,147,216,0.45) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(144,202,249,0.35) 0%, transparent 50%), #f6f0fa'
+  },
+  {
+    id: 'sunrise_peach',
+    name: 'Peach Sunrise',
+    category: 'pastel',
+    badge: '🍑 Peach',
+    value: 'radial-gradient(circle at 20% 80%, rgba(255,171,145,0.45) 0%, transparent 55%), radial-gradient(circle at 80% 20%, rgba(255,238,88,0.35) 0%, transparent 55%), #fff8f0'
+  },
+  {
+    id: 'dark_slate',
+    name: 'Midnight Charcoal Slate',
+    category: 'dark',
+    badge: '🖤 Slate',
+    value: 'radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.45) 100%), #141720'
+  },
+  {
+    id: 'library_wood',
+    name: 'Dark Academia Study',
+    category: 'dark',
+    badge: '🏛️ Study',
+    value: 'radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.5) 100%), #1e1814'
+  },
+  {
+    id: 'celestial_noir',
+    name: 'Nocturne Midnight',
+    category: 'dark',
+    badge: '✨ Noir',
+    value: 'radial-gradient(circle at 85% 15%, rgba(140,126,255,0.2) 0%, transparent 40%), #0f121a'
+  },
+  {
+    id: 'ivory_linen',
+    name: 'Woven Ivory Linen',
+    category: 'minimalist',
+    badge: '🧵 Linen',
+    value: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px), repeating-linear-gradient(90deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px), #fcfaf4'
+  },
+  {
+    id: 'warm_grid',
+    name: 'Soft Amber Grid',
+    category: 'minimalist',
+    badge: '📐 Grid',
+    value: 'linear-gradient(to right, rgba(140,100,60,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(140,100,60,0.08) 1px, transparent 1px), #f9f5ed'
+  }
+];
+
+const JOURNAL_CUSTOM_BG_KEY = 'calverse_custom_page_backgrounds';
+let journalBgActiveCategory = 'all';
+
+function getJournalCustomBackgrounds(){
+  try {
+    const raw = localStorage.getItem(JOURNAL_CUSTOM_BG_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed;
+    }
+  } catch(e){}
+  return [];
+}
+
+function saveJournalCustomBackgrounds(list){
+  try {
+    localStorage.setItem(JOURNAL_CUSTOM_BG_KEY, JSON.stringify(list.slice(0, 30)));
+  } catch(e){}
+}
+
+function addJournalCustomBackground(item){
+  let list = getJournalCustomBackgrounds();
+  list.unshift(item);
+  saveJournalCustomBackgrounds(list);
+}
+
+function removeJournalCustomBackground(id, e){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  let list = getJournalCustomBackgrounds().filter(b => b.id !== id);
+  saveJournalCustomBackgrounds(list);
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  showToast('Removed custom background 🗑️');
+}
+
+function openJournalBackgroundModal(){
+  const m = document.getElementById('journal-background-modal');
+  if(!m) return;
+  const note = getNoteById(currentNoteId);
+  const slider = document.getElementById('journal-bg-dim-slider');
+  const label = document.getElementById('journal-bg-dim-label');
+  const dim = (note && note.pageBgDim !== undefined) ? Number(note.pageBgDim) : 100;
+  if(slider) slider.value = dim;
+  if(label) label.textContent = dim + '%';
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  m.classList.add('show');
+}
+
+function closeJournalBackgroundModal(){
+  const m = document.getElementById('journal-background-modal');
+  if(m) m.classList.remove('show');
+}
+
+function filterJournalBgTab(cat, btn){
+  journalBgActiveCategory = cat;
+  document.querySelectorAll('.journal-bg-tab').forEach(b => b.classList.toggle('is-active', b === btn));
+  renderJournalBackgroundGrid(cat);
+}
+
+function renderJournalBackgroundGrid(category = 'all'){
+  const container = document.getElementById('journal-bg-grid');
+  if(!container) return;
+
+  const note = getNoteById(currentNoteId);
+  const curBg = note ? note.pageBg : null;
+  const curBgId = note ? note.pageBgId : null;
+
+  const customs = getJournalCustomBackgrounds();
+  const allBgs = [...customs, ...JOURNAL_BACKGROUNDS];
+
+  const filtered = (category === 'all') 
+    ? allBgs 
+    : (category === 'uploads')
+      ? customs
+      : allBgs.filter(b => b.category === category);
+
+  if(!filtered.length){
+    if(category === 'uploads'){
+      container.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:36px 14px;color:var(--t2);">
+          <div style="font-size:32px;margin-bottom:8px;">📁</div>
+          <div style="font-size:14px;font-weight:800;color:var(--t1);">No custom backgrounds uploaded yet</div>
+          <div style="font-size:12px;margin-top:4px;">Click "Upload Background" above to add your own wallpaper, scrapbook photo, or scan!</div>
+        </div>
+      `;
+      return;
+    }
+  }
+
+  let html = '';
+  filtered.forEach(bg => {
+    const isCur = (curBgId === bg.id) || (curBg && curBg === bg.value);
+    const bgCss = bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/')
+      ? `background-image:url('${bg.value}');`
+      : `background:${bg.value};`;
+
+    const delBtn = bg.isCustom 
+      ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete upload" style="background:rgba(0,0,0,0.5);border:none;color:#ff5252;width:20px;height:20px;border-radius:50%;font-size:11px;cursor:pointer;display:grid;place-items:center;">✕</button>` 
+      : '';
+
+    html += `
+      <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="applyJournalPageBackground('${escapeHtml(bg.value)}', '${escapeHtml(bg.id)}')">
+        <div class="journal-bg-card-preview" style="${bgCss}"></div>
+        <div class="journal-bg-card-footer">
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;">${escapeHtml(bg.name)}</span>
+          <div style="display:flex;align-items:center;gap:4px;">
+            ${delBtn}
+            <div class="journal-bg-card-check">✓</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function applyJournalPageBackground(bgValue, bgId = null){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  note.pageBg = bgValue;
+  if(bgId) note.pageBgId = bgId;
+  applyPageBackgroundToSheet(note.pageBg, note.pageBgDim || 100);
+  queueIpadSave();
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  showToast('Page background set 🖼️✨');
+}
+
+function removeJournalPageBackground(){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  note.pageBg = null;
+  note.pageBgId = null;
+  applyPageBackgroundToSheet(null);
+  queueIpadSave();
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  showToast('Page background removed ✕');
+}
+
+function setJournalBgDim(val){
+  const note = getNoteById(currentNoteId);
+  const num = Math.max(20, Math.min(100, Number(val) || 100));
+  if(note){
+    note.pageBgDim = num;
+    applyPageBackgroundToSheet(note.pageBg, num);
+    queueIpadSave();
+  }
+  const label = document.getElementById('journal-bg-dim-label');
+  if(label) label.textContent = num + '%';
+}
+
+function triggerJournalBgUpload(){
+  const input = document.getElementById('journal-bg-file-input');
+  if(input) input.click();
+}
+
+function handleJournalBgUpload(e){
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    const dataUrl = evt.target.result;
+    const cleanName = file.name.replace(/\.[^/.]+$/, '').slice(0, 24) || 'Custom Background';
+    const bgItem = {
+      id: 'custom_' + Date.now(),
+      name: cleanName,
+      category: 'uploads',
+      value: dataUrl,
+      isCustom: true
+    };
+    addJournalCustomBackground(bgItem);
+    applyJournalPageBackground(bgItem.value, bgItem.id);
+    showToast('Custom background applied & saved ✨');
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function applyPageBackgroundToSheet(bgValue, dim = 100){
+  const layer = document.getElementById('ipad-paper-bg-layer');
+  const btn = document.getElementById('ipad-bg-btn');
+  if(!layer) return;
+
+  if(!bgValue){
+    layer.style.display = 'none';
+    layer.style.backgroundImage = 'none';
+    layer.classList.remove('is-active');
+    if(btn){
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }
+    return;
+  }
+
+  layer.style.display = 'block';
+  layer.classList.add('is-active');
+
+  if(bgValue.startsWith('data:') || bgValue.startsWith('http') || bgValue.startsWith('/') || bgValue.startsWith('url(')){
+    layer.style.backgroundImage = bgValue.startsWith('url(') ? bgValue : `url("${bgValue}")`;
+  } else {
+    layer.style.background = bgValue;
+    layer.style.backgroundSize = 'cover';
+    layer.style.backgroundPosition = 'center';
+  }
+
+  const opacity = Math.max(0.2, Math.min(1, (Number(dim) || 100) / 100));
+  layer.style.opacity = opacity;
+
+  if(btn){
+    btn.style.background = 'linear-gradient(135deg, rgba(140,126,255,0.35), rgba(255,100,180,0.35))';
+    btn.style.borderColor = 'var(--act)';
+    btn.style.color = '#fff';
+  }
+}
+
+
 /* ── UNIVERSAL COLOR DIAL & INTENSITY CONTROLLER ── */
 let ucpCurrentHue = 0;
 let ucpCurrentSat = 0;
@@ -9788,6 +10189,7 @@ function loadIpadActivePage(){
   }
   if(fontSel) fontSel.value = activeNote.fontFamily || 'patrick';
   if(paperSel) paperSel.value = activeNote.paperStyle || 'obsidian';
+  applyPageBackgroundToSheet(activeNote.pageBg, activeNote.pageBgDim || 100);
   if(counterEl) counterEl.textContent = `Page ${currentJournalPageIndex + 1} of ${pages.length}`;
   if(pagesLabel) pagesLabel.textContent = `Pages (${pages.length})`;
   if(prevBtn) prevBtn.disabled = (currentJournalPageIndex === 0);
@@ -9926,6 +10328,8 @@ function saveCurrentIpadPage(showFeedback=false){
   note.content = nextContent;
   note.fontFamily = nextFont;
   note.paperStyle = nextPaper;
+  if(note.pageBg !== undefined) note.pageBg = note.pageBg;
+  if(note.pageBgDim !== undefined) note.pageBgDim = note.pageBgDim;
   note.inkStrokes = currentInkStrokes || [];
   note.updatedAt = Date.now();
   const isVault = (note.isVault || (note.id && note.id.startsWith('vault_')) || isJournalVaultActive);
