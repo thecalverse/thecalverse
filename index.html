@@ -2463,6 +2463,143 @@ canvas#gc{display:block;width:100%;height:240px;}
   cursor:default!important;
 }
 
+/* ── FULLSCREEN EDIT & VIEW SUITE (JOURNAL & NOTES) ── */
+body.calverse-journal-fullscreen,
+body.calverse-notes-fullscreen {
+  overflow: hidden !important;
+}
+
+body.calverse-journal-fullscreen .topbar,
+body.calverse-journal-fullscreen .bnav,
+body.calverse-journal-fullscreen #bnav,
+body.calverse-journal-fullscreen .journal-view-tabs,
+body.calverse-journal-fullscreen #journal-header-actions,
+body.calverse-journal-fullscreen #journal-bookshelf-view,
+body.calverse-journal-fullscreen #journal-calendar-view,
+body.calverse-journal-fullscreen #journal-sparks-view,
+body.calverse-journal-fullscreen #journal-trash-view {
+  display: none !important;
+}
+
+body.calverse-journal-fullscreen #sJournal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 150 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--bg) !important;
+  overflow: hidden !important;
+}
+
+body.calverse-journal-fullscreen #journal-notebook-view {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 8px 12px 14px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+body.calverse-journal-fullscreen #journal-notebook-view .ipad-frame {
+  max-width: 1240px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  flex: 1 0 auto !important;
+  border-radius: 18px !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5) !important;
+}
+
+body.calverse-journal-fullscreen .ipad-screen-glass {
+  flex: 1 1 auto !important;
+  min-height: calc(100vh - 120px) !important;
+  min-height: calc(100dvh - 120px) !important;
+}
+
+body.calverse-journal-fullscreen .ipad-paper-sheet {
+  min-height: calc(100vh - 120px) !important;
+  min-height: calc(100dvh - 120px) !important;
+}
+
+body.calverse-journal-fullscreen .ipad-frame.is-view-mode .ipad-screen-glass,
+body.calverse-journal-fullscreen .ipad-frame.is-view-mode .ipad-paper-sheet {
+  min-height: calc(100vh - 84px) !important;
+  min-height: calc(100dvh - 84px) !important;
+}
+
+/* Fullscreen for Notes */
+body.calverse-notes-fullscreen .topbar,
+body.calverse-notes-fullscreen .bnav,
+body.calverse-notes-fullscreen #bnav {
+  display: none !important;
+}
+
+body.calverse-notes-fullscreen #sNoteEdit {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 150 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 8px 14px 20px !important;
+  background: var(--bg) !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body.calverse-notes-fullscreen #note-editor-wrap {
+  max-width: 1100px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  min-height: calc(100vh - 28px) !important;
+  min-height: calc(100dvh - 28px) !important;
+}
+
+body.calverse-notes-fullscreen #sNoteEdit .note-editor-head {
+  top: 0 !important;
+  z-index: 100 !important;
+  background: var(--bg2) !important;
+  padding: 8px 12px 10px !important;
+  border-radius: 14px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22) !important;
+}
+
+body.calverse-notes-fullscreen .note-editor {
+  min-height: calc(100vh - 200px) !important;
+  min-height: calc(100dvh - 200px) !important;
+}
+
+body.calverse-notes-fullscreen .note-view {
+  min-height: calc(100vh - 160px) !important;
+  min-height: calc(100dvh - 160px) !important;
+}
+
+body.calverse-journal-fullscreen .copy-toast,
+body.calverse-notes-fullscreen .copy-toast,
+body.calverse-journal-fullscreen .note-action-toast,
+body.calverse-notes-fullscreen .note-action-toast {
+  bottom: 24px !important;
+  z-index: 350 !important;
+}
+
+@media (max-width: 580px) {
+  #ipad-fullscreen-label, #note-fullscreen-label {
+    display: none;
+  }
+}
+
 /* Custom Stickers Drawer Styles */
 .custom-stickers-grid{
   display:grid;
@@ -5582,6 +5719,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             </div>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
+            <button type="button" class="ipad-step-btn" id="ipad-fullscreen-btn" onclick="toggleJournalFullscreen()" title="Toggle Fullscreen Mode" style="padding:0 9px;font-size:12px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);"><span id="ipad-fullscreen-icon">⛶</span> <span id="ipad-fullscreen-label">Fullscreen</span></button>
             <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);">✏️ Edit</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
           </div>
@@ -5854,6 +5992,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button class="note-card-btn" id="note-act-convert" onclick="promptConvertNoteToBookPage()" style="display:inline-flex;align-items:center;gap:4px;" title="Convert to Notebook Page">📚 To Page</button>
           <button class="note-card-btn" id="note-act-backup" onclick="openNotesBackupModal()" style="display:inline-flex;align-items:center;gap:4px;" title="Export / Backup">📥 Export</button>
           <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
+          <button type="button" class="note-card-btn" id="note-fullscreen-btn" onclick="toggleNotesFullscreen()" style="display:inline-flex;align-items:center;gap:4px;" title="Toggle Fullscreen Mode"><span id="note-fullscreen-icon">⛶</span> <span id="note-fullscreen-label">Fullscreen</span></button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
           <button class="note-card-btn acc" id="note-act-done" onclick="setNoteEditMode(false,false)">Done</button>
         </div>
@@ -9885,6 +10024,9 @@ let currentSelectedJournalDate = new Date().toISOString().slice(0, 10);
 let currentJournalMoodFilter = 'all';
 
 function switchJournalMainView(viewName){
+  if(viewName!=='notebook'&&typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen){
+    exitJournalFullscreen();
+  }
   currentJournalMainView = viewName;
   document.querySelectorAll('#sJournal .jview-tab-btn').forEach(btn => {
     btn.classList.toggle('on', btn.id === `jview-tab-${viewName}`);
@@ -11110,6 +11252,159 @@ function stepIpadFontSize(deltaPt){
   }
   applyIpadNumericFontSize(nextPt);
 }
+
+/* ── FULLSCREEN EDIT & VIEW SUITE (JOURNAL & NOTES) ── */
+let journalIsFullscreen = false;
+let notesIsFullscreen = false;
+
+async function requestCalverseFullscreen(){
+  try{
+    const el = document.documentElement;
+    if(!document.fullscreenElement && !document.webkitFullscreenElement){
+      if(el.requestFullscreen){
+        await el.requestFullscreen({navigationUI:'hide'});
+      }else if(el.webkitRequestFullscreen){
+        el.webkitRequestFullscreen();
+      }
+    }
+  }catch(e){
+    console.debug('Fullscreen API bypassed or unsupported:', e);
+  }
+}
+
+async function exitCalverseFullscreen(){
+  try{
+    if(document.fullscreenElement || document.webkitFullscreenElement){
+      if(document.exitFullscreen){
+        await document.exitFullscreen();
+      }else if(document.webkitExitFullscreen){
+        document.webkitExitFullscreen();
+      }
+    }
+  }catch(e){
+    console.debug('Exit fullscreen bypassed:', e);
+  }
+}
+
+function updateJournalFullscreenUI(){
+  const btn = document.getElementById("ipad-fullscreen-btn");
+  const icon = document.getElementById("ipad-fullscreen-icon");
+  const label = document.getElementById("ipad-fullscreen-label");
+  if(!btn) return;
+  if(journalIsFullscreen){
+    if(icon) icon.textContent = "⤢";
+    if(label) label.textContent = "Exit Full";
+    btn.title = "Exit Fullscreen (Esc)";
+    btn.style.background = "var(--acc)";
+    btn.style.borderColor = "var(--acb)";
+    btn.style.color = "var(--act)";
+  }else{
+    if(icon) icon.textContent = "⛶";
+    if(label) label.textContent = "Fullscreen";
+    btn.title = "Toggle Fullscreen Mode";
+    btn.style.background = "rgba(255,255,255,0.08)";
+    btn.style.borderColor = "rgba(255,255,255,0.16)";
+    btn.style.color = "var(--t1)";
+  }
+}
+
+async function enterJournalFullscreen(){
+  journalIsFullscreen = true;
+  document.body.classList.add("calverse-journal-fullscreen");
+  updateJournalFullscreenUI();
+  await requestCalverseFullscreen();
+  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 120);
+  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 360);
+  showToast("⛶ Journal Fullscreen: View & edit with maximum screen space!");
+}
+
+async function exitJournalFullscreen(triggerApi = true){
+  journalIsFullscreen = false;
+  document.body.classList.remove("calverse-journal-fullscreen");
+  updateJournalFullscreenUI();
+  if(triggerApi && (document.fullscreenElement || document.webkitFullscreenElement)){
+    await exitCalverseFullscreen();
+  }
+  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 120);
+  setTimeout(() => { if(typeof resizeIpadInkCanvas === 'function') resizeIpadInkCanvas(); }, 360);
+}
+
+function toggleJournalFullscreen(){
+  if(journalIsFullscreen){
+    exitJournalFullscreen(true);
+  }else{
+    enterJournalFullscreen();
+  }
+}
+
+function updateNotesFullscreenUI(){
+  const btn = document.getElementById("note-fullscreen-btn");
+  const icon = document.getElementById("note-fullscreen-icon");
+  const label = document.getElementById("note-fullscreen-label");
+  if(!btn) return;
+  if(notesIsFullscreen){
+    if(icon) icon.textContent = "⤢";
+    if(label) label.textContent = "Exit Full";
+    btn.title = "Exit Fullscreen (Esc)";
+    btn.classList.add("acc");
+  }else{
+    if(icon) icon.textContent = "⛶";
+    if(label) label.textContent = "Fullscreen";
+    btn.title = "Toggle Fullscreen Mode";
+    btn.classList.remove("acc");
+  }
+}
+
+async function enterNotesFullscreen(){
+  notesIsFullscreen = true;
+  document.body.classList.add("calverse-notes-fullscreen");
+  updateNotesFullscreenUI();
+  await requestCalverseFullscreen();
+  setTimeout(() => {
+    if(typeof syncNotePaperLines === 'function') syncNotePaperLines();
+  }, 120);
+  showToast("⛶ Notes Fullscreen: Immersive writing & reading mode!");
+}
+
+async function exitNotesFullscreen(triggerApi = true){
+  notesIsFullscreen = false;
+  document.body.classList.remove("calverse-notes-fullscreen");
+  updateNotesFullscreenUI();
+  if(triggerApi && (document.fullscreenElement || document.webkitFullscreenElement)){
+    await exitCalverseFullscreen();
+  }
+  setTimeout(() => {
+    if(typeof syncNotePaperLines === 'function') syncNotePaperLines();
+  }, 120);
+}
+
+function toggleNotesFullscreen(){
+  if(notesIsFullscreen){
+    exitNotesFullscreen(true);
+  }else{
+    enterNotesFullscreen();
+  }
+}
+
+// Global fullscreen listeners to sync state when user exits via Escape or browser gestures
+document.addEventListener("fullscreenchange", () => {
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    if(journalIsFullscreen) exitJournalFullscreen(false);
+    if(notesIsFullscreen) exitNotesFullscreen(false);
+  }
+});
+document.addEventListener("webkitfullscreenchange", () => {
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    if(journalIsFullscreen) exitJournalFullscreen(false);
+    if(notesIsFullscreen) exitNotesFullscreen(false);
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" || e.keyCode === 27){
+    if(journalIsFullscreen) exitJournalFullscreen(true);
+    else if(notesIsFullscreen) exitNotesFullscreen(true);
+  }
+});
 
 let ipadIsViewMode = false;
 function toggleIpadViewMode(){
@@ -14783,6 +15078,7 @@ function handleBookshelfTabClick(){
 }
 
 function handleBookshelfReturnClick(){
+  if(typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen) exitJournalFullscreen();
   switchJournalMainView('books');
   handleBookshelfTripleClick();
 }
@@ -14990,6 +15286,7 @@ async function submitVaultChangePass(){
 }
 
 function handleNoteEditBack(){
+  if(typeof notesIsFullscreen!=='undefined'&&notesIsFullscreen) exitNotesFullscreen();
   try{ saveCurrentNote(false); }catch(e){}
   const note=getNoteById(currentNoteId);
   if(isJournalVaultActive){
@@ -17675,6 +17972,12 @@ function getTabForScreen(name,id){
   return 'home';
 }
 function setActiveScreen(id,name,opts={}){
+  if(id!=='sJournal'&&typeof journalIsFullscreen!=='undefined'&&journalIsFullscreen){
+    exitJournalFullscreen();
+  }
+  if(id!=='sNoteEdit'&&typeof notesIsFullscreen!=='undefined'&&notesIsFullscreen){
+    exitNotesFullscreen();
+  }
   if(id!=='sNotes'&&id!=='sNoteEdit'&&isVaultActive){
     isVaultActive=false;
     notesPane='notes';
