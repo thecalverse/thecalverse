@@ -1606,22 +1606,44 @@ canvas#gc{display:block;width:100%;height:240px;}
 .journal-bg-tab.is-active{background:var(--accg);color:#fff;border-color:var(--acb);}
 
 .journal-bg-grid{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  scroll-snap-type:y mandatory !important;
+  scroll-behavior:smooth !important;
+  scrollbar-width:none !important;
+  min-height:0 !important;
+  height:clamp(140px, 32vw, 246px) !important;
+  max-height:clamp(140px, 32vw, 246px) !important;
+  box-sizing:border-box !important;
+  padding:0 !important;
+  flex:none !important;
+}
+.journal-bg-grid::-webkit-scrollbar{display:none !important;}
+
+.journal-bg-row{
   display:grid !important;
   grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
-  gap:12px;
-  overflow-y:auto;
-  padding:10px 4px;
-  flex:1;
-  min-height:260px;
-  max-height:58vh;
-  scrollbar-width:thin;
+  gap:10px !important;
+  width:100% !important;
+  height:100% !important;
+  flex:0 0 100% !important;
+  scroll-snap-align:start !important;
+  scroll-snap-stop:always !important;
+  box-sizing:border-box !important;
+  padding:4px 2px !important;
 }
+
 .journal-bg-card{
   position:relative;
+  width:100%;
+  height:100%;
+  aspect-ratio:210 / 297 !important;
   border-radius:12px;
   border:1.5px solid var(--glb);
   overflow:hidden;
-  aspect-ratio:210 / 297 !important;
   cursor:pointer;
   background:rgba(255,255,255,0.05);
   transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
@@ -1629,6 +1651,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   flex-direction:column;
   justify-content:flex-end;
   user-select:none;
+  box-sizing:border-box;
 }
 .journal-bg-card:hover{transform:translateY(-3px) scale(1.02);border-color:var(--act);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
 .journal-bg-card.is-active{border-color:var(--act) !important;box-shadow:0 0 0 2.5px var(--act),0 8px 24px rgba(0,0,0,0.35) !important;}
@@ -1659,9 +1682,12 @@ canvas#gc{display:block;width:100%;height:240px;}
 
 @media (max-width:600px){
   .journal-bg-grid{
-    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    height:130px !important;
+    max-height:130px !important;
+  }
+  .journal-bg-row{
     gap:6px !important;
-    padding:6px 2px !important;
+    padding:2px 1px !important;
   }
   .journal-bg-card{
     border-radius:8px !important;
@@ -6424,9 +6450,20 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       <button type="button" class="journal-bg-tab" data-cat="uploads" onclick="filterJournalBgTab('uploads', this)">📁 My Uploads</button>
     </div>
 
-    <!-- Cards Grid -->
+    <!-- Cards Grid (Strictly 4 Visible at Once, Snap Scroll Down) -->
     <div class="journal-bg-grid" id="journal-bg-grid">
       <!-- Populated dynamically by renderJournalBackgroundGrid() -->
+    </div>
+
+    <!-- 4-Card Row Pager & Scroll Navigation -->
+    <div id="journal-bg-nav-bar" style="display:flex;align-items:center;justify-content:space-between;padding:4px 2px;margin-top:4px;">
+      <button type="button" class="app-dialog-btn" onclick="scrollJournalBgRow(-1)" style="font-size:11.5px;height:28px;padding:0 12px;display:inline-flex;align-items:center;gap:4px;font-weight:800;border-radius:8px;">
+        <span>◀</span> <span>Previous 4</span>
+      </button>
+      <span id="journal-bg-page-indicator" style="font-size:11.5px;font-weight:800;color:var(--t2);letter-spacing:.3px;">Showing 1–4</span>
+      <button type="button" class="app-dialog-btn" onclick="scrollJournalBgRow(1)" style="font-size:11.5px;height:28px;padding:0 12px;display:inline-flex;align-items:center;gap:4px;font-weight:800;border-radius:8px;">
+        <span>Next 4</span> <span>▶</span>
+      </button>
     </div>
   </div>
 </div>
@@ -10139,7 +10176,7 @@ function renderJournalBackgroundGrid(category = 'grids'){
     }
   }
 
-  let html = '';
+  let cardHtmls = [];
   filtered.forEach(bg => {
     const isCur = bg.styleKey 
       ? (!curBg && curPaper === bg.styleKey)
@@ -10155,7 +10192,7 @@ function renderJournalBackgroundGrid(category = 'grids'){
       ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete from grid completely" style="background:rgba(0,0,0,0.65);border:none;color:#ff5252;width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:900;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.4);">✕</button>` 
       : '';
 
-    html += `
+    cardHtmls.push(`
       <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="selectJournalBackgroundItem('${escapeHtml(bg.id)}')">
         <div class="journal-bg-card-preview" style="${bgCss}"></div>
         <div class="journal-bg-card-footer">
@@ -10166,12 +10203,12 @@ function renderJournalBackgroundGrid(category = 'grids'){
           </div>
         </div>
       </div>
-    `;
+    `);
   });
 
   // In 'uploads' tab, always show an "Upload Image" tile
   if(category === 'uploads'){
-    html += `
+    cardHtmls.push(`
       <div class="journal-bg-card" onclick="triggerJournalBgUpload()" title="Upload custom wallpaper or background from device" style="border:1.5px dashed var(--glb);background:rgba(255,255,255,0.02);">
         <div class="journal-bg-card-preview" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;">
           <span style="font-size:24px;">📤</span>
@@ -10183,10 +10220,56 @@ function renderJournalBackgroundGrid(category = 'grids'){
           <span style="font-size:13px;color:var(--act);font-weight:900;">+</span>
         </div>
       </div>
-    `;
+    `);
   }
 
-  container.innerHTML = html;
+  // Group strictly into rows of 4 (only 4 visible at once in view)
+  let rowHtml = '';
+  const totalCards = cardHtmls.length;
+  for(let i = 0; i < totalCards; i += 4){
+    rowHtml += `<div class="journal-bg-row">${cardHtmls.slice(i, i + 4).join('')}</div>`;
+  }
+  container.innerHTML = rowHtml;
+  container.scrollTop = 0;
+
+  // Update page indicator
+  updateJournalBgPageIndicator(0, totalCards);
+}
+
+function updateJournalBgPageIndicator(pageIdx = 0, total = null){
+  const ind = document.getElementById('journal-bg-page-indicator');
+  if(!ind) return;
+  const container = document.getElementById('journal-bg-grid');
+  const count = (total !== null) ? total : (container ? container.querySelectorAll('.journal-bg-card').length : 0);
+  if(!count){
+    ind.textContent = '';
+    return;
+  }
+  const start = Math.min(count, pageIdx * 4 + 1);
+  const end = Math.min(count, (pageIdx + 1) * 4);
+  ind.textContent = `Showing ${start}–${end} of ${count}`;
+}
+
+function scrollJournalBgRow(dir){
+  const container = document.getElementById('journal-bg-grid');
+  if(!container) return;
+  const h = container.clientHeight || 240;
+  container.scrollBy({ top: dir * h, behavior: 'smooth' });
+}
+
+// Add scroll listener once
+if(typeof window !== 'undefined'){
+  window.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('journal-bg-grid');
+    if(grid && !grid.dataset.snapListenerAttached){
+      grid.dataset.snapListenerAttached = 'true';
+      grid.addEventListener('scroll', () => {
+        const h = grid.clientHeight || 240;
+        const pageIdx = Math.round(grid.scrollTop / h);
+        updateJournalBgPageIndicator(pageIdx);
+      }, { passive: true });
+    }
+  });
 }
 
 function selectJournalBackgroundItem(bgId){
