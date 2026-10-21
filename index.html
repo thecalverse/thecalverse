@@ -1637,16 +1637,16 @@ canvas#gc{display:block;width:100%;height:240px;}
 .journal-bg-card-footer{
   position:relative;
   z-index:2;
-  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.92) 55%);
-  padding:7px 9px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.82) 75%);
+  padding:5px 7px;
   color:#fff;
-  font-size:11px;
+  font-size:10.5px;
   font-weight:800;
   display:flex;
   align-items:center;
   justify-content:space-between;
   line-height:1.2;
-  text-shadow:0 1px 3px rgba(0,0,0,0.8);
+  text-shadow:0 1px 2px rgba(0,0,0,0.85);
 }
 .journal-bg-card-footer span{
   overflow:hidden;
@@ -1688,159 +1688,118 @@ canvas#gc{display:block;width:100%;height:240px;}
   }
 }
 
+/* ── 1. GRIDS & DOTS ── */
 .ipad-paper-sheet.paper-obsidian-grid{
   background:#111520!important;
-  background-image:linear-gradient(to right,rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.07) 1px,transparent 1px)!important;
-  background-size:24px 24px!important;
+  background-image:linear-gradient(to right,rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.1) 1px,transparent 1px)!important;
+  background-size:20px 20px!important;
   color:#f2f5fd!important;
 }
+
 .ipad-paper-sheet.paper-cream-dots{
   background:#fcf8f0!important;
-  background-image:radial-gradient(#bba792 1.3px,transparent 1.3px)!important;
-  background-size:22px 22px!important;
+  background-image:radial-gradient(#96806a 1.2px,transparent 1.2px)!important;
+  background-size:20px 20px!important;
   color:#2b221a!important;
 }
 .ipad-paper-sheet.paper-cream-dots .ipad-paper-title{border-bottom-color:rgba(43,34,26,.15)!important;color:#2b221a!important;}
 .ipad-paper-sheet.paper-cream-dots .ipad-paper-canvas{color:#2b221a!important;}
-.ipad-paper-sheet.paper-cream-dots .study-box-body{color:#2b221a!important;}
 
-.ipad-paper-sheet.paper-ruled{
-  background:#121622!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.08) 30px)!important;
-  color:#f2f5fd!important;
-  border-left:3px solid rgba(255,100,100,.35)!important;
-}
-[data-t=light] .ipad-paper-sheet.paper-ruled{
-  background:#fcf9f2!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(131,98,74,.14) 30px)!important;
-  color:#2b221a!important;
-  border-left:3px solid rgba(230,80,80,.4)!important;
-}
-
-/* Engineering Graph Paper (5mm quad grid) */
 .ipad-paper-sheet.paper-graph{
   background:#101524!important;
-  background-image:linear-gradient(to right,rgba(99,132,255,.12) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.12) 1px,transparent 1px)!important;
-  background-size:16px 16px!important;
+  background-image:linear-gradient(to right,rgba(99,132,255,.22) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.22) 1px,transparent 1px)!important;
+  background-size:18px 18px!important;
   color:#f2f5fd!important;
 }
-[data-t=light] .ipad-paper-sheet.paper-graph{
-  background:#f9fbfd!important;
-  background-image:linear-gradient(to right,rgba(60,110,200,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(60,110,200,.14) 1px,transparent 1px)!important;
-  background-size:16px 16px!important;
-  color:#1e293b!important;
-}
 
-/* Cornell Study Notes Paper */
-.ipad-paper-sheet.paper-cornell{
-  background:#131826!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.07) 30px)!important;
-  color:#f2f5fd!important;
-  position:relative;
-}
-.ipad-paper-sheet.paper-cornell::before{
-  content:'';
-  position:absolute;
-  top:0;
-  bottom:110px;
-  left:220px;
-  width:2px;
-  background:rgba(255,140,200,.35);
-  pointer-events:none;
-}
-.ipad-paper-sheet.paper-cornell::after{
-  content:'';
-  position:absolute;
-  bottom:110px;
-  left:0;
-  right:0;
-  height:2px;
-  background:rgba(140,126,255,.35);
-  pointer-events:none;
-}
-[data-t=light] .ipad-paper-sheet.paper-cornell{
-  background:#fcf9f2!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(131,98,74,.13) 30px)!important;
-  color:#2b221a!important;
-}
-[data-t=light] .ipad-paper-sheet.paper-cornell::before{
-  background:rgba(220,100,140,.4);
-}
-[data-t=light] .ipad-paper-sheet.paper-cornell::after{
-  background:rgba(120,100,200,.4);
-}
-
-/* Daily / Weekly Planner Paper */
-.ipad-paper-sheet.paper-planner{
-  background:#0f1420!important;
-  background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px)!important;
-  background-size:28px 28px!important;
-  color:#f2f5fd!important;
-}
-[data-t=light] .ipad-paper-sheet.paper-planner{
-  background:#faf7f0!important;
-  background-image:linear-gradient(to right,rgba(140,110,80,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(140,110,80,.1) 1px,transparent 1px)!important;
-  background-size:28px 28px!important;
-  color:#2b221a!important;
-}
-
-.ipad-paper-sheet.paper-blank{
-  background:rgba(255,255,255,.02)!important;
-  background-image:none!important;
-  color:#f2f5fd!important;
-}
-[data-t=light] .ipad-paper-sheet.paper-blank{
-  background:#fffcf8!important;
-  color:#2b221a!important;
-}
-
-/* Warm Kraft Brown Paper */
-.ipad-paper-sheet.paper-brown-kraft{
-  background:#d8c3ab!important;
-  background-image:repeating-linear-gradient(45deg,rgba(100,70,40,.04) 0px,rgba(100,70,40,.04) 2px,transparent 2px,transparent 4px)!important;
-  color:#2b221a!important;
-}
-.ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(80,50,30,.2)!important;color:#2b221a!important;}
-.ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#2b221a!important;}
-
-/* Obsidian Dark Dots */
 .ipad-paper-sheet.paper-dark-dots{
   background:#0f131d!important;
-  background-image:radial-gradient(rgba(255,255,255,.32) 1.3px,transparent 1.3px)!important;
-  background-size:22px 22px!important;
+  background-image:radial-gradient(rgba(255,255,255,.32) 1.2px,transparent 1.2px)!important;
+  background-size:20px 20px!important;
   color:#f2f5fd!important;
 }
 
-/* Dark Ruled Notebook */
+/* ── 2. LINED & RULED ── */
+.ipad-paper-sheet.paper-ruled{
+  background:#fcf9f2!important;
+  background-image:repeating-linear-gradient(transparent,transparent 28px,rgba(100,140,210,.25) 29px)!important;
+  color:#2b221a!important;
+  border-left:4px solid rgba(230,80,80,.5)!important;
+}
+.ipad-paper-sheet.paper-ruled .ipad-paper-title{border-bottom-color:rgba(100,65,35,.2)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-ruled .ipad-paper-canvas{color:#2b221a!important;}
+
 .ipad-paper-sheet.paper-dark-ruled{
   background:#0e121c!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.1) 30px)!important;
+  background-image:repeating-linear-gradient(transparent,transparent 28px,rgba(255,255,255,.12) 29px)!important;
   color:#f2f5fd!important;
-  border-left:3px solid rgba(255,140,200,.45)!important;
+  border-left:4px solid rgba(255,140,200,.5)!important;
 }
 
-/* Coffee Stained Paper */
+.ipad-paper-sheet.paper-cornell{
+  background:#fcf9f2!important;
+  background-image:repeating-linear-gradient(transparent,transparent 28px,rgba(131,98,74,.15) 29px)!important;
+  color:#2b221a!important;
+  border-left:4px solid rgba(220,100,140,.5)!important;
+}
+.ipad-paper-sheet.paper-cornell .ipad-paper-title{border-bottom-color:rgba(100,65,35,.2)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-cornell .ipad-paper-canvas{color:#2b221a!important;}
+
+.ipad-paper-sheet.paper-planner{
+  background:#faf7f0!important;
+  background-image:linear-gradient(to right,rgba(140,110,80,.12) 1px,transparent 1px),linear-gradient(to bottom,rgba(140,110,80,.12) 1px,transparent 1px)!important;
+  background-size:24px 24px!important;
+  color:#2b221a!important;
+}
+.ipad-paper-sheet.paper-planner .ipad-paper-title{border-bottom-color:rgba(140,110,80,.2)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-planner .ipad-paper-canvas{color:#2b221a!important;}
+
+/* ── 3. BROWN & KRAFT ── */
+.ipad-paper-sheet.paper-brown-kraft{
+  background:#d8c3ab!important;
+  background-image:repeating-linear-gradient(45deg,rgba(100,70,40,.06) 0px,rgba(100,70,40,.06) 2px,transparent 2px,transparent 4px)!important;
+  color:#2b2016!important;
+}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(80,50,30,.2)!important;color:#2b2016!important;}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#2b2016!important;}
+
 .ipad-paper-sheet.paper-coffee{
   background:#e8dac8!important;
-  background-image:radial-gradient(circle at 75% 30%,rgba(139,94,60,.25) 0%,transparent 45%),radial-gradient(circle at 20% 70%,rgba(110,65,30,.2) 0%,transparent 40%),repeating-linear-gradient(0deg,rgba(80,50,25,.03) 0px,rgba(80,50,25,.03) 1px,transparent 1px,transparent 3px)!important;
+  background-image:radial-gradient(circle at 75% 30%,rgba(139,94,60,.22) 0%,transparent 45%),radial-gradient(circle at 20% 70%,rgba(110,65,30,.18) 0%,transparent 40%),repeating-linear-gradient(0deg,rgba(80,50,25,.03) 0px,rgba(80,50,25,.03) 1px,transparent 1px,transparent 3px)!important;
   color:#2b2016!important;
 }
 .ipad-paper-sheet.paper-coffee .ipad-paper-title{border-bottom-color:rgba(100,65,35,.22)!important;color:#2b2016!important;}
 .ipad-paper-sheet.paper-coffee .ipad-paper-canvas{color:#2b2016!important;}
 
-/* Pastel Ruled Papers */
+.ipad-paper-sheet.paper-parchment{
+  background:#f5ebd9!important;
+  background-image:radial-gradient(circle at 60% 40%,rgba(180,140,90,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,rgba(140,100,50,.04) 0px,rgba(140,100,50,.04) 2px,transparent 2px,transparent 4px)!important;
+  color:#322416!important;
+}
+.ipad-paper-sheet.paper-parchment .ipad-paper-title{border-bottom-color:rgba(120,80,40,.22)!important;color:#322416!important;}
+.ipad-paper-sheet.paper-parchment .ipad-paper-canvas{color:#322416!important;}
+
+.ipad-paper-sheet.paper-blank{
+  background:#fffdf9!important;
+  background-image:none!important;
+  color:#2b221a!important;
+}
+.ipad-paper-sheet.paper-blank .ipad-paper-title{border-bottom-color:rgba(0,0,0,.12)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-blank .ipad-paper-canvas{color:#2b221a!important;}
+
+/* ── 4. PASTEL PAPERS ── */
 .ipad-paper-sheet.paper-pastel-pink{
   background:#fdf2f4!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(230,120,150,.2) 30px)!important;
+  background-image:repeating-linear-gradient(transparent,transparent 28px,rgba(230,120,150,.25) 29px)!important;
   color:#3b2028!important;
-  border-left:3px solid rgba(240,100,140,.45)!important;
+  border-left:4px solid rgba(240,100,140,.5)!important;
 }
 .ipad-paper-sheet.paper-pastel-pink .ipad-paper-title{border-bottom-color:rgba(230,120,150,.3)!important;color:#3b2028!important;}
 .ipad-paper-sheet.paper-pastel-pink .ipad-paper-canvas{color:#3b2028!important;}
 
 .ipad-paper-sheet.paper-pastel-mint{
   background:#f0f7f3!important;
-  background-image:linear-gradient(to right,rgba(80,160,110,.16) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.16) 1px,transparent 1px)!important;
+  background-image:linear-gradient(to right,rgba(80,160,110,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.18) 1px,transparent 1px)!important;
   background-size:20px 20px!important;
   color:#1e3326!important;
 }
@@ -1849,26 +1808,16 @@ canvas#gc{display:block;width:100%;height:240px;}
 
 .ipad-paper-sheet.paper-pastel-lavender{
   background:#f6f1fb!important;
-  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(150,110,210,.2) 30px)!important;
+  background-image:repeating-linear-gradient(transparent,transparent 28px,rgba(150,110,210,.25) 29px)!important;
   color:#2c203a!important;
-  border-left:3px solid rgba(160,110,220,.45)!important;
+  border-left:4px solid rgba(160,110,220,.5)!important;
 }
 .ipad-paper-sheet.paper-pastel-lavender .ipad-paper-title{border-bottom-color:rgba(150,110,210,.3)!important;color:#2c203a!important;}
 .ipad-paper-sheet.paper-pastel-lavender .ipad-paper-canvas{color:#2c203a!important;}
 
-/* Vintage Gold Parchment */
-.ipad-paper-sheet.paper-parchment{
-  background:#f5ebd9!important;
-  background-image:radial-gradient(circle at 60% 40%, rgba(180,140,90,0.18) 0%, transparent 60%), repeating-linear-gradient(45deg, rgba(140,100,50,0.04) 0px, rgba(140,100,50,0.04) 2px, transparent 2px, transparent 4px)!important;
-  color:#322416!important;
-}
-.ipad-paper-sheet.paper-parchment .ipad-paper-title{border-bottom-color:rgba(120,80,40,.22)!important;color:#322416!important;}
-.ipad-paper-sheet.paper-parchment .ipad-paper-canvas{color:#322416!important;}
-
-/* Pastel Sky Blue Grid */
 .ipad-paper-sheet.paper-pastel-sky{
   background:#f0f6fc!important;
-  background-image:linear-gradient(to right,rgba(80,140,210,.16) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.16) 1px,transparent 1px)!important;
+  background-image:linear-gradient(to right,rgba(80,140,210,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.18) 1px,transparent 1px)!important;
   background-size:20px 20px!important;
   color:#1c2d42!important;
 }
@@ -8984,7 +8933,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'grids',
     badge: '🖤 Dark Grid',
     styleKey: 'obsidian',
-    previewCss: 'background:#111520; background-image:linear-gradient(to right,rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.14) 1px,transparent 1px); background-size:18px 18px;'
+    previewCss: 'background:#111520; background-image:linear-gradient(to right,rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.1) 1px,transparent 1px); background-size:20px 20px;'
   },
   {
     id: 'paper_cream_dots',
@@ -8992,7 +8941,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'grids',
     badge: '📑 Cream Dots',
     styleKey: 'cream',
-    previewCss: 'background:#fcf8f0; background-image:radial-gradient(#96806a 1.4px,transparent 1.4px); background-size:16px 16px;'
+    previewCss: 'background:#fcf8f0; background-image:radial-gradient(#96806a 1.2px,transparent 1.2px); background-size:20px 20px;'
   },
   {
     id: 'paper_graph',
@@ -9000,7 +8949,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'grids',
     badge: '📐 Blue Graph',
     styleKey: 'graph',
-    previewCss: 'background:#101524; background-image:linear-gradient(to right,rgba(99,132,255,.28) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.28) 1px,transparent 1px); background-size:14px 14px;'
+    previewCss: 'background:#101524; background-image:linear-gradient(to right,rgba(99,132,255,.22) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.22) 1px,transparent 1px); background-size:18px 18px;'
   },
   {
     id: 'paper_dark_dots',
@@ -9008,7 +8957,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'grids',
     badge: '🌌 Dark Dots',
     styleKey: 'dark_dots',
-    previewCss: 'background:#0f131d; background-image:radial-gradient(rgba(255,255,255,.38) 1.3px,transparent 1.3px); background-size:16px 16px;'
+    previewCss: 'background:#0f131d; background-image:radial-gradient(rgba(255,255,255,.32) 1.2px,transparent 1.2px); background-size:20px 20px;'
   },
 
   // ── 2. LINED & RULED (4 Papers) ──
@@ -9018,7 +8967,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'lined',
     badge: '📜 Lined',
     styleKey: 'ruled',
-    previewCss: 'background:#fcf9f2; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(100,140,210,.3) 19px); border-left:4px solid rgba(230,80,80,.5);'
+    previewCss: 'background:#fcf9f2; background-image:repeating-linear-gradient(transparent,transparent 20px,rgba(100,140,210,.25) 21px); border-left:4px solid rgba(230,80,80,.5);'
   },
   {
     id: 'paper_dark_ruled',
@@ -9026,7 +8975,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'lined',
     badge: '🖤 Dark Lined',
     styleKey: 'dark_ruled',
-    previewCss: 'background:#0e121c; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(255,255,255,.16) 19px); border-left:4px solid rgba(255,140,200,.5);'
+    previewCss: 'background:#0e121c; background-image:repeating-linear-gradient(transparent,transparent 20px,rgba(255,255,255,.12) 21px); border-left:4px solid rgba(255,140,200,.5);'
   },
   {
     id: 'paper_cornell',
@@ -9034,7 +8983,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'lined',
     badge: '🎓 Cornell',
     styleKey: 'cornell',
-    previewCss: 'background:#131826; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(255,255,255,.14) 19px);'
+    previewCss: 'background:#fcf9f2; background-image:repeating-linear-gradient(transparent,transparent 20px,rgba(131,98,74,.15) 21px); border-left:4px solid rgba(220,100,140,.5);'
   },
   {
     id: 'paper_planner',
@@ -9042,7 +8991,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'lined',
     badge: '📋 Planner',
     styleKey: 'planner',
-    previewCss: 'background:#0f1420; background-image:linear-gradient(to right,rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.1) 1px,transparent 1px); background-size:20px 20px;'
+    previewCss: 'background:#faf7f0; background-image:linear-gradient(to right,rgba(140,110,80,.12) 1px,transparent 1px),linear-gradient(to bottom,rgba(140,110,80,.12) 1px,transparent 1px); background-size:20px 20px;'
   },
 
   // ── 3. BROWN & KRAFT (4 Papers) ──
@@ -9052,7 +9001,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'kraft',
     badge: '🤎 Kraft Brown',
     styleKey: 'brown',
-    previewCss: 'background:#d8c3ab; background-image:repeating-linear-gradient(45deg,rgba(100,70,40,0.06) 0px,rgba(100,70,40,0.06) 2px,transparent 2px,transparent 4px);'
+    previewCss: 'background:#d8c3ab; background-image:repeating-linear-gradient(45deg,rgba(100,70,40,.06) 0px,rgba(100,70,40,.06) 2px,transparent 2px,transparent 4px);'
   },
   {
     id: 'paper_coffee',
@@ -9060,7 +9009,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'kraft',
     badge: '☕ Coffee',
     styleKey: 'coffee',
-    previewCss: 'background: radial-gradient(circle at 75% 30%, rgba(139,94,60,0.3) 0%, transparent 50%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.25) 0%, transparent 40%), #e8dac8;'
+    previewCss: 'background:#e8dac8; background-image:radial-gradient(circle at 75% 30%,rgba(139,94,60,.22) 0%,transparent 45%),radial-gradient(circle at 20% 70%,rgba(110,65,30,.18) 0%,transparent 40%),repeating-linear-gradient(0deg,rgba(80,50,25,.03) 0px,rgba(80,50,25,.03) 1px,transparent 1px,transparent 3px);'
   },
   {
     id: 'paper_parchment',
@@ -9068,7 +9017,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'kraft',
     badge: '📜 Parchment',
     styleKey: 'parchment',
-    previewCss: 'background: radial-gradient(circle at 60% 40%, rgba(180,140,90,0.18) 0%, transparent 60%), #f5ebd9;'
+    previewCss: 'background:#f5ebd9; background-image:radial-gradient(circle at 60% 40%,rgba(180,140,90,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,rgba(140,100,50,.04) 0px,rgba(140,100,50,.04) 2px,transparent 2px,transparent 4px);'
   },
   {
     id: 'paper_blank',
@@ -9076,7 +9025,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'kraft',
     badge: '🤍 Blank',
     styleKey: 'blank',
-    previewCss: 'background:#fffcf8; border:1px solid rgba(0,0,0,0.08);'
+    previewCss: 'background:#fffdf9; border:1px solid rgba(0,0,0,0.06);'
   },
 
   // ── 4. PASTEL PAPERS (4 Papers) ──
@@ -9086,7 +9035,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'pastel',
     badge: '🌸 Pink Lined',
     styleKey: 'pastel_pink',
-    previewCss: 'background:#fdf2f4; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(230,120,150,.28) 19px); border-left:4px solid rgba(240,100,140,.5);'
+    previewCss: 'background:#fdf2f4; background-image:repeating-linear-gradient(transparent,transparent 20px,rgba(230,120,150,.25) 21px); border-left:4px solid rgba(240,100,140,.5);'
   },
   {
     id: 'paper_pastel_mint',
@@ -9094,7 +9043,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'pastel',
     badge: '🌿 Mint Grid',
     styleKey: 'pastel_mint',
-    previewCss: 'background:#f0f7f3; background-image:linear-gradient(to right,rgba(80,160,110,.22) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.22) 1px,transparent 1px); background-size:16px 16px;'
+    previewCss: 'background:#f0f7f3; background-image:linear-gradient(to right,rgba(80,160,110,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.18) 1px,transparent 1px); background-size:18px 18px;'
   },
   {
     id: 'paper_pastel_lavender',
@@ -9102,7 +9051,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'pastel',
     badge: '💜 Lavender',
     styleKey: 'pastel_lavender',
-    previewCss: 'background:#f6f1fb; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(150,110,210,.28) 19px); border-left:4px solid rgba(160,110,220,.5);'
+    previewCss: 'background:#f6f1fb; background-image:repeating-linear-gradient(transparent,transparent 20px,rgba(150,110,210,.25) 21px); border-left:4px solid rgba(160,110,220,.5);'
   },
   {
     id: 'paper_pastel_sky',
@@ -9110,7 +9059,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'pastel',
     badge: '☁️ Sky Grid',
     styleKey: 'pastel_sky',
-    previewCss: 'background:#f0f6fc; background-image:linear-gradient(to right,rgba(80,140,210,.2) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.2) 1px,transparent 1px); background-size:16px 16px;'
+    previewCss: 'background:#f0f6fc; background-image:linear-gradient(to right,rgba(80,140,210,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.18) 1px,transparent 1px); background-size:18px 18px;'
   }
 ];
 
