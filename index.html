@@ -9881,7 +9881,7 @@ function setCanvasItemFontSize(itemId, sizePt){
   const item = document.getElementById(itemId);
   if(!item) return;
   const pt = Number(sizePt) || 16;
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
   if(target){
     target.style.fontSize = pt + "px";
   }
@@ -9896,7 +9896,7 @@ function setCanvasItemFontSize(itemId, sizePt){
 function stepCanvasItemFontSize(itemId, deltaPt){
   const item = document.getElementById(itemId);
   if(!item) return;
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
   let curPt = 16;
   if(target){
     curPt = Math.round(parseFloat(window.getComputedStyle(target).fontSize)) || 16;
@@ -10769,7 +10769,7 @@ function initIpadCanvasEngine(){
         selectCanvasItem(item);
         try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
         const dir = resizeHandle.dataset.dir || "se";
-        const textTarget = item.querySelector(".washi-tape-label, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body");
+        const textTarget = item.querySelector(".washi-tape-label, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body, .canvas-photo-caption");
         let initialFs = 16;
         if(textTarget){
           initialFs = parseFloat(window.getComputedStyle(textTarget).fontSize) || 16;
@@ -10919,6 +10919,38 @@ function initIpadCanvasEngine(){
       if(s.type === "sticker"){
         const glyph = s.item.querySelector(".canvas-sticker-glyph");
         if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
+      }
+
+      // Automatically scale written text inside washi tape, sticky notes, text boxes, shapes, and captions
+      if(s.textTarget && s.startFontSize){
+        const curW = s.item.offsetWidth || s.startWidth;
+        const curH = s.item.offsetHeight || s.startHeight;
+        const wRatio = curW / (s.startWidth || 1);
+        const hRatio = curH / (s.startHeight || 1);
+
+        let scale = 1;
+        if(s.dir === "e" || s.dir === "w"){
+          scale = wRatio;
+        } else if(s.dir === "s" || s.dir === "n"){
+          scale = hRatio;
+        } else {
+          // Corner resize ('se' or default)
+          scale = (wRatio + hRatio) / 2;
+        }
+
+        let newFs = Math.round(s.startFontSize * scale);
+
+        // If washi tape, ensure text doesn't vertically overflow the strip height
+        if(s.type === "washi"){
+          const maxTapeFs = Math.max(10, Math.round(curH * 0.65));
+          newFs = Math.min(newFs, maxTapeFs);
+        }
+
+        newFs = Math.max(10, Math.min(84, newFs));
+        s.textTarget.style.fontSize = newFs + "px";
+
+        const labelEl = s.item.querySelector(".cbar-font-num-label");
+        if(labelEl) labelEl.textContent = newFs + "pt";
       }
       return;
     }
