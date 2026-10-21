@@ -1606,9 +1606,9 @@ canvas#gc{display:block;width:100%;height:240px;}
 .journal-bg-tab.is-active{background:var(--accg);color:#fff;border-color:var(--acb);}
 
 .journal-bg-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
-  gap:14px;
+  display:grid !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:12px;
   overflow-y:auto;
   padding:10px 4px;
   flex:1;
@@ -1621,21 +1621,64 @@ canvas#gc{display:block;width:100%;height:240px;}
   border-radius:12px;
   border:1.5px solid var(--glb);
   overflow:hidden;
-  aspect-ratio:210 / 297;
+  aspect-ratio:3 / 4;
   cursor:pointer;
   background:rgba(255,255,255,0.05);
   transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
+  user-select:none;
 }
 .journal-bg-card:hover{transform:translateY(-3px) scale(1.02);border-color:var(--act);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
-.journal-bg-card.is-active{border-color:var(--act);box-shadow:0 0 0 2px var(--act),0 8px 24px rgba(0,0,0,0.35);}
+.journal-bg-card.is-active{border-color:var(--act) !important;box-shadow:0 0 0 2.5px var(--act),0 8px 24px rgba(0,0,0,0.35) !important;}
 .journal-bg-card-preview{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform .2s ease;}
 .journal-bg-card:hover .journal-bg-card-preview{transform:scale(1.04);}
-.journal-bg-card-footer{position:relative;z-index:2;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.88) 60%);padding:8px 10px;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:space-between;}
-.journal-bg-card-check{display:none;width:18px;height:18px;border-radius:50%;background:var(--act);color:#fff;font-size:10px;font-weight:900;place-items:center;}
+.journal-bg-card-footer{
+  position:relative;
+  z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.92) 55%);
+  padding:7px 9px;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  line-height:1.2;
+  text-shadow:0 1px 3px rgba(0,0,0,0.8);
+}
+.journal-bg-card-footer span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:calc(100% - 22px);
+}
+.journal-bg-card-check{display:none;width:18px;height:18px;border-radius:50%;background:var(--act);color:#fff;font-size:10.5px;font-weight:900;place-items:center;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.4);}
 .journal-bg-card.is-active .journal-bg-card-check{display:grid;}
+
+@media (max-width:600px){
+  .journal-bg-grid{
+    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    gap:6px !important;
+    padding:6px 2px !important;
+  }
+  .journal-bg-card{
+    border-radius:8px !important;
+  }
+  .journal-bg-card-footer{
+    padding:4px 5px !important;
+    font-size:9.5px !important;
+  }
+  .journal-bg-card-footer span{
+    max-width:calc(100% - 17px) !important;
+  }
+  .journal-bg-card-check{
+    width:15px !important;
+    height:15px !important;
+    font-size:9px !important;
+  }
+}
 
 @media (max-width:580px){
   .ipad-paper-sheet{
@@ -4655,7 +4698,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     height: 28px !important;
     font-size: 11px !important;
   }
-  .journal-bg-grid, .washi-pattern-grid {
+  .washi-pattern-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 8px !important;
   }
@@ -6265,27 +6308,37 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
 <!-- JOURNAL PAGE BACKGROUND MODAL -->
 <div id="journal-background-modal" class="app-dialog" onclick="if(event.target===this)closeJournalBackgroundModal()">
-  <div class="app-dialog-card" style="width:min(100%,780px);max-width:780px;padding:20px 22px;max-height:85vh;display:flex;flex-direction:column;gap:12px;" onclick="event.stopPropagation()">
+  <div class="app-dialog-card" style="width:min(96vw,840px);max-width:840px;padding:20px 22px;max-height:88vh;display:flex;flex-direction:column;gap:12px;" onclick="event.stopPropagation()">
     <!-- Header -->
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--glb);padding-bottom:12px;">
       <div>
         <div class="app-dialog-title" style="margin:0 0 3px;font-size:18px;">📑 Journal Paper &amp; Background Collection</div>
-        <div style="font-size:12px;color:var(--t2);">Choose your notebook paper style: Obsidian Black Grid, Cream Dots, Lined Notebook, Engineering Graph, Kraft Brown, or upload your own!</div>
+        <div style="font-size:12px;color:var(--t2);">Choose from aesthetic paper templates (Obsidian Grid, Cream Dots, Ruled, Cornell, Kraft, Pastels), upload your own wallpaper, or clear background anytime!</div>
       </div>
       <button type="button" class="ipad-step-btn" onclick="closeJournalBackgroundModal()" style="font-size:15px;width:30px;height:30px;flex-shrink:0;">✕</button>
     </div>
+
+    <!-- Active Background Notification Banner (appears when custom image is active) -->
+    <div id="journal-active-bg-bar" style="display:none;align-items:center;justify-content:space-between;background:rgba(140,126,255,0.12);border:1px solid rgba(140,126,255,0.3);border-radius:10px;padding:8px 12px;"></div>
 
     <!-- Quick Action Bar -->
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:2px 0;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <input type="file" id="journal-bg-file-input" accept="image/*" style="display:none;" onchange="handleJournalBgUpload(event)">
-        <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:12px;height:32px;display:inline-flex;align-items:center;gap:5px;">📤 Upload Custom Image</button>
-        <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;color:var(--rdc);">✕ Reset to Obsidian Black</button>
+        <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:12px;height:32px;display:inline-flex;align-items:center;gap:6px;font-weight:800;">
+          <span>📤</span> <span>Upload Image</span>
+        </button>
+        <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;background:rgba(255,75,75,0.12);border:1px solid rgba(255,75,75,0.38);color:#ff5a5a;font-weight:800;display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:0 12px;cursor:pointer;" title="Remove active background and return to clean blank canvas">
+          <span>🚫</span> <span>Remove Background</span>
+        </button>
+        <button type="button" class="app-dialog-btn" onclick="resetToObsidianGrid()" style="font-size:12px;height:32px;background:rgba(255,255,255,0.06);border:1px solid var(--glb);color:var(--t1);font-weight:700;display:inline-flex;align-items:center;gap:5px;border-radius:8px;padding:0 10px;cursor:pointer;" title="Reset to Obsidian Black Grid">
+          <span>🖤</span> <span>Obsidian Grid</span>
+        </button>
       </div>
 
       <!-- Dim / Softness Slider -->
       <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:10px;border:1px solid var(--glb);">
-        <span style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Softness:</span>
+        <span style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Opacity:</span>
         <input type="range" id="journal-bg-dim-slider" min="20" max="100" step="5" value="100" oninput="setJournalBgDim(this.value)" style="width:75px;accent-color:var(--act);cursor:pointer;">
         <span id="journal-bg-dim-label" style="font-size:11px;font-weight:900;color:var(--act);min-width:32px;">100%</span>
       </div>
@@ -8906,6 +8959,16 @@ function setWashiTapeTextColor(item, hex){
 
 /* ── JOURNAL PAGE BACKGROUND ENGINE & COLLECTION ── */
 const JOURNAL_BACKGROUNDS = [
+  // ── 0. NONE / REMOVE BACKGROUND ──
+  {
+    id: 'bg_none',
+    name: 'None (Clean Canvas)',
+    category: 'all',
+    badge: '🚫 None / Remove',
+    styleKey: 'blank',
+    previewCss: 'background:rgba(255,255,255,0.03);'
+  },
+
   // ── 1. GRIDS & DOTS ──
   {
     id: 'paper_obsidian',
@@ -8989,7 +9052,7 @@ const JOURNAL_BACKGROUNDS = [
     category: 'kraft',
     badge: '☕ Coffee',
     styleKey: 'coffee',
-    previewCss: 'radial-gradient(circle at 75% 30%, rgba(139,94,60,0.3) 0%, transparent 50%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.25) 0%, transparent 40%), #e8dac8;'
+    previewCss: 'background: radial-gradient(circle at 75% 30%, rgba(139,94,60,0.3) 0%, transparent 50%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.25) 0%, transparent 40%), #e8dac8;'
   },
   {
     id: 'paper_blank',
@@ -9094,6 +9157,26 @@ function renderJournalBackgroundGrid(category = 'all'){
   const curBg = note ? note.pageBg : null;
   const curBgId = note ? note.pageBgId : null;
 
+  // Active custom background notification banner
+  const activeBar = document.getElementById('journal-active-bg-bar');
+  if(activeBar){
+    if(curBg){
+      activeBar.style.display = 'flex';
+      activeBar.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t1);">
+          <span style="font-size:16px;">🖼️</span>
+          <span><b>Custom Wallpaper / Photo Active</b></span>
+        </div>
+        <button type="button" onclick="removeJournalPageBackground()" style="background:rgba(255,75,75,0.18);border:1px solid rgba(255,75,75,0.4);color:#ff5a5a;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+          <span>✕</span> <span>Remove Background</span>
+        </button>
+      `;
+    } else {
+      activeBar.style.display = 'none';
+      activeBar.innerHTML = '';
+    }
+  }
+
   const customs = getJournalCustomBackgrounds();
   const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
 
@@ -9101,7 +9184,7 @@ function renderJournalBackgroundGrid(category = 'all'){
     ? allBgs 
     : (category === 'uploads')
       ? customs
-      : allBgs.filter(b => b.category === category);
+      : allBgs.filter(b => b.category === category || (b.id === 'bg_none' && category === 'grids'));
 
   if(!filtered.length){
     if(category === 'uploads'){
@@ -9109,7 +9192,8 @@ function renderJournalBackgroundGrid(category = 'all'){
         <div style="grid-column:1/-1;text-align:center;padding:36px 14px;color:var(--t2);">
           <div style="font-size:32px;margin-bottom:8px;">📁</div>
           <div style="font-size:14px;font-weight:800;color:var(--t1);">No custom backgrounds uploaded yet</div>
-          <div style="font-size:12px;margin-top:4px;">Click "Upload Custom Image" above to add your own wallpaper, scrapbook photo, or scan!</div>
+          <div style="font-size:12px;margin-top:4px;">Click "Upload Image" above to add your own wallpaper, scrapbook photo, or scan!</div>
+          <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="margin-top:14px;font-size:12px;height:32px;display:inline-flex;align-items:center;gap:6px;">📤 Upload Custom Image</button>
         </div>
       `;
       return;
@@ -9118,15 +9202,31 @@ function renderJournalBackgroundGrid(category = 'all'){
 
   let html = '';
   filtered.forEach(bg => {
-    const isCur = bg.styleKey 
-      ? (!curBg && curPaper === bg.styleKey)
-      : (curBgId === bg.id || (curBg && curBg === bg.value));
+    const isCur = bg.id === 'bg_none'
+      ? (!curBg && (curPaper === 'blank' || curBgId === 'bg_none'))
+      : bg.styleKey 
+        ? (!curBg && curPaper === bg.styleKey && curBgId !== 'bg_none')
+        : (curBgId === bg.id || (curBg && curBg === bg.value));
 
-    const bgCss = bg.previewCss 
-      ? bg.previewCss 
-      : (bg.value && (bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/') || bg.value.startsWith('url(')))
-        ? `background-image:url('${bg.value}'); background-size:cover;`
-        : `background:${bg.value || '#fff'};`;
+    let previewContent = '';
+    let bgCss = '';
+
+    if(bg.id === 'bg_none'){
+      bgCss = 'background:rgba(255,255,255,0.03);border:2px dashed var(--glb);';
+      previewContent = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:4px;color:var(--t2);text-align:center;padding:6px;box-sizing:border-box;">
+          <span style="font-size:24px;">🚫</span>
+          <span style="font-size:10.5px;font-weight:900;color:var(--t1);letter-spacing:0.4px;">REMOVE BG</span>
+          <span style="font-size:9px;color:var(--t3);">Clean blank page</span>
+        </div>
+      `;
+    } else if(bg.previewCss){
+      bgCss = bg.previewCss.startsWith('background') ? bg.previewCss : `background:${bg.previewCss};`;
+    } else if(bg.value && (bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/') || bg.value.startsWith('url('))){
+      bgCss = `background-image:url('${bg.value}'); background-size:cover; background-position:center;`;
+    } else {
+      bgCss = `background:${bg.value || '#fff'};`;
+    }
 
     const delBtn = bg.isCustom 
       ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete upload" style="background:rgba(0,0,0,0.5);border:none;color:#ff5252;width:20px;height:20px;border-radius:50%;font-size:11px;cursor:pointer;display:grid;place-items:center;">✕</button>` 
@@ -9134,9 +9234,9 @@ function renderJournalBackgroundGrid(category = 'all'){
 
     html += `
       <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="selectJournalBackgroundItem('${escapeHtml(bg.id)}')">
-        <div class="journal-bg-card-preview" style="${bgCss}"></div>
+        <div class="journal-bg-card-preview" style="${bgCss}">${previewContent}</div>
         <div class="journal-bg-card-footer">
-          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:115px;font-weight:800;">${escapeHtml(bg.badge || bg.name)}</span>
+          <span title="${escapeHtml(bg.name)}">${escapeHtml(bg.badge || bg.name)}</span>
           <div style="display:flex;align-items:center;gap:4px;">
             ${delBtn}
             <div class="journal-bg-card-check">✓</div>
@@ -9146,10 +9246,31 @@ function renderJournalBackgroundGrid(category = 'all'){
     `;
   });
 
+  // Always show an "Upload Image" tile in 'all' and 'uploads' tabs
+  if(category === 'all' || category === 'uploads'){
+    html += `
+      <div class="journal-bg-card" onclick="triggerJournalBgUpload()" title="Upload custom wallpaper or background from device" style="border:1.5px dashed var(--glb);background:rgba(255,255,255,0.02);">
+        <div class="journal-bg-card-preview" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;">
+          <span style="font-size:24px;">📤</span>
+          <span style="font-size:10.5px;font-weight:900;color:var(--act);">UPLOAD IMAGE</span>
+          <span style="font-size:9px;color:var(--t3);">JPG, PNG, WebP</span>
+        </div>
+        <div class="journal-bg-card-footer" style="background:rgba(0,0,0,0.4);">
+          <span>📁 Add Custom</span>
+          <span style="font-size:13px;color:var(--act);font-weight:900;">+</span>
+        </div>
+      </div>
+    `;
+  }
+
   container.innerHTML = html;
 }
 
 function selectJournalBackgroundItem(bgId){
+  if(bgId === 'bg_none'){
+    removeJournalPageBackground();
+    return;
+  }
   const customs = getJournalCustomBackgrounds();
   const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
   const bg = allBgs.find(b => b.id === bgId);
@@ -9194,7 +9315,21 @@ function removeJournalPageBackground(){
   const note = getNoteById(currentNoteId);
   if(!note) return;
   note.pageBg = null;
+  note.pageBgId = 'bg_none';
+  note.paperStyle = 'blank';
+  applyPageBackgroundToSheet(null);
+  applyIpadPaperStyle('blank');
+  queueIpadSave();
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  showToast('Background removed 🚫 Clean canvas');
+}
+
+function resetToObsidianGrid(){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  note.pageBg = null;
   note.pageBgId = 'paper_obsidian';
+  note.paperStyle = 'obsidian';
   applyPageBackgroundToSheet(null);
   applyIpadPaperStyle('obsidian');
   queueIpadSave();
