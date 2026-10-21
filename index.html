@@ -2652,6 +2652,46 @@ canvas#gc{display:block;width:100%;height:240px;}
 .mag-editable-area{outline:none;min-height:40px;}
 .mag-editable-area:empty::before{content:attr(data-placeholder);opacity:0.45;pointer-events:none;}
 
+/* ── CANVA "PAGE BROWN" SCRAPBOOK & JOURNAL ENGINE ── */
+.canva-brown-page{position:relative;width:100%;max-width:820px;margin:0 auto;padding:8px 4px 40px;box-sizing:border-box;font-family:inherit;color:inherit;}
+.canva-paper-spread{position:relative;background:#ece1d1;background-image:radial-gradient(ellipse at 50% 15%,rgba(255,255,255,0.45) 0%,rgba(130,95,65,0.08) 100%),repeating-linear-gradient(0deg,rgba(80,50,25,0.018) 0px,rgba(80,50,25,0.018) 1px,transparent 1px,transparent 3px);color:#2c2117;border-radius:6px;padding:24px 22px;box-shadow:0 10px 32px rgba(0,0,0,0.16),0 2px 6px rgba(0,0,0,0.08),inset 0 0 50px rgba(110,75,40,0.12);margin-bottom:24px;border:1px solid rgba(135,100,70,0.25);box-sizing:border-box;}
+[data-t=black] .canva-paper-spread,[data-t=dark] .canva-paper-spread{background:#241f1a;background-image:radial-gradient(ellipse at 50% 15%,rgba(255,255,255,0.04) 0%,rgba(0,0,0,0.25) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 3px);color:#ecdcc9;border-color:rgba(255,255,255,0.12);box-shadow:0 12px 36px rgba(0,0,0,0.5),inset 0 0 50px rgba(0,0,0,0.4);}
+.canva-header-banner{border-top:2px solid #5a3d28;border-bottom:2px solid #5a3d28;padding:10px 14px;margin-bottom:18px;text-align:center;background:rgba(255,255,255,0.3);border-radius:2px;}
+[data-t=black] .canva-header-banner,[data-t=dark] .canva-header-banner{border-color:#a67c52;background:rgba(255,255,255,0.04);}
+.canva-polaroid{position:relative;background:#fffdf9;color:#222;padding:10px 10px 20px 10px;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,0.18),0 2px 6px rgba(0,0,0,0.08);display:inline-block;box-sizing:border-box;transform:rotate(-1.5deg);transition:transform 0.2s ease,box-shadow 0.2s ease;}
+.canva-polaroid:hover{transform:scale(1.02) rotate(-0.5deg);box-shadow:0 12px 30px rgba(0,0,0,0.25);}
+.canva-polaroid-photo{width:100%;aspect-ratio:1.05;background:linear-gradient(135deg,#c4a482,#8b6544);border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:32px;color:#fff;overflow:hidden;position:relative;}
+.canva-polaroid-caption{font-family:'Caveat',cursive,sans-serif;font-size:17px;text-align:center;margin-top:8px;color:#3b2a1a;outline:none;}
+.canva-washi-strip{position:absolute;height:18px;width:76px;background:rgba(214,180,150,0.85);box-shadow:0 1px 3px rgba(0,0,0,0.22);pointer-events:none;z-index:3;border-left:2px dashed rgba(255,255,255,0.45);border-right:2px dashed rgba(255,255,255,0.45);}
+.canva-torn-clipping{position:relative;background:#fdf6ec;color:#2c221a;padding:16px 18px;border-radius:3px;box-shadow:0 4px 14px rgba(0,0,0,0.12);border:1px dashed rgba(110,80,50,0.3);margin-bottom:16px;}
+[data-t=black] .canva-torn-clipping,[data-t=dark] .canva-torn-clipping{background:#1e1a16;color:#edd9c2;border-color:rgba(255,255,255,0.15);box-shadow:0 4px 16px rgba(0,0,0,0.4);}
+.canva-kraft-memo{background:#dfcfbc;color:#2b2017;border-radius:4px;padding:14px 16px;box-shadow:0 3px 10px rgba(0,0,0,0.12);border-left:4px solid #8c6747;margin-bottom:16px;}
+[data-t=black] .canva-kraft-memo,[data-t=dark] .canva-kraft-memo{background:#2b241e;color:#ecdcc9;border-left-color:#c49a6c;box-shadow:0 3px 12px rgba(0,0,0,0.35);}
+.canva-ruled-lines{background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(120,85,55,0.18) 28px);line-height:28px;font-size:15px;min-height:120px;outline:none;}
+[data-t=black] .canva-ruled-lines,[data-t=dark] .canva-ruled-lines{background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(230,200,165,0.15) 28px);}
+.canva-coffee-ring{position:absolute;width:120px;height:120px;border-radius:50%;border:5px solid rgba(110,65,30,0.18);box-shadow:inset 0 0 12px rgba(110,65,30,0.12),0 0 10px rgba(110,65,30,0.1);pointer-events:none;opacity:0.7;filter:blur(0.4px);}
+.canva-ticket-stub{background:#ecd9c4;color:#3b2816;border:1px dashed #8b6b4c;border-radius:4px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:relative;box-shadow:0 3px 8px rgba(0,0,0,0.1);margin-bottom:14px;}
+[data-t=black] .canva-ticket-stub,[data-t=dark] .canva-ticket-stub{background:#2b221a;color:#ecd9c4;border-color:#a67c52;}
+.canva-postage-stamp-mini{width:58px;height:72px;background:#f4ecdc;color:#53351d;border:2px dashed #9c7a59;border-radius:3px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 3px 8px rgba(0,0,0,0.14);transform:rotate(-3deg);user-select:none;font-size:10px;font-weight:800;}
+.canva-receipt-card{background:#fcf9f2;color:#2b2016;border:1px dashed rgba(90,60,35,0.3);padding:14px 16px;border-radius:2px;font-family:'Courier New',Courier,monospace;font-size:12px;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,0.08);margin-bottom:16px;}
+[data-t=black] .canva-receipt-card,[data-t=dark] .canva-receipt-card{background:#1c1814;color:#ead4be;border-color:rgba(255,255,255,0.16);}
+.canva-botanical-card{background:#f7f1e5;color:#2b2117;border:1px solid rgba(100,75,45,0.25);border-radius:4px;padding:14px 16px;box-shadow:inset 0 0 20px rgba(120,90,55,0.08);margin-bottom:16px;}
+[data-t=black] .canva-botanical-card,[data-t=dark] .canva-botanical-card{background:#231e19;color:#ecdcc9;border-color:rgba(255,255,255,0.12);box-shadow:inset 0 0 20px rgba(0,0,0,0.3);}
+.canva-dropcap{float:left;font-size:42px;line-height:0.8;font-family:'Playfair Display','Times New Roman',Georgia,serif;font-weight:900;margin-right:8px;margin-top:2px;color:#6d4223;}
+[data-t=black] .canva-dropcap,[data-t=dark] .canva-dropcap{color:#df9e66;}
+.canva-editable{outline:none;min-height:24px;}
+.canva-editable:empty::before{content:attr(data-placeholder);opacity:0.45;pointer-events:none;}
+
+/* Brown Kraft Paper Sheet for iPad Journal */
+.ipad-paper-sheet.paper-brown-kraft{background:#d8c3ab!important;background-image:radial-gradient(ellipse at center,rgba(255,255,255,0.16) 0%,rgba(0,0,0,0.08) 100%),repeating-linear-gradient(45deg,rgba(80,50,25,0.02) 0px,rgba(80,50,25,0.02) 2px,transparent 2px,transparent 4px)!important;color:#2b1f17!important;box-shadow:inset 0 0 45px rgba(80,50,25,0.12),0 10px 30px rgba(0,0,0,0.2)!important;}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(60,40,20,0.25)!important;color:#2b1f17!important;}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#2b1f17!important;}
+.ipad-paper-sheet.paper-brown-kraft .study-box-body{color:#2b1f17!important;}
+[data-t=black] .ipad-paper-sheet.paper-brown-kraft,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft{background:#25201b!important;background-image:radial-gradient(ellipse at center,rgba(255,255,255,0.04) 0%,rgba(0,0,0,0.3) 100%),repeating-linear-gradient(45deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 2px,transparent 2px,transparent 4px)!important;color:#edd9c2!important;box-shadow:inset 0 0 50px rgba(0,0,0,0.45),0 10px 30px rgba(0,0,0,0.4)!important;}
+[data-t=black] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-title,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(255,255,255,0.15)!important;color:#edd9c2!important;}
+[data-t=black] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas,[data-t=dark] .ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#edd9c2!important;}
+
+
 
 /* Tracker */
 .tracker-shell{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 190px);min-height:calc(100dvh - 190px);}
@@ -5388,6 +5428,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <div class="ipad-tool-grp">
             <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:130px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Digital Paper Template">
               <option value="obsidian" selected>🖤 Obsidian Grid</option>
+              <option value="brown">🤎 Brown Kraft Scrapbook</option>
               <option value="cream">📑 Cream Dots</option>
               <option value="ruled">📜 Lined Notebook</option>
               <option value="graph">📐 Engineering Graph</option>
@@ -8208,10 +8249,10 @@ function toggleNotesView(){
 function getStarterBooks(){
   const now=Date.now();
   return [
-    {id:'book_daily',title:'Daily Mindful Journal',desc:'Morning intentions, reflections, gratitude & daily thoughts.',coverTheme:'theme-blush',emblem:'🌸',templateId:'blank',createdAt:now-86400000*3,updatedAt:now-86400000*3},
-    {id:'book_scrap',title:'Reading & Scrapbook',desc:'Book reviews, aesthetic polaroids, quotes & creative clippings.',coverTheme:'theme-latte',emblem:'📖',templateId:'magazine_cutout',createdAt:now-86400000*2,updatedAt:now-86400000*2},
-    {id:'book_study',title:'Study & Cornell Binder',desc:'Lecture notes, formulas, exam summaries & study trackers.',coverTheme:'theme-matcha',emblem:'🌿',templateId:'cornell_study',createdAt:now-86400000,updatedAt:now-86400000},
-    {id:'book_vision',title:'Vision & Mood Board',desc:'Dreams, travel goals, aesthetic inspiration & memory boards.',coverTheme:'theme-lavender',emblem:'✨',templateId:'pastel_cutouts',createdAt:now,updatedAt:now}
+    {id:'book_daily',title:'Beige & Brown Scrapbook',desc:'Coffee journal, polaroid snapshots & aesthetic memory collage.',coverTheme:'theme-latte',emblem:'☕',templateId:'canva_brown_collage',createdAt:now-86400000*3,updatedAt:now-86400000*3},
+    {id:'book_scrap',title:'Botanical Herbarium Page',desc:'Pressed wildflowers, leaf specimens, field notes & vintage borders.',coverTheme:'theme-matcha',emblem:'🌿',templateId:'canva_botanical_border',createdAt:now-86400000*2,updatedAt:now-86400000*2},
+    {id:'book_study',title:'Autumn Blank Notes & Receipts',desc:'Cozy fall reflections, coffeehouse receipts & reading ledger.',coverTheme:'theme-honey',emblem:'🍂',templateId:'canva_autumn_notes',createdAt:now-86400000,updatedAt:now-86400000},
+    {id:'book_vision',title:'Minimalist Photo Collage',desc:'Curated polaroid film, travel tickets, quotes & aesthetic moodboards.',coverTheme:'theme-noir',emblem:'📸',templateId:'canva_minimal_photo',createdAt:now,updatedAt:now}
   ];
 }
 
@@ -8303,7 +8344,8 @@ function selectBookIcon(icon,el){
   if(el)el.classList.add('on');
 }
 
-/* ── BOOK TEMPLATES AND MULTI-PAGE GENERATORS ── */
+/* ── CANVA "PAGE BROWN" AESTHETIC SCRAPBOOK & NOTEBOOK TEMPLATES ── */
+
 const BOOK_TEMPLATES = {
   blank: {
     id: 'blank',
@@ -8320,195 +8362,235 @@ const BOOK_TEMPLATES = {
     getPageTitle: (idx) => `Page ${idx + 1}`,
     getPageContent: (idx) => ''
   },
-  magazine_cutout: {
-    id: 'magazine_cutout',
+
+  canva_brown_collage: {
+    id: 'canva_brown_collage',
     number: '2',
-    badge: 'No. 2 • Editorial Scrapbook',
-    name: 'Aesthetic Magazine & Newspaper Cutout',
-    subtitle: 'Vintage collage & newsprint columns',
-    desc: 'Torn newspaper mastheads, sepia editorial columns, typewriter notes, pressed floral cards, and aesthetic washi tape inspired by Parisian magazines.',
+    badge: 'No. 2 • Canva Page Brown',
+    name: 'Beige Cream & Brown Vintage Scrapbook',
+    subtitle: 'Canva Coffee Journal & Photo Book Collage',
+    desc: 'Inspired directly by Canva’s "page brown" scrapbook collage: warm beige & cream paper, coffee cup ring stains, polaroid snapshot frames with washi tape, vintage newsprint clippings, and lined kraft memo pads.',
     emblem: '📰',
     coverTheme: 'latte',
-    paperStyle: 'cream',
+    paperStyle: 'brown',
     fontFamily: 'caveat',
-    defaultTitle: 'Aesthetic Magazine Journal',
+    defaultTitle: 'Vintage Brown Scrapbook Journal',
     getPageTitle: (idx) => {
       const titles = [
-        'Vol. I — Cover Editorial & Feature Column',
-        'Vol. II — Columnist Dispatch & Pressed Flora',
-        'Vol. III — Scrapbook Moodboard & Polaroid Memories',
-        'Vol. IV — Daily Dispatches & Curated Musings'
+        'Vol. I — Vintage Coffee Journal & Memory Collage',
+        'Vol. II — Editorial Columnist & Pressed Botanical',
+        'Vol. III — Scrapbook Moodboard & Polaroid Snapshots',
+        'Vol. IV — Autumn Reflections & Daily Compendium'
       ];
-      return titles[idx % titles.length] || `Vol. ${idx + 1} — Editorial Dispatch`;
+      return titles[idx % titles.length] || `Vol. ${idx + 1} — Brown Scrapbook`;
     },
     getPageContent: (idx) => {
       const v = idx % 4;
       if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card">
-    <div class="mag-washi-pin"></div>
-    <div class="mag-washi-pin right"></div>
-    <div class="mag-masthead">
-      <div class="mag-masthead-title">The Calverse Gazette</div>
-      <div class="mag-masthead-meta">
-        <span>VOL. IX • NO. ${idx + 1}</span>
-        <span>SPECIAL EDITORIAL ISSUE</span>
-        <span>PARIS • FLORENCE • KYOTO</span>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div class="canva-coffee-ring" style="top:20px;right:30px;"></div>
+    
+    <!-- Top Header Banner -->
+    <div class="canva-header-banner">
+      <div class="canva-washi-strip" style="top:-10px;left:40px;background:rgba(215,204,200,0.85);transform:rotate(-2deg);"></div>
+      <div class="canva-washi-strip" style="top:-10px;right:40px;background:rgba(210,180,140,0.85);transform:rotate(3deg);"></div>
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#8d6e63;">CANVA VINTAGE COLLECTION • ISSUE N° 0${idx + 1}</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3e2723;letter-spacing:1px;margin:2px 0;">COFFEE, MEMORIES &amp; QUIET PAGES</div>
+      <div style="font-size:11px;font-style:italic;color:#5d4037;border-top:1px dashed rgba(93,64,55,0.3);border-bottom:1px dashed rgba(93,64,55,0.3);padding:3px 0;margin-top:4px;">
+        A curated space for reflections, polaroid memories, and daily gratitude
       </div>
     </div>
-    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px;">
-      <div class="mag-polaroid-frame" style="flex:0 0 200px;margin:0 auto 10px;">
-        <div class="mag-polaroid-photo">📷</div>
-        <div class="mag-polaroid-caption" contenteditable="true">Aesthetic Moments &amp; Thoughts</div>
+
+    <!-- Main Content Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:18px;position:relative;z-index:2;">
+      <!-- Left: Polaroid Photo Card -->
+      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
+        <div class="canva-washi-strip" style="top:-8px;left:50%;transform:translateX(-50%) rotate(1deg);width:80px;background:rgba(224,200,170,0.9);"></div>
+        <div class="canva-polaroid-photo">
+          <div style="font-size:36px;">☕📖</div>
+        </div>
+        <div class="canva-polaroid-caption" contenteditable="true">Cozy Morning Coffee &amp; Thoughts</div>
       </div>
-      <div style="flex:1;min-width:240px;">
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:18px;font-weight:900;margin-bottom:6px;letter-spacing:0.5px;">ON THE ART OF DAILY WRITING &amp; MINDFUL LIVING</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Type your editorial story, chapter reflection or thoughts here...">
-          <span class="mag-dropcap">T</span>he pages we keep are reflections of our inner universe. Every quiet thought, every formula derived, and every memory preserved forms the tapestry of our personal growth. Write freely today without hesitation or critique.
+
+      <!-- Right: Torn Newspaper Clipping Card -->
+      <div class="canva-torn-clipping" style="transform:rotate(1deg);">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;text-transform:uppercase;border-bottom:1px solid rgba(109,76,65,0.3);padding-bottom:4px;margin-bottom:8px;">
+          THE DAILY REFLECTION // DISPATCH
+        </div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Write your morning reflection, thoughts, or daily quote here...">
+          <span class="canva-dropcap">T</span>he beauty of a brown paper journal lies in its warmth. Words feel gentler against coffee-toned pages. Take a breath, write down what sparked joy today, and let thoughts settle naturally.
         </div>
       </div>
     </div>
-    <div class="mag-columns">
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Column 1: Continue typing observations...">
-        Capture the small details that make today memorable. What challenged your perspective? What sparked your curiosity? The beauty of journaling lies in noticing what others pass by.
+
+    <!-- Lined Kraft Memo Section -->
+    <div class="canva-kraft-memo">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(93,64,55,0.3);padding-bottom:6px;margin-bottom:10px;">
+        <span style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;">📌 DAILY TAKEAWAYS &amp; CREATIVE SYNTHESIS</span>
+        <span style="font-size:11px;font-weight:700;color:#795548;">PAGE // 0${idx + 1}</span>
       </div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Column 2: Continue writing reflections...">
-        Formulas and poetry share the same heartbeat: simplicity revealing truth. Preserve your goals and creative musings here for future reflection.
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your key goals, notes, or memories on these lines...">
+        1. Cherish the quiet morning hour before the world wakes up.<br>
+        2. Progress over perfection: one small paragraph every day compounds into a rich archive.<br>
+        3. Today’s creative spark: observing how light hits the autumn leaves outside.
       </div>
     </div>
-    <div style="margin-top:14px;padding-top:10px;border-top:1px dashed rgba(80,60,40,0.3);display:flex;align-items:center;justify-content:space-between;font-size:12px;font-style:italic;">
-      <span contenteditable="true">“In the quiet hours, truth speaks most clearly.”</span>
-      <span style="font-size:10px;font-weight:800;letter-spacing:1px;font-style:normal;">CALVERSE PRESS</span>
+
+    <!-- Bottom Ephemera Strip -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:10px;border-top:1px dashed rgba(93,64,55,0.3);font-size:11px;color:#6d4c41;">
+      <div class="canva-postage-stamp-mini">
+        <div style="font-size:8px;font-weight:900;">POSTE</div>
+        <div style="font-size:14px;">🌸</div>
+        <div style="font-size:7px;">1924</div>
+      </div>
+      <span style="font-style:italic;" contenteditable="true">“Every page is a quiet celebration of everyday moments.”</span>
+      <span style="font-size:9.5px;font-weight:800;letter-spacing:1px;">CALVERSE ARCHIVE</span>
     </div>
   </div>
 </div>`;
       } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div style="display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px;">
-    <div class="mag-torn-card" style="flex:1.2;min-width:280px;margin-bottom:0;">
-      <div class="mag-washi-pin" style="top:-8px;left:20px;background:rgba(255,183,77,0.75);"></div>
-      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:6px;margin-bottom:12px;">
-        <span style="font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase;">CHRONICLES &amp; DISPATCHES</span>
-        <span style="font-size:11px;font-weight:700;">OCTOBER // ENTRY ${idx + 1}</span>
-      </div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:17px;font-weight:800;margin-bottom:8px;">OBSERVATIONS ON NATURE &amp; PROGRESS</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Write your morning dispatches or lecture takeaways...">
-        <span class="mag-dropcap">A</span> morning walk revealed the subtle shift in season. In our work and studies, patience is the soil in which deep mastery takes root. Record your key insights and observations below.
-      </div>
-      <div class="mag-editable-area" contenteditable="true" style="margin-top:12px;" data-placeholder="Continue writing thoughts...">
-        • Main insight of the day:<br>
-        • Key formula or concept grasped:<br>
-        • A question left unanswered:
-      </div>
-    </div>
-    <div class="mag-torn-card" style="flex:0.8;min-width:240px;background:#f3e8d2;margin-bottom:0;display:flex;flex-direction:column;justify-content:space-between;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div class="mag-postage-stamp">
-          <div style="font-size:9px;font-weight:900;letter-spacing:0.5px;">POSTAGE</div>
-          <div class="mag-stamp-inner">🌸</div>
-          <div style="font-size:8px;font-weight:800;">CALVERSE • 1924</div>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div style="display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px;">
+      <!-- Left Columnist Article Card -->
+      <div class="canva-torn-clipping" style="flex:1.2;min-width:270px;background:#f3e9db;">
+        <div class="canva-washi-strip" style="top:-8px;left:20px;background:rgba(215,204,200,0.9);transform:rotate(-3deg);"></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:6px;margin-bottom:10px;">
+          <span style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#4e342e;">CHRONICLES // ESSAY</span>
+          <span style="font-size:10px;font-weight:700;color:#795548;">OCTOBER ENTRY</span>
         </div>
-        <div style="text-align:right;font-size:10px;font-weight:800;letter-spacing:1px;opacity:0.7;">SPECIMEN N° 0${idx + 1}</div>
+        <div style="font-family:'Times New Roman',Georgia,serif;font-size:18px;font-weight:800;color:#3e2723;margin-bottom:8px;">ON THE PLEASURE OF SLOW JOURNALING</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Type your essay or lecture insights here...">
+          <span class="canva-dropcap">I</span>n our hurried digital world, the tactile simplicity of brown paper invites stillness. Write with intention today. What ideas are taking shape in your studies? What questions linger in your mind?
+        </div>
+        <div class="canva-ruled-lines canva-editable" contenteditable="true" style="margin-top:12px;" data-placeholder="List key takeaways...">
+          • Core principle discovered today:<br>
+          • Favorite quote or passage:<br>
+          • A moment of gratitude:
+        </div>
       </div>
-      <div style="text-align:center;padding:16px 0;font-size:38px;">🌿🥀✨</div>
-      <div style="background:rgba(255,255,255,0.5);padding:10px;border-radius:4px;border:1px solid rgba(80,60,40,0.15);">
-        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">BOTANICAL MEMORANDA</div>
-        <div class="mag-editable-area" contenteditable="true" style="font-size:13px;font-style:italic;" data-placeholder="Add a field note or quote...">
-          “Flowers don’t worry about how they’re going to bloom. They just open up and turn toward the light.”
+
+      <!-- Right Pressed Botanical Specimen Card -->
+      <div class="canva-botanical-card" style="flex:0.8;min-width:230px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="canva-postage-stamp-mini">
+            <div style="font-size:8px;font-weight:900;">AIR MAIL</div>
+            <div style="font-size:14px;">🌿</div>
+            <div style="font-size:7px;">PARIS</div>
+          </div>
+          <div style="text-align:right;font-size:9.5px;font-weight:800;color:#795548;letter-spacing:1px;">FLORA N° 0${idx + 1}</div>
+        </div>
+        <div style="text-align:center;padding:18px 0;font-size:42px;">🥀🌾✨</div>
+        <div style="background:rgba(255,255,255,0.6);padding:10px;border-radius:4px;border:1px solid rgba(93,64,55,0.2);margin-top:auto;">
+          <div style="font-size:10px;font-weight:900;color:#4e342e;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">BOTANICAL MEMO</div>
+          <div class="canva-editable" contenteditable="true" style="font-size:13px;font-style:italic;" data-placeholder="Botanical note...">
+            “Like dried flowers between aged pages, our memories retain their fragrance long after the seasons change.”
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>`;
       } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div style="position:relative;">
-    <div class="mag-coffee-ring" style="top:-15px;right:40px;"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;position:relative;z-index:1;">
-      <div class="mag-polaroid-frame" style="margin:0 auto;width:100%;max-width:280px;box-sizing:border-box;">
-        <div class="mag-washi-pin" style="top:-10px;left:50%;transform:translateX(-50%) rotate(1deg);width:90px;background:rgba(128,222,234,0.75);"></div>
-        <div class="mag-polaroid-photo" style="aspect-ratio:4/3;font-size:42px;">🎨✨</div>
-        <div class="mag-polaroid-caption" contenteditable="true">Snapshot: Paris Café / Study Corner</div>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div class="canva-coffee-ring" style="top:10px;left:20px;"></div>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:16px;position:relative;z-index:2;">
+      <!-- Polaroid Card -->
+      <div class="canva-polaroid" style="margin:0 auto;width:100%;max-width:270px;">
+        <div class="canva-washi-strip" style="top:-8px;left:50%;transform:translateX(-50%) rotate(-1deg);width:85px;background:rgba(215,190,160,0.9);"></div>
+        <div class="canva-polaroid-photo" style="aspect-ratio:4/3;font-size:40px;">🎨🍂</div>
+        <div class="canva-polaroid-caption" contenteditable="true">Autumn Memories &amp; Studio Desk</div>
       </div>
-      <div class="mag-torn-card" style="margin:0;background:#ede0c8;transform:rotate(-1deg);">
-        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#7a5230;text-transform:uppercase;margin-bottom:6px;">DICTIONNAIRE CALVERSE // P. 118</div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:16px;font-weight:800;margin-bottom:4px;">Flâneur /n. m./</div>
-        <div style="font-size:13px;line-height:1.45;margin-bottom:10px;font-style:italic;">
-          One who strolls the streets with curiosity, observing the wonders of life without rushing.
+
+      <!-- French Dictionary Ephemera Cutout -->
+      <div class="canva-torn-clipping" style="background:#ede0cc;transform:rotate(-1deg);margin:0;">
+        <div style="font-size:9.5px;font-weight:900;letter-spacing:1px;color:#7a5230;text-transform:uppercase;margin-bottom:6px;">DICTIONNAIRE CANVA // P. 142</div>
+        <div style="font-family:'Times New Roman',Georgia,serif;font-size:17px;font-weight:900;color:#3e2723;margin-bottom:4px;">Flâneur /n. m./</div>
+        <div style="font-size:13px;line-height:1.45;color:#5d4037;font-style:italic;margin-bottom:10px;">
+          A passionate observer who wanders through life with eyes open to beauty, taking in every small miracle.
         </div>
-        <div style="border-top:1px dashed rgba(80,60,40,0.3);padding-top:8px;">
-          <div style="font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:4px;">PERSONAL REFLECTION</div>
-          <div class="mag-editable-area" contenteditable="true" data-placeholder="How did you embrace curiosity today? Write here...">
-            Today I paused between classes to write down three observations that gave me peace.
+        <div style="border-top:1px dashed rgba(93,64,55,0.3);padding-top:8px;">
+          <div style="font-size:10px;font-weight:900;color:#4e342e;text-transform:uppercase;margin-bottom:4px;">PERSONAL REFLECTION</div>
+          <div class="canva-editable" contenteditable="true" data-placeholder="Write how you observed beauty today...">
+            Today I paused during my afternoon walk to sketch the architecture of the courtyard.
           </div>
         </div>
       </div>
     </div>
-    <div class="mag-torn-card" style="margin-top:16px;background:#f7f1e6;">
-      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(80,60,40,0.2);padding-bottom:6px;margin-bottom:10px;">
-        <span style="font-size:11px;font-weight:900;letter-spacing:1px;">DAILY LOG &amp; CREATIVE SYNTHESIS</span>
-        <span style="font-size:11px;font-weight:700;">PAGE // 0${idx + 1}</span>
+
+    <!-- Wide Lined Journal Block -->
+    <div class="canva-kraft-memo">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(93,64,55,0.3);padding-bottom:6px;margin-bottom:10px;">
+        <span style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;">AUTUMN SKETCHPAD &amp; JOURNAL LOG</span>
+        <span style="font-size:11px;font-weight:700;color:#795548;">PAGE // 0${idx + 1}</span>
       </div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Continue journaling, pasting washi tape or typing lecture notes here..." style="min-height:100px;font-size:15px;line-height:1.7;">
-        Write your deep thoughts, study conclusions, or book reviews here. You can drop washi tape across the edges, place stickers, or sketch formulas with the Pen!
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Continue typing thoughts, pasting washi tape or sketching formulas..." style="min-height:90px;font-size:15px;line-height:1.7;">
+        Record your creative brainstorming, study takeaways, or poetry here. Feel free to drop washi tape across the corners, place stickers, or write with the Penly/Apple stylus!
       </div>
     </div>
   </div>
 </div>`;
       } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card">
-    <div class="mag-washi-pin" style="top:-8px;left:40px;background:rgba(206,147,216,0.75);"></div>
-    <div style="text-align:center;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:8px;margin-bottom:16px;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">CALVERSE DISPATCH • DAILY COMPENDIUM</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;margin-top:2px;">THE THREE-PART REFLECTION</div>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div class="canva-header-banner" style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#8d6e63;">CANVA AESTHETIC COMPENDIUM</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;margin-top:2px;">THE THREE-PART DAILY REFLECTION</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:16px;">
-      <div style="background:rgba(255,255,255,0.45);padding:12px;border-radius:6px;border:1px solid rgba(80,60,40,0.15);">
-        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#7a3e20;margin-bottom:4px;">[ 01 // THE HEADLINE ]</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="What was the headline of today?">
-          Completed major revision milestone in mathematics; feeling focused and steady.
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:16px;">
+      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 01 // THE HEADLINE ]</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Headline of the day...">
+          Conquered key physics formulas and spent an hour reading in the café.
         </div>
       </div>
-      <div style="background:rgba(255,255,255,0.45);padding:12px;border-radius:6px;border:1px solid rgba(80,60,40,0.15);">
-        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#7a3e20;margin-bottom:4px;">[ 02 // IN DEPTH ]</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Detailed thoughts, analysis or formulas...">
-          Analyzed the core principles behind the equation. When you understand the roots, memorization becomes effortless.
+      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 02 // IN DEPTH ]</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Deep insights or thoughts...">
+          Real progress happens when you embrace difficult problems with calm curiosity instead of rushing.
         </div>
       </div>
-      <div style="background:rgba(255,255,255,0.45);padding:12px;border-radius:6px;border:1px solid rgba(80,60,40,0.15);">
-        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#7a3e20;margin-bottom:4px;">[ 03 // MEMORANDA ]</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Next actions, quotes, and gratitude...">
-          • Rest well tonight<br>
-          • Drink green tea in morning<br>
-          • Review Flashcard Set #3
+      <div class="canva-torn-clipping" style="background:#f5ecde;margin:0;padding:12px;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#6d4c41;margin-bottom:4px;">[ 03 // GRATITUDE ]</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Gratitude & next actions...">
+          • Warm cup of cinnamon tea<br>
+          • Quiet study desk<br>
+          • Peaceful evening ahead
         </div>
       </div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Evening thoughts or closing paragraphs..." style="border-top:1px dashed rgba(80,60,40,0.25);padding-top:10px;font-style:italic;">
-      “The secret of getting ahead is getting started. The secret of getting started is breaking your complex overwhelming tasks into small manageable tasks.”
+
+    <div class="canva-kraft-memo">
+      <div class="canva-editable" contenteditable="true" data-placeholder="Closing thoughts for the evening..." style="font-style:italic;font-size:14.5px;line-height:1.7;">
+        “In the garden of the mind, every gentle thought planted today blooms into peace tomorrow.”
+      </div>
     </div>
   </div>
 </div>`;
       }
     }
   },
-  vintage_botanical: {
-    id: 'vintage_botanical',
+
+  canva_botanical_border: {
+    id: 'canva_botanical_border',
     number: '3',
-    badge: 'No. 3 • Herbarium & Nature',
-    name: 'Vintage Botanical Scrapbook',
-    subtitle: 'Pressed eucalyptus, flora tags & field logs',
-    desc: 'Antique herbarium specimen cards, field observation notes, pressed lavender accents, craft paper tags, and cottagecore botanical frames.',
+    badge: 'No. 3 • Canva Page Brown',
+    name: 'Beige Brown Vintage Botanical Border',
+    subtitle: 'Canva A4 Botanical Journal & Herbarium Page Border',
+    desc: 'Inspired directly by Canva’s "beige brown aesthetic vintage scrapbook page border": full vintage A4 border, pressed eucalyptus & daisy illustrations, herbarium specimen tags, ticket stubs, and lined aged paper.',
     emblem: '🌿',
     coverTheme: 'matcha',
-    paperStyle: 'cream',
+    paperStyle: 'brown',
     fontFamily: 'kalam',
-    defaultTitle: 'Field Botanica & Herbarium',
+    defaultTitle: 'Aesthetic Botanical Herbarium',
     getPageTitle: (idx) => {
       const titles = [
-        'Herbarium Specimen 01 — Flora & Field Observations',
-        'Herbarium Specimen 02 — Pressed Fern & Taxonomy Study',
+        'Herbarium Specimen 01 — Botanical Border & Field Notes',
+        'Herbarium Specimen 02 — Dried Daisy & Morphology Log',
         'Herbarium Specimen 03 — Secret Garden Log & Daily Gratitude',
         'Herbarium Specimen 04 — Botanical Collector’s Ledger'
       ];
@@ -8517,429 +8599,485 @@ const BOOK_TEMPLATES = {
     getPageContent: (idx) => {
       const v = idx % 4;
       if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#f4eee1;">
-    <div class="mag-washi-pin" style="background:rgba(165,214,167,0.85);top:-8px;left:30px;"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #3e5a38;padding-bottom:8px;margin-bottom:14px;">
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
+    <!-- Corner Washi Tapes -->
+    <div class="canva-washi-strip" style="top:-10px;left:-10px;width:70px;background:rgba(180,150,120,0.85);transform:rotate(-45deg);"></div>
+    <div class="canva-washi-strip" style="top:-10px;right:-10px;width:70px;background:rgba(180,150,120,0.85);transform:rotate(45deg);"></div>
+    
+    <!-- Top Herbarium Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #5a422d;padding-bottom:10px;margin-bottom:14px;">
       <div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#2e442a;letter-spacing:1px;">HERBARIUM MUSEUM ARCHIVE</div>
-        <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:#5c7755;">BOTANICAL SPECIMEN COLLECTION • SERIES ${idx + 1}</div>
+        <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#7a5230;">CANVA BOTANICAL COLLECTION • A4 SERIES</div>
+        <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3b2a1d;margin-top:2px;">HERBARIUM SPECIMEN ARCHIVE</div>
       </div>
-      <div style="font-size:28px;">🌿</div>
+      <div style="font-size:32px;">🌿🌼</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;background:rgba(255,255,255,0.6);border:1px solid rgba(62,90,56,0.25);border-radius:6px;padding:10px;margin-bottom:14px;font-size:12px;">
-      <div><b>Species:</b> <span contenteditable="true">Lavandula angustifolia</span></div>
-      <div><b>Common:</b> <span contenteditable="true">English Lavender</span></div>
-      <div><b>Locality:</b> <span contenteditable="true">Valley Garden Quad</span></div>
-      <div><b>Collector:</b> <span contenteditable="true">Study Journal #1</span></div>
+
+    <!-- Classification Metadata Table -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;background:rgba(255,255,255,0.65);border:1px solid rgba(90,66,45,0.3);border-radius:6px;padding:10px;margin-bottom:16px;font-size:12px;color:#3b2a1d;">
+      <div><b>Species:</b> <span contenteditable="true">Eucalyptus cinerea</span></div>
+      <div><b>Common Name:</b> <span contenteditable="true">Silver Dollar Gum</span></div>
+      <div><b>Locality:</b> <span contenteditable="true">Botanical Glasshouse Quad</span></div>
+      <div><b>Collector:</b> <span contenteditable="true">Canva Brown Journal #01</span></div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Record morphology, study takeaways or personal observations here..." style="font-size:15px;line-height:1.7;min-height:90px;">
-      Delicate violet spikes with silver-grey foliage. A symbol of tranquility, grace, and sustained focus throughout demanding study periods. Write your lecture notes or botanical thoughts here...
+
+    <!-- Main Botanical Journal Lines -->
+    <div class="canva-kraft-memo" style="background:rgba(255,255,255,0.5);border:1px solid rgba(90,66,45,0.25);">
+      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">FIELD OBSERVATIONS &amp; STUDY NOTES</div>
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Record morphology, cellular biology or personal thoughts..." style="min-height:120px;font-size:15px;line-height:1.75;">
+        Aromatic blue-grey foliage with smooth juvenile leaves. Studied the cellular chloroplast distribution under magnification today. Write your lecture revision or nature reflections here...
+      </div>
+    </div>
+
+    <!-- Bottom Ticket Stub & Seal -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:10px;border-top:1px dashed rgba(90,66,45,0.3);">
+      <div class="canva-ticket-stub">
+        <div style="font-size:8px;font-weight:900;letter-spacing:1px;">HERBARIUM PASS</div>
+        <div style="font-size:11px;font-weight:800;">N° 84920</div>
+      </div>
+      <span style="font-size:12px;font-style:italic;color:#5a422d;" contenteditable="true">“Every leaf tells a story of sunlight and patience.”</span>
+      <div style="font-size:24px;">🏷️</div>
     </div>
   </div>
 </div>`;
       } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;">
-    <div class="mag-torn-card" style="background:#edf2ea;margin:0;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#2e442a;margin-bottom:6px;">PLANT MORPHOLOGY &amp; LEAF STRUCTURE</div>
-      <div style="font-size:32px;text-align:center;padding:10px 0;">🍃🌱</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Describe cellular structure, photosynthesis notes or daily thoughts...">
-        • Photosynthetic efficiency under filtered sunlight.<br>
-        • Key chemical pathways: Calvin Cycle &amp; RuBisCO kinetics.<br>
-        • Notes: Retained moisture in shady garden terraces.
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+      <!-- Morphology Card -->
+      <div class="canva-torn-clipping" style="background:#f4ece0;margin:0;">
+        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">PLANT TAXONOMY &amp; MORPHOLOGY</div>
+        <div style="font-size:36px;text-align:center;padding:12px 0;">🌱🍃</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Plant physiology notes...">
+          • Photosynthetic pathways and water retention mechanisms.<br>
+          • Adaptation to dry autumn temperatures.<br>
+          • Microscopic leaf stomata observations.
+        </div>
       </div>
-    </div>
-    <div class="mag-torn-card" style="background:#f5efe6;margin:0;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:1px;color:#5a432e;margin-bottom:6px;">FIELD OBSERVATION LOG</div>
-      <div style="font-size:32px;text-align:center;padding:10px 0;">🥀✨</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Observations, environmental factors or questions...">
-        • Temperature: 18°C crisp autumn air.<br>
-        • Focus level: High clarity while sketching.<br>
-        • Takeaway: Taking notes by hand builds spatial memory.
+
+      <!-- Field Journal Card -->
+      <div class="canva-torn-clipping" style="background:#ede3d2;margin:0;">
+        <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#5a422d;margin-bottom:6px;">DAILY FIELD LOG &amp; MEMORIES</div>
+        <div style="font-size:36px;text-align:center;padding:12px 0;">🥀✨</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Personal memories and observations...">
+          • Crisp breeze and amber sunlight through the trees.<br>
+          • Completed revision goal for today.<br>
+          • Ready for peaceful evening study.
+        </div>
       </div>
     </div>
   </div>
 </div>`;
       } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#f4efe6;">
-    <div class="mag-washi-pin" style="background:rgba(255,204,128,0.75);top:-8px;right:40px;left:auto;"></div>
-    <div style="border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:6px;margin-bottom:12px;display:flex;justify-content:space-between;">
-      <span style="font-size:11px;font-weight:900;letter-spacing:1px;">SECRET GARDEN GRATITUDE &amp; MIND LOG</span>
-      <span style="font-size:11px;font-weight:700;">ENTRY // 0${idx + 1}</span>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
+    <div class="canva-header-banner" style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#7a5230;">GARDEN COMPENDIUM</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3b2a1d;">THREE DAILY GRATITUDES</div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Three things you are grateful for today..." style="min-height:80px;font-size:15px;line-height:1.7;">
-      1. Morning sunlight through the window while studying.<br>
-      2. A challenging physics problem finally solved with elegance.<br>
-      3. A hot cup of tea and twenty peaceful minutes of reflection.
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your three daily gratitudes here..." style="min-height:100px;font-size:15px;line-height:1.75;">
+        1. Fresh morning air and a clear mind for studying.<br>
+        2. A difficult equation finally clicking into place.<br>
+        3. A quiet corner surrounded by inspiring books and tea.
+      </div>
     </div>
   </div>
 </div>`;
       } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#edf3eb;">
-    <div style="text-align:center;border-bottom:1px solid rgba(46,68,42,0.3);padding-bottom:6px;margin-bottom:12px;">
-      <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#2e442a;">NATURALIST’S COMPENDIUM // SUMMARY SHEET</div>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="border:2px solid #5a422d;padding:24px 26px;">
+    <div style="text-align:center;border-bottom:2px solid #5a422d;padding-bottom:8px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#5a422d;">BOTANICAL COLLECTOR’S LEDGER // SUMMARY</div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Weekly nature review, key revision concepts or creative goals..." style="min-height:110px;font-size:15px;line-height:1.7;">
-      Reviewing this week's progress: every small step adds up. Plant seeds of consistent practice each morning, and by month's end you have a thriving forest of mastery.
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Weekly summary or study synthesis..." style="min-height:120px;font-size:15px;line-height:1.75;">
+        Summary of this week’s learnings: cultivate patience, review flashcards daily, and enjoy every small discovery along the way.
+      </div>
     </div>
   </div>
 </div>`;
       }
     }
   },
-  warm_latte: {
-    id: 'warm_latte',
+
+  canva_autumn_notes: {
+    id: 'canva_autumn_notes',
     number: '4',
-    badge: 'No. 4 • Coffeehouse & Book',
-    name: 'Warm Latte & Coffeehouse Journal',
-    subtitle: 'Cozy café reviews, coffee rings & morning prose',
-    desc: 'Warm mocha tones, café receipt cutouts, cozy reading logs, coffee ring stains, and relaxing morning reflection prompts.',
+    badge: 'No. 4 • Canva Page Brown',
+    name: 'Brown Aesthetic Autumn Scrapbook',
+    subtitle: 'Canva Autumn Blank Notes & Memories Spread',
+    desc: 'Inspired directly by Canva’s "brown aesthetic scrapbook autumn blank notes A4": warm autumn browns, café receipt cutouts, coffee cup watermarks, polaroid picture slots, and cozy study memos.',
     emblem: '☕',
     coverTheme: 'honey',
-    paperStyle: 'cream',
+    paperStyle: 'brown',
     fontFamily: 'caveat',
-    defaultTitle: 'Café Musings & Latte Notes',
+    defaultTitle: 'Autumn Brown Scrapbook & Notes',
     getPageTitle: (idx) => {
       const titles = [
-        'Morning Brew & Daily Reflections',
-        'Café Reading Log & Book Review',
-        'Cozy Evening Musings & Candlelight Notes',
-        'Creative Brain Dump & Scattered Thoughts'
+        'Autumn Notes 01 — Coffee Receipt & Daily Focus',
+        'Autumn Notes 02 — Cozy Reading Log & Book Review',
+        'Autumn Notes 03 — Evening Musings & Candlelight',
+        'Autumn Notes 04 — Creative Brain Dump & Warm Prose'
       ];
-      return titles[idx % titles.length] || `Café Entry ${idx + 1}`;
+      return titles[idx % titles.length] || `Autumn Entry ${idx + 1}`;
     },
     getPageContent: (idx) => {
       const v = idx % 4;
       if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#f7f0e4;">
-    <div class="mag-coffee-ring" style="top:10px;right:25px;"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed #8d6e63;padding-bottom:10px;margin-bottom:14px;">
-      <div>
-        <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#4e342e;">CALVERSE ESPRESSO &amp; WRITERS LOUNGE</div>
-        <div style="font-size:11px;font-weight:700;color:#795548;">ORDER #0${idx + 1} • OAT VANILLA LATTE &amp; JOURNAL</div>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#f6eedf;">
+    <div class="canva-coffee-ring" style="top:15px;right:25px;"></div>
+    
+    <!-- Receipt Header Strip -->
+    <div class="canva-receipt-card">
+      <div style="text-align:center;border-bottom:1px dashed #795548;padding-bottom:6px;margin-bottom:8px;">
+        <div style="font-size:14px;font-weight:900;letter-spacing:1px;color:#3e2723;">CALVERSE AUTUMN CAFÉ</div>
+        <div style="font-size:9.5px;font-family:monospace;color:#5d4037;">ORDER #8491 • TABLE 03 • 08:30 AM</div>
       </div>
-      <div style="font-size:32px;">☕</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:monospace;margin-bottom:4px;">
+        <span>1x Oat Cinnamon Latte</span>
+        <span>$4.50</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:monospace;margin-bottom:8px;">
+        <span>1x Fresh Butter Croissant</span>
+        <span>$3.75</span>
+      </div>
+      <div style="border-top:1px dashed #795548;padding-top:4px;font-size:10px;text-align:center;font-style:italic;">
+        “Thank you for visiting! May your studies be fruitful.”
+      </div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Write your morning thoughts or café ambiance notes here..." style="min-height:100px;font-size:16px;line-height:1.7;position:relative;z-index:2;">
-      The warmth of the ceramic mug between cold hands. The gentle murmur of acoustic jazz and soft rain outside. A brand new page waiting for honest thoughts. What are you building today?
+
+    <!-- Main Autumn Journal Area -->
+    <div class="canva-kraft-memo" style="margin-top:16px;">
+      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">AUTUMN INTENTIONS &amp; STUDY NOTES</div>
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your morning reflections, daily intentions, or study tasks..." style="min-height:110px;font-size:15.5px;line-height:1.75;">
+        The air is crisp, the coffee is warm, and the notebooks are open. Outline your day’s tasks, key equations to conquer, and thoughts to reflect upon...
+      </div>
     </div>
   </div>
 </div>`;
       } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#f5eee4;">
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:8px;margin-bottom:14px;">
-      <span style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;">📖 CURRENT READ &amp; BOOK REVIEW</span>
-      <span style="font-size:11px;font-weight:800;color:#795548;">★★★★★</span>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#f6eedf;">
+    <div class="canva-header-banner" style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">AUTUMN READING LOG</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;">COFFEE &amp; CURRENT BOOK REVIEW</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:12px;font-size:12px;background:rgba(255,255,255,0.5);padding:8px;border-radius:6px;">
-      <div><b>Title:</b> <span contenteditable="true">Atomic Habits</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;background:rgba(255,255,255,0.6);padding:10px;border-radius:6px;border:1px solid rgba(121,85,72,0.3);margin-bottom:14px;font-size:12px;">
+      <div><b>Book:</b> <span contenteditable="true">Atomic Habits</span></div>
       <div><b>Author:</b> <span contenteditable="true">James Clear</span></div>
-      <div><b>Key Theme:</b> <span contenteditable="true">1% Daily Compounding</span></div>
+      <div><b>Rating:</b> <span contenteditable="true">★★★★★</span></div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Favorite quotes, chapter summary or insights..." style="min-height:80px;font-size:15px;line-height:1.65;">
-      “You do not rise to the level of your goals. You fall to the level of your systems.” Record what this means for your personal revision and daily schedule...
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Favorite quotes and chapter takeaways..." style="min-height:90px;font-size:15px;line-height:1.75;">
+        “Every action you take is a vote for the type of person you wish to become.” Write down how this inspires your current habits...
+      </div>
     </div>
   </div>
 </div>`;
       } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#efe5d6;">
-    <div class="mag-washi-pin" style="background:rgba(215,204,200,0.85);top:-8px;left:40px;"></div>
-    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#4e342e;margin-bottom:8px;">EVENING MOCHA MUSINGS</div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Unwind, reflect on your accomplishments, or brain-dump before sleep..." style="min-height:90px;font-size:15px;line-height:1.7;">
-      As the day draws to a close, acknowledge how far you've come. Write down any lingering thoughts to clear your mind for a restful night.
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#f6eedf;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:8px;text-align:center;">CANDLELIGHT &amp; EVENING CONTEMPLATION</div>
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Unwind with peaceful thoughts..." style="min-height:120px;font-size:15px;line-height:1.75;">
+        As the day comes to a close, let go of what wasn't finished. Celebrate what you accomplished, and rest deeply.
+      </div>
     </div>
   </div>
 </div>`;
       } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#f4ece0;">
-    <div style="text-align:center;border-bottom:1px solid rgba(80,60,40,0.25);padding-bottom:6px;margin-bottom:12px;">
-      <span style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;">CREATIVE BRAIN DUMP &amp; COFFEEHOUSE PROSE</span>
-    </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Freeform stream of consciousness, doodles or formula scratchpad..." style="min-height:120px;font-size:15px;line-height:1.7;">
-      Write freely without backspacing. Let words flow onto paper like steam from fresh coffee.
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#f6eedf;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:8px;text-align:center;">AUTUMN BRAIN DUMP &amp; DOODLES</div>
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Stream of consciousness..." style="min-height:120px;font-size:15px;line-height:1.75;">
+        Write without filtering. Let your ideas, sketches, and plans flow across the page.
+      </div>
     </div>
   </div>
 </div>`;
       }
     }
   },
-  dark_academia: {
-    id: 'dark_academia',
+
+  canva_travel_ephemera: {
+    id: 'canva_travel_ephemera',
     number: '5',
-    badge: 'No. 5 • Classical Scholar',
-    name: 'Dark Academia & Classical Study',
-    subtitle: 'Antique parchment, library archives & philosophical dialogues',
-    desc: 'Antique bookplates, illuminated drop caps, dialectic inquiry columns, midnight sepia styling, and classical scholarship tags.',
-    emblem: '🏛️',
-    coverTheme: 'noir',
-    paperStyle: 'obsidian',
-    fontFamily: 'serif',
-    defaultTitle: 'Dark Academia Archive',
+    badge: 'No. 5 • Canva Page Brown',
+    name: 'Brown Beige Retro Travel Scrapbook',
+    subtitle: 'Canva Vintage Travelogue & Ticket Ephemera',
+    desc: 'Inspired directly by Canva’s "brown beige retro travel journal": vintage luggage tags, perforated travel ticket stubs, airmail stamps, postmarks, and two-column travel memoirs.',
+    emblem: '✈️',
+    coverTheme: 'latte',
+    paperStyle: 'brown',
+    fontFamily: 'caveat',
+    defaultTitle: 'Retro Travel & Voyage Journal',
     getPageTitle: (idx) => {
       const titles = [
-        'Prologue — Classical Scholar’s Preface & Thesis',
-        'Dialectic — Thesis, Antithesis & Argumentation',
-        'Archive — Library Archives & Literature Inquiry',
-        'Nocturne — Midnight Prose & Astronomical Musings'
+        'Voyage Entry 01 — Travel Ticket & Luggage Tag',
+        'Voyage Entry 02 — Postcard from Paris & Old Streets',
+        'Voyage Entry 03 — Culinary Notes & Local Cafés',
+        'Voyage Entry 04 — Journey Summary & Memories'
+      ];
+      return titles[idx % titles.length] || `Voyage Entry ${idx + 1}`;
+    },
+    getPageContent: (idx) => {
+      const v = idx % 4;
+      if (v === 0) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #5d4037;padding-bottom:10px;margin-bottom:14px;">
+      <div>
+        <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">VINTAGE EXPEDITION • ARCHIVE</div>
+        <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;color:#3e2723;">VOYAGES, TRAINS &amp; OLD CITIES</div>
+      </div>
+      <div class="canva-ticket-stub" style="transform:rotate(2deg);">
+        <div style="font-size:8px;font-weight:900;">BOARDING PASS</div>
+        <div style="font-size:11px;font-weight:800;">EXP-782</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:16px;">
+      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
+        <div class="canva-polaroid-photo" style="font-size:36px;">🏛️🚂</div>
+        <div class="canva-polaroid-caption" contenteditable="true">Train Station in Florence</div>
+      </div>
+
+      <div class="canva-torn-clipping">
+        <div style="font-size:10.5px;font-weight:900;color:#5d4037;margin-bottom:6px;">LUGGAGE TAG // N° 402</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Destination, sights and impressions...">
+          <b>Destination:</b> Florence &amp; Tuscany<br>
+          <b>Date:</b> October 21<br>
+          <b>Impressions:</b> Cobblestone alleys, acoustic guitar echoes under terracotta roofs, and the scent of roasted espresso beans.
+        </div>
+      </div>
+    </div>
+
+    <div class="canva-kraft-memo">
+      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">TRAVEL MEMOIRS &amp; HIGHLIGHTS</div>
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your travelogue or wanderlust memories..." style="min-height:90px;font-size:15px;line-height:1.75;">
+        Every city speaks its own secret language. The joy of traveling is in slowing down to listen. Record your observations and discoveries here...
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else if (v === 1) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">POSTCARD FROM PARIS // MEMORIES</div>
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Postcard notes and thoughts..." style="min-height:110px;font-size:15px;line-height:1.75;">
+        Sitting at an outdoor bistro in Montmartre with a warm café au lait. Sketching the rooftops while autumn leaves flutter across the pavement.
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else if (v === 2) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">LOCAL CAFÉS &amp; FLAVOR DIARY</div>
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Culinary notes..." style="min-height:110px;font-size:15px;line-height:1.75;">
+        Record the flavors, pastry recipes, and coffee roasts discovered along the way.
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">JOURNEY SUMMARY &amp; WHAT’S NEXT</div>
+    <div class="canva-kraft-memo">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Reflections on returning home..." style="min-height:110px;font-size:15px;line-height:1.75;">
+        Traveling changes not the places you see, but the eyes with which you see the world.
+      </div>
+    </div>
+  </div>
+</div>`;
+      }
+    }
+  },
+
+  canva_minimal_photo: {
+    id: 'canva_minimal_photo',
+    number: '6',
+    badge: 'No. 6 • Canva Page Brown',
+    name: 'Minimalist White & Brown Photo Collage',
+    subtitle: 'Canva Modern Aesthetic Scrapbook',
+    desc: 'Inspired directly by Canva’s "beige white and brown minimalist photo collage scrapbook": clean modern-vintage aesthetic, staggered polaroid collage frames, kraft paper sticky memos with tape, and delicate captions.',
+    emblem: '🌸',
+    coverTheme: 'blush',
+    paperStyle: 'blank',
+    fontFamily: 'shantell',
+    defaultTitle: 'Minimalist Aesthetic Photo Scrapbook',
+    getPageTitle: (idx) => {
+      const titles = [
+        'Photo Collage 01 — Polaroid Moodboard & Aesthetic Moments',
+        'Photo Collage 02 — Cozy Snapshots & Heartfelt Captions',
+        'Photo Collage 03 — Weekly Self-Care & Habit Glow-Up',
+        'Photo Collage 04 — Creative Doodles & Aesthetic Memories'
+      ];
+      return titles[idx % titles.length] || `Collage Spread ${idx + 1}`;
+    },
+    getPageContent: (idx) => {
+      const v = idx % 4;
+      if (v === 0) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
+    <div style="text-align:center;margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:#8d6e63;">MINIMALIST PHOTO COLLAGE</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:22px;font-weight:900;color:#3e2723;">EVERYDAY BEAUTY IN FRAMES</div>
+    </div>
+
+    <!-- Triple Polaroid Collage Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;">
+      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-2deg);">
+        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">🌸✨</div>
+        <div class="canva-polaroid-caption" contenteditable="true">Morning Light</div>
+      </div>
+      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(2deg);">
+        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">☕🍂</div>
+        <div class="canva-polaroid-caption" contenteditable="true">Coffee Time</div>
+      </div>
+      <div class="canva-polaroid" style="margin:0 auto;transform:rotate(-1deg);">
+        <div class="canva-polaroid-photo" style="aspect-ratio:1;font-size:32px;">📖🕯️</div>
+        <div class="canva-polaroid-caption" contenteditable="true">Quiet Reading</div>
+      </div>
+    </div>
+
+    <div class="canva-kraft-memo" style="background:#f4ede0;">
+      <div style="font-size:10.5px;font-weight:900;letter-spacing:1px;color:#4e342e;margin-bottom:6px;">SWEET NOTES &amp; MEMORIES</div>
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Write your sweet moments..." style="min-height:80px;font-size:14.5px;line-height:1.75;">
+        A gentle collection of small joys. Today brought clarity, restful conversation, and progress in my creative projects.
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else if (v === 1) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">COZY SNAPSHOTS &amp; MEMORIES</div>
+    <div class="canva-kraft-memo" style="background:#f4ede0;">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Type memories..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
+        Cherish simple moments: laughter with friends, warm tea on a rainy afternoon, and clean notebook pages waiting to be filled.
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else if (v === 2) {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">WEEKLY GLOW-UP &amp; SELF-CARE</div>
+    <div class="canva-kraft-memo" style="background:#f4ede0;">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Habits..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
+        ☑ Drank fresh lemon water<br>
+        ☑ Walked 30 minutes in nature<br>
+        ☑ Wrote 3 thoughtful pages in journal
+      </div>
+    </div>
+  </div>
+</div>`;
+      } else {
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#fcf9f2;border:1px solid #d7ccc8;">
+    <div style="font-size:11px;font-weight:900;letter-spacing:1.5px;color:#4e342e;text-align:center;margin-bottom:12px;">CREATIVE DOODLE CANVAS</div>
+    <div class="canva-kraft-memo" style="background:#f4ede0;">
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Doodles & notes..." style="min-height:110px;font-size:14.5px;line-height:1.75;">
+        Use the stickers, washi tape, and shapes menus to turn this page into your own aesthetic scrapbook!
+      </div>
+    </div>
+  </div>
+</div>`;
+      }
+    }
+  },
+
+  canva_dark_academia: {
+    id: 'canva_dark_academia',
+    number: '7',
+    badge: 'No. 7 • Canva Page Brown',
+    name: 'Antique Sepia & Dark Academia Study',
+    subtitle: 'Canva Classical Scholar & Archival Bookplate',
+    desc: 'Inspired directly by Canva’s "dark academia vintage scrapbook": antique bookplates, illuminated drop caps, Latin dialectic inquiry columns, and midnight sepia library tags.',
+    emblem: '🏛️',
+    coverTheme: 'noir',
+    paperStyle: 'brown',
+    fontFamily: 'serif',
+    defaultTitle: 'Dark Academia Classical Archive',
+    getPageTitle: (idx) => {
+      const titles = [
+        'Scholar Archive 01 — Classical Preface & Thesis',
+        'Scholar Archive 02 — Dialectic Argumentation & Inquiry',
+        'Scholar Archive 03 — Library Excerpt & Manuscript Notes',
+        'Scholar Archive 04 — Nocturne Contemplation & Philosophy'
       ];
       return titles[idx % titles.length] || `Chapter ${idx + 1} — Academic Archive`;
     },
     getPageContent: (idx) => {
       const v = idx % 4;
       if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#28231d;color:#e8dcc8;border:1px solid #4a3e30;">
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
     <div style="text-align:center;border-bottom:2px solid #5a4b3a;padding-bottom:10px;margin-bottom:14px;">
       <div style="font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;">AD ASTRA PER ASPERA • ARCHIVUM ACADEMIAE</div>
-      <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;margin-top:4px;">CHAPTER I: THE FOUNDATIONS OF INQUIRY</div>
-      <div style="font-size:10px;letter-spacing:1px;opacity:0.8;font-style:italic;">OXFORD &amp; HEIDELBERG ARCHIVAL COMPENDIUM</div>
+      <div style="font-family:'Times New Roman',Georgia,serif;font-size:24px;font-weight:900;margin-top:4px;">PROLOGUE: THE CLASSICAL COMPENDIUM</div>
+      <div style="font-size:10px;letter-spacing:1px;opacity:0.8;font-style:italic;">BODLEIAN &amp; HEIDELBERG MANUSCRIPT ARCHIVE</div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="State your intellectual thesis or study premise here..." style="font-size:15px;line-height:1.7;min-height:90px;">
-      <span class="mag-dropcap" style="color:#d4af37;">W</span>e seek knowledge not merely for the utility of answers, but for the profound beauty of understanding the cosmos. In literature, physics, and philosophy, the truth rewards the diligent seeker. State your core thesis below...
+    <div class="canva-editable" contenteditable="true" data-placeholder="State your thesis or scholarly inquiry here..." style="font-size:15px;line-height:1.75;min-height:90px;">
+      <span class="canva-dropcap" style="color:#d4af37;">K</span>nowledge is a fortress built stone by stone. In literature, natural philosophy, and dialectics, we preserve the timeless pursuit of truth. State your research thesis and key observations below...
+    </div>
+    <div class="canva-kraft-memo" style="background:#1f1b14;border:1px solid #3d3224;margin-top:14px;color:#ded3c0;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ PRIMARY THEOREM / CORROBORATION ]</div>
+      <div class="canva-ruled-lines canva-editable" contenteditable="true" data-placeholder="Derivations, textual citations, or thesis points..." style="min-height:80px;font-size:14.5px;line-height:1.75;">
+        • Core assertion backed by primary textual sources.<br>
+        • Critical distinctions and dialectic counterpoints.<br>
+        • Synthesized conclusion.
+      </div>
     </div>
   </div>
 </div>`;
       } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;">
-    <div class="mag-torn-card" style="background:#24201a;color:#ded1bc;border:1px solid #3d3428;margin:0;">
-      <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ THESIS / PROPOSITION ]</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Primary proposition, theorem or premise...">
-        • Primary assertion or mathematical proof.<br>
-        • Evidence and historical corroboration.<br>
-        • Deductive consequences.
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
+      <div class="canva-torn-clipping" style="background:#201b14;color:#ded3c0;border:1px solid #3d3224;margin:0;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ THESIS ]</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Thesis arguments...">
+          State the affirmative arguments and analytical proofs here.
+        </div>
       </div>
-    </div>
-    <div class="mag-torn-card" style="background:#24201a;color:#ded1bc;border:1px solid #3d3428;margin:0;">
-      <div style="font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ ANTITHESIS / COUNTER-EVIDENCE ]</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Counter-arguments, edge cases or limitations...">
-        • Potential contradictions or experimental anomalies.<br>
-        • Objections raised by opposing schools of thought.<br>
-        • Synthesis and resolution.
+      <div class="canva-torn-clipping" style="background:#201b14;color:#ded3c0;border:1px solid #3d3224;margin:0;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;margin-bottom:6px;">[ ANTITHESIS ]</div>
+        <div class="canva-editable" contenteditable="true" data-placeholder="Counter arguments...">
+          State objections, alternative hypotheses, and resolution here.
+        </div>
       </div>
     </div>
   </div>
 </div>`;
       } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#28231d;color:#e8dcc8;border:1px solid #4a3e30;">
-    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #5a4b3a;padding-bottom:6px;margin-bottom:10px;font-size:10.5px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;">
-      <span>BODLEIAN LIBRARY CALLOUT</span>
-      <span>REF: AC-804/CAL</span>
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #5a4b3a;padding-bottom:6px;margin-bottom:10px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#c9a96e;">
+      <span>BODLEIAN ARCHIVE REF: CAL-892</span>
+      <span>MANUSCRIPT NOTE</span>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Archive excerpt, Latin translation or historical notes..." style="font-size:15px;line-height:1.7;min-height:90px;">
-      Excerpts from primary historical sources, archival citations, or critical literature annotations.
+    <div class="canva-editable" contenteditable="true" data-placeholder="Manuscript citations..." style="min-height:100px;font-size:15px;line-height:1.75;">
+      Record textual analysis, Latin translations, and archival research notes.
     </div>
   </div>
 </div>`;
       } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#221e18;color:#e2d5c0;border:1px solid #3d3326;">
+        return `<div class="canva-brown-page">
+  <div class="canva-paper-spread" style="background:#26211a;color:#ded3c0;border:1px solid #4a3c2c;">
     <div style="text-align:center;border-bottom:1px solid #5a4b3a;padding-bottom:6px;margin-bottom:10px;">
       <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#c9a96e;">NOCTURNE: CONTEMPLATION UNDER CANDLELIGHT</div>
     </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Midnight prose, astronomical reflections, or quiet philosophy..." style="font-size:15px;line-height:1.7;min-height:110px;">
-      The stillness of midnight. All is quiet save for the scratching of the pen on paper and the ticking of the clock on the mantelpiece.
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-  pastel_cutouts: {
-    id: 'pastel_cutouts',
-    number: '6',
-    badge: 'No. 6 • Cute Scrapbook',
-    name: 'Pastel Paper Cutouts & Dreamy Scrapbook',
-    subtitle: 'Scalloped borders, sweet polaroids & habit trackers',
-    desc: 'Pastel peach and lilac scalloped cards, cute polaroid memories frames, playful washi tape, habit checklists, and sweet self-care cards.',
-    emblem: '🌸',
-    coverTheme: 'blush',
-    paperStyle: 'blank',
-    fontFamily: 'shantell',
-    defaultTitle: 'Dreamy Pastel Scrapbook',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Sweet Memories & Daily Dream Spread',
-        'Pastel Polaroid Snapshots & Heartfelt Notes',
-        'Weekly Self-Care & Habit Glow-Up',
-        'Creative Doodles & Aesthetic Sticker Book'
-      ];
-      return titles[idx % titles.length] || `Pastel Spread ${idx + 1}`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#fff3e0;border:2px dashed #ffb74d;">
-    <div class="mag-washi-pin" style="background:#f48fb1;top:-8px;left:30px;"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed #ffb74d;padding-bottom:8px;margin-bottom:12px;">
-      <div style="font-size:18px;font-weight:900;color:#e65100;">✨ SWEET MEMORIES &amp; DREAMS 🌸</div>
-      <div style="font-size:24px;">🎀</div>
-    </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Write your sweet moments, happy thoughts or aesthetic ideas here..." style="font-size:15px;line-height:1.7;min-height:90px;">
-      Today was filled with gentle moments and bright colors. Write down your favorite highlight, song on repeat, or sweet encounter!
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:stretch;">
-    <div class="mag-torn-card" style="flex:1;min-width:260px;background:#f3e5f5;border:2px dashed #ce93d8;margin:0;">
-      <div style="font-size:12px;font-weight:900;color:#6a1b9a;margin-bottom:6px;">💜 POLAROID OF HAPPINESS</div>
-      <div class="mag-polaroid-frame" style="margin:10px auto;display:block;">
-        <div class="mag-polaroid-photo" style="background:linear-gradient(135deg,#e1bee7,#f48fb1);">🌸✨</div>
-        <div class="mag-polaroid-caption" contenteditable="true">Cute little happiness moment</div>
-      </div>
-    </div>
-    <div class="mag-torn-card" style="flex:1;min-width:260px;background:#e8f5e9;border:2px dashed #a5d6a7;margin:0;">
-      <div style="font-size:12px;font-weight:900;color:#2e7d32;margin-bottom:6px;">🌿 DAILY GLOW-UP NOTES</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Notes on wellness, study or self-care...">
-        • Drank 2L cold water with mint.<br>
-        • Walked under autumn trees.<br>
-        • Completed physics revision checklist!
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#e0f7fa;border:2px dashed #80deea;">
-    <div style="font-size:13px;font-weight:900;color:#00838f;margin-bottom:8px;text-align:center;">🌟 WEEKLY SELF-CARE &amp; HABIT GLOW-UP 🌟</div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Habit list and self-care intentions..." style="min-height:90px;font-size:15px;line-height:1.7;">
-      ☑ Read 20 pages of inspiring book<br>
-      ☑ Practice active recall with study partner<br>
-      ☑ Sleep 8 hours with phone across the room
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:#fff8e1;border:2px dashed #ffe082;">
-    <div style="text-align:center;font-size:13px;font-weight:900;color:#f57f17;margin-bottom:8px;">🎨 STICKER BOOK &amp; CREATIVE CANVAS 🎨</div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Drop stickers, washi tape, and write happy thoughts here..." style="min-height:120px;font-size:15px;line-height:1.7;">
-      Use the Stickers menu at the top to drop aesthetic ribbons, stars, and cute notes anywhere on this page!
-    </div>
-  </div>
-</div>`;
-      }
-    }
-  },
-  cornell_study: {
-    id: 'cornell_study',
-    number: '7',
-    badge: 'No. 7 • STEM & Academic',
-    name: 'Cornell Study & STEM Revision',
-    subtitle: 'Systematic lecture notes, Feynman blocks & formula derivations',
-    desc: 'Structured Cornell study layouts (Keywords / Main Notes / Summary), Feynman technique boxes, derivation workbooks, and exam recall checklists.',
-    emblem: '📐',
-    coverTheme: 'ocean',
-    paperStyle: 'cornell',
-    fontFamily: 'patrick',
-    defaultTitle: 'STEM & Cornell Study Binder',
-    getPageTitle: (idx) => {
-      const titles = [
-        'Lecture Notes — Systematic Cornell Breakdown',
-        'Derivations — Mathematical & Physics Proofs',
-        'Feynman Method — Core Concept Synthesis',
-        'Active Recall — High-Yield Exam Review Checklist'
-      ];
-      return titles[idx % titles.length] || `Lecture ${idx + 1} — Study Notes`;
-    },
-    getPageContent: (idx) => {
-      const v = idx % 4;
-      if (v === 0) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:rgba(255,255,255,0.08);border:1.5px solid var(--glb);">
-    <div style="display:flex;justify-content:space-between;border-bottom:1.5px solid var(--glb);padding-bottom:8px;margin-bottom:12px;font-size:12px;">
-      <div><b>SUBJECT:</b> <span contenteditable="true">Physics / Mechanics</span></div>
-      <div><b>DATE:</b> <span contenteditable="true">${new Date().toLocaleDateString()}</span></div>
-      <div><b>TOPIC:</b> <span contenteditable="true">Conservation of Energy &amp; Work</span></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:14px;border-bottom:1.5px solid var(--glb);padding-bottom:14px;margin-bottom:12px;">
-      <div style="border-right:1.5px solid var(--glb);padding-right:12px;">
-        <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:var(--act);margin-bottom:6px;">CUES &amp; KEYWORDS</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Keywords, formulas, recall questions...">
-          • W = F · d cos(θ)<br>
-          • Conservative forces<br>
-          • ΔK + ΔU = 0<br>
-          • Potential wells<br>
-          • Kinetic energy
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:var(--act);margin-bottom:6px;">LECTURE NOTES &amp; EXPLANATIONS</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Main detailed lecture explanations, diagrams, and derivation steps...">
-          Work is defined as the line integral of force along a displacement path. For conservative fields such as gravitation and electrostatics, work done is path-independent.<br><br>
-          Key equation derivation:<br>
-          W_net = ∫ F_net dx = ∫ m (dv/dt) v dt = 1/2 m v_f² - 1/2 m v_i²
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:11px;font-weight:900;letter-spacing:1px;color:var(--act);margin-bottom:4px;">SUMMARY (REVIEWS &amp; KEY TAKEAWAYS)</div>
-      <div class="mag-editable-area" contenteditable="true" data-placeholder="Synthesize the whole lecture in 2-3 concise sentences...">
-        Mechanical energy is conserved when net work from non-conservative forces is zero. Always identify external friction before setting initial and final energies equal.
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else if (v === 1) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:rgba(255,255,255,0.08);border:1.5px solid var(--glb);">
-    <div style="font-size:12px;font-weight:900;color:var(--act);letter-spacing:1px;margin-bottom:8px;">📐 MATHEMATICAL PROOF &amp; DERIVATION WORKBENCH</div>
-    <div style="background:rgba(0,0,0,0.2);padding:12px;border-radius:8px;border:1px solid var(--glb);margin-bottom:12px;">
-      <div style="font-size:11px;font-weight:800;color:var(--t2);">PROBLEM STATEMENT / THEOREM</div>
-      <div class="mag-editable-area" contenteditable="true" style="font-size:14px;font-weight:700;margin-top:4px;">
-        Derive the period T of a simple pendulum for small angle oscillations: T = 2π√(L/g)
-      </div>
-    </div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Step-by-step derivation steps and sketches..." style="min-height:100px;font-family:monospace;font-size:14px;line-height:1.7;">
-      Step 1: Restoring torque τ = -L (m g sin θ)<br>
-      Step 2: Moment of inertia I = m L²<br>
-      Step 3: Equation of motion: m L² d²θ/dt² = -m g L sin θ<br>
-      Step 4: Small-angle approximation: sin θ ≈ θ (for θ &lt;&lt; 1 rad)<br>
-      Step 5: d²θ/dt² + (g/L) θ = 0  =&gt;  ω = √(g/L)<br>
-      Conclusion: T = 2π / ω = 2π √(L/g)  ■
-    </div>
-  </div>
-</div>`;
-      } else if (v === 2) {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:rgba(255,255,255,0.08);border:1.5px solid var(--glb);">
-    <div style="font-size:12px;font-weight:900;color:var(--act);margin-bottom:8px;">🧠 FEYNMAN TECHNIQUE — TEACH TO LEARN</div>
-    <div style="display:grid;gap:12px;">
-      <div style="border:1px solid var(--glb);border-radius:8px;padding:10px;background:rgba(255,255,255,0.04);">
-        <div style="font-size:10px;font-weight:800;text-transform:uppercase;color:var(--t2);">1. Concept in Plain English</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="Explain as if teaching a 12-year-old...">
-          Explain the core concept using zero jargon. If you cannot explain it simply, you don't understand it well enough.
-        </div>
-      </div>
-      <div style="border:1px solid var(--glb);border-radius:8px;padding:10px;background:rgba(255,255,255,0.04);">
-        <div style="font-size:10px;font-weight:800;text-transform:uppercase;color:var(--t2);">2. Real-World Analogy</div>
-        <div class="mag-editable-area" contenteditable="true" data-placeholder="What is this like in everyday life?">
-          Think of voltage like water pressure in a pipe, current as the flow rate of water, and resistance as the thickness of the pipe.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>`;
-      } else {
-        return `<div class="mag-cutout-page">
-  <div class="mag-torn-card" style="background:rgba(255,255,255,0.08);border:1.5px solid var(--glb);">
-    <div style="font-size:12px;font-weight:900;color:var(--act);margin-bottom:8px;">🎯 ACTIVE RECALL &amp; HIGH-YIELD FLASHCARD REVIEW</div>
-    <div class="mag-editable-area" contenteditable="true" data-placeholder="Review questions and self-testing prompts..." style="min-height:100px;font-size:14.5px;line-height:1.7;">
-      [Q1] What conditions are required for total internal reflection?<br>
-      → Light must travel from denser to rarer medium at angle θ &gt; θ_critical.<br><br>
-      [Q2] Why does heat capacity differ under constant volume vs constant pressure?<br>
-      → C_p &gt; C_v because gas expands against atmosphere under constant pressure, doing work.
+    <div class="canva-editable" contenteditable="true" data-placeholder="Midnight reflections..." style="min-height:110px;font-size:15px;line-height:1.75;">
+      In the quiet solitude of midnight, truth reveals itself to those who persevere.
     </div>
   </div>
 </div>`;
@@ -8947,6 +9085,13 @@ const BOOK_TEMPLATES = {
     }
   }
 };
+
+/* Legacy template ID aliases for backward-compatibility with previously created books */
+BOOK_TEMPLATES.magazine_cutout = BOOK_TEMPLATES.canva_brown_collage;
+BOOK_TEMPLATES.vintage_botanical = BOOK_TEMPLATES.canva_botanical_border;
+BOOK_TEMPLATES.pastel_cutouts = BOOK_TEMPLATES.canva_autumn_notes;
+BOOK_TEMPLATES.cornell_study = BOOK_TEMPLATES.canva_travel_ephemera;
+
 
 let selectedBookTemplateId = 'blank';
 
@@ -8968,7 +9113,8 @@ function closeBookTemplatePickerModal(){
 function renderBookTemplateCards(){
   const container = document.getElementById('book-tpl-cards-container');
   if(!container) return;
-  const list = Object.values(BOOK_TEMPLATES);
+  const primaryTemplateOrder = ['blank', 'canva_brown_collage', 'canva_botanical_border', 'canva_autumn_notes', 'canva_travel_ephemera', 'canva_minimal_photo', 'canva_dark_academia'];
+  const list = primaryTemplateOrder.map(id => BOOK_TEMPLATES[id]).filter(Boolean);
   let html = '';
   list.forEach(tpl => {
     const isSel = (tpl.id === selectedBookTemplateId);
@@ -10769,8 +10915,9 @@ function applyIpadPaperStyle(style){
   const sheet = document.getElementById('ipad-paper-sheet');
   const sel = document.getElementById('ipad-paper-select');
   if(!sheet) return;
-  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-ruled','paper-graph','paper-cornell','paper-planner','paper-blank');
-  if(style === 'obsidian') sheet.classList.add('paper-obsidian-grid');
+  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-brown-kraft','paper-ruled','paper-graph','paper-cornell','paper-planner','paper-blank');
+  if(style === 'brown' || style === 'brown-kraft') sheet.classList.add('paper-brown-kraft');
+  else if(style === 'obsidian') sheet.classList.add('paper-obsidian-grid');
   else if(style === 'cream') sheet.classList.add('paper-cream-dots');
   else if(style === 'ruled') sheet.classList.add('paper-ruled');
   else if(style === 'graph') sheet.classList.add('paper-graph');
