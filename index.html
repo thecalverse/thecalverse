@@ -1731,6 +1731,68 @@ canvas#gc{display:block;width:100%;height:240px;}
   color:#2b221a!important;
 }
 
+/* Warm Kraft Brown Paper */
+.ipad-paper-sheet.paper-brown-kraft{
+  background:#d8c3ab!important;
+  background-image:repeating-linear-gradient(45deg,rgba(100,70,40,.04) 0px,rgba(100,70,40,.04) 2px,transparent 2px,transparent 4px)!important;
+  color:#2b221a!important;
+}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-title{border-bottom-color:rgba(80,50,30,.2)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-brown-kraft .ipad-paper-canvas{color:#2b221a!important;}
+
+/* Obsidian Dark Dots */
+.ipad-paper-sheet.paper-dark-dots{
+  background:#0f131d!important;
+  background-image:radial-gradient(rgba(255,255,255,.32) 1.3px,transparent 1.3px)!important;
+  background-size:22px 22px!important;
+  color:#f2f5fd!important;
+}
+
+/* Dark Ruled Notebook */
+.ipad-paper-sheet.paper-dark-ruled{
+  background:#0e121c!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(255,255,255,.1) 30px)!important;
+  color:#f2f5fd!important;
+  border-left:3px solid rgba(255,140,200,.45)!important;
+}
+
+/* Coffee Stained Paper */
+.ipad-paper-sheet.paper-coffee{
+  background:#e8dac8!important;
+  background-image:radial-gradient(circle at 75% 30%,rgba(139,94,60,.25) 0%,transparent 45%),radial-gradient(circle at 20% 70%,rgba(110,65,30,.2) 0%,transparent 40%),repeating-linear-gradient(0deg,rgba(80,50,25,.03) 0px,rgba(80,50,25,.03) 1px,transparent 1px,transparent 3px)!important;
+  color:#2b2016!important;
+}
+.ipad-paper-sheet.paper-coffee .ipad-paper-title{border-bottom-color:rgba(100,65,35,.22)!important;color:#2b2016!important;}
+.ipad-paper-sheet.paper-coffee .ipad-paper-canvas{color:#2b2016!important;}
+
+/* Pastel Ruled Papers */
+.ipad-paper-sheet.paper-pastel-pink{
+  background:#fdf2f4!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(230,120,150,.2) 30px)!important;
+  color:#3b2028!important;
+  border-left:3px solid rgba(240,100,140,.45)!important;
+}
+.ipad-paper-sheet.paper-pastel-pink .ipad-paper-title{border-bottom-color:rgba(230,120,150,.3)!important;color:#3b2028!important;}
+.ipad-paper-sheet.paper-pastel-pink .ipad-paper-canvas{color:#3b2028!important;}
+
+.ipad-paper-sheet.paper-pastel-mint{
+  background:#f0f7f3!important;
+  background-image:linear-gradient(to right,rgba(80,160,110,.16) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.16) 1px,transparent 1px)!important;
+  background-size:20px 20px!important;
+  color:#1e3326!important;
+}
+.ipad-paper-sheet.paper-pastel-mint .ipad-paper-title{border-bottom-color:rgba(80,160,110,.25)!important;color:#1e3326!important;}
+.ipad-paper-sheet.paper-pastel-mint .ipad-paper-canvas{color:#1e3326!important;}
+
+.ipad-paper-sheet.paper-pastel-lavender{
+  background:#f6f1fb!important;
+  background-image:repeating-linear-gradient(transparent,transparent 29px,rgba(150,110,210,.2) 30px)!important;
+  color:#2c203a!important;
+  border-left:3px solid rgba(160,110,220,.45)!important;
+}
+.ipad-paper-sheet.paper-pastel-lavender .ipad-paper-title{border-bottom-color:rgba(150,110,210,.3)!important;color:#2c203a!important;}
+.ipad-paper-sheet.paper-pastel-lavender .ipad-paper-canvas{color:#2c203a!important;}
+
 .ipad-paper-title{width:100%;border:none;background:transparent;outline:none;font-size:24px;font-weight:900;letter-spacing:-.3px;color:inherit;margin-bottom:12px;padding:0 0 8px 0;border-bottom:1.5px dashed rgba(255,255,255,.15);box-sizing:border-box;}
 @media (max-width:580px){.ipad-paper-title{font-size:19px;}}
 [data-t=light] .ipad-paper-title{border-bottom-color:rgba(0,0,0,.12);}
@@ -1902,6 +1964,49 @@ canvas#gc{display:block;width:100%;height:240px;}
 .cbar-btn.del:hover{
   background:var(--rdc);
   color:#fff;
+}
+
+/* Combined Typography Pill in Floating Item Bar */
+.cbar-typo-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  padding:1px 4px;
+}
+[data-t=light] .cbar-typo-pill{
+  background:rgba(131,98,74,.08);
+  border-color:rgba(131,98,74,.2);
+}
+.cbar-select{
+  background:transparent;
+  border:none;
+  outline:none;
+  color:inherit;
+  font-family:inherit;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  padding:0 11px 0 2px;
+  -webkit-appearance:none;
+  appearance:none;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L4 4L7 1' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 1px center;
+}
+[data-t=light] .cbar-select{
+  color:#3b281c;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L4 4L7 1' stroke='%236b4a31' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.cbar-select option{
+  background:var(--bg2,#1a202c);
+  color:var(--t1,#fff);
+}
+[data-t=light] .cbar-select option{
+  background:#fbf8f3;
+  color:#3b281c;
 }
 
 /* Resize Handle Knob */
@@ -5775,13 +5880,20 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
           <!-- Paper & Typography Selectors -->
           <div class="ipad-tool-grp">
-            <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:130px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Digital Paper Template">
+            <select id="ipad-paper-select" class="note-tool-select" onchange="applyIpadPaperStyle(this.value)" style="min-width:132px;height:30px;font-size:12px;padding:0 22px 0 8px;" title="Digital Paper Template &amp; Background">
               <option value="obsidian" selected>🖤 Obsidian Grid</option>
               <option value="cream">📑 Cream Dots</option>
               <option value="ruled">📜 Lined Notebook</option>
               <option value="graph">📐 Engineering Graph</option>
               <option value="cornell">🎓 Cornell Study Notes</option>
               <option value="planner">📋 Daily Planner</option>
+              <option value="brown">🤎 Kraft Brown Paper</option>
+              <option value="coffee">☕ Coffee Parchment</option>
+              <option value="dark_dots">🌌 Dark Dots</option>
+              <option value="dark_ruled">🖤 Dark Ruled</option>
+              <option value="pastel_pink">🌸 Pink Lined</option>
+              <option value="pastel_mint">🌿 Mint Grid</option>
+              <option value="pastel_lavender">💜 Lavender Lined</option>
               <option value="blank">🤍 Blank Page</option>
             </select>
 
@@ -5796,8 +5908,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <option value="mono">Typewriter Mono</option>
             </select>
 
-            <label class="ipad-font-page-toggle" title="Apply font to whole page. When unchecked, font only applies to selected text or text box." style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--t2);cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:0 7px;height:28px;user-select:none;white-space:nowrap;">
-              <input type="checkbox" id="ipad-font-whole-page" style="width:13px;height:13px;accent-color:var(--act);cursor:pointer;">
+            <label class="ipad-font-page-toggle" id="ipad-font-whole-page-label" title="Apply font and size to the entire page. When unchecked, changes only apply to selected text or active text box." style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--t2);cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:0 7px;height:28px;user-select:none;white-space:nowrap;">
+              <input type="checkbox" id="ipad-font-whole-page" onchange="syncWholePageToggleStyle(this.checked)" style="width:13px;height:13px;accent-color:var(--act);cursor:pointer;">
               <span>Whole page</span>
             </label>
 
@@ -5821,7 +5933,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(2)" title="Increase Font Size (A+)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▴</button>
             </div>
             <button type="button" class="ipad-step-btn" onclick="openUniversalColorPickerForIpadText()" title="Ink &amp; Text Color Dial" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:inline-flex;align-items:center;height:28px;">🎨 Ink</button>
-            <button type="button" class="ipad-step-btn" id="ipad-bg-btn" onclick="openJournalBackgroundModal()" title="Journal Page Background Collection" style="padding:0 9px;font-size:11.5px;font-weight:800;gap:5px;display:inline-flex;align-items:center;height:28px;">🖼️ Background</button>
+            <button type="button" class="ipad-step-btn" id="ipad-bg-btn" onclick="openJournalBackgroundModal()" title="Journal Paper &amp; Background Collection" style="padding:0 9px;font-size:11.5px;font-weight:800;gap:5px;display:inline-flex;align-items:center;height:28px;">📑 Backgrounds</button>
           </div>
         </div>
 
@@ -6263,8 +6375,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <!-- Header -->
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--glb);padding-bottom:12px;">
       <div>
-        <div class="app-dialog-title" style="margin:0 0 3px;font-size:18px;">🖼️ Journal Background Collection</div>
-        <div style="font-size:12px;color:var(--t2);">Choose an aesthetic background for this page or upload your own. Write, ink, and place stickers freely on top!</div>
+        <div class="app-dialog-title" style="margin:0 0 3px;font-size:18px;">📑 Journal Paper &amp; Background Collection</div>
+        <div style="font-size:12px;color:var(--t2);">Choose your notebook paper style: Obsidian Black Grid, Cream Dots, Lined Notebook, Engineering Graph, Kraft Brown, or upload your own!</div>
       </div>
       <button type="button" class="ipad-step-btn" onclick="closeJournalBackgroundModal()" style="font-size:15px;width:30px;height:30px;flex-shrink:0;">✕</button>
     </div>
@@ -6273,8 +6385,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:2px 0;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <input type="file" id="journal-bg-file-input" accept="image/*" style="display:none;" onchange="handleJournalBgUpload(event)">
-        <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:12px;height:32px;display:inline-flex;align-items:center;gap:5px;">📤 Upload Background</button>
-        <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;color:var(--rdc);">✕ Remove Background</button>
+        <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:12px;height:32px;display:inline-flex;align-items:center;gap:5px;">📤 Upload Custom Image</button>
+        <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;color:var(--rdc);">✕ Reset to Obsidian Black</button>
       </div>
 
       <!-- Dim / Softness Slider -->
@@ -6287,12 +6399,11 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
     <!-- Category Tabs -->
     <div class="journal-bg-tabs" id="journal-bg-tabs">
-      <button type="button" class="journal-bg-tab is-active" data-cat="all" onclick="filterJournalBgTab('all', this)">All</button>
-      <button type="button" class="journal-bg-tab" data-cat="vintage" onclick="filterJournalBgTab('vintage', this)">🤎 Vintage &amp; Kraft</button>
-      <button type="button" class="journal-bg-tab" data-cat="botanical" onclick="filterJournalBgTab('botanical', this)">🌿 Botanical</button>
-      <button type="button" class="journal-bg-tab" data-cat="pastel" onclick="filterJournalBgTab('pastel', this)">☁️ Pastel</button>
-      <button type="button" class="journal-bg-tab" data-cat="dark" onclick="filterJournalBgTab('dark', this)">🏛️ Dark Academia</button>
-      <button type="button" class="journal-bg-tab" data-cat="minimalist" onclick="filterJournalBgTab('minimalist', this)">🤍 Minimalist</button>
+      <button type="button" class="journal-bg-tab is-active" data-cat="all" onclick="filterJournalBgTab('all', this)">All Papers</button>
+      <button type="button" class="journal-bg-tab" data-cat="grids" onclick="filterJournalBgTab('grids', this)">🖤 Grids &amp; Dots</button>
+      <button type="button" class="journal-bg-tab" data-cat="lined" onclick="filterJournalBgTab('lined', this)">📜 Lined &amp; Ruled</button>
+      <button type="button" class="journal-bg-tab" data-cat="kraft" onclick="filterJournalBgTab('kraft', this)">🤎 Kraft &amp; Brown</button>
+      <button type="button" class="journal-bg-tab" data-cat="pastel" onclick="filterJournalBgTab('pastel', this)">🌸 Pastel Papers</button>
       <button type="button" class="journal-bg-tab" data-cat="uploads" onclick="filterJournalBgTab('uploads', this)">📁 My Uploads</button>
     </div>
 
@@ -8901,117 +9012,124 @@ function setWashiTapeTextColor(item, hex){
 
 /* ── JOURNAL PAGE BACKGROUND ENGINE & COLLECTION ── */
 const JOURNAL_BACKGROUNDS = [
+  // ── 1. GRIDS & DOTS ──
   {
-    id: 'kraft_vintage',
-    name: 'Warm Vintage Kraft',
-    category: 'vintage',
-    badge: '🤎 Kraft',
-    value: 'radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.4) 0%, rgba(138,105,75,0.1) 100%), repeating-linear-gradient(45deg, rgba(100,70,40,0.02) 0px, rgba(100,70,40,0.02) 2px, transparent 2px, transparent 4px), #d8c3ab'
+    id: 'paper_obsidian',
+    name: 'Obsidian Black Grid',
+    category: 'grids',
+    badge: '🖤 Dark Grid',
+    styleKey: 'obsidian',
+    previewCss: 'background:#111520; background-image:linear-gradient(to right,rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.14) 1px,transparent 1px); background-size:18px 18px;'
   },
   {
-    id: 'coffee_parchment',
+    id: 'paper_cream_dots',
+    name: 'Cream Dots (Bullet Journal)',
+    category: 'grids',
+    badge: '📑 Cream Dots',
+    styleKey: 'cream',
+    previewCss: 'background:#fcf8f0; background-image:radial-gradient(#96806a 1.4px,transparent 1.4px); background-size:16px 16px;'
+  },
+  {
+    id: 'paper_graph',
+    name: 'Engineering Graph Paper',
+    category: 'grids',
+    badge: '📐 Blue Graph',
+    styleKey: 'graph',
+    previewCss: 'background:#101524; background-image:linear-gradient(to right,rgba(99,132,255,.28) 1px,transparent 1px),linear-gradient(to bottom,rgba(99,132,255,.28) 1px,transparent 1px); background-size:14px 14px;'
+  },
+  {
+    id: 'paper_dark_dots',
+    name: 'Obsidian Dark Dots',
+    category: 'grids',
+    badge: '🌌 Dark Dots',
+    styleKey: 'dark_dots',
+    previewCss: 'background:#0f131d; background-image:radial-gradient(rgba(255,255,255,.38) 1.3px,transparent 1.3px); background-size:16px 16px;'
+  },
+
+  // ── 2. LINED & RULED ──
+  {
+    id: 'paper_ruled',
+    name: 'Classic Lined Notebook',
+    category: 'lined',
+    badge: '📜 Lined',
+    styleKey: 'ruled',
+    previewCss: 'background:#fcf9f2; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(100,140,210,.3) 19px); border-left:4px solid rgba(230,80,80,.5);'
+  },
+  {
+    id: 'paper_dark_ruled',
+    name: 'Dark Ruled Notebook',
+    category: 'lined',
+    badge: '🖤 Dark Lined',
+    styleKey: 'dark_ruled',
+    previewCss: 'background:#0e121c; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(255,255,255,.16) 19px); border-left:4px solid rgba(255,140,200,.5);'
+  },
+  {
+    id: 'paper_cornell',
+    name: 'Cornell Study Notes',
+    category: 'lined',
+    badge: '🎓 Cornell',
+    styleKey: 'cornell',
+    previewCss: 'background:#131826; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(255,255,255,.14) 19px);'
+  },
+  {
+    id: 'paper_planner',
+    name: 'Daily Planner Grid',
+    category: 'lined',
+    badge: '📋 Planner',
+    styleKey: 'planner',
+    previewCss: 'background:#0f1420; background-image:linear-gradient(to right,rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.1) 1px,transparent 1px); background-size:20px 20px;'
+  },
+
+  // ── 3. BROWN & KRAFT ──
+  {
+    id: 'paper_brown_kraft',
+    name: 'Warm Kraft Brown Paper',
+    category: 'kraft',
+    badge: '🤎 Kraft Brown',
+    styleKey: 'brown',
+    previewCss: 'background:#d8c3ab; background-image:repeating-linear-gradient(45deg,rgba(100,70,40,0.06) 0px,rgba(100,70,40,0.06) 2px,transparent 2px,transparent 4px);'
+  },
+  {
+    id: 'paper_coffee',
     name: 'Coffee Stained Paper',
-    category: 'vintage',
+    category: 'kraft',
     badge: '☕ Coffee',
-    value: 'radial-gradient(circle at 75% 30%, rgba(139,94,60,0.25) 0%, transparent 45%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.2) 0%, transparent 40%), repeating-linear-gradient(0deg, rgba(80,50,25,0.02) 0px, rgba(80,50,25,0.02) 1px, transparent 1px, transparent 3px), #e8dac8'
+    styleKey: 'coffee',
+    previewCss: 'radial-gradient(circle at 75% 30%, rgba(139,94,60,0.3) 0%, transparent 50%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.25) 0%, transparent 40%), #e8dac8;'
   },
   {
-    id: 'golden_scroll',
-    name: 'Aged Golden Scroll',
-    category: 'vintage',
-    badge: '📜 Scroll',
-    value: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, rgba(160,120,70,0.25) 100%), #f0e2cd'
+    id: 'paper_blank',
+    name: 'Blank Ivory Clean Page',
+    category: 'kraft',
+    badge: '🤍 Blank',
+    styleKey: 'blank',
+    previewCss: 'background:#fffcf8; border:1px solid rgba(0,0,0,0.08);'
   },
+
+  // ── 4. PASTEL PAPERS ──
   {
-    id: 'antique_scrapbook',
-    name: 'Antique Cream Journal',
-    category: 'vintage',
-    badge: '📖 Cream',
-    value: 'radial-gradient(ellipse at center, rgba(255,255,255,0.45) 0%, rgba(120,90,55,0.12) 100%), #f4ecd8'
-  },
-  {
-    id: 'botanical_sage',
-    name: 'Sage Herbarium',
-    category: 'botanical',
-    badge: '🌿 Sage',
-    value: 'radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.5) 0%, rgba(120,150,110,0.15) 100%), #e2ebd9'
-  },
-  {
-    id: 'pressed_meadow',
-    name: 'Pressed Wildflowers',
-    category: 'botanical',
-    badge: '🌸 Meadow',
-    value: 'radial-gradient(circle at 80% 20%, rgba(244,143,177,0.2) 0%, transparent 40%), radial-gradient(circle at 15% 85%, rgba(165,214,167,0.25) 0%, transparent 45%), #f5f2ea'
-  },
-  {
-    id: 'daisy_cream',
-    name: 'Daisy Floral Cream',
-    category: 'botanical',
-    badge: '🌼 Floral',
-    value: 'radial-gradient(circle at 50% 10%, rgba(255,241,118,0.2) 0%, transparent 50%), #f9f6ed'
-  },
-  {
-    id: 'blush_watercolor',
-    name: 'Cloud Nine Blush',
+    id: 'paper_pastel_pink',
+    name: 'Blossom Pink Ruled',
     category: 'pastel',
-    badge: '☁️ Blush',
-    value: 'radial-gradient(circle at 25% 25%, rgba(255,182,193,0.45) 0%, transparent 55%), radial-gradient(circle at 75% 75%, rgba(255,218,185,0.4) 0%, transparent 55%), #fdf3f5'
+    badge: '🌸 Pink Lined',
+    styleKey: 'pastel_pink',
+    previewCss: 'background:#fdf2f4; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(230,120,150,.28) 19px); border-left:4px solid rgba(240,100,140,.5);'
   },
   {
-    id: 'matcha_watercolor',
-    name: 'Matcha Mist Wash',
+    id: 'paper_pastel_mint',
+    name: 'Sage Mint Grid',
     category: 'pastel',
-    badge: '🍵 Matcha',
-    value: 'radial-gradient(circle at 30% 30%, rgba(165,214,167,0.45) 0%, transparent 55%), radial-gradient(circle at 70% 70%, rgba(178,235,242,0.35) 0%, transparent 55%), #f0f7f1'
+    badge: '🌿 Mint Grid',
+    styleKey: 'pastel_mint',
+    previewCss: 'background:#f0f7f3; background-image:linear-gradient(to right,rgba(80,160,110,.22) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,160,110,.22) 1px,transparent 1px); background-size:16px 16px;'
   },
   {
-    id: 'lavender_sky',
-    name: 'Lavender Dreams',
+    id: 'paper_pastel_lavender',
+    name: 'Lavender Focus Lined',
     category: 'pastel',
     badge: '💜 Lavender',
-    value: 'radial-gradient(circle at 40% 30%, rgba(206,147,216,0.45) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(144,202,249,0.35) 0%, transparent 50%), #f6f0fa'
-  },
-  {
-    id: 'sunrise_peach',
-    name: 'Peach Sunrise',
-    category: 'pastel',
-    badge: '🍑 Peach',
-    value: 'radial-gradient(circle at 20% 80%, rgba(255,171,145,0.45) 0%, transparent 55%), radial-gradient(circle at 80% 20%, rgba(255,238,88,0.35) 0%, transparent 55%), #fff8f0'
-  },
-  {
-    id: 'dark_slate',
-    name: 'Midnight Charcoal Slate',
-    category: 'dark',
-    badge: '🖤 Slate',
-    value: 'radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.45) 100%), #141720'
-  },
-  {
-    id: 'library_wood',
-    name: 'Dark Academia Study',
-    category: 'dark',
-    badge: '🏛️ Study',
-    value: 'radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.5) 100%), #1e1814'
-  },
-  {
-    id: 'celestial_noir',
-    name: 'Nocturne Midnight',
-    category: 'dark',
-    badge: '✨ Noir',
-    value: 'radial-gradient(circle at 85% 15%, rgba(140,126,255,0.2) 0%, transparent 40%), #0f121a'
-  },
-  {
-    id: 'ivory_linen',
-    name: 'Woven Ivory Linen',
-    category: 'minimalist',
-    badge: '🧵 Linen',
-    value: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px), repeating-linear-gradient(90deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px), #fcfaf4'
-  },
-  {
-    id: 'warm_grid',
-    name: 'Soft Amber Grid',
-    category: 'minimalist',
-    badge: '📐 Grid',
-    value: 'linear-gradient(to right, rgba(140,100,60,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(140,100,60,0.08) 1px, transparent 1px), #f9f5ed'
+    styleKey: 'pastel_lavender',
+    previewCss: 'background:#f6f1fb; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(150,110,210,.28) 19px); border-left:4px solid rgba(160,110,220,.5);'
   }
 ];
 
@@ -9078,11 +9196,12 @@ function renderJournalBackgroundGrid(category = 'all'){
   if(!container) return;
 
   const note = getNoteById(currentNoteId);
+  const curPaper = note ? (note.paperStyle || 'obsidian') : 'obsidian';
   const curBg = note ? note.pageBg : null;
   const curBgId = note ? note.pageBgId : null;
 
   const customs = getJournalCustomBackgrounds();
-  const allBgs = [...customs, ...JOURNAL_BACKGROUNDS];
+  const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
 
   const filtered = (category === 'all') 
     ? allBgs 
@@ -9096,7 +9215,7 @@ function renderJournalBackgroundGrid(category = 'all'){
         <div style="grid-column:1/-1;text-align:center;padding:36px 14px;color:var(--t2);">
           <div style="font-size:32px;margin-bottom:8px;">📁</div>
           <div style="font-size:14px;font-weight:800;color:var(--t1);">No custom backgrounds uploaded yet</div>
-          <div style="font-size:12px;margin-top:4px;">Click "Upload Background" above to add your own wallpaper, scrapbook photo, or scan!</div>
+          <div style="font-size:12px;margin-top:4px;">Click "Upload Custom Image" above to add your own wallpaper, scrapbook photo, or scan!</div>
         </div>
       `;
       return;
@@ -9105,20 +9224,25 @@ function renderJournalBackgroundGrid(category = 'all'){
 
   let html = '';
   filtered.forEach(bg => {
-    const isCur = (curBgId === bg.id) || (curBg && curBg === bg.value);
-    const bgCss = bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/')
-      ? `background-image:url('${bg.value}');`
-      : `background:${bg.value};`;
+    const isCur = bg.styleKey 
+      ? (!curBg && curPaper === bg.styleKey)
+      : (curBgId === bg.id || (curBg && curBg === bg.value));
+
+    const bgCss = bg.previewCss 
+      ? bg.previewCss 
+      : (bg.value && (bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/') || bg.value.startsWith('url(')))
+        ? `background-image:url('${bg.value}'); background-size:cover;`
+        : `background:${bg.value || '#fff'};`;
 
     const delBtn = bg.isCustom 
       ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete upload" style="background:rgba(0,0,0,0.5);border:none;color:#ff5252;width:20px;height:20px;border-radius:50%;font-size:11px;cursor:pointer;display:grid;place-items:center;">✕</button>` 
       : '';
 
     html += `
-      <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="applyJournalPageBackground('${escapeHtml(bg.value)}', '${escapeHtml(bg.id)}')">
+      <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="selectJournalBackgroundItem('${escapeHtml(bg.id)}')">
         <div class="journal-bg-card-preview" style="${bgCss}"></div>
         <div class="journal-bg-card-footer">
-          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;">${escapeHtml(bg.name)}</span>
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:115px;font-weight:800;">${escapeHtml(bg.badge || bg.name)}</span>
           <div style="display:flex;align-items:center;gap:4px;">
             ${delBtn}
             <div class="journal-bg-card-check">✓</div>
@@ -9129,6 +9253,36 @@ function renderJournalBackgroundGrid(category = 'all'){
   });
 
   container.innerHTML = html;
+}
+
+function selectJournalBackgroundItem(bgId){
+  const customs = getJournalCustomBackgrounds();
+  const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
+  const bg = allBgs.find(b => b.id === bgId);
+  if(!bg) return;
+  applyJournalPaperBackground(bg);
+}
+
+function applyJournalPaperBackground(bg){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+
+  if(bg.styleKey){
+    applyIpadPaperStyle(bg.styleKey);
+    note.pageBg = null;
+    note.pageBgId = bg.id;
+    applyPageBackgroundToSheet(null);
+    queueIpadSave();
+    renderJournalBackgroundGrid(journalBgActiveCategory);
+    showToast(`Background set: ${bg.name} ✨`);
+  } else if(bg.value){
+    note.pageBg = bg.value;
+    note.pageBgId = bg.id;
+    applyPageBackgroundToSheet(note.pageBg, note.pageBgDim || 100);
+    queueIpadSave();
+    renderJournalBackgroundGrid(journalBgActiveCategory);
+    showToast(`Custom background set 🖼️✨`);
+  }
 }
 
 function applyJournalPageBackground(bgValue, bgId = null){
@@ -9146,11 +9300,12 @@ function removeJournalPageBackground(){
   const note = getNoteById(currentNoteId);
   if(!note) return;
   note.pageBg = null;
-  note.pageBgId = null;
+  note.pageBgId = 'paper_obsidian';
   applyPageBackgroundToSheet(null);
+  applyIpadPaperStyle('obsidian');
   queueIpadSave();
   renderJournalBackgroundGrid(journalBgActiveCategory);
-  showToast('Page background removed ✕');
+  showToast('Reset to Obsidian Black Grid 🖤');
 }
 
 function setJournalBgDim(val){
@@ -10905,7 +11060,7 @@ function saveCurrentIpadPage(showFeedback=false){
     }
   }
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
-  const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','blank'];
+  const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','brown','coffee','dark_dots','dark_ruled','pastel_pink','pastel_mint','pastel_lavender','blank'];
   const nextPaper = (paperSel && validPapers.includes(paperSel.value)) ? paperSel.value : 'obsidian';
 
   note.title = nextTitle;
@@ -10944,20 +11099,156 @@ function applyIpadPaperStyle(style){
   const sheet = document.getElementById('ipad-paper-sheet');
   const sel = document.getElementById('ipad-paper-select');
   if(!sheet) return;
-  sheet.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-brown-kraft','paper-ruled','paper-graph','paper-cornell','paper-planner','paper-blank');
-  if(style === 'brown' || style === 'brown-kraft') sheet.classList.add('paper-brown-kraft');
-  else if(style === 'obsidian') sheet.classList.add('paper-obsidian-grid');
-  else if(style === 'cream') sheet.classList.add('paper-cream-dots');
-  else if(style === 'ruled') sheet.classList.add('paper-ruled');
-  else if(style === 'graph') sheet.classList.add('paper-graph');
-  else if(style === 'cornell') sheet.classList.add('paper-cornell');
-  else if(style === 'planner') sheet.classList.add('paper-planner');
+  sheet.classList.remove(
+    'paper-obsidian-grid',
+    'paper-cream-dots',
+    'paper-brown-kraft',
+    'paper-ruled',
+    'paper-graph',
+    'paper-cornell',
+    'paper-planner',
+    'paper-blank',
+    'paper-dark_dots',
+    'paper-dark_ruled',
+    'paper-coffee',
+    'paper-pastel_pink',
+    'paper-pastel_mint',
+    'paper-pastel_lavender',
+    'paper-dark-dots',
+    'paper-dark-ruled',
+    'paper-pastel-pink',
+    'paper-pastel-mint',
+    'paper-pastel-lavender'
+  );
+
+  const cleanStyle = style === 'brown-kraft' ? 'brown' : (style || 'obsidian');
+
+  if(cleanStyle === 'brown') sheet.classList.add('paper-brown-kraft');
+  else if(cleanStyle === 'obsidian') sheet.classList.add('paper-obsidian-grid');
+  else if(cleanStyle === 'cream') sheet.classList.add('paper-cream-dots');
+  else if(cleanStyle === 'ruled') sheet.classList.add('paper-ruled');
+  else if(cleanStyle === 'graph') sheet.classList.add('paper-graph');
+  else if(cleanStyle === 'cornell') sheet.classList.add('paper-cornell');
+  else if(cleanStyle === 'planner') sheet.classList.add('paper-planner');
+  else if(cleanStyle === 'dark_dots') sheet.classList.add('paper-dark-dots');
+  else if(cleanStyle === 'dark_ruled') sheet.classList.add('paper-dark-ruled');
+  else if(cleanStyle === 'coffee') sheet.classList.add('paper-coffee');
+  else if(cleanStyle === 'pastel_pink') sheet.classList.add('paper-pastel-pink');
+  else if(cleanStyle === 'pastel_mint') sheet.classList.add('paper-pastel-mint');
+  else if(cleanStyle === 'pastel_lavender') sheet.classList.add('paper-pastel-lavender');
   else sheet.classList.add('paper-blank');
-  if(sel && sel.value !== style) sel.value = style;
+
+  if(sel && sel.value !== cleanStyle) sel.value = cleanStyle;
   const note = getNoteById(currentNoteId);
-  if(note && note.paperStyle !== style){
-    note.paperStyle = style;
+  if(note && note.paperStyle !== cleanStyle){
+    note.paperStyle = cleanStyle;
     queueIpadSave();
+  }
+}
+
+// Global text selection tracker
+let lastSavedRange = null;
+let lastSavedRangeItem = null;
+let lastActiveTextBoxId = null;
+
+function isRangeInsideItem(range, itemId){
+  if(!range) return false;
+  const item = document.getElementById(itemId);
+  if(!item) return false;
+  const common = range.commonAncestorContainer;
+  const node = common.nodeType === 1 ? common : common.parentElement;
+  return !!(node && (node === item || item.contains(node)));
+}
+
+function restoreSelection(range){
+  if(!range) return;
+  try{
+    const sel = window.getSelection();
+    if(sel){
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }catch(_){}
+}
+
+function applyFontToSelectedText(fontCss){
+  let sel = window.getSelection();
+  if((!sel || sel.isCollapsed || !sel.rangeCount) && lastSavedRange){
+    restoreSelection(lastSavedRange);
+    sel = window.getSelection();
+  }
+  if(sel && !sel.isCollapsed && sel.rangeCount > 0){
+    try{
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('fontName', false, fontCss);
+      return true;
+    }catch(e){
+      try{
+        const range = sel.getRangeAt(0);
+        const span = document.createElement('span');
+        span.style.fontFamily = fontCss;
+        span.appendChild(range.extractContents());
+        range.insertNode(span);
+        return true;
+      }catch(_){}
+    }
+  }
+  return false;
+}
+
+function applyFontSizeToSelectedText(sizePt){
+  let sel = window.getSelection();
+  if((!sel || sel.isCollapsed || !sel.rangeCount) && lastSavedRange){
+    restoreSelection(lastSavedRange);
+    sel = window.getSelection();
+  }
+  if(sel && !sel.isCollapsed && sel.rangeCount > 0){
+    try{
+      const range = sel.getRangeAt(0);
+      const span = document.createElement('span');
+      span.style.fontSize = sizePt + 'px';
+      span.style.lineHeight = '1.3';
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+      sel.removeAllRanges();
+      const newRange = document.createRange();
+      newRange.selectNodeContents(span);
+      sel.addRange(newRange);
+      lastSavedRange = newRange.cloneRange();
+      return true;
+    }catch(e){}
+  }
+  return false;
+}
+
+document.addEventListener('selectionchange', () => {
+  const sel = window.getSelection();
+  if(sel && !sel.isCollapsed && sel.rangeCount > 0){
+    const range = sel.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+    const el = container.nodeType === 1 ? container : container.parentElement;
+    const item = el?.closest('.canvas-item');
+    const editor = el?.closest('#ipad-page-editor');
+    if(item || editor){
+      lastSavedRange = range.cloneRange();
+      lastSavedRangeItem = item ? item.id : 'editor';
+      if(item) lastActiveTextBoxId = item.id;
+    }
+  }
+});
+
+function syncWholePageToggleStyle(checked){
+  const label = document.getElementById('ipad-font-whole-page-label');
+  if(!label) return;
+  if(checked){
+    label.style.background = 'rgba(140,126,255,0.18)';
+    label.style.borderColor = 'rgba(140,126,255,0.4)';
+    label.style.color = 'var(--act)';
+    showToast('Whole page mode ON: Changes apply to entire page 📄');
+  } else {
+    label.style.background = 'rgba(255,255,255,0.06)';
+    label.style.borderColor = 'rgba(255,255,255,0.12)';
+    label.style.color = 'var(--t2)';
   }
 }
 
@@ -10983,33 +11274,23 @@ function applyIpadTypography(forceWholePage = false){
   }
 
   // When "Whole page" is NOT checked:
-  // 1. Check if a canvas item (e.g. text box, washi) is currently selected
+  // 1. If text is currently highlighted, apply font only to that selected text!
+  if(applyFontToSelectedText(fontCss)){
+    queueIpadSave();
+    showToast(`Font applied to selected text ✨`);
+    return;
+  }
+
+  // 2. Check if a canvas item or active textbox is selected:
   const selectedItem = editor.querySelector('.canvas-item.is-selected');
-  if(selectedItem){
-    setCanvasItemFontFamily(selectedItem.id, fontVal);
+  const targetId = selectedItem ? selectedItem.id : (lastActiveTextBoxId && document.getElementById(lastActiveTextBoxId) ? lastActiveTextBoxId : null);
+  if(targetId){
+    setCanvasItemFontFamily(targetId, fontVal);
     return;
   }
 
-  // 2. Check if text is currently highlighted in the window selection
-  const userSel = window.getSelection();
-  if(userSel && !userSel.isCollapsed && userSel.rangeCount > 0){
-    try {
-      document.execCommand('styleWithCSS', false, true);
-      document.execCommand('fontName', false, fontCss);
-      queueIpadSave();
-      showToast(`Font applied to selection ✨`);
-      return;
-    } catch(e) {}
-  }
-
-  // 3. Check if active element is inside a textbox
-  const activeBox = document.activeElement ? document.activeElement.closest('.canvas-item') : null;
-  if(activeBox){
-    setCanvasItemFontFamily(activeBox.id, fontVal);
-    return;
-  }
-
-  showToast(`Select text or a text box, or check "Whole page" 💡`);
+  // 3. Nothing selected and Whole page not checked:
+  showToast(`💡 Highlight text or click a text box, or check "Whole page" to apply.`);
 }
 
 function applyIpadHighlighter(color){
@@ -11109,6 +11390,19 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   clone.querySelectorAll(".canvas-item").forEach(el => {
     el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
   });
+  // Sync select values to selected attributes in clone so they persist accurately
+  const origSelects = editorEl.querySelectorAll("select.cbar-select");
+  const cloneSelects = clone.querySelectorAll("select.cbar-select");
+  origSelects.forEach((origSel, i) => {
+    const cloneSel = cloneSelects[i];
+    if(cloneSel){
+      Array.from(cloneSel.options).forEach(opt => {
+        opt.selected = (opt.value === origSel.value);
+        if(opt.selected) opt.setAttribute("selected", "selected");
+        else opt.removeAttribute("selected");
+      });
+    }
+  });
   clone.querySelectorAll(".cbar-font-popover, .cbar-font-family-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
     p.style.display = "none";
   });
@@ -11116,51 +11410,102 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   return clone.innerHTML;
 }
 
+function buildCanvasItemTypographyHtml(id, initialFont='patrick', initialPt=16){
+  const cleanId = String(id).replace(/[^a-zA-Z0-9_-]/g, '');
+  return `
+    <div class="cbar-typo-pill" style="display:inline-flex;align-items:center;gap:2px;background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:1px 4px;">
+      <select class="cbar-select cbar-font-select" onchange="handleCanvasItemFontChange('${cleanId}', this.value)" title="Choose Font Style for this text box or highlighted text">
+        <option value="patrick" ${initialFont==='patrick'?'selected':''}>📝 Study</option>
+        <option value="caveat" ${initialFont==='caveat'?'selected':''}>✨ Cursive</option>
+        <option value="shantell" ${initialFont==='shantell'?'selected':''}>🌸 Print</option>
+        <option value="kalam" ${initialFont==='kalam'?'selected':''}>🖋️ Ink</option>
+        <option value="architect" ${initialFont==='architect'?'selected':''}>📐 Hand</option>
+        <option value="clean" ${initialFont==='clean'?'selected':''}>🔤 Sans</option>
+        <option value="serif" ${initialFont==='serif'?'selected':''}>📜 Serif</option>
+        <option value="mono" ${initialFont==='mono'?'selected':''}>⌨️ Mono</option>
+      </select>
+      <span style="width:1px;height:12px;background:rgba(255,255,255,0.18);"></span>
+      <button type="button" class="cbar-btn" onclick="stepCanvasItemFontSize('${cleanId}', -2)" title="Smaller text (A-)" style="min-width:18px;height:22px;padding:0 2px;font-size:10px;font-weight:900;">A▾</button>
+      <select class="cbar-select cbar-size-select" onchange="handleCanvasItemSizeChange('${cleanId}', this.value)" title="Font Size (pt)">
+        ${[12,14,16,18,20,24,28,32,36,42,48,64].map(s => `<option value="${s}" ${Number(initialPt)===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+      <button type="button" class="cbar-btn" onclick="stepCanvasItemFontSize('${cleanId}', 2)" title="Larger text (A+)" style="min-width:18px;height:22px;padding:0 2px;font-size:10px;font-weight:900;">A▴</button>
+    </div>
+  `;
+}
+
 function buildCanvasItemBar(id, type, options={}){
   const hasFont = !!options.hasFont;
   const initialPt = options.initialPt || 16;
+  const initialFont = options.initialFont || 'patrick';
   const extraBtns = options.extraBtns || '';
+  const cleanId = String(id).replace(/[^a-zA-Z0-9_-]/g, '');
   return `
     <div class="canvas-item-bar ${options.isMini ? 'mini' : ''}">
       <span class="canvas-drag-handle" title="Drag to move">⋮⋮ ${options.dragLabel || 'Move'}</span>
       <div class="canvas-bar-btns">
         ${extraBtns}
-        ${hasFont ? `
-          <button type="button" class="cbar-btn" data-action="toggle-font-family" title="Choose Font Style"><span class="cbar-font-fam-label">Aa Font</span> ▾</button>
-          <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
-          <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">${initialPt}pt</span> ▾</button>
-          <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
-        ` : ''}
+        ${hasFont ? buildCanvasItemTypographyHtml(cleanId, initialFont, initialPt) : ''}
         <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
       </div>
-      ${hasFont ? `
-      <div class="cbar-font-family-popover" style="display:none;" onclick="event.stopPropagation()">
-        <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Font Style</div>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Patrick Hand',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'patrick')">📝 Study Notebook</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Caveat',cursive;font-size:14px;" onclick="setCanvasItemFontFamily('\${id}', 'caveat')">✨ Aesthetic Cursive</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Shantell Sans',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'shantell')">🌸 Modern Print</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Kalam',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'kalam')">🖋️ Ink Ballpoint</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Architects Daughter',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'architect')">📐 Technical Hand</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Segoe UI',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'clean')">🔤 Clean Sans</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:Georgia,serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'serif')">📜 Vintage Serif</button>
-        <button type="button" class="cbar-pop-opt" style="font-family:'Courier New',monospace;font-size:12.5px;" onclick="setCanvasItemFontFamily('\${id}', 'mono')">⌨️ Typewriter Mono</button>
-      </div>
-      <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 12)">12</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 14)">14</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 16)">16</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 18)">18</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 20)">20</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 24)">24</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 28)">28</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 32)">32</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 36)">36</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 42)">42</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 48)">48</button>
-        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 64)">64</button>
-      </div>` : ''}
     </div>
   `;
+}
+
+function handleCanvasItemFontChange(itemId, fontKey){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const fontCss = NOTE_FONT_MAP[fontKey] || NOTE_FONT_MAP.patrick;
+
+  // 1. If text is highlighted inside this item, apply font only to that highlighted text!
+  if(lastSavedRange && isRangeInsideItem(lastSavedRange, itemId)){
+    restoreSelection(lastSavedRange);
+    if(applyFontToSelectedText(fontCss)){
+      queueIpadSave();
+      showToast(`Font applied to selected text ✨`);
+      return;
+    }
+  }
+
+  // 2. Otherwise apply font to the whole text box:
+  setCanvasItemFontFamily(itemId, fontKey);
+}
+
+function handleCanvasItemSizeChange(itemId, sizeVal){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const pt = Number(sizeVal) || 16;
+
+  // 1. If text is highlighted inside this item, apply font size only to that highlighted text!
+  if(lastSavedRange && isRangeInsideItem(lastSavedRange, itemId)){
+    restoreSelection(lastSavedRange);
+    if(applyFontSizeToSelectedText(pt)){
+      queueIpadSave();
+      showToast(`Size ${pt}pt applied to selected text 🔠`);
+      return;
+    }
+  }
+
+  // 2. Otherwise apply font size to the whole text box:
+  setCanvasItemFontSize(itemId, pt);
+}
+
+function stepCanvasItemFontSize(itemId, deltaPt){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const sizeSelect = item.querySelector('.cbar-size-select');
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+  let curPt = sizeSelect ? (Number(sizeSelect.value) || 16) : (target ? (Math.round(parseFloat(window.getComputedStyle(target).fontSize)) || 16) : 16);
+  const nextPt = Math.max(10, Math.min(72, curPt + deltaPt));
+  if(sizeSelect){
+    let opt = Array.from(sizeSelect.options).find(o => Number(o.value) === nextPt);
+    if(!opt){
+      opt = new Option("" + nextPt, "" + nextPt);
+      sizeSelect.add(opt);
+    }
+    sizeSelect.value = "" + nextPt;
+  }
+  handleCanvasItemSizeChange(itemId, nextPt);
 }
 
 function setCanvasItemFontSize(itemId, sizePt){
@@ -11171,10 +11516,12 @@ function setCanvasItemFontSize(itemId, sizePt){
   if(target){
     target.style.fontSize = pt + "px";
   }
-  const labelEl = item.querySelector(".cbar-font-num-label");
-  if(labelEl) labelEl.textContent = pt + "pt";
-  const popover = item.querySelector(".cbar-font-popover");
-  if(popover) popover.style.display = "none";
+  const sizeSelect = item.querySelector(".cbar-size-select");
+  if(sizeSelect && sizeSelect.value !== "" + pt){
+    let opt = Array.from(sizeSelect.options).find(o => Number(o.value) === pt);
+    if(!opt) sizeSelect.add(new Option("" + pt, "" + pt));
+    sizeSelect.value = "" + pt;
+  }
   queueIpadSave();
   showToast("Font size: " + pt + "pt 🔠");
 }
@@ -11188,54 +11535,49 @@ function setCanvasItemFontFamily(itemId, fontKey){
     target.style.fontFamily = fontCss;
   }
   item.dataset.customFont = fontKey;
-  const labelEl = item.querySelector(".cbar-font-fam-label");
-  if(labelEl){
-    const names = {
-      patrick: 'Study',
-      caveat: 'Cursive',
-      shantell: 'Print',
-      kalam: 'Ink',
-      architect: 'Hand',
-      clean: 'Sans',
-      serif: 'Serif',
-      mono: 'Mono'
-    };
-    labelEl.textContent = names[fontKey] || fontKey;
+  const fontSelect = item.querySelector(".cbar-font-select");
+  if(fontSelect && fontSelect.value !== fontKey){
+    fontSelect.value = fontKey;
   }
-  const popover = item.querySelector(".cbar-font-family-popover");
-  if(popover) popover.style.display = "none";
   queueIpadSave();
   showToast("Font: " + (fontKey || 'custom') + " ✍️");
-}
-
-function stepCanvasItemFontSize(itemId, deltaPt){
-  const item = document.getElementById(itemId);
-  if(!item) return;
-  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
-  let curPt = 16;
-  if(target){
-    curPt = Math.round(parseFloat(window.getComputedStyle(target).fontSize)) || 16;
-  }
-  const nextPt = Math.max(10, Math.min(72, curPt + deltaPt));
-  setCanvasItemFontSize(itemId, nextPt);
 }
 
 function applyIpadNumericFontSize(sizeVal){
   const pt = Number(sizeVal) || 18;
   const editor = document.getElementById("ipad-page-editor");
   const wholePageCheck = document.getElementById('ipad-font-whole-page');
-  const selectedItem = document.querySelector("#ipad-paper-sheet .canvas-item.is-selected");
-  if(selectedItem){
-    setCanvasItemFontSize(selectedItem.id, pt);
-  } else if(!wholePageCheck || wholePageCheck.checked || !selectedItem){
+  const shouldApplyWhole = wholePageCheck && wholePageCheck.checked;
+
+  if(shouldApplyWhole){
     if(editor){
       editor.style.fontSize = pt + "px";
     }
+    const sel = document.getElementById("ipad-font-size-select");
+    if(sel) sel.value = "" + pt;
+    queueIpadSave();
+    showToast(`Whole page font size: ${pt}pt 📄`);
+    return;
   }
-  const sel = document.getElementById("ipad-font-size-select");
-  if(sel) sel.value = "" + pt;
-  queueIpadSave();
-  showToast("Size: " + pt + "pt");
+
+  // When "Whole page" is NOT checked:
+  // 1. If text is currently highlighted, apply size only to that selected text!
+  if(applyFontSizeToSelectedText(pt)){
+    queueIpadSave();
+    showToast(`Size ${pt}pt applied to selected text 🔠`);
+    return;
+  }
+
+  // 2. Check if a canvas item or active textbox is selected:
+  const selectedItem = editor ? editor.querySelector('.canvas-item.is-selected') : null;
+  const targetId = selectedItem ? selectedItem.id : (lastActiveTextBoxId && document.getElementById(lastActiveTextBoxId) ? lastActiveTextBoxId : null);
+  if(targetId){
+    setCanvasItemFontSize(targetId, pt);
+    return;
+  }
+
+  // 3. Nothing selected and Whole page not checked:
+  showToast(`💡 Highlight text or select a text box, or check "Whole page" to apply.`);
 }
 
 function stepIpadFontSize(deltaPt){
@@ -11493,67 +11835,27 @@ function upgradeLegacyIpadElements(editorEl){
       item.insertAdjacentHTML("beforeend", '<div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>');
     }
 
-    // 4. Popovers and controls on item bar
+    // 4. Combined typography pill on item bar
     const bar = item.querySelector(".canvas-item-bar");
     if(bar){
       const barBtns = bar.querySelector(".canvas-bar-btns");
       const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
 
       // Strip legacy buttons and popovers completely
+      bar.querySelectorAll(".cbar-angles-popover, .cbar-font-family-popover, .cbar-font-popover, [class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
       if(barBtns){
-        barBtns.querySelectorAll("[data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow]").forEach(b => b.remove());
-      }
-      bar.querySelectorAll(".cbar-angles-popover, [class*=layer-popover], [class*=flow-popover]").forEach(p => p.remove());
-
-      // Add font controls if text item and missing
-      if(hasText && barBtns){
-        if(!barBtns.querySelector("[data-action='toggle-font-family']")){
-          const target = barBtns.querySelector("[data-action='step-font-down']") || barBtns.querySelector(".del");
-          const famBtn = `<button type="button" class="cbar-btn" data-action="toggle-font-family" title="Font Style"><span class="cbar-font-fam-label">Aa Font</span> ▾</button>`;
-          if(target) target.insertAdjacentHTML("beforebegin", famBtn);
-          else barBtns.insertAdjacentHTML("afterbegin", famBtn);
-        }
-        if(!barBtns.querySelector("[data-action='toggle-font-sizes']")){
-          const delBtn = barBtns.querySelector(".del");
-          const fontHtml = `
-            <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
-            <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">16pt</span> ▾</button>
-            <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
-          `;
-          if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fontHtml);
-          else barBtns.insertAdjacentHTML("beforeend", fontHtml);
-        }
+        barBtns.querySelectorAll("[data-action='toggle-angles'], [data-action='rotate-step'], [data-action='washi-thickness'], [data-action*=layer], [data-action*=flow], [data-action='toggle-font-family'], [data-action='toggle-font-sizes'], [data-action='step-font-down'], [data-action='step-font-up']").forEach(b => b.remove());
       }
 
-      if(hasText && !bar.querySelector(".cbar-font-family-popover")){
-        bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-font-family-popover" style="display:none;" onclick="event.stopPropagation()">
-            <div style="font-size:9.5px;font-weight:900;color:var(--t3);letter-spacing:.5px;padding:2px 6px;text-transform:uppercase;">Font Style</div>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Patrick Hand',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'patrick')">📝 Study Notebook</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Caveat',cursive;font-size:14px;" onclick="setCanvasItemFontFamily('\${id}', 'caveat')">✨ Aesthetic Cursive</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Shantell Sans',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'shantell')">🌸 Modern Print</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Kalam',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'kalam')">🖋️ Ink Ballpoint</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Architects Daughter',cursive;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'architect')">📐 Technical Hand</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Segoe UI',sans-serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'clean')">🔤 Clean Sans</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:Georgia,serif;font-size:13px;" onclick="setCanvasItemFontFamily('\${id}', 'serif')">📜 Vintage Serif</button>
-            <button type="button" class="cbar-pop-opt" style="font-family:'Courier New',monospace;font-size:12.5px;" onclick="setCanvasItemFontFamily('\${id}', 'mono')">⌨️ Typewriter Mono</button>
-          </div>
-        `);
-      }
-
-      if(hasText && !bar.querySelector(".cbar-font-popover")){
-        bar.insertAdjacentHTML("beforeend", `
-          <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 12)">12</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 14)">14</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 16)">16</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 18)">18</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 20)">20</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 24)">24</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 28)">28</button>
-            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('\${id}', 32)">32</button>
-          </div>
-        `);
+      // Add combined typography pill if text item and missing
+      if(hasText && barBtns && !barBtns.querySelector(".cbar-typo-pill")){
+        const delBtn = barBtns.querySelector(".del");
+        const body = item.querySelector('.canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body');
+        const curPt = body ? (Math.round(parseFloat(window.getComputedStyle(body).fontSize)) || 16) : 16;
+        const curFont = item.dataset.customFont || 'patrick';
+        const typoHtml = buildCanvasItemTypographyHtml(id, curFont, curPt);
+        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", typoHtml);
+        else barBtns.insertAdjacentHTML("beforeend", typoHtml);
       }
 
       // Restore custom font if saved
@@ -11561,11 +11863,8 @@ function upgradeLegacyIpadElements(editorEl){
         const fontCss = NOTE_FONT_MAP[item.dataset.customFont] || item.dataset.customFont;
         const body = item.querySelector('.canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body');
         if(body) body.style.fontFamily = fontCss;
-        const famLabel = item.querySelector('.cbar-font-fam-label');
-        if(famLabel){
-          const names = { patrick: 'Study', caveat: 'Cursive', shantell: 'Print', kalam: 'Ink', architect: 'Hand', clean: 'Sans', serif: 'Serif', mono: 'Mono' };
-          famLabel.textContent = names[item.dataset.customFont] || item.dataset.customFont;
-        }
+        const fontSel = bar.querySelector('.cbar-font-select');
+        if(fontSel) fontSel.value = item.dataset.customFont;
       }
     }
   });
