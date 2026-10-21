@@ -13009,9 +13009,9 @@ function insertIpadWashiTape(pattern="washi-blush"){
     initialPt: 14,
     angle: -6,
     extraBtns: `
-      <button type="button" class="cbar-btn" data-action="washi-pattern" title="Choose from 36 Tape Patterns Grid">🎨 Patterns</button>
-      <button type="button" class="cbar-btn" data-action="washi-custom-color" title="Custom Tape Color Dial">🌈 Color</button>
-      <button type="button" class="cbar-btn" data-action="washi-text-color" title="Text Color Dial & Intensity">✒️ Text Dial</button>
+      <button type="button" class="cbar-btn" data-action="washi-pattern" title="Choose from 105 Tape Patterns Grid">🎨 Patterns</button>
+      <button type="button" class="cbar-btn" data-action="washi-custom-color" title="Tape Ink Color Dial & Intensity">🌈 Tape Ink</button>
+      <button type="button" class="cbar-btn" data-action="washi-text-color" title="Text Ink Color & Intensity">✒️ Text Ink</button>
     `
   });
 
@@ -13376,7 +13376,7 @@ function handleCanvasAction(btn, e){
     const curColor = item.dataset.customColor || "#f48fb1";
     openUniversalColorPicker({
       initialColor: curColor,
-      title: "📌 Washi Tape Color Dial",
+      title: "📌 Washi Tape Ink",
       onApply: (hex) => {
         setWashiTapeCustomColor(item, hex);
       }
@@ -13430,7 +13430,7 @@ function handleCanvasAction(btn, e){
     const curColor = (label && label.style.color) ? label.style.color : (item.dataset.customTextColor || "#2b221a");
     openUniversalColorPicker({
       initialColor: curColor.startsWith("#") ? curColor : "#2b221a",
-      title: "✒️ Washi Tape Text Color Dial",
+      title: "✒️ Washi Tape Text Ink",
       onApply: (hex) => {
         setWashiTapeTextColor(item, hex);
       }
