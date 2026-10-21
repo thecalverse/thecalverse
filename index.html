@@ -1557,17 +1557,22 @@ canvas#gc{display:block;width:100%;height:240px;}
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:12;
+  z-index:180;
   touch-action:none;
   border-radius:inherit;
 }
 .ipad-ink-canvas.is-active{
   pointer-events:auto;
   cursor:crosshair;
+  z-index:220;
 }
 .ipad-ink-canvas.is-eraser{
   pointer-events:auto;
   cursor:cell;
+  z-index:220;
+}
+.ipad-ink-canvas.is-highlighter{
+  mix-blend-mode:multiply;
 }
 
 .ipad-paper-sheet{position:relative;min-height:560px;padding:30px 36px 48px;box-sizing:border-box;transition:background .2s ease,transform .15s ease;font-size:18px;line-height:1.75;}
@@ -1693,6 +1698,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   color:inherit;
   line-height:1.75;
   word-break:break-word;
+  z-index:5;
 }
 .ipad-paper-canvas:empty::before{
   content:attr(data-placeholder);
@@ -1709,6 +1715,37 @@ canvas#gc{display:block;width:100%;height:240px;}
   z-index:10;
   transform-origin:center center;
   transition:box-shadow .15s ease;
+}
+.canvas-item.is-behind-text{
+  z-index:2!important;
+}
+.canvas-item.is-front-text{
+  z-index:50!important;
+}
+.canvas-item.wrap-float-left{
+  position:relative!important;
+  float:left!important;
+  margin:10px 18px 10px 0!important;
+  top:auto!important;
+  left:auto!important;
+  z-index:15!important;
+}
+.canvas-item.wrap-float-right{
+  position:relative!important;
+  float:right!important;
+  margin:10px 0 10px 18px!important;
+  top:auto!important;
+  left:auto!important;
+  z-index:15!important;
+}
+.canvas-item.wrap-clear{
+  position:relative!important;
+  clear:both!important;
+  display:block!important;
+  margin:16px auto!important;
+  top:auto!important;
+  left:auto!important;
+  z-index:15!important;
 }
 .canvas-item.is-selected{
   outline:2px dashed var(--act);
@@ -2249,6 +2286,195 @@ canvas#gc{display:block;width:100%;height:240px;}
   background:var(--accg);
   border-color:var(--acb);
   color:#fff;
+}
+
+/* Layer, Flow & PowerPoint-Style Font Popovers */
+.cbar-layer-popover,
+.cbar-flow-popover,
+.cbar-font-popover{
+  position:absolute;
+  top:32px;
+  right:0;
+  background:rgba(18,24,38,.98);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  padding:6px;
+  display:grid;
+  gap:4px;
+  box-shadow:0 12px 32px rgba(0,0,0,.45);
+  z-index:130;
+  min-width:175px;
+}
+[data-t=light] .cbar-layer-popover,
+[data-t=light] .cbar-flow-popover,
+[data-t=light] .cbar-font-popover{
+  background:rgba(255,250,244,.98);
+  border-color:rgba(131,98,74,.3);
+  box-shadow:0 10px 26px rgba(104,76,56,.2);
+}
+.cbar-font-popover{
+  grid-template-columns:repeat(4,1fr);
+  min-width:190px;
+}
+.cbar-pop-opt{
+  height:28px;
+  padding:0 8px;
+  border-radius:8px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.06);
+  color:var(--t1);
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:all .12s ease;
+}
+[data-t=light] .cbar-pop-opt{
+  background:rgba(255,255,255,.7);
+  border-color:rgba(131,98,74,.18);
+  color:#3b281c;
+}
+.cbar-pop-opt:hover{
+  background:var(--accg);
+  border-color:var(--acb);
+  color:#fff;
+}
+.cbar-font-btn{
+  height:26px;
+  padding:0 4px;
+  border-radius:7px;
+  border:1px solid var(--glb);
+  background:rgba(255,255,255,.06);
+  color:var(--t1);
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:all .12s ease;
+}
+[data-t=light] .cbar-font-btn{
+  background:rgba(255,255,255,.7);
+  border-color:rgba(131,98,74,.18);
+  color:#3b281c;
+}
+.cbar-font-btn:hover{
+  background:var(--acc);
+  color:#fff;
+  border-color:var(--acb);
+}
+.cbar-font-num-label{
+  font-variant-numeric:tabular-nums;
+  min-width:28px;
+  text-align:center;
+}
+
+/* View Mode Locked Clean Reading */
+.ipad-paper-sheet.is-view-mode{
+  user-select:text;
+}
+.ipad-paper-sheet.is-view-mode .canvas-item-bar,
+.ipad-paper-sheet.is-view-mode .canvas-rotate-handle,
+.ipad-paper-sheet.is-view-mode .canvas-resize-handle,
+.ipad-paper-sheet.is-view-mode [class*="canvas-resize-"],
+.ipad-paper-sheet.is-view-mode .canvas-drag-handle{
+  display:none!important;
+}
+.ipad-paper-sheet.is-view-mode .canvas-item{
+  outline:none!important;
+  cursor:default!important;
+  box-shadow:none!important;
+}
+.ipad-paper-sheet.is-view-mode .canvas-item:active{
+  cursor:default!important;
+}
+.ipad-paper-sheet.is-view-mode [contenteditable="true"]{
+  cursor:default!important;
+}
+
+/* Custom Stickers Drawer Styles */
+.custom-stickers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(96px,1fr));
+  gap:10px;
+  max-height:48vh;
+  overflow-y:auto;
+  padding:8px 0;
+}
+.custom-sticker-card{
+  aspect-ratio:1;
+  border-radius:14px;
+  border:1.5px dashed var(--glb);
+  background:rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  position:relative;
+  padding:8px;
+  transition:all .15s ease;
+  user-select:none;
+}
+.custom-sticker-card:hover{
+  transform:scale(1.05);
+  border-color:var(--act);
+  background:rgba(255,255,255,.1);
+}
+.custom-sticker-badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 4px 10px rgba(0,0,0,.2),0 0 0 2px #fff;
+  text-align:center;
+  max-width:90%;
+  word-break:break-word;
+}
+.custom-sticker-label{
+  font-size:10px;
+  font-weight:700;
+  color:var(--t2);
+  margin-top:4px;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+.custom-sticker-del{
+  position:absolute;
+  top:4px;
+  right:4px;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  border:none;
+  background:rgba(255,80,80,.8);
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  opacity:0;
+  transition:opacity .15s ease;
+}
+.custom-sticker-card:hover .custom-sticker-del{
+  opacity:1;
+}
+
+/* Journal Trash View */
+.journal-trash-view{
+  max-width:1100px;
+  margin:0 auto;
+  width:100%;
 }
 
 /* Additional Washi Patterns */
@@ -4995,6 +5221,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <button type="button" class="jview-tab-btn" id="jview-tab-notebook" onclick="switchJournalMainView('notebook')">📓 Open Notebook</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-calendar" onclick="switchJournalMainView('calendar')">📅 Daily Journal &amp; Calendar</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-sparks" onclick="switchJournalMainView('sparks')">💭 Thought Sparks</button>
+        <button type="button" class="jview-tab-btn" id="jview-tab-trash" onclick="switchJournalMainView('trash')">🗑️ Trash</button>
       </div>
       <div style="display:flex;gap:6px;align-items:center;" id="journal-header-actions">
         <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 10px;">+ New Book</button>
@@ -5051,6 +5278,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             </div>
             <button type="button" class="ipad-step-btn" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
             <button type="button" class="ipad-step-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
+            <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;color:var(--act);">👁️ View</button>
             <button type="button" class="ipad-step-btn" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
           </div>
         </div>
@@ -5124,6 +5352,26 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <option value="architect">📐 Technical Hand</option>
               <option value="clean">Clean Sans</option>
             </select>
+
+            <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:1px 3px;gap:2px;">
+              <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(-2)" title="Decrease Font Size (A-)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▾</button>
+              <select id="ipad-font-size-select" class="note-tool-select" onchange="applyIpadNumericFontSize(this.value)" style="width:58px;height:26px;font-size:11.5px;padding:0 14px 0 6px;text-align:center;font-weight:800;" title="Numeric Font Size (pt)">
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18" selected>18</option>
+                <option value="20">20</option>
+                <option value="24">24</option>
+                <option value="28">28</option>
+                <option value="32">32</option>
+                <option value="36">36</option>
+                <option value="42">42</option>
+                <option value="48">48</option>
+                <option value="64">64</option>
+                <option value="72">72</option>
+              </select>
+              <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(2)" title="Increase Font Size (A+)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▴</button>
+            </div>
           </div>
         </div>
 
@@ -5255,6 +5503,23 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           <button type="button" class="note-card-btn" onclick="copyPromptSparkText()">📋 Copy</button>
         </div>
         <div style="font-size:11.5px;color:var(--t3);margin-top:2px;" id="jspark-deck-counter">Spark 1 of 48</div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: JOURNAL TRASH BIN -->
+    <div id="journal-trash-view" class="journal-trash-view" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:17px;font-weight:900;color:var(--t1);">🗑️ Journal Trash Bin</div>
+          <div style="font-size:12px;color:var(--t2);">Deleted notebook pages are kept here safely. Restore them to their original notebook anytime.</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button type="button" class="note-card-btn acc" onclick="restoreAllJournalTrash()">Restore All</button>
+          <button type="button" class="note-card-btn del" onclick="emptyJournalTrashPrompt()">Empty Trash</button>
+        </div>
+      </div>
+      <div id="journal-trash-grid" class="notes-list view-grid">
+        <!-- Populated by renderJournalTrashView -->
       </div>
     </div>
   </div>
@@ -5617,9 +5882,95 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
       <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('washi',this)">📌 Washi & Tape</button>
       <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('cozy',this)">☕ Coffee & Cozy</button>
       <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('study',this)">🎓 Study & Focus</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('mood',this)">💭 Mood & Nature</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('planner',this)">🗓️ Planner & Bullet</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('botanical',this)">🌿 Botanical & Nature</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('scrapbook',this)">🏷️ Scrapbook & Seals</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('mood',this)">💭 Mood & Celestial</button>
+      <button type="button" class="tpl-tab-btn" onclick="filterStickerTab('custom',this)" style="color:var(--act);font-weight:900;">✨ My Stickers</button>
     </div>
     <div id="stickers-content-box"></div>
+  </div>
+</div>
+
+<!-- CREATE CUSTOM STICKER MODAL -->
+<div id="journal-custom-sticker-modal" class="app-dialog" onclick="if(event.target===this)closeCreateCustomStickerModal()">
+  <div class="stickers-drawer-card" style="max-width:520px;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:var(--t1);">✨ Create Your Own Sticker</div>
+        <div style="font-size:12px;color:var(--t2);">Make aesthetic custom badges or photo stickers with die-cut borders.</div>
+      </div>
+      <button type="button" class="tpl-modal-close" onclick="closeCreateCustomStickerModal()">✕</button>
+    </div>
+
+    <!-- Sticker Type Tabs -->
+    <div class="tpl-modal-tabs" style="margin-bottom:14px;">
+      <button type="button" class="tpl-tab-btn on" id="custom-sticker-tab-badge" onclick="switchCustomStickerMode('badge')">🏷️ Word Badge</button>
+      <button type="button" class="tpl-tab-btn" id="custom-sticker-tab-photo" onclick="switchCustomStickerMode('photo')">🖼️ Photo / Cutout</button>
+    </div>
+
+    <!-- Mode 1: Badge Form -->
+    <div id="custom-sticker-badge-form">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <label style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Sticker Text</label>
+          <input type="text" id="custom-badge-text" class="note-inp" placeholder="e.g. IMPORTANT, STUDY GOAL, ★ FAV, PRIORITY" maxlength="28" value="★ PRIORITY" oninput="updateCustomStickerPreview()" style="margin-top:4px;font-size:14px;font-weight:800;">
+        </div>
+
+        <div>
+          <label style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Sticker Color</label>
+          <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;" id="custom-badge-colors">
+            <button type="button" class="cbar-font-btn" style="background:#ff80ab;color:#fff;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#ff80ab', '#ffffff')">🌸</button>
+            <button type="button" class="cbar-font-btn" style="background:#b388ff;color:#fff;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#b388ff', '#ffffff')">💜</button>
+            <button type="button" class="cbar-font-btn" style="background:#80d8ff;color:#000;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#80d8ff', '#1a237e')">🩵</button>
+            <button type="button" class="cbar-font-btn" style="background:#a7ffeb;color:#000;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#a7ffeb', '#004d40')">🌿</button>
+            <button type="button" class="cbar-font-btn" style="background:#ffff8d;color:#000;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#ffff8d', '#e65100')">🍋</button>
+            <button type="button" class="cbar-font-btn" style="background:#ffd180;color:#000;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#ffd180', '#3e2723')">🍯</button>
+            <button type="button" class="cbar-font-btn" style="background:#212121;color:#fff;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#212121', '#ffffff')">🖤</button>
+            <button type="button" class="cbar-font-btn" style="background:#ff6e40;color:#fff;width:32px;height:32px;border-radius:50%;" onclick="setCustomBadgeBg('#ff6e40', '#ffffff')">🧡</button>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div style="background:rgba(0,0,0,0.15);border:1px dashed var(--glb);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;margin-top:6px;">
+          <div id="custom-badge-preview" class="custom-sticker-badge" style="background:#ff80ab;color:#ffffff;font-size:15px;padding:8px 16px;">★ PRIORITY</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode 2: Photo Form -->
+    <div id="custom-sticker-photo-form" style="display:none;">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Select Image / Photo</label>
+          <input type="file" id="custom-photo-file-input" accept="image/*" style="display:none;" onchange="handleCustomStickerPhotoUpload(event)">
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <button type="button" class="notes-top-btn" onclick="document.getElementById('custom-photo-file-input').click()" style="height:34px;padding:0 12px;display:inline-flex;align-items:center;gap:6px;">📁 Choose Image...</button>
+            <input type="text" id="custom-photo-label" class="note-inp" placeholder="Sticker label (optional)" maxlength="20" style="flex:1;">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label style="font-size:12px;color:var(--t1);cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+            <input type="checkbox" id="custom-photo-white-border" checked onchange="updateCustomPhotoStickerPreview()">
+            Add White Die-Cut Border (Sticker Outline)
+          </label>
+        </div>
+
+        <!-- Preview -->
+        <div style="background:rgba(0,0,0,0.15);border:1px dashed var(--glb);border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center;min-height:120px;">
+          <div id="custom-photo-preview-wrap" style="max-width:140px;max-height:140px;display:none;position:relative;">
+            <img id="custom-photo-preview-img" src="" alt="Custom Sticker" style="max-width:100%;max-height:120px;display:block;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,0.3);filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));border:3px solid #fff;">
+          </div>
+          <span id="custom-photo-empty-label" style="font-size:12px;color:var(--t3);">No image selected yet</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:16px;">
+      <button type="button" class="app-dialog-btn" onclick="closeCreateCustomStickerModal()">Cancel</button>
+      <button type="button" class="app-dialog-btn acc" onclick="saveCustomStickerAndInsert()">Save &amp; Use Sticker ✨</button>
+    </div>
   </div>
 </div>
 
@@ -8191,11 +8542,13 @@ function switchJournalMainView(viewName){
   const notebookView = document.getElementById('journal-notebook-view');
   const calendarView = document.getElementById('journal-calendar-view');
   const sparksView = document.getElementById('journal-sparks-view');
+  const trashView = document.getElementById('journal-trash-view');
 
   if(shelfView) shelfView.style.display = (viewName === 'books') ? 'block' : 'none';
   if(notebookView) notebookView.style.display = (viewName === 'notebook') ? 'block' : 'none';
   if(calendarView) calendarView.style.display = (viewName === 'calendar') ? 'grid' : 'none';
   if(sparksView) sparksView.style.display = (viewName === 'sparks') ? 'grid' : 'none';
+  if(trashView) trashView.style.display = (viewName === 'trash') ? 'block' : 'none';
 
   if(viewName === 'books'){
     renderJournalBookshelf();
@@ -8206,6 +8559,8 @@ function switchJournalMainView(viewName){
     updatePromptSparkUI();
   } else if(viewName === 'notebook'){
     loadIpadActivePage();
+  } else if(viewName === 'trash'){
+    renderJournalTrashView();
   }
 }
 
@@ -8924,6 +9279,7 @@ function loadIpadActivePage(){
   initIpadInkEngine();
   loadIpadInkForActiveNote(activeNote);
   restoreIpadBinderState();
+  if(ipadIsViewMode) setIpadViewMode(true);
   updateIpadSaveStatus('Saved locally to notebook');
 }
 
@@ -8985,12 +9341,19 @@ function deleteCurrentIpadPage(){
   if(!activeNote) return;
   showAppDialog({
     title: 'Delete Page',
-    message: `Delete "${activeNote.title || 'this page'}" from notebook?`,
-    confirmText: 'Delete',
+    message: `Delete "${activeNote.title || 'this page'}" from notebook? It will be safely moved to Journal Trash.`,
+    confirmText: 'Move to Trash',
     cancelText: 'Cancel',
     tone: 'warn',
     onConfirm: () => {
       const isVault = (activeNote.isVault || (activeNote.id && activeNote.id.startsWith('vault_')) || isJournalVaultActive);
+      const curBook = (isVault ? VAULT_JOURNAL_BOOKS : JOURNAL_BOOKS).find(b => b.id === (activeNote.book || activeNote.notebook || currentJournalBookId));
+      const trashed = {
+        ...activeNote,
+        deletedAt: Date.now(),
+        isJournalPage: true,
+        sourceBook: curBook?.title || 'Notebook'
+      };
       if(isVault){
         VAULT_NOTES = VAULT_NOTES.filter(n => n.id !== activeNote.id);
         saveVaultNotesData();
@@ -8998,12 +9361,16 @@ function deleteCurrentIpadPage(){
         NOTES = NOTES.filter(n => n.id !== activeNote.id);
         saveNotesData();
       }
+      notesTrash = notesTrash.filter(item => item.id !== activeNote.id);
+      notesTrash.unshift(trashed);
+      saveNotesTrash();
+
       const remaining = getIpadPagesForCurrentBook();
       if(currentJournalPageIndex >= remaining.length){
         currentJournalPageIndex = Math.max(0, remaining.length - 1);
       }
       loadIpadActivePage();
-      showToast('Page deleted');
+      showToast('Page moved to Journal Trash 🗑️');
     }
   });
 }
@@ -9194,15 +9561,242 @@ function cleanCanvasHtmlBeforeSave(editorEl){
   clone.querySelectorAll(".canvas-item").forEach(el => {
     el.classList.remove("is-selected", "is-dragging", "is-resizing", "is-rotating");
   });
-  clone.querySelectorAll(".cbar-angles-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
+  clone.querySelectorAll(".cbar-angles-popover, .cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, #ipad-shapes-menu, #ipad-study-blocks-menu").forEach(p => {
     p.style.display = "none";
   });
   return clone.innerHTML;
 }
 
+function buildCanvasItemBar(id, type, options={}){
+  const hasFont = !!options.hasFont;
+  const initialPt = options.initialPt || 16;
+  const extraBtns = options.extraBtns || '';
+  const angle = options.angle !== undefined ? options.angle : 0;
+  return `
+    <div class="canvas-item-bar ${options.isMini ? 'mini' : ''}">
+      <span class="canvas-drag-handle" title="Drag to move">⋮⋮ ${options.dragLabel || 'Move'}</span>
+      <div class="canvas-bar-btns">
+        ${extraBtns}
+        ${hasFont ? `
+          <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
+          <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">${initialPt}pt</span> ▾</button>
+          <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
+        ` : ''}
+        <button type="button" class="cbar-btn" data-action="toggle-layer" title="Depth Layer (Put Behind Text / In Front)">🥞 Layer ▾</button>
+        <button type="button" class="cbar-btn" data-action="toggle-flow" title="Text Flow (Floating / Wrap / Break)">🔄 Flow ▾</button>
+        <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">${angle}°</span></button>
+        <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
+      </div>
+      <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
+        <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', 1)">⬆️ Bring Forward (+1)</button>
+        <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', -1)">⬇️ Send Backward (-1)</button>
+      </div>
+      <div class="cbar-flow-popover" style="display:none;" onclick="event.stopPropagation()">
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'none')">✨ Free Floating</button>
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'left')">👈 Wrap Text Left</button>
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'right')">👉 Wrap Text Right</button>
+        <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'clear')">⏬ Next Line (Break)</button>
+      </div>
+      ${hasFont ? `
+      <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 12)">12</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 14)">14</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 16)">16</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 18)">18</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 20)">20</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 24)">24</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 28)">28</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 32)">32</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 36)">36</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 42)">42</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 48)">48</button>
+        <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 64)">64</button>
+      </div>` : ''}
+      <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Angle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Angle</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
+        <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+      </div>
+    </div>
+  `;
+}
+
+function setCanvasItemLayer(itemId, mode){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+
+  if(mode === "behind"){
+    item.classList.add("is-behind-text");
+    item.classList.remove("is-front-text");
+    item.style.zIndex = "2";
+    showToast("Layer: Sent behind text (Depth effect) 🥞");
+  } else if(mode === "front"){
+    item.classList.remove("is-behind-text");
+    item.classList.add("is-front-text");
+    item.style.zIndex = "" + (++canvasMaxZIndex);
+    showToast("Layer: In front of text 🥞");
+  }
+  queueIpadSave();
+}
+
+function stepCanvasItemZIndex(itemId, delta){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const curZ = parseInt(item.style.zIndex || window.getComputedStyle(item).zIndex) || 10;
+  const nextZ = Math.max(1, curZ + delta);
+  item.style.zIndex = "" + nextZ;
+  if(nextZ > canvasMaxZIndex) canvasMaxZIndex = nextZ;
+  const popover = item.querySelector(".cbar-layer-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Layer depth: Z-" + nextZ);
+}
+
+function setCanvasItemFlow(itemId, flow){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  item.classList.remove("wrap-float-left", "wrap-float-right", "wrap-clear");
+  const popover = item.querySelector(".cbar-flow-popover");
+  if(popover) popover.style.display = "none";
+
+  if(flow === "left"){
+    item.classList.add("wrap-float-left");
+    showToast("Flow: Float Left & Wrap Right 👈");
+  } else if(flow === "right"){
+    item.classList.add("wrap-float-right");
+    showToast("Flow: Float Right & Wrap Left 👉");
+  } else if(flow === "clear"){
+    item.classList.add("wrap-clear");
+    showToast("Flow: Break to Next Line ⏬");
+  } else {
+    item.style.position = "absolute";
+    showToast("Flow: Free Floating ✨");
+  }
+  queueIpadSave();
+}
+
+function setCanvasItemFontSize(itemId, sizePt){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const pt = Number(sizePt) || 16;
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+  if(target){
+    target.style.fontSize = pt + "px";
+  }
+  const labelEl = item.querySelector(".cbar-font-num-label");
+  if(labelEl) labelEl.textContent = pt + "pt";
+  const popover = item.querySelector(".cbar-font-popover");
+  if(popover) popover.style.display = "none";
+  queueIpadSave();
+  showToast("Font size: " + pt + "pt 🔠");
+}
+
+function stepCanvasItemFontSize(itemId, deltaPt){
+  const item = document.getElementById(itemId);
+  if(!item) return;
+  const target = item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+  let curPt = 16;
+  if(target){
+    curPt = Math.round(parseFloat(window.getComputedStyle(target).fontSize)) || 16;
+  }
+  const nextPt = Math.max(10, Math.min(72, curPt + deltaPt));
+  setCanvasItemFontSize(itemId, nextPt);
+}
+
+function applyIpadNumericFontSize(sizeVal){
+  const pt = Number(sizeVal) || 18;
+  const editor = document.getElementById("ipad-page-editor");
+  if(editor){
+    editor.style.fontSize = pt + "px";
+  }
+  const selectedItem = document.querySelector("#ipad-paper-sheet .canvas-item.is-selected");
+  if(selectedItem){
+    setCanvasItemFontSize(selectedItem.id, pt);
+  }
+  const sel = document.getElementById("ipad-font-size-select");
+  if(sel) sel.value = "" + pt;
+  queueIpadSave();
+  showToast("Size: " + pt + "pt");
+}
+
+function stepIpadFontSize(deltaPt){
+  const sel = document.getElementById("ipad-font-size-select");
+  const curPt = sel ? (Number(sel.value) || 18) : 18;
+  const nextPt = Math.max(12, Math.min(72, curPt + deltaPt));
+  if(sel){
+    let opt = Array.from(sel.options).find(o => Number(o.value) === nextPt);
+    if(!opt){
+      opt = new Option("" + nextPt, "" + nextPt);
+      sel.add(opt);
+    }
+    sel.value = "" + nextPt;
+  }
+  applyIpadNumericFontSize(nextPt);
+}
+
+let ipadIsViewMode = false;
+function toggleIpadViewMode(){
+  setIpadViewMode(!ipadIsViewMode);
+}
+function setIpadViewMode(isView){
+  ipadIsViewMode = !!isView;
+  const sheet = document.getElementById("ipad-paper-sheet");
+  const editor = document.getElementById("ipad-page-editor");
+  const title = document.getElementById("ipad-page-title");
+  const toggleBtn = document.getElementById("ipad-mode-toggle-btn");
+  const dock = document.querySelector(".ipad-stylus-dock");
+  const inkSubbar = document.getElementById("ipad-ink-subbar");
+  const inkCanvas = document.getElementById("ipad-ink-canvas");
+
+  if(sheet) sheet.classList.toggle("is-view-mode", ipadIsViewMode);
+  if(editor) editor.contentEditable = ipadIsViewMode ? "false" : "true";
+  if(title) title.readOnly = ipadIsViewMode;
+
+  if(sheet){
+    sheet.querySelectorAll(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption").forEach(el => {
+      el.contentEditable = ipadIsViewMode ? "false" : "true";
+    });
+  }
+
+  if(toggleBtn){
+    toggleBtn.innerHTML = ipadIsViewMode ? "✏️ Edit" : "👁️ View";
+    toggleBtn.style.color = ipadIsViewMode ? "var(--acg)" : "var(--act)";
+    toggleBtn.title = ipadIsViewMode ? "Switch to Edit Mode" : "Switch to View Mode (Clean reading)";
+  }
+
+  if(dock){
+    dock.style.opacity = ipadIsViewMode ? "0.45" : "1";
+    dock.style.pointerEvents = ipadIsViewMode ? "none" : "auto";
+  }
+  if(inkSubbar && ipadIsViewMode){
+    inkSubbar.style.display = "none";
+  }
+  if(inkCanvas && ipadIsViewMode){
+    inkCanvas.classList.remove("is-active", "is-eraser");
+  }
+
+  if(ipadIsViewMode){
+    deselectAllCanvasItems();
+    showToast("👁️ View Mode: Clean distraction-free reading");
+  } else {
+    showToast("✏️ Edit Mode: Full editing enabled");
+  }
+}
+
 function upgradeLegacyIpadElements(editorEl){
   if(!editorEl) return;
-  // Upgrade all canvas items to have free rotation handle, resize handles, and angle controls
   editorEl.querySelectorAll(".canvas-item").forEach(item => {
     const id = item.id;
     // 1. Washi tape label
@@ -9223,24 +9817,94 @@ function upgradeLegacyIpadElements(editorEl){
     if(!item.querySelector(".canvas-resize-handle")){
       item.insertAdjacentHTML("beforeend", '<div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>');
     }
-    // 4. Angle presets popover on item bar
+
+    // 4. Popovers and controls on item bar
     const bar = item.querySelector(".canvas-item-bar");
-    if(bar && !bar.querySelector(".cbar-angles-popover")){
-      bar.insertAdjacentHTML("beforeend", `
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Scrapbook</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Scrapbook</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
-        </div>
-      `);
+    if(bar){
+      const barBtns = bar.querySelector(".canvas-bar-btns");
+      const hasText = !!item.querySelector(".canvas-text-body, .washi-tape-label, .canvas-sticky-body, .canvas-shape-body");
+
+      // Add font controls if text item and missing
+      if(hasText && barBtns && !barBtns.querySelector("[data-action='toggle-font-sizes']")){
+        const delBtn = barBtns.querySelector(".del");
+        const fontHtml = `
+          <button type="button" class="cbar-btn" data-action="step-font-down" title="Decrease Font Size (A-)">A▾</button>
+          <button type="button" class="cbar-btn" data-action="toggle-font-sizes" title="Numeric Font Size"><span class="cbar-font-num-label">16pt</span> ▾</button>
+          <button type="button" class="cbar-btn" data-action="step-font-up" title="Increase Font Size (A+)">A▴</button>
+        `;
+        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fontHtml);
+        else barBtns.insertAdjacentHTML("beforeend", fontHtml);
+      }
+
+      // Add layer & flow buttons if missing
+      if(barBtns && !barBtns.querySelector("[data-action='toggle-layer']")){
+        const delBtn = barBtns.querySelector(".del");
+        const layerFlowHtml = `
+          <button type="button" class="cbar-btn" data-action="toggle-layer" title="Depth Layer (Put Behind Text / In Front)">🥞 Layer ▾</button>
+          <button type="button" class="cbar-btn" data-action="toggle-flow" title="Text Flow (Floating / Wrap / Break)">🔄 Flow ▾</button>
+        `;
+        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", layerFlowHtml);
+        else barBtns.insertAdjacentHTML("beforeend", layerFlowHtml);
+      }
+
+      if(!bar.querySelector(".cbar-angles-popover")){
+        bar.insertAdjacentHTML("beforeend", `
+          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Scrapbook</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
+            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
+          </div>
+        `);
+      }
+
+      if(!bar.querySelector(".cbar-layer-popover")){
+        bar.insertAdjacentHTML("beforeend", `
+          <div class="cbar-layer-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'behind')">📥 Send Behind Text</button>
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemLayer('${id}', 'front')">📤 In Front of Text</button>
+            <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', 1)">⬆️ Bring Forward (+1)</button>
+            <button type="button" class="cbar-pop-opt" onclick="stepCanvasItemZIndex('${id}', -1)">⬇️ Send Backward (-1)</button>
+          </div>
+        `);
+      }
+
+      if(!bar.querySelector(".cbar-flow-popover")){
+        bar.insertAdjacentHTML("beforeend", `
+          <div class="cbar-flow-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'none')">✨ Free Floating</button>
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'left')">👈 Wrap Text Left</button>
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'right')">👉 Wrap Text Right</button>
+            <button type="button" class="cbar-pop-opt" onclick="setCanvasItemFlow('${id}', 'clear')">⏬ Next Line (Break)</button>
+          </div>
+        `);
+      }
+
+      if(hasText && !bar.querySelector(".cbar-font-popover")){
+        bar.insertAdjacentHTML("beforeend", `
+          <div class="cbar-font-popover" style="display:none;" onclick="event.stopPropagation()">
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 12)">12</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 14)">14</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 16)">16</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 18)">18</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 20)">20</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 24)">24</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 28)">28</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 32)">32</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 36)">36</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 42)">42</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 48)">48</button>
+            <button type="button" class="cbar-font-btn" onclick="setCanvasItemFontSize('${id}', 64)">64</button>
+          </div>
+        `);
+      }
     }
   });
 
@@ -9258,31 +9922,15 @@ function upgradeLegacyIpadElements(editorEl){
     if(!wrap.style.zIndex) wrap.style.zIndex = "" + (++canvasMaxZIndex);
     
     if(!wrap.querySelector(".canvas-item-bar")){
-      wrap.insertAdjacentHTML("afterbegin", `
-        <div class="canvas-item-bar">
-          <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
-          <div class="canvas-bar-btns">
-            <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame">🖼️ Frame</button>
-            <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
-            <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size">📐 Size</button>
-            <button type="button" class="cbar-btn" data-action="toggle-angles" title="Rotate Angles">↻ <span class="cbar-angle-val">0°</span></button>
-            <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-          </div>
-          <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Polaroid</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Polaroid</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
-            <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
-          </div>
-        </div>
-      `);
+      wrap.insertAdjacentHTML("afterbegin", buildCanvasItemBar(id, "photo", {
+        dragLabel: "Move",
+        angle: 0,
+        extraBtns: `
+          <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame">🖼️ Frame</button>
+          <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
+          <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size">📐 Size</button>
+        `
+      }));
     }
     if(!wrap.querySelector(".canvas-rotate-handle")){
       wrap.insertAdjacentHTML("beforeend", '<div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>');
@@ -9310,23 +9958,14 @@ function upgradeLegacyIpadElements(editorEl){
     wrapper.style.width = "260px";
     wrapper.style.zIndex = "" + (++canvasMaxZIndex);
     wrapper.innerHTML = `
-      <div class="canvas-item-bar mini">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Rotate Angles">↻ <span class="cbar-angle-val">-1°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -3)">-3° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 3)">+3° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -10)">-10° Tilted</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 10)">+10° Tilted</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Corner</button>
-        </div>
-      </div>
+      ${buildCanvasItemBar(id, "sticky", {
+        isMini: true,
+        dragLabel: "Sticky",
+        hasFont: true,
+        initialPt: 15,
+        angle: -1,
+        extraBtns: '<button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>'
+      })}
       <div class="journal-sticky-note ${color} canvas-sticky-body" contenteditable="true" spellcheck="true">${note.innerHTML}</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
@@ -9364,30 +10003,18 @@ function insertIpadTextBox(){
   if(!editor) return;
   const id = "ctext_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(280, 100);
+  const barHtml = buildCanvasItemBar(id, "textbox", {
+    dragLabel: "Move",
+    hasFont: true,
+    initialPt: 16,
+    angle: 0,
+    extraBtns: '<button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>'
+  });
+
   const html = `
     <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>
-          <button type="button" class="cbar-btn" data-action="font-size" title="Font Size (S / M / L / XL)">🔠 Size</button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Angle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Angle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
-        </div>
-      </div>
-      <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." data-font-size="m">Type notes, title, or formula...</div>
+      ${barHtml}
+      <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." data-font-size="m" style="font-size:16px;">Type notes, title, or formula...</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
     </div>
@@ -9406,34 +10033,24 @@ function insertIpadWashiTape(pattern="washi-blush"){
   if(!editor) return;
   const id = "cwashi_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(220, 44);
+  const barHtml = buildCanvasItemBar(id, "washi", {
+    dragLabel: "Tape",
+    hasFont: true,
+    initialPt: 14,
+    angle: -6,
+    extraBtns: `
+      <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Tape Pattern">🎨 Pattern</button>
+      <button type="button" class="cbar-btn" data-action="washi-thickness" title="Cycle Thickness">📏 Height</button>
+      <button type="button" class="cbar-btn" data-action="washi-text-color" title="Toggle Text Ink">✒️ Ink</button>
+      <button type="button" class="cbar-btn" data-action="rotate-step" title="Step Angle (+5°)">↻ <span class="cbar-angle-val">-6°</span></button>
+    `
+  });
+
   const html = `
     <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar">
-        <span class="canvas-drag-handle" title="Drag to move tape">⋮⋮ Move</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="washi-pattern" title="Cycle Tape Pattern">🎨 Pattern</button>
-          <button type="button" class="cbar-btn" data-action="washi-thickness" title="Cycle Thickness (Thin / Normal / Thick / Chunky)">📏 Height</button>
-          <button type="button" class="cbar-btn" data-action="washi-text-color" title="Toggle Text Ink">✒️ Ink</button>
-          <button type="button" class="cbar-btn" data-action="washi-font-size" title="Text Size">🔠 Size</button>
-          <button type="button" class="cbar-btn" data-action="rotate-step" title="Step Angle (+5°)">↻ <span class="cbar-angle-val">-6°</span></button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Specific Angles">📐 Angle ▾</button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -5)">-5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 5)">+5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -15)">-15° Scrapbook</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 15)">+15° Scrapbook</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -30)">-30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 30)">+30° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', -45)">-45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 45)">+45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificWashiAngle('${id}', 90)">90° Vertical ↕</button>
-        </div>
-      </div>
+      ${barHtml}
       <div class="washi-tape-strip ${pattern}">
-        <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m">Washi Tape Label ✨</div>
+        <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." data-font-size="m" style="font-size:14px;">Washi Tape Label ✨</div>
       </div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize width & height in all ways">⤡</div>
@@ -9472,31 +10089,19 @@ function insertIpadPhotoFromDataUrl(dataUrl){
   if(!editor) return;
   const id = "cphoto_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(320, 240);
+  const barHtml = buildCanvasItemBar(id, "photo", {
+    dragLabel: "Photo",
+    angle: 0,
+    extraBtns: `
+      <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame (Polaroid / Washi / Rounded / Minimal / Gold)">🖼️ Frame</button>
+      <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
+      <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size (S / M / L / Fit)">📐 Size</button>
+    `
+  });
+
   const html = `
     <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Move</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="frame" title="Cycle Frame (Polaroid / Washi / Rounded / Minimal / Gold)">🖼️ Frame</button>
-          <button type="button" class="cbar-btn" data-action="crop" title="Crop & Cut">✂️ Crop</button>
-          <button type="button" class="cbar-btn" data-action="quick-size" title="Quick Size (S / M / L / Fit)">📐 Size</button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -5)">-5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 5)">+5° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -15)">-15° Polaroid</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 15)">+15° Polaroid</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -30)">-30° Tilt</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 30)">+30° Tilt</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Sideways ↕</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
-        </div>
-      </div>
+      ${barHtml}
       <div class="canvas-photo-card frame-washi">
         <img src="${dataUrl}" alt="Study Diagram" style="width:100%;height:auto;object-fit:contain;display:block;border-radius:inherit;pointer-events:none;">
         <div class="canvas-photo-caption" contenteditable="true" spellcheck="false" placeholder="Figure caption...">Figure 1.1 Study Diagram</div>
@@ -9527,25 +10132,15 @@ function insertIpadSticker(stickerEmoji){
   if(!editor) return;
   const id = "csticker_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const pos = getNextCanvasItemPosition(64, 64);
+  const barHtml = buildCanvasItemBar(id, "sticker", {
+    isMini: true,
+    dragLabel: "Sticker",
+    angle: 0
+  });
+
   const html = `
     <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar mini">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -12)">-12° Tilt</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 12)">+12° Tilt</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Playful</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Playful</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Diag</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">+45° Diag</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Side</button>
-        </div>
-      </div>
+      ${barHtml}
       <div class="canvas-sticker-glyph">${stickerEmoji}</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" title="Drag corner to resize">⤡</div>
@@ -9564,26 +10159,19 @@ function insertIpadStickyPrompt(){
   const pos = getNextCanvasItemPosition(260, 160);
   const colors = ["yellow", "pink", "mint", "lavender", "sky"];
   const picked = colors[Math.floor(Math.random() * colors.length)];
+  const barHtml = buildCanvasItemBar(id, "sticky", {
+    isMini: true,
+    dragLabel: "Sticky",
+    hasFont: true,
+    initialPt: 15,
+    angle: -1,
+    extraBtns: '<button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>'
+  });
+
   const html = `
     <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar mini">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Sticky</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="sticky-color" title="Cycle Color">🎨 Color</button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">-1°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -3)">-3° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 3)">+3° Subtle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -10)">-10° Tilted</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 10)">+10° Tilted</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -25)">-25° Corner</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 25)">+25° Corner</button>
-        </div>
-      </div>
-      <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true">
+      ${barHtml}
+      <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true" style="font-size:15px;">
         <b>📌 Note:</b> Type key study takeaway or formula here...
       </div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -9604,18 +10192,18 @@ function insertIpadShape(shapeType='rounded'){
 
   let shapeContent = '';
   if(shapeType === 'rect'){
-    shapeContent = `<div class="canvas-shape-container shape-rect"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Note Card</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-rect"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Note Card</div></div>`;
   } else if(shapeType === 'rounded'){
-    shapeContent = `<div class="canvas-shape-container shape-rounded"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Concept Pill</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-rounded"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Concept Pill</div></div>`;
   } else if(shapeType === 'circle'){
-    shapeContent = `<div class="canvas-shape-container shape-circle"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type...">Idea 💡</div></div>`;
+    shapeContent = `<div class="canvas-shape-container shape-circle"><div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Type..." style="font-size:16px;">Idea 💡</div></div>`;
   } else if(shapeType === 'arrow'){
     shapeContent = `
       <div class="canvas-shape-container shape-custom">
         <svg class="canvas-shape-svg" viewBox="0 0 200 80" preserveAspectRatio="none">
           <path d="M 10 25 L 140 25 L 140 10 L 190 40 L 140 70 L 140 55 L 10 55 Z" fill="currentColor" opacity="0.88" />
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;" data-placeholder="...">Process ➔</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-size:16px;" data-placeholder="...">Process ➔</div>
       </div>`;
   } else if(shapeType === 'speech'){
     shapeContent = `
@@ -9623,7 +10211,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 200 120" preserveAspectRatio="none">
           <path d="M 20 10 C 10 10 10 20 10 20 L 10 80 C 10 90 20 90 20 90 L 40 90 L 30 115 L 75 90 L 180 90 C 190 90 190 80 190 80 L 190 20 C 190 10 180 10 180 10 Z" fill="currentColor" opacity="0.9" />
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Quote...">Takeaway 💬</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Quote..." style="font-size:16px;">Takeaway 💬</div>
       </div>`;
   } else if(shapeType === 'star'){
     shapeContent = `
@@ -9631,7 +10219,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="currentColor" opacity="0.92"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="margin-top:10px;" data-placeholder="Key">⭐ Key</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="margin-top:10px;font-size:16px;" data-placeholder="Key">⭐ Key</div>
       </div>`;
   } else if(shapeType === 'heart'){
     shapeContent = `
@@ -9639,7 +10227,7 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path d="M 50 88 A 35 35 0 0 1 10 45 A 22 22 0 0 1 50 25 A 22 22 0 0 1 90 45 A 35 35 0 0 1 50 88 Z" fill="currentColor" opacity="0.9"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;" data-placeholder="Love">❤️ Focus</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" style="color:#fff;font-size:16px;" data-placeholder="Love">❤️ Focus</div>
       </div>`;
   } else if(shapeType === 'diamond'){
     shapeContent = `
@@ -9647,31 +10235,24 @@ function insertIpadShape(shapeType='rounded'){
         <svg class="canvas-shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <polygon points="50,5 95,50 50,95 5,50" fill="currentColor" opacity="0.9"/>
         </svg>
-        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Decision">Decision? 🔷</div>
+        <div class="canvas-shape-body" contenteditable="true" spellcheck="true" data-placeholder="Decision" style="font-size:16px;">Decision? 🔷</div>
       </div>`;
   }
 
+  const barHtml = buildCanvasItemBar(id, "shape", {
+    dragLabel: "Shape",
+    hasFont: true,
+    initialPt: 16,
+    angle: 0,
+    extraBtns: `
+      <button type="button" class="cbar-btn" data-action="shape-style" title="Cycle Color Fill">🎨 Fill</button>
+      <button type="button" class="cbar-btn" data-action="shape-border" title="Cycle Border Style">── Border</button>
+    `
+  });
+
   const html = `
     <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${++canvasMaxZIndex};" contenteditable="false">
-      <div class="canvas-item-bar">
-        <span class="canvas-drag-handle" title="Drag to move">⋮⋮ Shape</span>
-        <div class="canvas-bar-btns">
-          <button type="button" class="cbar-btn" data-action="shape-style" title="Cycle Color Fill">🎨 Fill</button>
-          <button type="button" class="cbar-btn" data-action="shape-border" title="Cycle Border Style">── Border</button>
-          <button type="button" class="cbar-btn" data-action="shape-font-size" title="Text Size">🔠 Size</button>
-          <button type="button" class="cbar-btn" data-action="toggle-angles" title="Free Rotation Angles">↻ <span class="cbar-angle-val">0°</span></button>
-          <button type="button" class="cbar-btn del" data-action="delete" title="Delete">✕</button>
-        </div>
-        <div class="cbar-angles-popover" style="display:none;" onclick="event.stopPropagation()">
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 0)">0° Flat</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 45)">45° Diagonal</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 90)">90° Vertical ↕</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 135)">135° Angle</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', 180)">180° Invert</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -90)">-90° Left ➔</button>
-          <button type="button" class="cbar-angle-btn" onclick="applySpecificCanvasAngle('${id}', -45)">-45° Tilt</button>
-        </div>
-      </div>
+      ${barHtml}
       ${shapeContent}
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
       <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>
@@ -9724,6 +10305,56 @@ function handleCanvasAction(btn, e){
     item.dataset.boxStyle = next;
     queueIpadSave();
     showToast("Style: " + next);
+    return;
+  }
+
+  if(action === "toggle-layer"){
+    const popover = item.querySelector(".cbar-layer-popover");
+    if(popover){
+      const isShown = popover.style.display === "grid";
+      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      popover.style.display = isShown ? "none" : "grid";
+    }
+    return;
+  }
+
+  if(action === "toggle-flow"){
+    const popover = item.querySelector(".cbar-flow-popover");
+    if(popover){
+      const isShown = popover.style.display === "grid";
+      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      popover.style.display = isShown ? "none" : "grid";
+    }
+    return;
+  }
+
+  if(action === "toggle-font-sizes"){
+    const popover = item.querySelector(".cbar-font-popover");
+    if(popover){
+      const isShown = popover.style.display === "grid";
+      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      popover.style.display = isShown ? "none" : "grid";
+    }
+    return;
+  }
+
+  if(action === "step-font-up"){
+    stepCanvasItemFontSize(item.id, 2);
+    return;
+  }
+
+  if(action === "step-font-down"){
+    stepCanvasItemFontSize(item.id, -2);
+    return;
+  }
+
+  if(action === "toggle-angles"){
+    const popover = item.querySelector(".cbar-angles-popover");
+    if(popover){
+      const isShown = popover.style.display === "grid";
+      item.querySelectorAll(".cbar-layer-popover, .cbar-flow-popover, .cbar-font-popover, .cbar-angles-popover").forEach(p => p.style.display = "none");
+      popover.style.display = isShown ? "none" : "grid";
+    }
     return;
   }
 
@@ -9844,14 +10475,6 @@ function handleCanvasAction(btn, e){
     return;
   }
 
-  if(action === "toggle-angles"){
-    const popover = item.querySelector(".cbar-angles-popover");
-    if(popover){
-      popover.style.display = (popover.style.display === "grid") ? "none" : "grid";
-    }
-    return;
-  }
-
   if(action === "sticky-color"){
     const noteEl = item.querySelector(".journal-sticky-note");
     if(!noteEl) return;
@@ -9951,6 +10574,11 @@ function initIpadCanvasEngine(){
         selectCanvasItem(item);
         try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
         const dir = resizeHandle.dataset.dir || "se";
+        const textTarget = item.querySelector(".washi-tape-label, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body");
+        let initialFs = 16;
+        if(textTarget){
+          initialFs = parseFloat(window.getComputedStyle(textTarget).fontSize) || 16;
+        }
         activeResizeState = {
           pointerId: e.pointerId,
           handle: resizeHandle,
@@ -9962,6 +10590,8 @@ function initIpadCanvasEngine(){
           startTop: item.offsetTop,
           startWidth: item.offsetWidth,
           startHeight: item.offsetHeight,
+          startFontSize: initialFs,
+          textTarget: textTarget,
           type: item.dataset.type || ""
         };
         item.classList.add("is-resizing");
@@ -10082,6 +10712,23 @@ function initIpadCanvasEngine(){
         const glyph = s.item.querySelector(".canvas-sticker-glyph");
         if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
       }
+
+      // Automatically scale written text inside washi tape, sticky notes, text boxes, and shapes!
+      if(s.textTarget && s.startFontSize){
+        let scale = 1;
+        if(s.type === "washi"){
+          const curH = s.item.offsetHeight || s.startHeight;
+          scale = curH / (s.startHeight || 1);
+        } else {
+          const wRatio = (s.item.offsetWidth || s.startWidth) / (s.startWidth || 1);
+          const hRatio = (s.item.offsetHeight || s.startHeight) / (s.startHeight || 1);
+          scale = (wRatio + hRatio) / 2;
+        }
+        const newFs = Math.max(9, Math.min(84, Math.round(s.startFontSize * scale)));
+        s.textTarget.style.fontSize = newFs + "px";
+        const labelEl = s.item.querySelector(".cbar-font-num-label");
+        if(labelEl) labelEl.textContent = newFs + "pt";
+      }
       return;
     }
 
@@ -10192,6 +10839,7 @@ function setIpadActiveTool(tool){
   const canvas = document.getElementById("ipad-ink-canvas");
   if(canvas){
     canvas.classList.remove("is-active", "is-eraser");
+    canvas.classList.toggle("is-highlighter", tool === "highlighter");
     if(tool === "pen" || tool === "highlighter"){
       canvas.classList.add("is-active");
     } else if(tool === "eraser"){
@@ -10665,12 +11313,25 @@ function selectIpadPageFromDrawer(idx){
 function deleteIpadPageFromDrawer(noteId, idx){
   showAppDialog({
     title: 'Delete Page',
-    message: 'Permanently delete this page from notebook?',
-    confirmText: 'Delete',
+    message: 'Move this page to Journal Trash?',
+    confirmText: 'Move to Trash',
     cancelText: 'Cancel',
     tone: 'warn',
     onConfirm: () => {
       const isVault = (noteId.startsWith('vault_') || isJournalVaultActive);
+      const targetNote = (isVault ? VAULT_NOTES : NOTES).find(n => n.id === noteId);
+      if(targetNote){
+        const curBook = (isVault ? VAULT_JOURNAL_BOOKS : JOURNAL_BOOKS).find(b => b.id === (targetNote.book || targetNote.notebook || currentJournalBookId));
+        const trashed = {
+          ...targetNote,
+          deletedAt: Date.now(),
+          isJournalPage: true,
+          sourceBook: curBook?.title || 'Notebook'
+        };
+        notesTrash = notesTrash.filter(item => item.id !== noteId);
+        notesTrash.unshift(trashed);
+        saveNotesTrash();
+      }
       if(isVault){
         VAULT_NOTES = VAULT_NOTES.filter(n => n.id !== noteId);
         saveVaultNotesData();
@@ -10684,7 +11345,7 @@ function deleteIpadPageFromDrawer(noteId, idx){
       }
       openIpadPagesDrawer();
       loadIpadActivePage();
-      showToast('Page deleted');
+      showToast('Page moved to Journal Trash 🗑️');
     }
   });
 }
@@ -10821,10 +11482,15 @@ const STICKER_PACKS = {
     { name: 'Rainbow Foil Strip', cls: 'washi-foil' },
     { name: 'Polka Dots Strip', cls: 'washi-dots' },
     { name: 'Grid Paper Strip', cls: 'washi-grid' },
-    { name: 'Sky Watercolor Strip', cls: 'washi-sky' }
+    { name: 'Sky Watercolor Strip', cls: 'washi-sky' },
+    { name: 'Noir Strip', cls: 'washi-noir' },
+    { name: 'Amber Glow Strip', cls: 'washi-amber' }
   ],
   cozy: ['☕','🕯️','📖','🥐','🍂','🧶','🍪','🧦','🥯','🍯','🪴','🥞','🥧','📻','🌧️','🧣','🪵','🍁','🤎','🫖','🛋️','🥮','🍫','🥨','🥪','☕','🏡','🪑','📚','☕','🐈','🐕','🫕','🍶'],
   study: ['🎓','📚','✍️','💡','📌','📐','🔬','🗂️','📑','🔖','✏️','🎯','⏳','💻','🧠','🔍','📊','📝','🏷️','📋','🗓️','🔑','🏆','🥇','📎','📏','🧪','🧬','🔭','💻','⚡'],
+  planner: ['🗓️','📅','⏰','📌','📍','🎯','✅','☑️','⏳','💼','📝','💡','🚨','🔥','🌟','💯','📋','📑','🏷️','🔖','💰','💵','🛒','🎁','🎉','🎂','✈️','🧳','🏖️','🚗','🚲','🏃','🧘‍♀️','🏋️','🥗','💧','💊','🛌'],
+  botanical: ['🌿','🌱','🍃','🪴','🍀','🌸','🌼','🌻','🌺','🌷','🌹','🪻','🌾','🌲','🌳','🌴','🍁','🍂','🍄','🌰','🪷','🌵','🎋','🎍','💐','🏵️','🪨','🪵','🫧','🌊'],
+  scrapbook: ['🏷️','🎀','📎','🧷','🗝️','🔑','🪙','🕯️','📜','✉️','💌','📮','📦','🪡','🧵','✂️','🎨','🖌️','🖋️','✒️','✨','💫','🌟','💎','🔮','🧿','🤍','🤎','🖤','🩶','⚜️','👑'],
   mood: ['💭','🌙','⭐','☀️','🌈','🌊','🪐','🌿','🍀','🔮','🕊️','🎨','🎵','🎧','🫶','🧘','🌺','🌾','🌲','⛰️','🏕️','⛺','🌅','🌌','☄️','🌻','🌹','🍃','🍄','🪸','🏝️','🫧']
 };
 let currentStickerTab = 'cute';
@@ -10855,6 +11521,41 @@ function filterStickerTab(tab,btn){
   }
   const box=document.getElementById('stickers-content-box');
   if(!box)return;
+
+  if(tab==='custom'){
+    const customList = loadCustomStickers();
+    if(customList.length === 0){
+      box.innerHTML = `
+        <div style="text-align:center;padding:36px 16px;color:var(--t3);">
+          <div style="font-size:36px;margin-bottom:8px;">🎀</div>
+          <div style="font-size:15px;font-weight:800;color:var(--t1);">No Custom Stickers Yet</div>
+          <div style="font-size:12px;margin:4px 0 16px;color:var(--t2);">Create word badges or upload photos to make your own reusable stickers!</div>
+          <button type="button" class="notes-top-btn" onclick="openCreateCustomStickerModal()" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;height:34px;padding:0 14px;margin:0 auto;background:var(--acc);color:var(--t1);border-color:var(--acb);">✨ Create Your First Sticker</button>
+        </div>
+      `;
+    } else {
+      const items = customList.map(stk => `
+        <div class="custom-sticker-card" onclick="insertCustomStickerToJournal('${stk.id}')" title="Click to insert sticker onto page">
+          <button type="button" class="custom-sticker-del" onclick="deleteCustomSticker('${stk.id}', event)" title="Delete Sticker">✕</button>
+          ${stk.type === 'badge' ? `
+            <div class="custom-sticker-badge" style="background:${stk.bg};color:${stk.color};">${escapeHtml(stk.text)}</div>
+          ` : `
+            <img src="${stk.photoData}" alt="Custom Sticker" style="max-width:85%;max-height:85%;object-fit:contain;${stk.border ? 'border:2px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.25);' : ''}border-radius:8px;">
+            ${stk.label ? `<span class="custom-sticker-label">${escapeHtml(stk.label)}</span>` : ''}
+          `}
+        </div>
+      `).join('');
+      box.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:4px 2px;">
+          <div style="font-size:12px;color:var(--t2);">Tap any sticker to place it on your journal canvas:</div>
+          <button type="button" class="notes-top-btn" onclick="openCreateCustomStickerModal()" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;height:30px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">✨ + New Sticker</button>
+        </div>
+        <div class="custom-stickers-grid">${items}</div>
+      `;
+    }
+    return;
+  }
+
   if(tab==='washi'){
     const items=STICKER_PACKS.washi.map(w=>`
       <div class="washi-pick-item ${w.cls}" onclick="insertWashiTapeToJournal('${w.cls}')">
@@ -10869,6 +11570,200 @@ function filterStickerTab(tab,btn){
     `).join('');
     box.innerHTML=`<div class="stickers-grid">${items}</div>`;
   }
+}
+
+/* ── CUSTOM USER STICKERS SYSTEM ── */
+const CUSTOM_STICKERS_KEY = 'calverse_custom_stickers_v1';
+let customStickerMode = 'badge';
+let activeCustomBadgeBg = '#ff80ab';
+let activeCustomBadgeColor = '#ffffff';
+let activeCustomPhotoData = '';
+
+function loadCustomStickers(){
+  try {
+    const raw = localStorage.getItem(CUSTOM_STICKERS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e){
+    return [];
+  }
+}
+
+function saveCustomStickers(list){
+  try {
+    localStorage.setItem(CUSTOM_STICKERS_KEY, JSON.stringify(list));
+  } catch(e){}
+}
+
+function openCreateCustomStickerModal(){
+  const m = document.getElementById('journal-custom-sticker-modal');
+  if(m) m.classList.add('show');
+  switchCustomStickerMode('badge');
+  updateCustomStickerPreview();
+}
+
+function closeCreateCustomStickerModal(){
+  const m = document.getElementById('journal-custom-sticker-modal');
+  if(m) m.classList.remove('show');
+}
+
+function switchCustomStickerMode(mode){
+  customStickerMode = mode;
+  document.getElementById('custom-sticker-tab-badge')?.classList.toggle('on', mode === 'badge');
+  document.getElementById('custom-sticker-tab-photo')?.classList.toggle('on', mode === 'photo');
+  const badgeForm = document.getElementById('custom-sticker-badge-form');
+  const photoForm = document.getElementById('custom-sticker-photo-form');
+  if(badgeForm) badgeForm.style.display = (mode === 'badge') ? 'block' : 'none';
+  if(photoForm) photoForm.style.display = (mode === 'photo') ? 'block' : 'none';
+}
+
+function setCustomBadgeBg(bg, color){
+  activeCustomBadgeBg = bg;
+  activeCustomBadgeColor = color;
+  updateCustomStickerPreview();
+}
+
+function updateCustomStickerPreview(){
+  const prev = document.getElementById('custom-badge-preview');
+  const txt = document.getElementById('custom-badge-text')?.value || '★ STICKER';
+  if(prev){
+    prev.textContent = txt;
+    prev.style.backgroundColor = activeCustomBadgeBg;
+    prev.style.color = activeCustomBadgeColor;
+  }
+}
+
+function handleCustomStickerPhotoUpload(e){
+  const file = e?.target?.files?.[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    activeCustomPhotoData = evt.target.result;
+    updateCustomPhotoStickerPreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateCustomPhotoStickerPreview(){
+  const wrap = document.getElementById('custom-photo-preview-wrap');
+  const img = document.getElementById('custom-photo-preview-img');
+  const empty = document.getElementById('custom-photo-empty-label');
+  const borderChk = document.getElementById('custom-photo-white-border');
+  if(!activeCustomPhotoData){
+    if(wrap) wrap.style.display = 'none';
+    if(empty) empty.style.display = 'block';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+  if(wrap) wrap.style.display = 'block';
+  if(img){
+    img.src = activeCustomPhotoData;
+    img.style.border = (borderChk && borderChk.checked) ? '3px solid #ffffff' : 'none';
+  }
+}
+
+function saveCustomStickerAndInsert(){
+  let newSticker = null;
+  if(customStickerMode === 'badge'){
+    const txt = document.getElementById('custom-badge-text')?.value.trim();
+    if(!txt){
+      showToast('Please type sticker text');
+      return;
+    }
+    newSticker = {
+      id: 'cstk_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+      type: 'badge',
+      text: txt,
+      bg: activeCustomBadgeBg,
+      color: activeCustomBadgeColor,
+      createdAt: Date.now()
+    };
+  } else {
+    if(!activeCustomPhotoData){
+      showToast('Please select an image file first');
+      return;
+    }
+    const label = document.getElementById('custom-photo-label')?.value.trim() || 'Sticker';
+    const hasBorder = document.getElementById('custom-photo-white-border')?.checked ?? true;
+    newSticker = {
+      id: 'cstk_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+      type: 'photo',
+      label: label,
+      photoData: activeCustomPhotoData,
+      border: hasBorder,
+      createdAt: Date.now()
+    };
+  }
+
+  const list = loadCustomStickers();
+  list.unshift(newSticker);
+  saveCustomStickers(list);
+  closeCreateCustomStickerModal();
+  insertCustomStickerToJournal(newSticker.id);
+  filterStickerTab('custom');
+  showToast('Custom sticker created and added! ✨');
+}
+
+function deleteCustomSticker(id, e){
+  if(e) e.stopPropagation();
+  let list = loadCustomStickers();
+  list = list.filter(s => s.id !== id);
+  saveCustomStickers(list);
+  filterStickerTab('custom');
+  showToast('Sticker deleted');
+}
+
+function insertCustomStickerToJournal(stickerId){
+  closeStickersModal();
+  const list = loadCustomStickers();
+  const stk = list.find(s => s.id === stickerId);
+  if(!stk) return;
+
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+
+  const id = "ccust_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
+  let contentHtml = '';
+  let w = 120;
+  let h = 50;
+
+  if(stk.type === 'badge'){
+    w = Math.max(100, Math.min(260, stk.text.length * 13 + 30));
+    h = 44;
+    contentHtml = `
+      <div class="custom-sticker-badge" style="background:${stk.bg};color:${stk.color};width:100%;height:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:move;">
+        ${escapeHtml(stk.text)}
+      </div>
+    `;
+  } else {
+    w = 160;
+    h = 160;
+    contentHtml = `
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:move;">
+        <img src="${stk.photoData}" alt="Custom Sticker" style="max-width:100%;max-height:100%;object-fit:contain;${stk.border ? 'border:3px solid #ffffff;box-shadow:0 6px 18px rgba(0,0,0,0.3);' : ''}border-radius:12px;pointer-events:none;">
+      </div>
+    `;
+  }
+
+  const pos = getNextCanvasItemPosition(w, h);
+  const barHtml = buildCanvasItemBar(id, "sticker", {
+    isMini: true,
+    dragLabel: "Sticker",
+    angle: 0
+  });
+
+  const html = `
+    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:${w}px;height:${h}px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      ${barHtml}
+      ${contentHtml}
+      <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
+      <div class="canvas-resize-handle" data-dir="se" title="Drag corner to resize">⤡</div>
+    </div>
+  `;
+
+  deselectAllCanvasItems();
+  editor.insertAdjacentHTML("beforeend", html);
+  queueIpadSave();
+  showToast("Custom sticker placed! ✨");
 }
 
 function insertHtmlAtCursor(html,fallbackContainer){
@@ -12710,6 +13605,127 @@ function writeFromCurrentPromptSpark(){
     openNoteEditor(note.id, { edit: true });
     showToast('Prompt ready — write freely ✍️');
   }
+}
+
+/* ── JOURNAL TRASH BIN ENGINE ── */
+function renderJournalTrashView(){
+  const grid = document.getElementById('journal-trash-grid');
+  if(!grid) return;
+  const items = notesTrash.filter(n => n.isJournalPage || n.notebook || (n.tags && n.tags.includes('journal')) || n.type === 'journal' || !n.book || n.book === currentJournalBookId);
+  if(items.length === 0){
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--t3);">
+        <div style="font-size:36px;margin-bottom:8px;">🗑️</div>
+        <div style="font-size:15px;font-weight:800;color:var(--t2);">Journal Trash is empty</div>
+        <div style="font-size:12px;margin-top:4px;">When you delete pages from your notebooks, they will be preserved safely here.</div>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = items.map(note => {
+    const title = escapeHtml(note.title || 'Untitled Page');
+    const bookTitle = escapeHtml(note.sourceBook || note.book || 'Notebook');
+    const snippet = renderNotePreviewHtml(note);
+    const timeAgo = formatNoteStamp(note.deletedAt || note.updatedAt || Date.now());
+    return `
+      <div class="note-card" style="border:1.5px solid var(--glb);">
+        <div class="note-card-head">
+          <div class="note-card-title">${title}</div>
+          <div class="note-card-meta">
+            <span class="note-book-tag theme-blush">📓 ${bookTitle}</span>
+            <span>Deleted ${escapeHtml(timeAgo)}</span>
+          </div>
+        </div>
+        <div class="note-card-snippet">${snippet}</div>
+        <div class="note-card-actions">
+          <button type="button" class="note-card-btn acc" onclick="restoreJournalPage('${note.id}')">Restore ↩️</button>
+          <button type="button" class="note-card-btn del" onclick="deleteJournalPageForever('${note.id}')">Delete Forever ✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function restoreJournalPage(id){
+  const note = notesTrash.find(item => item.id === id);
+  if(!note){
+    showToast('Page not found in trash');
+    return;
+  }
+  notesTrash = notesTrash.filter(item => item.id !== id);
+  delete note.deletedAt;
+  const isVault = (note.isVault || (note.id && note.id.startsWith('vault_')));
+  if(isVault){
+    VAULT_NOTES.unshift(note);
+    saveVaultNotesData();
+  } else {
+    NOTES.unshift(note);
+    saveNotesData();
+  }
+  saveNotesTrash();
+  renderJournalTrashView();
+  showToast('Page restored to notebook ↩️');
+}
+
+function deleteJournalPageForever(id){
+  showAppDialog({
+    title: 'Delete Forever',
+    message: 'Permanently remove this page from trash? This cannot be undone.',
+    confirmText: 'Delete Permanently',
+    cancelText: 'Keep in Trash',
+    tone: 'warn',
+    onConfirm: () => {
+      notesTrash = notesTrash.filter(item => item.id !== id);
+      saveNotesTrash();
+      renderJournalTrashView();
+      showToast('Page deleted permanently ✕');
+    }
+  });
+}
+
+function restoreAllJournalTrash(){
+  const items = notesTrash.filter(n => n.isJournalPage || n.notebook || (n.tags && n.tags.includes('journal')) || n.type === 'journal');
+  if(items.length === 0){
+    showToast('No pages in trash to restore');
+    return;
+  }
+  items.forEach(note => {
+    delete note.deletedAt;
+    const isVault = (note.isVault || (note.id && note.id.startsWith('vault_')));
+    if(isVault){
+      VAULT_NOTES.unshift(note);
+    } else {
+      NOTES.unshift(note);
+    }
+  });
+  notesTrash = notesTrash.filter(n => !items.includes(n));
+  saveNotesTrash();
+  saveNotesData();
+  saveVaultNotesData();
+  renderJournalTrashView();
+  showToast(`Restored ${items.length} pages ↩️`);
+}
+
+function emptyJournalTrashPrompt(){
+  const items = notesTrash.filter(n => n.isJournalPage || n.notebook || (n.tags && n.tags.includes('journal')) || n.type === 'journal');
+  if(items.length === 0){
+    showToast('Trash is already empty');
+    return;
+  }
+  showAppDialog({
+    title: 'Empty Journal Trash',
+    message: `Permanently delete all ${items.length} trashed notebook page(s)? This action cannot be reversed.`,
+    confirmText: 'Empty Trash',
+    cancelText: 'Cancel',
+    tone: 'warn',
+    onConfirm: () => {
+      notesTrash = notesTrash.filter(n => !items.includes(n));
+      saveNotesTrash();
+      renderJournalTrashView();
+      showToast('Journal trash emptied 🗑️');
+    }
+  });
 }
 
 const NOTE_TEMPLATES = [
