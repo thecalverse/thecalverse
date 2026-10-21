@@ -1484,9 +1484,36 @@ canvas#gc{display:block;width:100%;height:240px;}
 .ink-size-btn{height:24px;min-width:24px;padding:0 7px;border-radius:7px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t1);font-size:11px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease;}
 [data-t=light] .ink-size-btn{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.2);color:#3b281c;}
 .ink-size-btn.is-active{background:var(--accg);color:#fff;border-color:var(--acb);}
-.ink-swatch-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:transform .12s,box-shadow .12s;}
-.ink-swatch-dot:hover{transform:scale(1.2);}
+.ink-swatch-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:transform .12s,box-shadow .12s;flex-shrink:0;}
+.ink-swatch-dot:hover{transform:scale(1.22);}
 .ink-swatch-dot.is-active{transform:scale(1.25);border-color:#fff;box-shadow:0 0 0 2px var(--act);}
+
+/* Custom Inking Stroke Sizing, Color Dial & Favorite Blank Spaces */
+.ink-num-input{width:46px;height:24px;padding:0 3px;font-size:11.5px;font-weight:800;text-align:center;border-radius:7px;border:1px solid var(--glb);background:rgba(255,255,255,.08);color:var(--t1);outline:none;-moz-appearance:textfield;}
+.ink-num-input:focus{border-color:var(--act);background:rgba(255,255,255,.14);}
+.ink-num-input::-webkit-outer-spin-button,.ink-num-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+[data-t=light] .ink-num-input{background:rgba(255,255,255,.9);border-color:rgba(131,98,74,.25);color:#2b1f17;}
+
+.ink-range-slider{width:62px;height:5px;accent-color:var(--act);cursor:pointer;vertical-align:middle;flex-shrink:0;}
+@media(max-width:640px){.ink-range-slider{width:42px;}}
+
+.ink-size-badge{font-size:10.5px;font-weight:900;color:var(--act);min-width:28px;text-align:center;flex-shrink:0;}
+.ink-stroke-dot-preview{border-radius:50%;display:inline-block;transition:all .12s ease;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.4);}
+.ink-hl-bar-preview{display:inline-block;transition:all .12s ease;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.25);}
+
+.ink-dial-btn{height:24px;padding:0 8px;border-radius:8px;border:1px solid var(--glb);background:linear-gradient(135deg,rgba(255,100,150,.24),rgba(100,180,255,.24));color:var(--t1);font-size:11px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:transform .12s,background .12s,border-color .12s;white-space:nowrap;flex-shrink:0;}
+.ink-dial-btn:hover{transform:scale(1.06);border-color:var(--act);background:linear-gradient(135deg,rgba(255,100,150,.38),rgba(100,180,255,.38));}
+.ink-dial-btn.mini{padding:0 6px;font-size:11.5px;}
+
+.ink-favs-wrap{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);flex-shrink:0;}
+[data-t=light] .ink-favs-wrap{background:rgba(131,98,74,.06);border-color:rgba(131,98,74,.15);}
+
+.ink-swatch-slot.empty{width:20px;height:20px;border-radius:50%;border:1.5px dashed rgba(255,255,255,.38);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--t3);cursor:pointer;transition:transform .15s,border-color .15s,color .15s;user-select:none;box-sizing:border-box;flex-shrink:0;}
+[data-t=light] .ink-swatch-slot.empty{border-color:rgba(131,98,74,.4);color:rgba(131,98,74,.6);}
+.ink-swatch-slot.empty:hover{transform:scale(1.22);border-color:var(--act);color:var(--act);background:rgba(255,255,255,.1);}
+
+.fav-dot{position:relative;}
+.fav-dot::after{content:'★';position:absolute;top:-4px;right:-4px;font-size:8px;color:#ffd54f;text-shadow:0 1px 2px rgba(0,0,0,.8);pointer-events:none;}
 
 /* iPad Paper Sheet (The Digital Canvas) */
 .ipad-screen-glass{position:relative;width:100%;border-radius:18px;background:#0d1017;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3) inset;border:1px solid rgba(255,255,255,.06);transition:padding .2s ease;}
@@ -11567,6 +11594,7 @@ let ipadActiveTool = 'select'; // 'select' | 'pen' | 'highlighter' | 'eraser'
 let ipadPenColor = '#1a1a1a';
 let ipadPenWidth = 3;
 let ipadHighlighterColor = 'rgba(255, 235, 59, 0.42)';
+let ipadHighlighterHex = '#fff176';
 let ipadHighlighterWidth = 22;
 let ipadEraserWidth = 24;
 let ipadInkEngineInitialized = false;
@@ -11601,6 +11629,120 @@ function setIpadActiveTool(tool){
   showToast(toolIcons[tool] || tool);
 }
 
+/* ── INK COLOR FAVORITES & STORAGE ── */
+const FAV_PEN_COLORS_KEY = 'calverse_fav_pen_colors';
+const FAV_HL_COLORS_KEY = 'calverse_fav_hl_colors';
+
+function getFavoritePenColors(){
+  try{
+    const raw = localStorage.getItem(FAV_PEN_COLORS_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed.slice(0, 10);
+    }
+  }catch(e){}
+  return [];
+}
+
+function saveFavoritePenColors(list){
+  try{
+    localStorage.setItem(FAV_PEN_COLORS_KEY, JSON.stringify(list.slice(0, 10)));
+  }catch(e){}
+}
+
+function addFavoritePenColor(hex){
+  if(!hex) return;
+  hex = hex.toLowerCase();
+  let list = getFavoritePenColors();
+  if(!list.includes(hex)){
+    list.unshift(hex);
+    if(list.length > 8) list = list.slice(0, 8);
+    saveFavoritePenColors(list);
+  }
+}
+
+function removeFavoritePenColor(hex, e){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  let list = getFavoritePenColors().filter(c => c.toLowerCase() !== hex.toLowerCase());
+  saveFavoritePenColors(list);
+  renderIpadInkSubbar();
+  showToast('Removed favorite color 🗑️');
+}
+
+function getFavoriteHlColors(){
+  try{
+    const raw = localStorage.getItem(FAV_HL_COLORS_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed.slice(0, 10);
+    }
+  }catch(e){}
+  return [];
+}
+
+function saveFavoriteHlColors(list){
+  try{
+    localStorage.setItem(FAV_HL_COLORS_KEY, JSON.stringify(list.slice(0, 10)));
+  }catch(e){}
+}
+
+function addFavoriteHlColor(val, hex){
+  if(!val || !hex) return;
+  let list = getFavoriteHlColors();
+  const exists = list.some(item => (typeof item === 'object' ? item.hex : item).toLowerCase() === hex.toLowerCase());
+  if(!exists){
+    list.unshift({ val, hex });
+    if(list.length > 8) list = list.slice(0, 8);
+    saveFavoriteHlColors(list);
+  }
+}
+
+function removeFavoriteHlColor(hex, e){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  let list = getFavoriteHlColors().filter(item => {
+    const itemHex = typeof item === 'object' ? item.hex : item;
+    return itemHex.toLowerCase() !== hex.toLowerCase();
+  });
+  saveFavoriteHlColors(list);
+  renderIpadInkSubbar();
+  showToast('Removed favorite glow 🗑️');
+}
+
+function openUniversalColorPickerForPenInk(){
+  openUniversalColorPicker({
+    initialColor: (ipadPenColor && ipadPenColor.startsWith('#') && ipadPenColor.length === 7) ? ipadPenColor : '#1a1a1a',
+    title: '✏️ Pen Ink Color Dial & Intensity',
+    onApply: (hex) => {
+      setIpadPenColor(hex, true);
+      showToast(`Pen ink set to ${hex} ✨`);
+    }
+  });
+}
+
+function openUniversalColorPickerForHighlighterInk(){
+  let initHex = ipadHighlighterHex || '#fff176';
+  openUniversalColorPicker({
+    initialColor: initHex,
+    title: '🖍️ Highlighter Color Dial & Glow',
+    onApply: (hex) => {
+      const hsl = hexToHsl(hex);
+      const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+      const rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`;
+      setIpadHighlighterColor(rgba, hex, true);
+      showToast(`Highlighter set to ${hex} ✨`);
+    }
+  });
+}
+
+function handleNativeHighlighterColor(hex){
+  if(!hex) return;
+  const hsl = hexToHsl(hex);
+  const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+  const rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`;
+  setIpadHighlighterColor(rgba, hex, true);
+  showToast(`Highlighter set to ${hex} ✨`);
+}
+
 function renderIpadInkSubbar(){
   const subbar = document.getElementById("ipad-ink-subbar");
   if(!subbar) return;
@@ -11614,40 +11756,68 @@ function renderIpadInkSubbar(){
   subbar.style.display = "flex";
 
   if(ipadActiveTool === "pen"){
-    const sizes = [
-      { label: "1.5", val: 1.5, title: "Fine (1.5px)" },
-      { label: "3", val: 3, title: "Medium (3px)" },
-      { label: "5", val: 5, title: "Bold (5px)" },
-      { label: "8", val: 8, title: "Marker (8px)" }
+    const presetSizes = [
+      { label: "1", val: 1 },
+      { label: "2.5", val: 2.5 },
+      { label: "5", val: 5 },
+      { label: "8", val: 8 },
+      { label: "16", val: 16 }
     ];
-    const colors = [
+    const standardColors = [
       { hex: "#1a1a1a", name: "Obsidian" },
       { hex: "#5d4037", name: "Mocha" },
       { hex: "#1565c0", name: "Navy" },
       { hex: "#2e7d32", name: "Pine" },
       { hex: "#c2185b", name: "Berry" },
       { hex: "#7b1fa2", name: "Plum" },
+      { hex: "#d84315", name: "Terracotta" },
       { hex: "#00897b", name: "Teal" },
+      { hex: "#fbc02d", name: "Mustard" },
       { hex: "#ffffff", name: "White" }
     ];
 
-    let sizeHtml = sizes.map(s => `
-      <button type="button" class="ink-size-btn ${ipadPenWidth === s.val ? 'is-active' : ''}" onclick="setIpadPenWidth(${s.val})" title="${s.title}">${s.label}</button>
+    let presetHtml = presetSizes.map(s => `
+      <button type="button" class="ink-size-btn pen-preset-btn ${Math.abs(ipadPenWidth - s.val) < 0.1 ? 'is-active' : ''}" data-val="${s.val}" onclick="setIpadPenWidth(${s.val})">${s.label}</button>
     `).join("");
 
-    let colorHtml = colors.map(c => `
-      <div class="ink-swatch-dot ${ipadPenColor === c.hex ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadPenColor('${c.hex}')" title="${c.name}"></div>
+    let standardColorHtml = standardColors.map(c => `
+      <div class="ink-swatch-dot ${ipadPenColor.toLowerCase() === c.hex.toLowerCase() ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadPenColor('${c.hex}')" title="${c.name} (${c.hex})"></div>
     `).join("");
+
+    const favColors = getFavoritePenColors();
+    let favHtml = favColors.map(hex => `
+      <div class="ink-swatch-dot fav-dot ${ipadPenColor.toLowerCase() === hex.toLowerCase() ? 'is-active' : ''}" style="background:${hex};" onclick="setIpadPenColor('${hex}')" oncontextmenu="removeFavoritePenColor('${hex}', event)" ondblclick="removeFavoritePenColor('${hex}', event)" title="Favorite: ${hex}
+(Click to use, double-click to remove)"></div>
+    `).join("");
+
+    // Blank space slots for user favorite colors
+    const emptyCount = Math.max(1, 4 - favColors.length);
+    let blankSlotsHtml = "";
+    for(let i = 0; i < emptyCount; i++){
+      blankSlotsHtml += `<div class="ink-swatch-slot empty" onclick="openUniversalColorPickerForPenInk()" title="Blank space: Click to choose favorite color">+</div>`;
+    }
 
     subbar.innerHTML = `
-      <div class="ink-sub-group">
+      <div class="ink-sub-group" title="Custom Pen Stroke Thickness">
         <span class="ink-sub-label">✏️ Stroke</span>
-        ${sizeHtml}
+        <span id="ipad-pen-size-preview" class="ink-stroke-dot-preview" style="width:${Math.max(3, Math.min(18, ipadPenWidth))}px;height:${Math.max(3, Math.min(18, ipadPenWidth))}px;background:${ipadPenColor};"></span>
+        <input type="number" id="ipad-pen-size-num" class="ink-num-input" min="0.5" max="100" step="0.5" value="${ipadPenWidth}" oninput="setIpadPenWidth(this.value, false)" onchange="setIpadPenWidth(this.value, true)" title="Custom Size in px (type any size)">
+        <input type="range" id="ipad-pen-size-slider" class="ink-range-slider" min="0.5" max="30" step="0.5" value="${Math.min(30, ipadPenWidth)}" oninput="setIpadPenWidth(this.value, false)" onchange="setIpadPenWidth(this.value, true)" title="Slide to adjust thickness">
+        <span id="ipad-pen-size-badge" class="ink-size-badge">${ipadPenWidth}px</span>
+        ${presetHtml}
       </div>
       <div class="dock-divider"></div>
-      <div class="ink-sub-group">
+      <div class="ink-sub-group" title="Pen Ink Color & Favorites">
         <span class="ink-sub-label">Ink</span>
-        ${colorHtml}
+        <button type="button" class="ink-dial-btn" onclick="openUniversalColorPickerForPenInk()" title="Open Color Dial & Intensity Picker">🎨 Dial</button>
+        <input type="color" id="ink-pen-native-color" value="${(ipadPenColor && ipadPenColor.startsWith('#') && ipadPenColor.length === 7) ? ipadPenColor : '#1a1a1a'}" style="display:none;" onchange="setIpadPenColor(this.value, true)">
+        <button type="button" class="ink-dial-btn mini" onclick="document.getElementById('ink-pen-native-color').click()" title="Quick Eyedropper / Color Picker">💧</button>
+        ${standardColorHtml}
+        <div class="ink-favs-wrap" title="Favorite Colors & Blank Space Slots">
+          <span style="font-size:9px;font-weight:900;color:var(--t3);text-transform:uppercase;margin-right:1px;">★</span>
+          ${favHtml}
+          ${blankSlotsHtml}
+        </div>
       </div>
       <div class="dock-divider"></div>
       <div class="ink-sub-group">
@@ -11656,37 +11826,67 @@ function renderIpadInkSubbar(){
       </div>
     `;
   } else if(ipadActiveTool === "highlighter"){
-    const sizes = [
-      { label: "Thin (14)", val: 14 },
-      { label: "Med (22)", val: 22 },
-      { label: "Broad (32)", val: 32 }
+    const presetSizes = [
+      { label: "10", val: 10 },
+      { label: "18", val: 18 },
+      { label: "28", val: 28 },
+      { label: "45", val: 45 },
+      { label: "65", val: 65 }
     ];
-    const colors = [
-      { val: "rgba(255, 235, 59, 0.42)", hex: "#fff176", name: "Butter Lemon" },
-      { val: "rgba(244, 143, 177, 0.42)", hex: "#f48fb1", name: "Blush Pink" },
-      { val: "rgba(165, 214, 167, 0.42)", hex: "#a5d6a7", name: "Matcha Mint" },
-      { val: "rgba(206, 147, 216, 0.42)", hex: "#ce93d8", name: "Lilac Lavender" },
-      { val: "rgba(129, 212, 250, 0.42)", hex: "#81d4fa", name: "Sky Blue" },
-      { val: "rgba(255, 171, 145, 0.42)", hex: "#ffab91", name: "Peach Coral" }
+    const standardColors = [
+      { val: "rgba(255, 235, 59, 0.45)", hex: "#fff176", name: "Butter Lemon" },
+      { val: "rgba(244, 143, 177, 0.45)", hex: "#f48fb1", name: "Blush Pink" },
+      { val: "rgba(165, 214, 167, 0.45)", hex: "#a5d6a7", name: "Matcha Mint" },
+      { val: "rgba(206, 147, 216, 0.45)", hex: "#ce93d8", name: "Lilac Lavender" },
+      { val: "rgba(129, 212, 250, 0.45)", hex: "#81d4fa", name: "Sky Blue" },
+      { val: "rgba(255, 171, 145, 0.45)", hex: "#ffab91", name: "Peach Coral" },
+      { val: "rgba(255, 213, 79, 0.45)",  hex: "#ffd54f", name: "Warm Amber" },
+      { val: "rgba(178, 235, 242, 0.45)", hex: "#b2ebf2", name: "Soft Aqua" }
     ];
 
-    let sizeHtml = sizes.map(s => `
-      <button type="button" class="ink-size-btn ${ipadHighlighterWidth === s.val ? 'is-active' : ''}" onclick="setIpadHighlighterWidth(${s.val})">${s.label}</button>
+    let presetHtml = presetSizes.map(s => `
+      <button type="button" class="ink-size-btn hl-preset-btn ${Math.abs(ipadHighlighterWidth - s.val) < 0.5 ? 'is-active' : ''}" data-val="${s.val}" onclick="setIpadHighlighterWidth(${s.val})">${s.label}</button>
     `).join("");
 
-    let colorHtml = colors.map(c => `
-      <div class="ink-swatch-dot ${ipadHighlighterColor === c.val ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadHighlighterColor('${c.val}')" title="${c.name}"></div>
+    let standardColorHtml = standardColors.map(c => `
+      <div class="ink-swatch-dot ${ipadHighlighterColor === c.val ? 'is-active' : ''}" style="background:${c.hex};" onclick="setIpadHighlighterColor('${c.val}', '${c.hex}')" title="${c.name}"></div>
     `).join("");
+
+    const favHlColors = getFavoriteHlColors();
+    let favHtml = favHlColors.map(item => {
+      const val = typeof item === 'object' ? item.val : item;
+      const hex = typeof item === 'object' ? item.hex : '#fff176';
+      return `<div class="ink-swatch-dot fav-dot ${ipadHighlighterColor === val ? 'is-active' : ''}" style="background:${hex};" onclick="setIpadHighlighterColor('${val}', '${hex}')" oncontextmenu="removeFavoriteHlColor('${hex}', event)" ondblclick="removeFavoriteHlColor('${hex}', event)" title="Favorite Glow: ${hex}
+(Click to use, double-click to remove)"></div>`;
+    }).join("");
+
+    const emptyCount = Math.max(1, 4 - favHlColors.length);
+    let blankSlotsHtml = "";
+    for(let i = 0; i < emptyCount; i++){
+      blankSlotsHtml += `<div class="ink-swatch-slot empty" onclick="openUniversalColorPickerForHighlighterInk()" title="Blank space: Click to choose favorite highlighter glow">+</div>`;
+    }
 
     subbar.innerHTML = `
-      <div class="ink-sub-group">
+      <div class="ink-sub-group" title="Custom Highlighter Thickness">
         <span class="ink-sub-label">🖍️ Width</span>
-        ${sizeHtml}
+        <span id="ipad-hl-size-preview" class="ink-hl-bar-preview" style="height:${Math.max(4, Math.min(18, ipadHighlighterWidth / 2))}px;background:${ipadHighlighterColor};width:22px;border-radius:3px;"></span>
+        <input type="number" id="ipad-hl-size-num" class="ink-num-input" min="2" max="150" step="1" value="${ipadHighlighterWidth}" oninput="setIpadHighlighterWidth(this.value, false)" onchange="setIpadHighlighterWidth(this.value, true)" title="Custom Size in px (type any size)">
+        <input type="range" id="ipad-hl-size-slider" class="ink-range-slider" min="4" max="80" step="1" value="${Math.min(80, ipadHighlighterWidth)}" oninput="setIpadHighlighterWidth(this.value, false)" onchange="setIpadHighlighterWidth(this.value, true)" title="Slide to adjust width">
+        <span id="ipad-hl-size-badge" class="ink-size-badge">${ipadHighlighterWidth}px</span>
+        ${presetHtml}
       </div>
       <div class="dock-divider"></div>
-      <div class="ink-sub-group">
-        <span class="ink-sub-label">Pastel Glow</span>
-        ${colorHtml}
+      <div class="ink-sub-group" title="Highlighter Colors & Favorites">
+        <span class="ink-sub-label">Glow</span>
+        <button type="button" class="ink-dial-btn" onclick="openUniversalColorPickerForHighlighterInk()" title="Open Highlighter Color Dial & Glow">🎨 Dial</button>
+        <input type="color" id="ink-hl-native-color" value="${ipadHighlighterHex || '#fff176'}" style="display:none;" onchange="handleNativeHighlighterColor(this.value)">
+        <button type="button" class="ink-dial-btn mini" onclick="document.getElementById('ink-hl-native-color').click()" title="Quick Eyedropper / Color Picker">💧</button>
+        ${standardColorHtml}
+        <div class="ink-favs-wrap" title="Favorite Colors & Blank Space Slots">
+          <span style="font-size:9px;font-weight:900;color:var(--t3);text-transform:uppercase;margin-right:1px;">★</span>
+          ${favHtml}
+          ${blankSlotsHtml}
+        </div>
       </div>
       <div class="dock-divider"></div>
       <div class="ink-sub-group">
@@ -11694,20 +11894,24 @@ function renderIpadInkSubbar(){
       </div>
     `;
   } else if(ipadActiveTool === "eraser"){
-    const sizes = [
-      { label: "Small (18)", val: 18 },
-      { label: "Medium (32)", val: 32 },
-      { label: "Large (50)", val: 50 }
+    const presetSizes = [
+      { label: "16", val: 16 },
+      { label: "32", val: 32 },
+      { label: "50", val: 50 },
+      { label: "80", val: 80 }
     ];
 
-    let sizeHtml = sizes.map(s => `
-      <button type="button" class="ink-size-btn ${ipadEraserWidth === s.val ? 'is-active' : ''}" onclick="setIpadEraserWidth(${s.val})">${s.label}</button>
+    let presetHtml = presetSizes.map(s => `
+      <button type="button" class="ink-size-btn eraser-preset-btn ${Math.abs(ipadEraserWidth - s.val) < 1 ? 'is-active' : ''}" data-val="${s.val}" onclick="setIpadEraserWidth(${s.val})">${s.label}</button>
     `).join("");
 
     subbar.innerHTML = `
-      <div class="ink-sub-group">
+      <div class="ink-sub-group" title="Custom Eraser Size">
         <span class="ink-sub-label">🧹 Eraser</span>
-        ${sizeHtml}
+        <input type="number" id="ipad-eraser-size-num" class="ink-num-input" min="2" max="150" step="1" value="${ipadEraserWidth}" oninput="setIpadEraserWidth(this.value, false)" onchange="setIpadEraserWidth(this.value, true)" title="Custom Eraser Size in px">
+        <input type="range" id="ipad-eraser-size-slider" class="ink-range-slider" min="5" max="100" step="1" value="${Math.min(100, ipadEraserWidth)}" oninput="setIpadEraserWidth(this.value, false)" onchange="setIpadEraserWidth(this.value, true)" title="Slide to adjust eraser size">
+        <span id="ipad-eraser-size-badge" class="ink-size-badge">${ipadEraserWidth}px</span>
+        ${presetHtml}
       </div>
       <div class="dock-divider"></div>
       <div class="ink-sub-group">
@@ -11718,28 +11922,86 @@ function renderIpadInkSubbar(){
   }
 }
 
-function setIpadPenColor(hex){
+function setIpadPenColor(hex, andSaveFav = false){
+  if(!hex) return;
   ipadPenColor = hex;
+  if(andSaveFav){
+    addFavoritePenColor(hex);
+  }
   renderIpadInkSubbar();
 }
 
-function setIpadPenWidth(w){
-  ipadPenWidth = w;
+function setIpadPenWidth(w, shouldRerender = true){
+  const num = Math.max(0.5, Math.min(150, parseFloat(w) || 1));
+  ipadPenWidth = Math.round(num * 10) / 10;
+  if(!shouldRerender){
+    const badge = document.getElementById('ipad-pen-size-badge');
+    if(badge) badge.textContent = ipadPenWidth + 'px';
+    const slider = document.getElementById('ipad-pen-size-slider');
+    if(slider) slider.value = Math.min(slider.max, ipadPenWidth);
+    const numInput = document.getElementById('ipad-pen-size-num');
+    if(numInput && document.activeElement !== numInput) numInput.value = ipadPenWidth;
+    const prev = document.getElementById('ipad-pen-size-preview');
+    if(prev){
+      prev.style.width = Math.max(3, Math.min(22, ipadPenWidth)) + 'px';
+      prev.style.height = Math.max(3, Math.min(22, ipadPenWidth)) + 'px';
+      prev.style.background = ipadPenColor;
+    }
+    document.querySelectorAll('#ipad-ink-subbar .pen-preset-btn').forEach(btn => {
+      btn.classList.toggle('is-active', Math.abs(parseFloat(btn.dataset.val) - ipadPenWidth) < 0.1);
+    });
+    return;
+  }
   renderIpadInkSubbar();
 }
 
-function setIpadHighlighterColor(val){
+function setIpadHighlighterColor(val, hex = null, andSaveFav = false){
+  if(!val) return;
   ipadHighlighterColor = val;
+  if(hex) ipadHighlighterHex = hex;
+  if(andSaveFav && hex){
+    addFavoriteHlColor(val, hex);
+  }
   renderIpadInkSubbar();
 }
 
-function setIpadHighlighterWidth(w){
-  ipadHighlighterWidth = w;
+function setIpadHighlighterWidth(w, shouldRerender = true){
+  const num = Math.max(1, Math.min(200, parseFloat(w) || 10));
+  ipadHighlighterWidth = Math.round(num);
+  if(!shouldRerender){
+    const badge = document.getElementById('ipad-hl-size-badge');
+    if(badge) badge.textContent = ipadHighlighterWidth + 'px';
+    const slider = document.getElementById('ipad-hl-size-slider');
+    if(slider) slider.value = Math.min(slider.max, ipadHighlighterWidth);
+    const numInput = document.getElementById('ipad-hl-size-num');
+    if(numInput && document.activeElement !== numInput) numInput.value = ipadHighlighterWidth;
+    const prev = document.getElementById('ipad-hl-size-preview');
+    if(prev){
+      prev.style.height = Math.max(4, Math.min(22, ipadHighlighterWidth / 2)) + 'px';
+    }
+    document.querySelectorAll('#ipad-ink-subbar .hl-preset-btn').forEach(btn => {
+      btn.classList.toggle('is-active', Math.abs(parseFloat(btn.dataset.val) - ipadHighlighterWidth) < 0.5);
+    });
+    return;
+  }
   renderIpadInkSubbar();
 }
 
-function setIpadEraserWidth(w){
-  ipadEraserWidth = w;
+function setIpadEraserWidth(w, shouldRerender = true){
+  const num = Math.max(2, Math.min(200, parseFloat(w) || 20));
+  ipadEraserWidth = Math.round(num);
+  if(!shouldRerender){
+    const badge = document.getElementById('ipad-eraser-size-badge');
+    if(badge) badge.textContent = ipadEraserWidth + 'px';
+    const slider = document.getElementById('ipad-eraser-size-slider');
+    if(slider) slider.value = Math.min(slider.max, ipadEraserWidth);
+    const numInput = document.getElementById('ipad-eraser-size-num');
+    if(numInput && document.activeElement !== numInput) numInput.value = ipadEraserWidth;
+    document.querySelectorAll('#ipad-ink-subbar .eraser-preset-btn').forEach(btn => {
+      btn.classList.toggle('is-active', Math.abs(parseFloat(btn.dataset.val) - ipadEraserWidth) < 1);
+    });
+    return;
+  }
   renderIpadInkSubbar();
 }
 
