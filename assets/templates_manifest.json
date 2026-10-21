@@ -1,0 +1,1623 @@
+{
+  "backgrounds": [
+    {
+      "id": "bg_a4_kraft_001",
+      "name": "Vintage Kraft 01",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 01",
+      "value": "assets/backgrounds/bg_kraft_001.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_001.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_002",
+      "name": "Vintage Kraft 02",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 02",
+      "value": "assets/backgrounds/bg_kraft_002.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_002.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_003",
+      "name": "Vintage Kraft 03",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 03",
+      "value": "assets/backgrounds/bg_kraft_003.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_003.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_004",
+      "name": "Pastel Blossom 04",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 04",
+      "value": "assets/backgrounds/bg_pastel_004.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_004.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_005",
+      "name": "Vintage Kraft 05",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 05",
+      "value": "assets/backgrounds/bg_kraft_005.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_005.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_006",
+      "name": "Vintage Kraft 06",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 06",
+      "value": "assets/backgrounds/bg_kraft_006.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_006.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_007",
+      "name": "Pastel Blossom 07",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 07",
+      "value": "assets/backgrounds/bg_pastel_007.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_007.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_008",
+      "name": "Soft Cream 08",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 08",
+      "value": "assets/backgrounds/bg_pastel_008.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_008.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_009",
+      "name": "Vintage Kraft 09",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 09",
+      "value": "assets/backgrounds/bg_kraft_009.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_009.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_010",
+      "name": "Vintage Kraft 10",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 10",
+      "value": "assets/backgrounds/bg_kraft_010.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_010.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_011",
+      "name": "Vintage Kraft 11",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 11",
+      "value": "assets/backgrounds/bg_kraft_011.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_011.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_012",
+      "name": "Vintage Kraft 12",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 12",
+      "value": "assets/backgrounds/bg_kraft_012.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_012.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_013",
+      "name": "Vintage Kraft 13",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 13",
+      "value": "assets/backgrounds/bg_kraft_013.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_013.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_014",
+      "name": "Vintage Kraft 14",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 14",
+      "value": "assets/backgrounds/bg_kraft_014.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_014.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_015",
+      "name": "Vintage Kraft 15",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 15",
+      "value": "assets/backgrounds/bg_kraft_015.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_015.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_016",
+      "name": "Vintage Kraft 16",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 16",
+      "value": "assets/backgrounds/bg_kraft_016.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_016.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_017",
+      "name": "Vintage Kraft 17",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 17",
+      "value": "assets/backgrounds/bg_kraft_017.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_017.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_018",
+      "name": "Vintage Kraft 18",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 18",
+      "value": "assets/backgrounds/bg_kraft_018.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_018.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_019",
+      "name": "Vintage Kraft 19",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 19",
+      "value": "assets/backgrounds/bg_kraft_019.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_019.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_020",
+      "name": "Vintage Kraft 20",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 20",
+      "value": "assets/backgrounds/bg_kraft_020.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_020.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_021",
+      "name": "Dark Obsidian 21",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 21",
+      "value": "assets/backgrounds/bg_celestial_021.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_021.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_022",
+      "name": "Dark Obsidian 22",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 22",
+      "value": "assets/backgrounds/bg_celestial_022.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_022.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_023",
+      "name": "Aesthetic Art 23",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 23",
+      "value": "assets/backgrounds/bg_scenery_023.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_023.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_024",
+      "name": "Vintage Kraft 24",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 24",
+      "value": "assets/backgrounds/bg_kraft_024.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_024.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_025",
+      "name": "Vintage Kraft 25",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 25",
+      "value": "assets/backgrounds/bg_kraft_025.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_025.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_026",
+      "name": "Pastel Blossom 26",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 26",
+      "value": "assets/backgrounds/bg_pastel_026.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_026.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_027",
+      "name": "Vintage Kraft 27",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 27",
+      "value": "assets/backgrounds/bg_kraft_027.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_027.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_grids_028",
+      "name": "Paper Grid 28",
+      "category": "grids",
+      "badge": "\ud83d\udcd0 Grids 28",
+      "value": "assets/backgrounds/bg_grids_028.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_grids_028.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_029",
+      "name": "Pastel Blossom 29",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 29",
+      "value": "assets/backgrounds/bg_pastel_029.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_029.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_030",
+      "name": "Pastel Blossom 30",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 30",
+      "value": "assets/backgrounds/bg_pastel_030.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_030.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_031",
+      "name": "Vintage Kraft 31",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 31",
+      "value": "assets/backgrounds/bg_kraft_031.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_031.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_032",
+      "name": "Vintage Kraft 32",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 32",
+      "value": "assets/backgrounds/bg_kraft_032.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_032.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_033",
+      "name": "Vintage Kraft 33",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 33",
+      "value": "assets/backgrounds/bg_kraft_033.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_033.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_034",
+      "name": "Pastel Blossom 34",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 34",
+      "value": "assets/backgrounds/bg_pastel_034.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_034.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_035",
+      "name": "Sky & Scenery 35",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 35",
+      "value": "assets/backgrounds/bg_scenery_035.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_035.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_036",
+      "name": "Vintage Kraft 36",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 36",
+      "value": "assets/backgrounds/bg_kraft_036.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_036.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_037",
+      "name": "Aesthetic Art 37",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 37",
+      "value": "assets/backgrounds/bg_scenery_037.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_037.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_038",
+      "name": "Aesthetic Art 38",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 38",
+      "value": "assets/backgrounds/bg_scenery_038.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_038.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_039",
+      "name": "Vintage Kraft 39",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 39",
+      "value": "assets/backgrounds/bg_kraft_039.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_039.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_040",
+      "name": "Aesthetic Scenery 40",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 40",
+      "value": "assets/backgrounds/bg_scenery_040.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_040.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_041",
+      "name": "Vintage Scrapbook 41",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 41",
+      "value": "assets/backgrounds/bg_kraft_041.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_041.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_042",
+      "name": "Sky & Scenery 42",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 42",
+      "value": "assets/backgrounds/bg_scenery_042.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_042.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_043",
+      "name": "Sky & Scenery 43",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 43",
+      "value": "assets/backgrounds/bg_scenery_043.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_043.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_044",
+      "name": "Vintage Kraft 44",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 44",
+      "value": "assets/backgrounds/bg_kraft_044.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_044.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_045",
+      "name": "Dark Obsidian 45",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 45",
+      "value": "assets/backgrounds/bg_celestial_045.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_045.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_046",
+      "name": "Aesthetic Scenery 46",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 46",
+      "value": "assets/backgrounds/bg_scenery_046.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_046.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_047",
+      "name": "Vintage Kraft 47",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 47",
+      "value": "assets/backgrounds/bg_kraft_047.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_047.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_048",
+      "name": "Aesthetic Art 48",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 48",
+      "value": "assets/backgrounds/bg_scenery_048.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_048.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_grids_049",
+      "name": "Paper Grid 49",
+      "category": "grids",
+      "badge": "\ud83d\udcd0 Grids 49",
+      "value": "assets/backgrounds/bg_grids_049.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_grids_049.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_botanical_050",
+      "name": "Botanical Green 50",
+      "category": "botanical",
+      "badge": "\ud83c\udf3f Botanical 50",
+      "value": "assets/backgrounds/bg_botanical_050.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_botanical_050.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_051",
+      "name": "Dark Obsidian 51",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 51",
+      "value": "assets/backgrounds/bg_celestial_051.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_051.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_052",
+      "name": "Pastel Blossom 52",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 52",
+      "value": "assets/backgrounds/bg_pastel_052.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_052.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_053",
+      "name": "Vintage Kraft 53",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 53",
+      "value": "assets/backgrounds/bg_kraft_053.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_053.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_054",
+      "name": "Dark Obsidian 54",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 54",
+      "value": "assets/backgrounds/bg_celestial_054.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_054.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_055",
+      "name": "Aesthetic Art 55",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 55",
+      "value": "assets/backgrounds/bg_scenery_055.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_055.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_botanical_056",
+      "name": "Botanical Green 56",
+      "category": "botanical",
+      "badge": "\ud83c\udf3f Botanical 56",
+      "value": "assets/backgrounds/bg_botanical_056.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_botanical_056.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_057",
+      "name": "Vintage Kraft 57",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 57",
+      "value": "assets/backgrounds/bg_kraft_057.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_057.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_grids_058",
+      "name": "Paper Grid 58",
+      "category": "grids",
+      "badge": "\ud83d\udcd0 Grids 58",
+      "value": "assets/backgrounds/bg_grids_058.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_grids_058.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_059",
+      "name": "Pastel Blossom 59",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 59",
+      "value": "assets/backgrounds/bg_pastel_059.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_059.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_060",
+      "name": "Aesthetic Art 60",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 60",
+      "value": "assets/backgrounds/bg_scenery_060.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_060.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_061",
+      "name": "Sky & Scenery 61",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 61",
+      "value": "assets/backgrounds/bg_scenery_061.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_061.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_062",
+      "name": "Soft Cream 62",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 62",
+      "value": "assets/backgrounds/bg_pastel_062.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_062.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_063",
+      "name": "Aesthetic Art 63",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 63",
+      "value": "assets/backgrounds/bg_scenery_063.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_063.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_064",
+      "name": "Vintage Kraft 64",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 64",
+      "value": "assets/backgrounds/bg_kraft_064.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_064.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_065",
+      "name": "Sky & Scenery 65",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 65",
+      "value": "assets/backgrounds/bg_scenery_065.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_065.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_066",
+      "name": "Dark Obsidian 66",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 66",
+      "value": "assets/backgrounds/bg_celestial_066.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_066.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_067",
+      "name": "Aesthetic Art 67",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 67",
+      "value": "assets/backgrounds/bg_scenery_067.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_067.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_068",
+      "name": "Aesthetic Art 68",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 68",
+      "value": "assets/backgrounds/bg_scenery_068.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_068.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_069",
+      "name": "Dark Obsidian 69",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 69",
+      "value": "assets/backgrounds/bg_celestial_069.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_069.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_070",
+      "name": "Soft Cream 70",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 70",
+      "value": "assets/backgrounds/bg_pastel_070.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_070.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_071",
+      "name": "Aesthetic Art 71",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 71",
+      "value": "assets/backgrounds/bg_scenery_071.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_071.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_072",
+      "name": "Dark Obsidian 72",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 72",
+      "value": "assets/backgrounds/bg_celestial_072.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_072.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_073",
+      "name": "Vintage Kraft 73",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 73",
+      "value": "assets/backgrounds/bg_kraft_073.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_073.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_074",
+      "name": "Vintage Kraft 74",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 74",
+      "value": "assets/backgrounds/bg_kraft_074.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_074.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_075",
+      "name": "Pastel Blossom 75",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 75",
+      "value": "assets/backgrounds/bg_pastel_075.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_075.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_076",
+      "name": "Aesthetic Art 76",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 76",
+      "value": "assets/backgrounds/bg_scenery_076.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_076.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_077",
+      "name": "Vintage Kraft 77",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 77",
+      "value": "assets/backgrounds/bg_kraft_077.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_077.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_078",
+      "name": "Vintage Kraft 78",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 78",
+      "value": "assets/backgrounds/bg_kraft_078.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_078.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_scenery_079",
+      "name": "Aesthetic Art 79",
+      "category": "scenery",
+      "badge": "\ud83c\udf05 Scenery 79",
+      "value": "assets/backgrounds/bg_scenery_079.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_scenery_079.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_080",
+      "name": "Pastel Blossom 80",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 80",
+      "value": "assets/backgrounds/bg_pastel_080.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_080.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_botanical_081",
+      "name": "Botanical Green 81",
+      "category": "botanical",
+      "badge": "\ud83c\udf3f Botanical 81",
+      "value": "assets/backgrounds/bg_botanical_081.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_botanical_081.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_082",
+      "name": "Pastel Blossom 82",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 82",
+      "value": "assets/backgrounds/bg_pastel_082.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_082.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_083",
+      "name": "Vintage Kraft 83",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 83",
+      "value": "assets/backgrounds/bg_kraft_083.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_083.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_celestial_084",
+      "name": "Dark Obsidian 84",
+      "category": "celestial",
+      "badge": "\ud83c\udf0c Celestial 84",
+      "value": "assets/backgrounds/bg_celestial_084.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_celestial_084.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_pastel_085",
+      "name": "Pastel Blossom 85",
+      "category": "pastel",
+      "badge": "\ud83c\udf38 Pastel 85",
+      "value": "assets/backgrounds/bg_pastel_085.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_pastel_085.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_grids_086",
+      "name": "Paper Grid 86",
+      "category": "grids",
+      "badge": "\ud83d\udcd0 Grids 86",
+      "value": "assets/backgrounds/bg_grids_086.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_grids_086.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_087",
+      "name": "Vintage Kraft 87",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 87",
+      "value": "assets/backgrounds/bg_kraft_087.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_087.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_088",
+      "name": "Vintage Kraft 88",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 88",
+      "value": "assets/backgrounds/bg_kraft_088.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_088.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_089",
+      "name": "Vintage Kraft 89",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 89",
+      "value": "assets/backgrounds/bg_kraft_089.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_089.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_kraft_090",
+      "name": "Vintage Kraft 90",
+      "category": "kraft",
+      "badge": "\ud83e\udd0e Kraft 90",
+      "value": "assets/backgrounds/bg_kraft_090.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_kraft_090.webp",
+      "aspect": "a4"
+    },
+    {
+      "id": "bg_a4_grids_091",
+      "name": "Paper Grid 91",
+      "category": "grids",
+      "badge": "\ud83d\udcd0 Grids 91",
+      "value": "assets/backgrounds/bg_grids_091.webp",
+      "thumb": "assets/backgrounds/thumbs/thumb_bg_grids_091.webp",
+      "aspect": "a4"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "stk_001",
+      "name": "Aesthetic Sticker 01",
+      "src": "assets/stickers/sticker_001.png",
+      "w": 414,
+      "h": 512
+    },
+    {
+      "id": "stk_002",
+      "name": "Aesthetic Sticker 02",
+      "src": "assets/stickers/sticker_002.png",
+      "w": 341,
+      "h": 495
+    },
+    {
+      "id": "stk_003",
+      "name": "Aesthetic Sticker 03",
+      "src": "assets/stickers/sticker_003.png",
+      "w": 512,
+      "h": 328
+    },
+    {
+      "id": "stk_004",
+      "name": "Aesthetic Sticker 04",
+      "src": "assets/stickers/sticker_004.png",
+      "w": 376,
+      "h": 447
+    },
+    {
+      "id": "stk_005",
+      "name": "Aesthetic Sticker 05",
+      "src": "assets/stickers/sticker_005.png",
+      "w": 512,
+      "h": 373
+    },
+    {
+      "id": "stk_006",
+      "name": "Aesthetic Sticker 06",
+      "src": "assets/stickers/sticker_006.png",
+      "w": 410,
+      "h": 512
+    },
+    {
+      "id": "stk_007",
+      "name": "Aesthetic Sticker 07",
+      "src": "assets/stickers/sticker_007.png",
+      "w": 343,
+      "h": 57
+    },
+    {
+      "id": "stk_008",
+      "name": "Aesthetic Sticker 08",
+      "src": "assets/stickers/sticker_008.png",
+      "w": 300,
+      "h": 368
+    },
+    {
+      "id": "stk_009",
+      "name": "Aesthetic Sticker 09",
+      "src": "assets/stickers/sticker_009.png",
+      "w": 496,
+      "h": 512
+    },
+    {
+      "id": "stk_010",
+      "name": "Aesthetic Sticker 10",
+      "src": "assets/stickers/sticker_010.png",
+      "w": 258,
+      "h": 512
+    },
+    {
+      "id": "stk_011",
+      "name": "Aesthetic Sticker 11",
+      "src": "assets/stickers/sticker_011.png",
+      "w": 387,
+      "h": 508
+    },
+    {
+      "id": "stk_012",
+      "name": "Aesthetic Sticker 12",
+      "src": "assets/stickers/sticker_012.png",
+      "w": 512,
+      "h": 498
+    },
+    {
+      "id": "stk_013",
+      "name": "Aesthetic Sticker 13",
+      "src": "assets/stickers/sticker_013.png",
+      "w": 512,
+      "h": 359
+    },
+    {
+      "id": "stk_014",
+      "name": "Aesthetic Sticker 14",
+      "src": "assets/stickers/sticker_014.png",
+      "w": 512,
+      "h": 501
+    },
+    {
+      "id": "stk_015",
+      "name": "Aesthetic Sticker 15",
+      "src": "assets/stickers/sticker_015.png",
+      "w": 376,
+      "h": 512
+    },
+    {
+      "id": "stk_016",
+      "name": "Aesthetic Sticker 16",
+      "src": "assets/stickers/sticker_016.png",
+      "w": 326,
+      "h": 512
+    },
+    {
+      "id": "stk_017",
+      "name": "Aesthetic Sticker 17",
+      "src": "assets/stickers/sticker_017.png",
+      "w": 512,
+      "h": 496
+    },
+    {
+      "id": "stk_018",
+      "name": "Aesthetic Sticker 18",
+      "src": "assets/stickers/sticker_018.png",
+      "w": 511,
+      "h": 512
+    },
+    {
+      "id": "stk_019",
+      "name": "Aesthetic Sticker 19",
+      "src": "assets/stickers/sticker_019.png",
+      "w": 423,
+      "h": 512
+    },
+    {
+      "id": "stk_020",
+      "name": "Aesthetic Sticker 20",
+      "src": "assets/stickers/sticker_020.png",
+      "w": 472,
+      "h": 494
+    },
+    {
+      "id": "stk_021",
+      "name": "Aesthetic Sticker 21",
+      "src": "assets/stickers/sticker_021.png",
+      "w": 426,
+      "h": 512
+    },
+    {
+      "id": "stk_022",
+      "name": "Aesthetic Sticker 22",
+      "src": "assets/stickers/sticker_022.png",
+      "w": 512,
+      "h": 393
+    },
+    {
+      "id": "stk_023",
+      "name": "Aesthetic Sticker 23",
+      "src": "assets/stickers/sticker_023.png",
+      "w": 512,
+      "h": 487
+    },
+    {
+      "id": "stk_024",
+      "name": "Aesthetic Sticker 24",
+      "src": "assets/stickers/sticker_024.png",
+      "w": 512,
+      "h": 298
+    },
+    {
+      "id": "stk_025",
+      "name": "Aesthetic Sticker 25",
+      "src": "assets/stickers/sticker_025.png",
+      "w": 417,
+      "h": 512
+    },
+    {
+      "id": "stk_026",
+      "name": "Aesthetic Sticker 26",
+      "src": "assets/stickers/sticker_026.png",
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "stk_027",
+      "name": "Aesthetic Sticker 27",
+      "src": "assets/stickers/sticker_027.png",
+      "w": 351,
+      "h": 512
+    },
+    {
+      "id": "stk_028",
+      "name": "Aesthetic Sticker 28",
+      "src": "assets/stickers/sticker_028.png",
+      "w": 497,
+      "h": 512
+    },
+    {
+      "id": "stk_029",
+      "name": "Aesthetic Sticker 29",
+      "src": "assets/stickers/sticker_029.png",
+      "w": 512,
+      "h": 499
+    },
+    {
+      "id": "stk_030",
+      "name": "Aesthetic Sticker 30",
+      "src": "assets/stickers/sticker_030.png",
+      "w": 512,
+      "h": 269
+    },
+    {
+      "id": "stk_031",
+      "name": "Aesthetic Sticker 31",
+      "src": "assets/stickers/sticker_031.png",
+      "w": 339,
+      "h": 512
+    },
+    {
+      "id": "stk_032",
+      "name": "Aesthetic Sticker 32",
+      "src": "assets/stickers/sticker_032.png",
+      "w": 447,
+      "h": 512
+    },
+    {
+      "id": "stk_033",
+      "name": "Aesthetic Sticker 33",
+      "src": "assets/stickers/sticker_033.png",
+      "w": 505,
+      "h": 512
+    },
+    {
+      "id": "stk_034",
+      "name": "Aesthetic Sticker 34",
+      "src": "assets/stickers/sticker_034.png",
+      "w": 317,
+      "h": 512
+    },
+    {
+      "id": "stk_035",
+      "name": "Aesthetic Sticker 35",
+      "src": "assets/stickers/sticker_035.png",
+      "w": 512,
+      "h": 307
+    },
+    {
+      "id": "stk_036",
+      "name": "Aesthetic Sticker 36",
+      "src": "assets/stickers/sticker_036.png",
+      "w": 489,
+      "h": 512
+    },
+    {
+      "id": "stk_037",
+      "name": "Aesthetic Sticker 37",
+      "src": "assets/stickers/sticker_037.png",
+      "w": 512,
+      "h": 496
+    },
+    {
+      "id": "stk_038",
+      "name": "Aesthetic Sticker 38",
+      "src": "assets/stickers/sticker_038.png",
+      "w": 430,
+      "h": 127
+    },
+    {
+      "id": "stk_039",
+      "name": "Aesthetic Sticker 39",
+      "src": "assets/stickers/sticker_039.png",
+      "w": 491,
+      "h": 311
+    },
+    {
+      "id": "stk_040",
+      "name": "Aesthetic Sticker 40",
+      "src": "assets/stickers/sticker_040.png",
+      "w": 504,
+      "h": 146
+    },
+    {
+      "id": "stk_041",
+      "name": "Aesthetic Sticker 41",
+      "src": "assets/stickers/sticker_041.png",
+      "w": 512,
+      "h": 230
+    },
+    {
+      "id": "stk_042",
+      "name": "Aesthetic Sticker 42",
+      "src": "assets/stickers/sticker_042.png",
+      "w": 455,
+      "h": 512
+    },
+    {
+      "id": "stk_043",
+      "name": "Aesthetic Sticker 43",
+      "src": "assets/stickers/sticker_043.png",
+      "w": 512,
+      "h": 464
+    },
+    {
+      "id": "stk_044",
+      "name": "Aesthetic Sticker 44",
+      "src": "assets/stickers/sticker_044.png",
+      "w": 501,
+      "h": 512
+    },
+    {
+      "id": "stk_045",
+      "name": "Aesthetic Sticker 45",
+      "src": "assets/stickers/sticker_045.png",
+      "w": 421,
+      "h": 512
+    },
+    {
+      "id": "stk_046",
+      "name": "Aesthetic Sticker 46",
+      "src": "assets/stickers/sticker_046.png",
+      "w": 512,
+      "h": 398
+    },
+    {
+      "id": "stk_047",
+      "name": "Aesthetic Sticker 47",
+      "src": "assets/stickers/sticker_047.png",
+      "w": 507,
+      "h": 512
+    },
+    {
+      "id": "stk_048",
+      "name": "Aesthetic Sticker 48",
+      "src": "assets/stickers/sticker_048.png",
+      "w": 356,
+      "h": 512
+    },
+    {
+      "id": "stk_049",
+      "name": "Aesthetic Sticker 49",
+      "src": "assets/stickers/sticker_049.png",
+      "w": 504,
+      "h": 512
+    },
+    {
+      "id": "stk_050",
+      "name": "Aesthetic Sticker 50",
+      "src": "assets/stickers/sticker_050.png",
+      "w": 415,
+      "h": 512
+    },
+    {
+      "id": "stk_051",
+      "name": "Aesthetic Sticker 51",
+      "src": "assets/stickers/sticker_051.png",
+      "w": 296,
+      "h": 512
+    },
+    {
+      "id": "stk_052",
+      "name": "Aesthetic Sticker 52",
+      "src": "assets/stickers/sticker_052.png",
+      "w": 343,
+      "h": 309
+    },
+    {
+      "id": "stk_053",
+      "name": "Aesthetic Sticker 53",
+      "src": "assets/stickers/sticker_053.png",
+      "w": 322,
+      "h": 512
+    },
+    {
+      "id": "stk_054",
+      "name": "Aesthetic Sticker 54",
+      "src": "assets/stickers/sticker_054.png",
+      "w": 472,
+      "h": 512
+    },
+    {
+      "id": "stk_055",
+      "name": "Aesthetic Sticker 55",
+      "src": "assets/stickers/sticker_055.png",
+      "w": 512,
+      "h": 306
+    },
+    {
+      "id": "stk_056",
+      "name": "Aesthetic Sticker 56",
+      "src": "assets/stickers/sticker_056.png",
+      "w": 260,
+      "h": 512
+    },
+    {
+      "id": "stk_057",
+      "name": "Aesthetic Sticker 57",
+      "src": "assets/stickers/sticker_057.png",
+      "w": 339,
+      "h": 512
+    },
+    {
+      "id": "stk_058",
+      "name": "Aesthetic Sticker 58",
+      "src": "assets/stickers/sticker_058.png",
+      "w": 388,
+      "h": 512
+    },
+    {
+      "id": "stk_059",
+      "name": "Aesthetic Sticker 59",
+      "src": "assets/stickers/sticker_059.png",
+      "w": 195,
+      "h": 512
+    },
+    {
+      "id": "stk_060",
+      "name": "Aesthetic Sticker 60",
+      "src": "assets/stickers/sticker_060.png",
+      "w": 233,
+      "h": 512
+    },
+    {
+      "id": "stk_061",
+      "name": "Aesthetic Sticker 61",
+      "src": "assets/stickers/sticker_061.png",
+      "w": 278,
+      "h": 456
+    },
+    {
+      "id": "stk_062",
+      "name": "Aesthetic Sticker 62",
+      "src": "assets/stickers/sticker_062.png",
+      "w": 406,
+      "h": 512
+    },
+    {
+      "id": "stk_063",
+      "name": "Aesthetic Sticker 63",
+      "src": "assets/stickers/sticker_063.png",
+      "w": 512,
+      "h": 455
+    },
+    {
+      "id": "stk_064",
+      "name": "Aesthetic Sticker 64",
+      "src": "assets/stickers/sticker_064.png",
+      "w": 360,
+      "h": 512
+    },
+    {
+      "id": "stk_065",
+      "name": "Aesthetic Sticker 65",
+      "src": "assets/stickers/sticker_065.png",
+      "w": 374,
+      "h": 512
+    },
+    {
+      "id": "stk_066",
+      "name": "Aesthetic Sticker 66",
+      "src": "assets/stickers/sticker_066.png",
+      "w": 512,
+      "h": 402
+    },
+    {
+      "id": "stk_067",
+      "name": "Aesthetic Sticker 67",
+      "src": "assets/stickers/sticker_067.png",
+      "w": 512,
+      "h": 493
+    },
+    {
+      "id": "stk_068",
+      "name": "Aesthetic Sticker 68",
+      "src": "assets/stickers/sticker_068.png",
+      "w": 444,
+      "h": 512
+    },
+    {
+      "id": "stk_069",
+      "name": "Aesthetic Sticker 69",
+      "src": "assets/stickers/sticker_069.png",
+      "w": 156,
+      "h": 512
+    },
+    {
+      "id": "stk_070",
+      "name": "Aesthetic Sticker 70",
+      "src": "assets/stickers/sticker_070.png",
+      "w": 357,
+      "h": 512
+    },
+    {
+      "id": "stk_071",
+      "name": "Aesthetic Sticker 71",
+      "src": "assets/stickers/sticker_071.png",
+      "w": 369,
+      "h": 512
+    },
+    {
+      "id": "stk_072",
+      "name": "Aesthetic Sticker 72",
+      "src": "assets/stickers/sticker_072.png",
+      "w": 430,
+      "h": 457
+    },
+    {
+      "id": "stk_073",
+      "name": "Aesthetic Sticker 73",
+      "src": "assets/stickers/sticker_073.png",
+      "w": 346,
+      "h": 512
+    },
+    {
+      "id": "stk_074",
+      "name": "Aesthetic Sticker 74",
+      "src": "assets/stickers/sticker_074.png",
+      "w": 430,
+      "h": 512
+    },
+    {
+      "id": "stk_075",
+      "name": "Aesthetic Sticker 75",
+      "src": "assets/stickers/sticker_075.png",
+      "w": 344,
+      "h": 494
+    },
+    {
+      "id": "stk_076",
+      "name": "Aesthetic Sticker 76",
+      "src": "assets/stickers/sticker_076.png",
+      "w": 512,
+      "h": 288
+    },
+    {
+      "id": "stk_077",
+      "name": "Aesthetic Sticker 77",
+      "src": "assets/stickers/sticker_077.png",
+      "w": 512,
+      "h": 503
+    },
+    {
+      "id": "stk_078",
+      "name": "Aesthetic Sticker 78",
+      "src": "assets/stickers/sticker_078.png",
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "stk_079",
+      "name": "Aesthetic Sticker 79",
+      "src": "assets/stickers/sticker_079.png",
+      "w": 512,
+      "h": 307
+    },
+    {
+      "id": "stk_080",
+      "name": "Aesthetic Sticker 80",
+      "src": "assets/stickers/sticker_080.png",
+      "w": 358,
+      "h": 512
+    },
+    {
+      "id": "stk_081",
+      "name": "Aesthetic Sticker 81",
+      "src": "assets/stickers/sticker_081.png",
+      "w": 336,
+      "h": 512
+    },
+    {
+      "id": "stk_082",
+      "name": "Aesthetic Sticker 82",
+      "src": "assets/stickers/sticker_082.png",
+      "w": 480,
+      "h": 480
+    },
+    {
+      "id": "stk_083",
+      "name": "Aesthetic Sticker 83",
+      "src": "assets/stickers/sticker_083.png",
+      "w": 512,
+      "h": 358
+    },
+    {
+      "id": "stk_084",
+      "name": "Aesthetic Sticker 84",
+      "src": "assets/stickers/sticker_084.png",
+      "w": 342,
+      "h": 512
+    },
+    {
+      "id": "stk_085",
+      "name": "Aesthetic Sticker 85",
+      "src": "assets/stickers/sticker_085.png",
+      "w": 273,
+      "h": 512
+    },
+    {
+      "id": "stk_086",
+      "name": "Aesthetic Sticker 86",
+      "src": "assets/stickers/sticker_086.png",
+      "w": 494,
+      "h": 492
+    },
+    {
+      "id": "stk_087",
+      "name": "Aesthetic Sticker 87",
+      "src": "assets/stickers/sticker_087.png",
+      "w": 512,
+      "h": 180
+    },
+    {
+      "id": "stk_088",
+      "name": "Aesthetic Sticker 88",
+      "src": "assets/stickers/sticker_088.png",
+      "w": 512,
+      "h": 338
+    },
+    {
+      "id": "stk_089",
+      "name": "Aesthetic Sticker 89",
+      "src": "assets/stickers/sticker_089.png",
+      "w": 353,
+      "h": 432
+    },
+    {
+      "id": "stk_090",
+      "name": "Aesthetic Sticker 90",
+      "src": "assets/stickers/sticker_090.png",
+      "w": 512,
+      "h": 469
+    },
+    {
+      "id": "stk_091",
+      "name": "Aesthetic Sticker 91",
+      "src": "assets/stickers/sticker_091.png",
+      "w": 279,
+      "h": 505
+    },
+    {
+      "id": "stk_092",
+      "name": "Aesthetic Sticker 92",
+      "src": "assets/stickers/sticker_092.png",
+      "w": 512,
+      "h": 479
+    },
+    {
+      "id": "stk_093",
+      "name": "Aesthetic Sticker 93",
+      "src": "assets/stickers/sticker_093.png",
+      "w": 512,
+      "h": 471
+    },
+    {
+      "id": "stk_094",
+      "name": "Aesthetic Sticker 94",
+      "src": "assets/stickers/sticker_094.png",
+      "w": 367,
+      "h": 512
+    },
+    {
+      "id": "stk_095",
+      "name": "Aesthetic Sticker 95",
+      "src": "assets/stickers/sticker_095.png",
+      "w": 512,
+      "h": 479
+    },
+    {
+      "id": "stk_096",
+      "name": "Aesthetic Sticker 96",
+      "src": "assets/stickers/sticker_096.png",
+      "w": 509,
+      "h": 489
+    },
+    {
+      "id": "stk_097",
+      "name": "Aesthetic Sticker 97",
+      "src": "assets/stickers/sticker_097.png",
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "stk_098",
+      "name": "Aesthetic Sticker 98",
+      "src": "assets/stickers/sticker_098.png",
+      "w": 349,
+      "h": 512
+    },
+    {
+      "id": "stk_099",
+      "name": "Aesthetic Sticker 99",
+      "src": "assets/stickers/sticker_099.png",
+      "w": 452,
+      "h": 512
+    },
+    {
+      "id": "stk_100",
+      "name": "Aesthetic Sticker 100",
+      "src": "assets/stickers/sticker_100.png",
+      "w": 323,
+      "h": 512
+    },
+    {
+      "id": "stk_101",
+      "name": "Aesthetic Sticker 101",
+      "src": "assets/stickers/sticker_101.png",
+      "w": 512,
+      "h": 489
+    },
+    {
+      "id": "stk_102",
+      "name": "Aesthetic Sticker 102",
+      "src": "assets/stickers/sticker_102.png",
+      "w": 343,
+      "h": 512
+    },
+    {
+      "id": "stk_103",
+      "name": "Aesthetic Sticker 103",
+      "src": "assets/stickers/sticker_103.png",
+      "w": 487,
+      "h": 512
+    },
+    {
+      "id": "stk_104",
+      "name": "Aesthetic Sticker 104",
+      "src": "assets/stickers/sticker_104.png",
+      "w": 512,
+      "h": 205
+    },
+    {
+      "id": "stk_105",
+      "name": "Aesthetic Sticker 105",
+      "src": "assets/stickers/sticker_105.png",
+      "w": 512,
+      "h": 488
+    },
+    {
+      "id": "stk_106",
+      "name": "Aesthetic Sticker 106",
+      "src": "assets/stickers/sticker_106.png",
+      "w": 297,
+      "h": 512
+    },
+    {
+      "id": "stk_107",
+      "name": "Aesthetic Sticker 107",
+      "src": "assets/stickers/sticker_107.png",
+      "w": 263,
+      "h": 512
+    },
+    {
+      "id": "stk_108",
+      "name": "Aesthetic Sticker 108",
+      "src": "assets/stickers/sticker_108.png",
+      "w": 345,
+      "h": 512
+    },
+    {
+      "id": "stk_109",
+      "name": "Aesthetic Sticker 109",
+      "src": "assets/stickers/sticker_109.png",
+      "w": 198,
+      "h": 512
+    },
+    {
+      "id": "stk_110",
+      "name": "Aesthetic Sticker 110",
+      "src": "assets/stickers/sticker_110.png",
+      "w": 512,
+      "h": 505
+    },
+    {
+      "id": "stk_111",
+      "name": "Aesthetic Sticker 111",
+      "src": "assets/stickers/sticker_111.png",
+      "w": 320,
+      "h": 512
+    },
+    {
+      "id": "stk_112",
+      "name": "Aesthetic Sticker 112",
+      "src": "assets/stickers/sticker_112.png",
+      "w": 481,
+      "h": 512
+    },
+    {
+      "id": "stk_113",
+      "name": "Aesthetic Sticker 113",
+      "src": "assets/stickers/sticker_113.png",
+      "w": 512,
+      "h": 387
+    },
+    {
+      "id": "stk_114",
+      "name": "Aesthetic Sticker 114",
+      "src": "assets/stickers/sticker_114.png",
+      "w": 497,
+      "h": 512
+    }
+  ]
+}
