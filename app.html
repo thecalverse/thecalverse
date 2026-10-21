@@ -1621,7 +1621,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   border-radius:12px;
   border:1.5px solid var(--glb);
   overflow:hidden;
-  aspect-ratio:3 / 4;
+  aspect-ratio:210 / 297 !important;
   cursor:pointer;
   background:rgba(255,255,255,0.05);
   transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
@@ -1855,6 +1855,25 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 .ipad-paper-sheet.paper-pastel-lavender .ipad-paper-title{border-bottom-color:rgba(150,110,210,.3)!important;color:#2c203a!important;}
 .ipad-paper-sheet.paper-pastel-lavender .ipad-paper-canvas{color:#2c203a!important;}
+
+/* Vintage Gold Parchment */
+.ipad-paper-sheet.paper-parchment{
+  background:#f5ebd9!important;
+  background-image:radial-gradient(circle at 60% 40%, rgba(180,140,90,0.18) 0%, transparent 60%), repeating-linear-gradient(45deg, rgba(140,100,50,0.04) 0px, rgba(140,100,50,0.04) 2px, transparent 2px, transparent 4px)!important;
+  color:#322416!important;
+}
+.ipad-paper-sheet.paper-parchment .ipad-paper-title{border-bottom-color:rgba(120,80,40,.22)!important;color:#322416!important;}
+.ipad-paper-sheet.paper-parchment .ipad-paper-canvas{color:#322416!important;}
+
+/* Pastel Sky Blue Grid */
+.ipad-paper-sheet.paper-pastel-sky{
+  background:#f0f6fc!important;
+  background-image:linear-gradient(to right,rgba(80,140,210,.16) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.16) 1px,transparent 1px)!important;
+  background-size:20px 20px!important;
+  color:#1c2d42!important;
+}
+.ipad-paper-sheet.paper-pastel-sky .ipad-paper-title{border-bottom-color:rgba(80,140,210,.25)!important;color:#1c2d42!important;}
+.ipad-paper-sheet.paper-pastel-sky .ipad-paper-canvas{color:#1c2d42!important;}
 
 .ipad-paper-title{width:100%;border:none;background:transparent;outline:none;font-size:24px;font-weight:900;letter-spacing:-.3px;color:inherit;margin-bottom:12px;padding:0 0 8px 0;border-bottom:1.5px dashed rgba(255,255,255,.15);box-sizing:border-box;}
 @media (max-width:580px){.ipad-paper-title{font-size:19px;}}
@@ -6346,8 +6365,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
     <!-- Category Tabs -->
     <div class="journal-bg-tabs" id="journal-bg-tabs">
-      <button type="button" class="journal-bg-tab is-active" data-cat="all" onclick="filterJournalBgTab('all', this)">All Papers</button>
-      <button type="button" class="journal-bg-tab" data-cat="grids" onclick="filterJournalBgTab('grids', this)">🖤 Grids &amp; Dots</button>
+      <button type="button" class="journal-bg-tab is-active" data-cat="grids" onclick="filterJournalBgTab('grids', this)">🖤 Grids &amp; Dots</button>
       <button type="button" class="journal-bg-tab" data-cat="lined" onclick="filterJournalBgTab('lined', this)">📜 Lined &amp; Ruled</button>
       <button type="button" class="journal-bg-tab" data-cat="kraft" onclick="filterJournalBgTab('kraft', this)">🤎 Kraft &amp; Brown</button>
       <button type="button" class="journal-bg-tab" data-cat="pastel" onclick="filterJournalBgTab('pastel', this)">🌸 Pastel Papers</button>
@@ -8959,17 +8977,7 @@ function setWashiTapeTextColor(item, hex){
 
 /* ── JOURNAL PAGE BACKGROUND ENGINE & COLLECTION ── */
 const JOURNAL_BACKGROUNDS = [
-  // ── 0. NONE / REMOVE BACKGROUND ──
-  {
-    id: 'bg_none',
-    name: 'None (Clean Canvas)',
-    category: 'all',
-    badge: '🚫 None / Remove',
-    styleKey: 'blank',
-    previewCss: 'background:rgba(255,255,255,0.03);'
-  },
-
-  // ── 1. GRIDS & DOTS ──
+  // ── 1. GRIDS & DOTS (4 Papers) ──
   {
     id: 'paper_obsidian',
     name: 'Obsidian Black Grid',
@@ -9003,7 +9011,7 @@ const JOURNAL_BACKGROUNDS = [
     previewCss: 'background:#0f131d; background-image:radial-gradient(rgba(255,255,255,.38) 1.3px,transparent 1.3px); background-size:16px 16px;'
   },
 
-  // ── 2. LINED & RULED ──
+  // ── 2. LINED & RULED (4 Papers) ──
   {
     id: 'paper_ruled',
     name: 'Classic Lined Notebook',
@@ -9037,7 +9045,7 @@ const JOURNAL_BACKGROUNDS = [
     previewCss: 'background:#0f1420; background-image:linear-gradient(to right,rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.1) 1px,transparent 1px); background-size:20px 20px;'
   },
 
-  // ── 3. BROWN & KRAFT ──
+  // ── 3. BROWN & KRAFT (4 Papers) ──
   {
     id: 'paper_brown_kraft',
     name: 'Warm Kraft Brown Paper',
@@ -9055,6 +9063,14 @@ const JOURNAL_BACKGROUNDS = [
     previewCss: 'background: radial-gradient(circle at 75% 30%, rgba(139,94,60,0.3) 0%, transparent 50%), radial-gradient(circle at 20% 70%, rgba(110,65,30,0.25) 0%, transparent 40%), #e8dac8;'
   },
   {
+    id: 'paper_parchment',
+    name: 'Vintage Parchment',
+    category: 'kraft',
+    badge: '📜 Parchment',
+    styleKey: 'parchment',
+    previewCss: 'background: radial-gradient(circle at 60% 40%, rgba(180,140,90,0.18) 0%, transparent 60%), #f5ebd9;'
+  },
+  {
     id: 'paper_blank',
     name: 'Blank Ivory Clean Page',
     category: 'kraft',
@@ -9063,7 +9079,7 @@ const JOURNAL_BACKGROUNDS = [
     previewCss: 'background:#fffcf8; border:1px solid rgba(0,0,0,0.08);'
   },
 
-  // ── 4. PASTEL PAPERS ──
+  // ── 4. PASTEL PAPERS (4 Papers) ──
   {
     id: 'paper_pastel_pink',
     name: 'Blossom Pink Ruled',
@@ -9087,11 +9103,19 @@ const JOURNAL_BACKGROUNDS = [
     badge: '💜 Lavender',
     styleKey: 'pastel_lavender',
     previewCss: 'background:#f6f1fb; background-image:repeating-linear-gradient(transparent,transparent 18px,rgba(150,110,210,.28) 19px); border-left:4px solid rgba(160,110,220,.5);'
+  },
+  {
+    id: 'paper_pastel_sky',
+    name: 'Sky Blue Grid',
+    category: 'pastel',
+    badge: '☁️ Sky Grid',
+    styleKey: 'pastel_sky',
+    previewCss: 'background:#f0f6fc; background-image:linear-gradient(to right,rgba(80,140,210,.2) 1px,transparent 1px),linear-gradient(to bottom,rgba(80,140,210,.2) 1px,transparent 1px); background-size:16px 16px;'
   }
 ];
 
 const JOURNAL_CUSTOM_BG_KEY = 'calverse_custom_page_backgrounds';
-let journalBgActiveCategory = 'all';
+let journalBgActiveCategory = 'grids';
 
 function getJournalCustomBackgrounds(){
   try {
@@ -9120,8 +9144,12 @@ function removeJournalCustomBackground(id, e){
   if(e){ e.preventDefault(); e.stopPropagation(); }
   let list = getJournalCustomBackgrounds().filter(b => b.id !== id);
   saveJournalCustomBackgrounds(list);
+  const note = getNoteById(currentNoteId);
+  if(note && (note.pageBgId === id || (note.pageBg && note.pageBg.includes(id)))){
+    removeJournalPageBackground();
+  }
   renderJournalBackgroundGrid(journalBgActiveCategory);
-  showToast('Removed custom background 🗑️');
+  showToast('Removed custom background from grid 🗑️');
 }
 
 function openJournalBackgroundModal(){
@@ -9133,7 +9161,7 @@ function openJournalBackgroundModal(){
   const dim = (note && note.pageBgDim !== undefined) ? Number(note.pageBgDim) : 100;
   if(slider) slider.value = dim;
   if(label) label.textContent = dim + '%';
-  renderJournalBackgroundGrid(journalBgActiveCategory);
+  renderJournalBackgroundGrid(journalBgActiveCategory || 'grids');
   m.classList.add('show');
 }
 
@@ -9148,7 +9176,7 @@ function filterJournalBgTab(cat, btn){
   renderJournalBackgroundGrid(cat);
 }
 
-function renderJournalBackgroundGrid(category = 'all'){
+function renderJournalBackgroundGrid(category = 'grids'){
   const container = document.getElementById('journal-bg-grid');
   if(!container) return;
 
@@ -9180,11 +9208,9 @@ function renderJournalBackgroundGrid(category = 'all'){
   const customs = getJournalCustomBackgrounds();
   const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
 
-  const filtered = (category === 'all') 
-    ? allBgs 
-    : (category === 'uploads')
-      ? customs
-      : allBgs.filter(b => b.category === category || (b.id === 'bg_none' && category === 'grids'));
+  const filtered = (category === 'uploads')
+    ? customs
+    : allBgs.filter(b => b.category === category);
 
   if(!filtered.length){
     if(category === 'uploads'){
@@ -9202,39 +9228,23 @@ function renderJournalBackgroundGrid(category = 'all'){
 
   let html = '';
   filtered.forEach(bg => {
-    const isCur = bg.id === 'bg_none'
-      ? (!curBg && (curPaper === 'blank' || curBgId === 'bg_none'))
-      : bg.styleKey 
-        ? (!curBg && curPaper === bg.styleKey && curBgId !== 'bg_none')
-        : (curBgId === bg.id || (curBg && curBg === bg.value));
+    const isCur = bg.styleKey 
+      ? (!curBg && curPaper === bg.styleKey)
+      : (curBgId === bg.id || (curBg && curBg === bg.value));
 
-    let previewContent = '';
-    let bgCss = '';
-
-    if(bg.id === 'bg_none'){
-      bgCss = 'background:rgba(255,255,255,0.03);border:2px dashed var(--glb);';
-      previewContent = `
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:4px;color:var(--t2);text-align:center;padding:6px;box-sizing:border-box;">
-          <span style="font-size:24px;">🚫</span>
-          <span style="font-size:10.5px;font-weight:900;color:var(--t1);letter-spacing:0.4px;">REMOVE BG</span>
-          <span style="font-size:9px;color:var(--t3);">Clean blank page</span>
-        </div>
-      `;
-    } else if(bg.previewCss){
-      bgCss = bg.previewCss.startsWith('background') ? bg.previewCss : `background:${bg.previewCss};`;
-    } else if(bg.value && (bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/') || bg.value.startsWith('url('))){
-      bgCss = `background-image:url('${bg.value}'); background-size:cover; background-position:center;`;
-    } else {
-      bgCss = `background:${bg.value || '#fff'};`;
-    }
+    const bgCss = bg.previewCss 
+      ? (bg.previewCss.startsWith('background') ? bg.previewCss : `background:${bg.previewCss};`)
+      : (bg.value && (bg.value.startsWith('data:') || bg.value.startsWith('http') || bg.value.startsWith('/') || bg.value.startsWith('url(')))
+        ? `background-image:url('${bg.value}'); background-size:cover; background-position:center;`
+        : `background:${bg.value || '#fff'};`;
 
     const delBtn = bg.isCustom 
-      ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete upload" style="background:rgba(0,0,0,0.5);border:none;color:#ff5252;width:20px;height:20px;border-radius:50%;font-size:11px;cursor:pointer;display:grid;place-items:center;">✕</button>` 
+      ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete from grid completely" style="background:rgba(0,0,0,0.65);border:none;color:#ff5252;width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:900;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.4);">✕</button>` 
       : '';
 
     html += `
       <div class="journal-bg-card ${isCur ? 'is-active' : ''}" onclick="selectJournalBackgroundItem('${escapeHtml(bg.id)}')">
-        <div class="journal-bg-card-preview" style="${bgCss}">${previewContent}</div>
+        <div class="journal-bg-card-preview" style="${bgCss}"></div>
         <div class="journal-bg-card-footer">
           <span title="${escapeHtml(bg.name)}">${escapeHtml(bg.badge || bg.name)}</span>
           <div style="display:flex;align-items:center;gap:4px;">
@@ -9246,8 +9256,8 @@ function renderJournalBackgroundGrid(category = 'all'){
     `;
   });
 
-  // Always show an "Upload Image" tile in 'all' and 'uploads' tabs
-  if(category === 'all' || category === 'uploads'){
+  // In 'uploads' tab, always show an "Upload Image" tile
+  if(category === 'uploads'){
     html += `
       <div class="journal-bg-card" onclick="triggerJournalBgUpload()" title="Upload custom wallpaper or background from device" style="border:1.5px dashed var(--glb);background:rgba(255,255,255,0.02);">
         <div class="journal-bg-card-preview" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;">
@@ -9267,10 +9277,6 @@ function renderJournalBackgroundGrid(category = 'all'){
 }
 
 function selectJournalBackgroundItem(bgId){
-  if(bgId === 'bg_none'){
-    removeJournalPageBackground();
-    return;
-  }
   const customs = getJournalCustomBackgrounds();
   const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
   const bg = allBgs.find(b => b.id === bgId);
@@ -9315,13 +9321,13 @@ function removeJournalPageBackground(){
   const note = getNoteById(currentNoteId);
   if(!note) return;
   note.pageBg = null;
-  note.pageBgId = 'bg_none';
+  note.pageBgId = null;
   note.paperStyle = 'blank';
   applyPageBackgroundToSheet(null);
   applyIpadPaperStyle('blank');
   queueIpadSave();
   renderJournalBackgroundGrid(journalBgActiveCategory);
-  showToast('Background removed 🚫 Clean canvas');
+  showToast('Background removed from page 🚫');
 }
 
 function resetToObsidianGrid(){
@@ -11142,6 +11148,9 @@ function applyIpadPaperStyle(style){
     'paper-pastel_lavender',
     'paper-dark-dots',
     'paper-dark-ruled',
+    'paper-parchment',
+    'paper-pastel_sky',
+    'paper-pastel-sky',
     'paper-pastel-pink',
     'paper-pastel-mint',
     'paper-pastel-lavender'
@@ -11159,9 +11168,11 @@ function applyIpadPaperStyle(style){
   else if(cleanStyle === 'dark_dots') sheet.classList.add('paper-dark-dots');
   else if(cleanStyle === 'dark_ruled') sheet.classList.add('paper-dark-ruled');
   else if(cleanStyle === 'coffee') sheet.classList.add('paper-coffee');
+  else if(cleanStyle === 'parchment') sheet.classList.add('paper-parchment');
   else if(cleanStyle === 'pastel_pink') sheet.classList.add('paper-pastel-pink');
   else if(cleanStyle === 'pastel_mint') sheet.classList.add('paper-pastel-mint');
   else if(cleanStyle === 'pastel_lavender') sheet.classList.add('paper-pastel-lavender');
+  else if(cleanStyle === 'pastel_sky') sheet.classList.add('paper-pastel-sky');
   else sheet.classList.add('paper-blank');
 
   if(sel && sel.value !== cleanStyle) sel.value = cleanStyle;
