@@ -27,7 +27,7 @@
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
 
     // Auto-reload to immediately break browser disk cache for new full-width build
-    const BUILD_TAG = '20261022_sidedock_v3';
+    const BUILD_TAG = '20261022_modular_v4';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       if (!location.search.includes('v=')) {
@@ -4838,20 +4838,11 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── DUAL SCREEN & FOLDABLE (iPhone Duo, Galaxy Fold) ── */
-@media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical) {
-  html, body {
-    background-color: var(--bg) !important;
-  }
-  #app {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
-    padding-right: calc(16px + env(safe-area-inset-right, 0px)) !important;
-  }
-}
+/* ==========================================================================
+   FORM-FACTOR ISOLATION SUITE: CLEAN SEPARATION (DUO, TABLET, LAPTOP)
+   ========================================================================== */
 
-/* ── JOURNAL WORKSPACE SPLIT & SCROLLABLE SIDE DOCK BASE ── */
+/* ── 1. BASE JOURNAL SPLIT STYLES (Universal Defaults) ── */
 .ipad-workspace-split {
   display: flex;
   flex-direction: column;
@@ -4870,10 +4861,35 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   display: none !important;
 }
 
-/* ── IPHONE DUO & WIDE SCREENS: SIDE TOOLBAR / PALETTE IN JOURNAL ── */
-@media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical), (min-width: 580px) {
-  .ipad-frame.dock-side .ipad-workspace-split,
-  .ipad-frame:not(.dock-top) .ipad-workspace-split {
+/* ── 2. IPHONE DUO & DUAL-SCREEN FOLDABLES (EXCLUSIVELY) ── */
+/* Targets ONLY dual-screen hardware and foldable viewports (iPhone Duo, Surface Duo, Galaxy Fold) */
+@media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical), (vertical-viewport-segments: 2), (screen-spanning: single-fold-horizontal) {
+  html, body {
+    background-color: var(--bg) !important;
+  }
+  #app {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+  }
+  .bnav {
+    width: min(720px, calc(100% - 32px)) !important;
+  }
+  
+  /* Duo Journal: Side space tool palette + spacious canvas */
+  .ipad-stage {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-frame {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-frame:not(.dock-top) .ipad-workspace-split,
+  .ipad-frame.dock-side .ipad-workspace-split {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
@@ -4881,9 +4897,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     width: 100% !important;
     box-sizing: border-box !important;
   }
-
-  .ipad-frame.dock-side .ipad-side-dock,
-  .ipad-frame:not(.dock-top) .ipad-side-dock {
+  .ipad-frame:not(.dock-top) .ipad-side-dock,
+  .ipad-frame.dock-side .ipad-side-dock {
     width: 184px !important;
     min-width: 170px !important;
     max-width: 210px !important;
@@ -4908,30 +4923,25 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     flex-direction: column !important;
     gap: 10px !important;
   }
-
-  [data-t=light] .ipad-frame.dock-side .ipad-side-dock,
-  [data-t=light] .ipad-frame:not(.dock-top) .ipad-side-dock {
+  [data-t=light] .ipad-frame:not(.dock-top) .ipad-side-dock,
+  [data-t=light] .ipad-frame.dock-side .ipad-side-dock {
     background: rgba(255, 250, 244, 0.94) !important;
     border-color: rgba(131, 98, 74, 0.22) !important;
     box-shadow: 0 10px 28px rgba(104, 76, 56, 0.12) !important;
   }
-
-  /* Stylus dock items stacked vertically in the side space */
-  .ipad-frame.dock-side .ipad-stylus-dock,
-  .ipad-frame:not(.dock-top) .ipad-stylus-dock {
+  .ipad-frame:not(.dock-top) .ipad-stylus-dock,
+  .ipad-frame.dock-side .ipad-stylus-dock {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
-    border-radius: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
     width: 100% !important;
   }
-
-  .ipad-frame.dock-side .ipad-tool-segmented,
-  .ipad-frame:not(.dock-top) .ipad-tool-segmented {
+  .ipad-frame:not(.dock-top) .ipad-tool-segmented,
+  .ipad-frame.dock-side .ipad-tool-segmented {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
@@ -4939,9 +4949,8 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     gap: 3px !important;
     box-sizing: border-box !important;
   }
-
-  .ipad-frame.dock-side .dock-tool-btn,
-  .ipad-frame:not(.dock-top) .dock-tool-btn {
+  .ipad-frame:not(.dock-top) .dock-tool-btn,
+  .ipad-frame.dock-side .dock-tool-btn {
     width: 100% !important;
     justify-content: flex-start !important;
     height: 32px !important;
@@ -4950,51 +4959,43 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     font-weight: 800 !important;
     border-radius: 9px !important;
   }
-
-  .ipad-frame.dock-side .dock-divider,
-  .ipad-frame:not(.dock-top) .dock-divider {
+  .ipad-frame:not(.dock-top) .dock-divider,
+  .ipad-frame.dock-side .dock-divider {
     width: 100% !important;
     height: 1px !important;
     margin: 4px 0 !important;
     background: var(--glb) !important;
   }
-
-  .ipad-frame.dock-side .ipad-tool-grp,
-  .ipad-frame:not(.dock-top) .ipad-tool-grp {
+  .ipad-frame:not(.dock-top) .ipad-tool-grp,
+  .ipad-frame.dock-side .ipad-tool-grp {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
     gap: 5px !important;
     box-sizing: border-box !important;
   }
-
-  .ipad-frame.dock-side .note-tool-btn,
-  .ipad-frame:not(.dock-top) .note-tool-btn {
+  .ipad-frame:not(.dock-top) .note-tool-btn,
+  .ipad-frame.dock-side .note-tool-btn {
     width: 100% !important;
     justify-content: flex-start !important;
     height: 30px !important;
     padding: 0 9px !important;
     font-size: 11.5px !important;
-    box-sizing: border-box !important;
   }
-
-  .ipad-frame.dock-side .note-tool-select,
-  .ipad-frame:not(.dock-top) .note-tool-select {
+  .ipad-frame:not(.dock-top) .note-tool-select,
+  .ipad-frame.dock-side .note-tool-select {
     width: 100% !important;
     min-width: 0 !important;
     height: 30px !important;
-    box-sizing: border-box !important;
   }
-
-  .ipad-frame.dock-side .ipad-font-page-toggle,
-  .ipad-frame:not(.dock-top) .ipad-font-page-toggle {
+  .ipad-frame:not(.dock-top) .ipad-font-page-toggle,
+  .ipad-frame.dock-side .ipad-font-page-toggle {
     width: 100% !important;
     box-sizing: border-box !important;
     justify-content: center !important;
   }
-
-  .ipad-frame.dock-side #ipad-ink-subbar,
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar {
+  .ipad-frame:not(.dock-top) #ipad-ink-subbar,
+  .ipad-frame.dock-side #ipad-ink-subbar {
     width: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -5005,42 +5006,26 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     background: rgba(0, 0, 0, 0.22) !important;
     border: 1px solid var(--glb) !important;
   }
-
-  .ipad-frame.dock-side #ipad-ink-subbar .ink-sub-group,
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-sub-group {
+  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-sub-group,
+  .ipad-frame.dock-side #ipad-ink-subbar .ink-sub-group {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 4px !important;
     width: 100% !important;
   }
-
-  .ipad-frame.dock-side #ipad-ink-subbar .ink-range-slider,
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-range-slider {
+  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-range-slider,
+  .ipad-frame.dock-side #ipad-ink-subbar .ink-range-slider {
     width: 100% !important;
   }
-
-  .ipad-stage {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  .ipad-frame.dock-side,
-  .ipad-frame:not(.dock-top) {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  /* Paper sheet surface expands to full remaining width and full height! */
-  .ipad-frame.dock-side .ipad-screen-glass,
-  .ipad-frame:not(.dock-top) .ipad-screen-glass {
+  .ipad-frame:not(.dock-top) .ipad-screen-glass,
+  .ipad-frame.dock-side .ipad-screen-glass {
     flex: 1 1 0 !important;
     min-width: 0 !important;
     width: 100% !important;
   }
-
-  .ipad-frame.dock-side .ipad-paper-sheet,
-  .ipad-frame:not(.dock-top) .ipad-paper-sheet {
+  .ipad-frame:not(.dock-top) .ipad-paper-sheet,
+  .ipad-frame.dock-side .ipad-paper-sheet {
     max-width: 100% !important;
     width: 100% !important;
     min-height: calc(100vh - 150px) !important;
@@ -5048,9 +5033,9 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── ALL WIDE PHONES (560px+) ── */
-@media (min-width: 560px){
-  #app{
+/* ── 3. STANDARD WIDE PHONES (560px - 767px Single Screen) ── */
+@media (min-width: 560px) and (max-width: 767px) {
+  #app {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
@@ -5058,17 +5043,17 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     padding-left: calc(16px + var(--safe-left)) !important;
     padding-right: calc(16px + var(--safe-right)) !important;
   }
-  .bnav{
-    width: min(860px, calc(100% - 32px)) !important;
+  .bnav {
+    width: min(640px, calc(100% - 32px)) !important;
   }
 }
 
-/* ── ALL TABLETS, IPADS & LARGE SCREENS (768px+) ── */
-@media (min-width: 768px) and (orientation: portrait){
-  .landscape-nav{
+/* ── 4. TABLETS IN PORTRAIT ORIENTATION ONLY (768px - 1199px Portrait) ── */
+@media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+  .landscape-nav {
     display: none !important;
   }
-  #app{
+  #app {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
@@ -5077,7 +5062,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     padding-right: calc(24px + var(--safe-right)) !important;
     padding-bottom: calc(120px + var(--safe-bottom)) !important;
   }
-  .bnav{
+  .bnav {
     display: flex !important;
     width: min(940px, calc(100% - 40px)) !important;
     left: 50% !important;
@@ -5086,55 +5071,51 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     border-radius: 28px !important;
     gap: 6px !important;
   }
-  .bni{
+  .bni {
     flex: 1 1 0 !important;
     font-size: 10px !important;
     letter-spacing: .25px !important;
     height: 46px !important;
   }
-  .bnico{
+  .bnico {
     font-size: 22px !important;
     width: 28px !important;
     height: 26px !important;
   }
-
-  /* ── ACADEMIA HOME SPREAD FULL-WIDTH (PORTRAIT) ── */
-  .academia-home{
+  .academia-home {
     width: 100% !important;
     padding: 24px 28px 36px !important;
     border-radius: 28px !important;
   }
-  .ac-banner{
+  .ac-banner {
     width: 100% !important;
     height: 220px !important;
     border-radius: 20px !important;
   }
-  .ac-header .ac-title{
+  .ac-header .ac-title {
     font-size: 36px !important;
   }
-  .ac-sub{
+  .ac-sub {
     font-size: 15px !important;
     margin: 8px 0 20px !important;
   }
-  .home-search-row{
+  .home-search-row {
     width: 100% !important;
   }
-  .home-search-row .home-search{
+  .home-search-row .home-search {
     max-width: 720px !important;
     margin: 0 auto !important;
   }
-  .home-search input{
+  .home-search input {
     height: 50px !important;
     font-size: 15px !important;
     border-radius: 18px !important;
   }
-
-  /* SPREAD THE 3 DASHBOARD CARDS ACROSS FULL WIDTH */
-  .ac-search-hide{
+  .ac-search-hide {
     display: block !important;
     width: 100% !important;
   }
-  .ac-search-hide .ac-mid{
+  .ac-search-hide .ac-mid {
     display: grid !important;
     grid-template-columns: 280px 1.15fr 1fr !important;
     gap: 16px !important;
@@ -5142,37 +5123,37 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     align-items: stretch !important;
     width: 100% !important;
   }
-  .ac-time-photo{
+  .ac-time-photo {
     grid-column: 1 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
   }
-  .ac-clock{
+  .ac-clock {
     min-height: 120px !important;
     padding: 18px 22px !important;
     border-radius: 18px !important;
   }
-  .ac-clock .ac-time{
+  .ac-clock .ac-time {
     font-size: 52px !important;
     font-weight: 900 !important;
   }
-  .ac-clock .ac-day{
+  .ac-clock .ac-day {
     font-size: 14.5px !important;
     margin-top: 4px !important;
   }
-  .ac-photo{
+  .ac-photo {
     flex: 1 1 auto !important;
     min-height: 200px !important;
     border-radius: 18px !important;
     overflow: hidden !important;
   }
-  .ac-photo img{
+  .ac-photo img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
   }
-  .ac-goals-habits{
+  .ac-goals-habits {
     grid-column: 2 !important;
     border-radius: 18px !important;
     padding: 22px !important;
@@ -5180,7 +5161,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     flex-direction: column !important;
     justify-content: space-between !important;
   }
-  .ac-timer{
+  .ac-timer {
     grid-column: 3 !important;
     border-radius: 18px !important;
     padding: 22px !important;
@@ -5189,26 +5170,35 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     flex-direction: column !important;
     justify-content: center !important;
   }
-
-  /* FOLDERS AND NOTEBOOKS SPREAD WIDE */
-  .home-folder-grid{
+  .home-folder-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 14px !important;
     width: 100% !important;
   }
-  #sHome .home-folder-grid{
+  #sHome .home-folder-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
-  .notebooks-shelf-grid{
+  .notebooks-shelf-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 18px !important;
     width: 100% !important;
   }
+  .ipad-stage {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-frame {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-paper-sheet {
+    max-width: 100% !important;
+  }
 }
 
-/* ── TABLETS & DESKTOPS IN LANDSCAPE (900px+) — CLEAN SIDEBAR + FULL WIDTH CONTENT ── */
-@media (min-width: 900px) and (orientation: landscape){
-  .landscape-nav{
+/* ── 5. TABLETS IN LANDSCAPE ORIENTATION ONLY (900px - 1199px Landscape) ── */
+@media (min-width: 900px) and (max-width: 1199px) and (orientation: landscape) {
+  .landscape-nav {
     display: grid !important;
     position: fixed !important;
     left: 12px !important;
@@ -5217,7 +5207,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     width: 270px !important;
     z-index: 70 !important;
   }
-  #app{
+  #app {
     width: calc(100% - 306px) !important;
     max-width: calc(100% - 306px) !important;
     margin-left: 294px !important;
@@ -5227,28 +5217,27 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     padding-top: 12px !important;
     padding-bottom: 24px !important;
   }
-  /* NEVER SHOW DOCK IN LANDSCAPE (SIDEBAR HANDLES NAVIGATION) */
-  .bnav{
+  .bnav {
     display: none !important;
   }
-  .academia-home{
+  .academia-home {
     width: 100% !important;
     padding: 20px 24px 28px !important;
     border-radius: 24px !important;
   }
-  .ac-banner{
+  .ac-banner {
     width: 100% !important;
     height: 180px !important;
     border-radius: 18px !important;
   }
-  .ac-header .ac-title{
+  .ac-header .ac-title {
     font-size: 34px !important;
   }
-  .ac-search-hide{
+  .ac-search-hide {
     display: block !important;
     width: 100% !important;
   }
-  .ac-search-hide .ac-mid{
+  .ac-search-hide .ac-mid {
     display: grid !important;
     grid-template-columns: 240px 1.15fr 1fr !important;
     gap: 14px !important;
@@ -5256,48 +5245,134 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     align-items: stretch !important;
     width: 100% !important;
   }
-  .ac-time-photo{
+  .ac-time-photo {
     grid-column: 1 !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
   }
-  .ac-clock{
+  .ac-clock {
     min-height: 110px !important;
     padding: 14px 18px !important;
     border-radius: 16px !important;
   }
-  .ac-clock .ac-time{
+  .ac-clock .ac-time {
     font-size: 48px !important;
     font-weight: 900 !important;
   }
-  .ac-photo{
+  .ac-photo {
     flex: 1 1 auto !important;
     min-height: 160px !important;
     border-radius: 16px !important;
   }
-  .ac-goals-habits{
+  .ac-goals-habits {
     grid-column: 2 !important;
     border-radius: 16px !important;
     padding: 18px !important;
   }
-  .ac-timer{
+  .ac-timer {
     grid-column: 3 !important;
     border-radius: 16px !important;
     padding: 18px !important;
   }
-  .home-folder-grid{
+  .home-folder-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 12px !important;
     width: 100% !important;
   }
-  #sHome .home-folder-grid{
+  #sHome .home-folder-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
-  .notebooks-shelf-grid{
+  .notebooks-shelf-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 16px !important;
     width: 100% !important;
+  }
+  .ipad-stage {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-frame {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-paper-sheet {
+    max-width: 100% !important;
+  }
+}
+
+/* ── 6. LAPTOPS & DESKTOPS (1200px+ Screen) ── */
+@media (min-width: 1200px) {
+  .landscape-nav {
+    display: grid !important;
+    position: fixed !important;
+    left: 16px !important;
+    top: 16px !important;
+    bottom: 16px !important;
+    width: 280px !important;
+    z-index: 70 !important;
+  }
+  #app {
+    width: calc(100% - 330px) !important;
+    max-width: 1440px !important;
+    margin-left: 312px !important;
+    margin-right: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 16px !important;
+    padding-bottom: 32px !important;
+  }
+  .bnav {
+    display: none !important;
+  }
+  .academia-home {
+    width: 100% !important;
+    padding: 24px 32px 36px !important;
+    border-radius: 28px !important;
+  }
+  .ac-banner {
+    width: 100% !important;
+    height: 220px !important;
+    border-radius: 22px !important;
+  }
+  .ac-header .ac-title {
+    font-size: 38px !important;
+  }
+  .ac-search-hide {
+    display: block !important;
+    width: 100% !important;
+  }
+  .ac-search-hide .ac-mid {
+    display: grid !important;
+    grid-template-columns: 280px 1.2fr 1fr !important;
+    gap: 18px !important;
+    margin-top: 18px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .home-folder-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+  #sHome .home-folder-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+  .notebooks-shelf-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
+  }
+  .ipad-stage {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-frame {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .ipad-paper-sheet {
+    max-width: 100% !important;
   }
 }
 
