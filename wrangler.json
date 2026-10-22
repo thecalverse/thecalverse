@@ -4,5 +4,15 @@
   "compatibility_date": "2026-10-19",
   "assets": {
     "directory": "."
-  }
+  },
+  "routes": [
+    {
+      "pattern": "thecalverse.com/*",
+      "zone_name": "thecalverse.com"
+    },
+    {
+      "pattern": "www.thecalverse.com/*",
+      "zone_name": "thecalverse.com"
+    }
+  ]
 }

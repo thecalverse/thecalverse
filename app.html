@@ -1579,7 +1579,6 @@ canvas#gc{display:block;width:100%;height:240px;}
   width:100%;
   max-width:840px;
   margin:0 auto;
-  min-height:1140px;
   aspect-ratio:210 / 297;
   padding:36px 40px 52px;
   box-sizing:border-box;
@@ -1597,7 +1596,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   pointer-events:none;
   z-index:1;
   border-radius:inherit;
-  background-size:contain;
+  background-size:100% 100%;
   background-position:center center;
   background-repeat:no-repeat;
   opacity:1;
@@ -1716,7 +1715,6 @@ canvas#gc{display:block;width:100%;height:240px;}
 @media (max-width:580px){
   .ipad-paper-sheet{
     padding:20px 16px 40px;
-    min-height:580px;
     font-size:16px;
   }
 }
@@ -10487,12 +10485,12 @@ function applyPageBackgroundToSheet(bgValue, dim = 100){
   const val = String(bgValue);
   if(val.startsWith('data:') || val.startsWith('http') || val.startsWith('/') || val.startsWith('assets/') || val.startsWith('url(') || val.includes('.webp') || val.includes('.jpg') || val.includes('.png')){
     layer.style.backgroundImage = val.startsWith('url(') ? val : `url("${val}")`;
-    layer.style.backgroundSize = 'contain';
+    layer.style.backgroundSize = '100% 100%';
     layer.style.backgroundPosition = 'center';
     layer.style.backgroundRepeat = 'no-repeat';
   } else {
     layer.style.background = val;
-    layer.style.backgroundSize = 'contain';
+    layer.style.backgroundSize = '100% 100%';
     layer.style.backgroundPosition = 'center';
     layer.style.backgroundRepeat = 'no-repeat';
   }
@@ -13726,38 +13724,7 @@ function initIpadCanvasEngine(){
       return;
     }
 
-    const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .journal-sticky-note, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
-    if(editable){
-      const item = editable.closest(".canvas-item");
-      if(item){
-        selectCanvasItem(item);
-        lastActiveTextBoxId = item.id;
-      }
-      return;
-    }
-
-    const dragTarget = e.target.closest(".canvas-drag-handle, .canvas-item-bar, .canvas-photo-card, .washi-tape-strip, .canvas-sticker-glyph, .journal-sticky-note, .canvas-shape-container");
-    if(dragTarget){
-      if(e.target.closest("button, select, input, textarea, .cbar-select, .cbar-btn, .cbar-typo-pill")) return;
-      const item = dragTarget.closest(".canvas-item");
-      if(item){
-        e.preventDefault();
-        e.stopPropagation();
-        selectCanvasItem(item);
-        try { dragTarget.setPointerCapture(e.pointerId); } catch(_){}
-        activeDragState = {
-          pointerId: e.pointerId,
-          handle: dragTarget,
-          item: item,
-          startX: e.clientX,
-          startY: e.clientY,
-          startLeft: item.offsetLeft,
-          startTop: item.offsetTop
-        };
-        item.classList.add("is-dragging");
-        return;
-      }
-    }
+    if(e.target.closest("button, select, input, textarea, .cbar-select, .cbar-btn, .cbar-typo-pill, .canvas-rotate-handle, [class*='canvas-resize']")) return;
 
     let item = e.target.closest(".canvas-item");
     if(!item){
@@ -13773,23 +13740,28 @@ function initIpadCanvasEngine(){
         }
       }
     }
+
     if(item){
       selectCanvasItem(item);
-      if(!e.target.closest("button, select, input, textarea, .cbar-select, .cbar-btn, .cbar-typo-pill, .canvas-rotate-handle, [class*='canvas-resize']")){
-        e.preventDefault();
-        e.stopPropagation();
-        try { item.setPointerCapture(e.pointerId); } catch(_){}
-        activeDragState = {
-          pointerId: e.pointerId,
-          handle: item,
-          item: item,
-          startX: e.clientX,
-          startY: e.clientY,
-          startLeft: item.offsetLeft,
-          startTop: item.offsetTop
-        };
-        item.classList.add("is-dragging");
+      const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .journal-sticky-note, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
+      if(editable){
+        lastActiveTextBoxId = item.id;
       }
+      e.preventDefault();
+      e.stopPropagation();
+      try { item.setPointerCapture(e.pointerId); } catch(_){}
+      activeDragState = {
+        pointerId: e.pointerId,
+        handle: item,
+        item: item,
+        startX: e.clientX,
+        startY: e.clientY,
+        startLeft: item.offsetLeft,
+        startTop: item.offsetTop,
+        hasMoved: false,
+        editableTarget: editable
+      };
+      item.classList.add("is-dragging");
       return;
     }
 
@@ -13907,10 +13879,17 @@ function initIpadCanvasEngine(){
     }
 
     if(activeDragState && activeDragState.pointerId === e.pointerId){
-      e.preventDefault();
       const s = activeDragState;
       const deltaX = e.clientX - s.startX;
       const deltaY = e.clientY - s.startY;
+      if(!s.hasMoved){
+        if(Math.hypot(deltaX, deltaY) > 4){
+          s.hasMoved = true;
+        } else {
+          return;
+        }
+      }
+      e.preventDefault();
       const editorWidth = editor.clientWidth || 700;
       const maxLeft = Math.max(0, editorWidth - s.item.offsetWidth);
       const newLeft = Math.max(0, Math.min(maxLeft, s.startLeft + deltaX));
@@ -13942,12 +13921,20 @@ function initIpadCanvasEngine(){
     if(activeDragState && activeDragState.pointerId === e.pointerId){
       try { activeDragState.handle.releasePointerCapture(e.pointerId); } catch(_){}
       activeDragState.item.classList.remove("is-dragging");
+      const hadMoved = activeDragState.hasMoved;
+      const edTarget = activeDragState.editableTarget;
       activeDragState = null;
-      queueIpadSave();
+      if(hadMoved){
+        queueIpadSave();
+      } else if(edTarget){
+        try { edTarget.focus(); } catch(_){}
+      }
     }
   }
   sheet.addEventListener("pointerup", endPointerInteractions);
   sheet.addEventListener("pointercancel", endPointerInteractions);
+  window.addEventListener("pointerup", endPointerInteractions);
+  window.addEventListener("pointercancel", endPointerInteractions);
 
   sheet.addEventListener("paste", (e) => {
     const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
@@ -14531,7 +14518,8 @@ function initIpadInkEngine(){
           startX: e.clientX,
           startY: e.clientY,
           startLeft: item.offsetLeft,
-          startTop: item.offsetTop
+          startTop: item.offsetTop,
+          hasMoved: false
         };
         item.classList.add("is-dragging");
         return;
