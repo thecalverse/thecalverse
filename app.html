@@ -27,7 +27,7 @@
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
 
     // Auto-reload to immediately break browser disk cache for new full-width build
-    const BUILD_TAG = '20261022_modular_v4';
+    const BUILD_TAG = '20261022_clean_v5';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       if (!location.search.includes('v=')) {
@@ -4842,26 +4842,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
    FORM-FACTOR ISOLATION SUITE: CLEAN SEPARATION (DUO, TABLET, LAPTOP)
    ========================================================================== */
 
-/* ── 1. BASE JOURNAL SPLIT STYLES (Universal Defaults) ── */
-.ipad-workspace-split {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.ipad-side-dock {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-sizing: border-box;
-}
-.ipad-frame.is-view-mode .ipad-side-dock {
-  display: none !important;
-}
-
-/* ── 2. IPHONE DUO & DUAL-SCREEN FOLDABLES (EXCLUSIVELY) ── */
+/* ── 1. IPHONE DUO & DUAL-SCREEN FOLDABLES (EXCLUSIVELY) ── */
 /* Targets ONLY dual-screen hardware and foldable viewports (iPhone Duo, Surface Duo, Galaxy Fold) */
 @media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical), (vertical-viewport-segments: 2), (screen-spanning: single-fold-horizontal) {
   html, body {
@@ -4878,8 +4859,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   .bnav {
     width: min(720px, calc(100% - 32px)) !important;
   }
-  
-  /* Duo Journal: Side space tool palette + spacious canvas */
   .ipad-stage {
     max-width: 100% !important;
     width: 100% !important;
@@ -4888,152 +4867,12 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     max-width: 100% !important;
     width: 100% !important;
   }
-  .ipad-frame:not(.dock-top) .ipad-workspace-split,
-  .ipad-frame.dock-side .ipad-workspace-split {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-start !important;
-    gap: 14px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-side-dock,
-  .ipad-frame.dock-side .ipad-side-dock {
-    width: 184px !important;
-    min-width: 170px !important;
-    max-width: 210px !important;
-    flex-shrink: 0 !important;
-    max-height: calc(100vh - 140px) !important;
-    max-height: calc(100dvh - 140px) !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: thin !important;
-    background: rgba(18, 22, 32, 0.88) !important;
-    backdrop-filter: blur(18px) !important;
-    -webkit-backdrop-filter: blur(18px) !important;
-    border: 1px solid var(--glb) !important;
-    border-radius: 18px !important;
-    padding: 12px 10px !important;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.25) !important;
-    position: sticky !important;
-    top: 10px !important;
-    z-index: 25 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-  }
-  [data-t=light] .ipad-frame:not(.dock-top) .ipad-side-dock,
-  [data-t=light] .ipad-frame.dock-side .ipad-side-dock {
-    background: rgba(255, 250, 244, 0.94) !important;
-    border-color: rgba(131, 98, 74, 0.22) !important;
-    box-shadow: 0 10px 28px rgba(104, 76, 56, 0.12) !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-stylus-dock,
-  .ipad-frame.dock-side .ipad-stylus-dock {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-tool-segmented,
-  .ipad-frame.dock-side .ipad-tool-segmented {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    padding: 4px !important;
-    gap: 3px !important;
-    box-sizing: border-box !important;
-  }
-  .ipad-frame:not(.dock-top) .dock-tool-btn,
-  .ipad-frame.dock-side .dock-tool-btn {
-    width: 100% !important;
-    justify-content: flex-start !important;
-    height: 32px !important;
-    padding: 0 10px !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
-    border-radius: 9px !important;
-  }
-  .ipad-frame:not(.dock-top) .dock-divider,
-  .ipad-frame.dock-side .dock-divider {
-    width: 100% !important;
-    height: 1px !important;
-    margin: 4px 0 !important;
-    background: var(--glb) !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-tool-grp,
-  .ipad-frame.dock-side .ipad-tool-grp {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 5px !important;
-    box-sizing: border-box !important;
-  }
-  .ipad-frame:not(.dock-top) .note-tool-btn,
-  .ipad-frame.dock-side .note-tool-btn {
-    width: 100% !important;
-    justify-content: flex-start !important;
-    height: 30px !important;
-    padding: 0 9px !important;
-    font-size: 11.5px !important;
-  }
-  .ipad-frame:not(.dock-top) .note-tool-select,
-  .ipad-frame.dock-side .note-tool-select {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: 30px !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-font-page-toggle,
-  .ipad-frame.dock-side .ipad-font-page-toggle {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    justify-content: center !important;
-  }
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar,
-  .ipad-frame.dock-side #ipad-ink-subbar {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    padding: 10px 8px !important;
-    border-radius: 12px !important;
-    background: rgba(0, 0, 0, 0.22) !important;
-    border: 1px solid var(--glb) !important;
-  }
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-sub-group,
-  .ipad-frame.dock-side #ipad-ink-subbar .ink-sub-group {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 4px !important;
-    width: 100% !important;
-  }
-  .ipad-frame:not(.dock-top) #ipad-ink-subbar .ink-range-slider,
-  .ipad-frame.dock-side #ipad-ink-subbar .ink-range-slider {
-    width: 100% !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-screen-glass,
-  .ipad-frame.dock-side .ipad-screen-glass {
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
-    width: 100% !important;
-  }
-  .ipad-frame:not(.dock-top) .ipad-paper-sheet,
-  .ipad-frame.dock-side .ipad-paper-sheet {
+  .ipad-paper-sheet {
     max-width: 100% !important;
-    width: 100% !important;
-    min-height: calc(100vh - 150px) !important;
-    min-height: calc(100dvh - 150px) !important;
   }
 }
 
-/* ── 3. STANDARD WIDE PHONES (560px - 767px Single Screen) ── */
+/* ── 2. STANDARD WIDE PHONES (560px - 767px Single Screen) ── */
 @media (min-width: 560px) and (max-width: 767px) {
   #app {
     width: 100% !important;
@@ -5048,7 +4887,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── 4. TABLETS IN PORTRAIT ORIENTATION ONLY (768px - 1199px Portrait) ── */
+/* ── 3. TABLETS IN PORTRAIT ORIENTATION ONLY (768px - 1199px Portrait) ── */
 @media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
   .landscape-nav {
     display: none !important;
@@ -5196,7 +5035,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── 5. TABLETS IN LANDSCAPE ORIENTATION ONLY (900px - 1199px Landscape) ── */
+/* ── 4. TABLETS IN LANDSCAPE ORIENTATION ONLY (900px - 1199px Landscape) ── */
 @media (min-width: 900px) and (max-width: 1199px) and (orientation: landscape) {
   .landscape-nav {
     display: grid !important;
@@ -5301,7 +5140,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── 6. LAPTOPS & DESKTOPS (1200px+ Screen) ── */
+/* ── 5. LAPTOPS & DESKTOPS (1200px+ Screen) ── */
 @media (min-width: 1200px) {
   .landscape-nav {
     display: grid !important;
@@ -6469,7 +6308,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
               <button type="button" class="ipad-step-btn" onclick="zoomIpad(0.15)" title="Zoom In" style="width:22px;height:24px;">＋</button>
               <button type="button" class="ipad-step-btn" onclick="setIpadZoom(1.0)" title="Reset Zoom" style="font-size:10px;padding:0 5px;border-left:1px solid rgba(255,255,255,0.12);">Fit</button>
             </div>
-            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-dock-layout-btn" onclick="toggleIpadDockSideMode()" title="Toggle Side / Top Toolbar Placement" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">🎛️ Dock: Side</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
             <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
             <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);">✏️ Edit</button>
@@ -6477,9 +6315,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
           </div>
         </div>
 
-        <div class="ipad-workspace-split" id="ipad-workspace-split">
-          <aside class="ipad-side-dock" id="ipad-side-dock" aria-label="Journal Tool Palette">
-            <div class="ipad-stylus-dock">
+        <div class="ipad-stylus-dock">
           <!-- Primary Tool Switcher (Segmented Dock) -->
           <div class="ipad-tool-segmented">
             <button type="button" class="dock-tool-btn is-active" id="tool-select" onclick="setIpadActiveTool('select')" title="Select & Move (Text, Tape, Shapes, Photos)">✋ Select</button>
@@ -6578,7 +6414,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
         <!-- Inking Secondary Subbar (Contextual for Pen, Highlighter, Eraser) -->
         <div id="ipad-ink-subbar" class="ipad-ink-subbar" style="display:none;"></div>
-          </aside>
 
         <input type="file" id="ipad-photo-input" accept="image/*" style="display:none" onchange="handleIpadPhotoUpload(event)">
 
@@ -6609,7 +6444,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
             <div id="ipad-page-editor" class="ipad-paper-canvas" contenteditable="true" spellcheck="true" data-placeholder="Start typing notes here... Tap Pen to write or doodle, Highlighter to glow, or drop shapes and text boxes anywhere!" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(false)"></div>
           </div>
         </div>
-        </div><!-- /#ipad-workspace-split -->
 
         <!-- iPad Bottom Status -->
         <div style="display:flex;align-items:center;justify-content:space-between;padding:2px 8px;font-size:11px;color:var(--t3);">
@@ -12554,7 +12388,6 @@ function loadIpadActivePage(){
   initIpadInkEngine();
   loadIpadInkForActiveNote(activeNote);
   restoreIpadBinderState();
-  initIpadDockLayoutPreference();
   if(ipadIsViewMode) setIpadViewMode(true);
   updateIpadSaveStatus('Saved locally to notebook');
 }
@@ -13386,50 +13219,7 @@ function setIpadViewMode(isView){
     showToast("👁️ View Mode: Distraction-free reading. Click Edit to customize!");
   } else {
     showToast("✏️ Edit Mode: All tools and options unlocked! ✨");
-    initIpadDockLayoutPreference();
   }
-}
-
-function initIpadDockLayoutPreference(){
-  const saved = localStorage.getItem('calverse_ipad_dock_layout');
-  const frame = document.querySelector('.ipad-frame');
-  if(!frame) return;
-  if(saved === 'top'){
-    frame.classList.add('dock-top');
-    frame.classList.remove('dock-side');
-  } else if(saved === 'side'){
-    frame.classList.add('dock-side');
-    frame.classList.remove('dock-top');
-  }
-  updateIpadDockLayoutBtn();
-}
-
-function toggleIpadDockSideMode(){
-  const frame = document.querySelector('.ipad-frame');
-  if(!frame) return;
-  const isCurrentlySide = frame.classList.contains('dock-side') || (!frame.classList.contains('dock-top') && (window.innerWidth >= 580 || (window.visualViewport && window.visualViewport.width >= 580)));
-  if(isCurrentlySide){
-    frame.classList.remove('dock-side');
-    frame.classList.add('dock-top');
-    localStorage.setItem('calverse_ipad_dock_layout', 'top');
-    showToast('Toolbar docked to Top ⬆️');
-  } else {
-    frame.classList.remove('dock-top');
-    frame.classList.add('dock-side');
-    localStorage.setItem('calverse_ipad_dock_layout', 'side');
-    showToast('Toolbar docked to Side Space ⬅️');
-  }
-  updateIpadDockLayoutBtn();
-  if(typeof resizeIpadInkCanvas === 'function') setTimeout(resizeIpadInkCanvas, 50);
-}
-
-function updateIpadDockLayoutBtn(){
-  const btn = document.getElementById('ipad-dock-layout-btn');
-  const frame = document.querySelector('.ipad-frame');
-  if(!btn || !frame) return;
-  const isSide = frame.classList.contains('dock-side') || (!frame.classList.contains('dock-top') && (window.innerWidth >= 580 || (window.visualViewport && window.visualViewport.width >= 580)));
-  btn.innerHTML = isSide ? '🎛️ Dock: Side' : '🎛️ Dock: Top';
-  btn.title = isSide ? 'Switch toolbar to top of page' : 'Switch toolbar to side space';
 }
 
 function upgradeLegacyIpadElements(editorEl){
