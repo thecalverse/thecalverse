@@ -4824,48 +4824,147 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── WIDE PHONE (560px - 899px) ── */
-@media (min-width:560px) and (max-width:899px){
+/* ── WIDE PHONE (560px - 767px) ── */
+@media (min-width:560px) and (max-width:767px){
   #app{
-    max-width:min(640px, calc(100vw - 24px));
-    width:min(640px, calc(100vw - 24px));
-    padding-left: calc(16px + var(--safe-left));
-    padding-right: calc(16px + var(--safe-right));
+    max-width:min(640px, calc(100vw - 24px)) !important;
+    width:min(640px, calc(100vw - 24px)) !important;
+    padding-left:calc(16px + var(--safe-left));
+    padding-right:calc(16px + var(--safe-right));
   }
   .bnav{
-    width:min(560px, calc(100% - 24px));
+    width:min(580px, calc(100% - 24px)) !important;
   }
 }
 
-/* ── TABLET PORTRAIT (768px - 899px) ── */
-@media (min-width:768px) and (max-width:899px){
+/* ── TABLET & LARGE SCREENS IN PORTRAIT (768px - 1400px+) ── */
+@media (min-width:768px) and (orientation:portrait), (min-width:768px) and (max-width:899px){
   #app{
-    max-width:min(760px, calc(100vw - 32px));
-    width:min(760px, calc(100vw - 32px));
-    padding-left: calc(20px + var(--safe-left));
-    padding-right: calc(20px + var(--safe-right));
+    max-width:min(960px, calc(100vw - 40px)) !important;
+    width:min(960px, calc(100vw - 40px)) !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding-left:calc(20px + var(--safe-left)) !important;
+    padding-right:calc(20px + var(--safe-right)) !important;
+    padding-bottom:calc(110px + var(--safe-bottom)) !important;
   }
   .bnav{
-    width:min(700px, calc(100% - 32px));
+    display:flex !important;
+    width:min(820px, calc(100% - 40px)) !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    padding:8px 16px !important;
+    border-radius:26px !important;
+    gap:4px !important;
   }
+  .bni{
+    flex:1 1 0 !important;
+    font-size:9.5px !important;
+    letter-spacing:.2px !important;
+    height:44px !important;
+  }
+  .bnico{
+    font-size:20px !important;
+    width:26px !important;
+    height:24px !important;
+  }
+
+  /* ── ACADEMIA HOME SCREEN TABLET DASHBOARD ── */
+  .academia-home{
+    padding:20px 24px 28px !important;
+    border-radius:26px !important;
+  }
+  .ac-banner{
+    height:190px !important;
+    border-radius:18px !important;
+  }
+  .ac-header .ac-title{
+    font-size:32px !important;
+  }
+  .ac-sub{
+    font-size:14px !important;
+    margin:8px 0 18px !important;
+  }
+  .home-search-row .home-search{
+    max-width:620px !important;
+    margin:0 auto !important;
+  }
+  .home-search input{
+    height:46px !important;
+    font-size:14.5px !important;
+    border-radius:16px !important;
+  }
+
+  /* 2-Column Dashboard Grid: Left = Time & Photo, Right = Goals & Habits */
+  .ac-search-hide{
+    display:block !important;
+  }
+  .ac-search-hide .ac-mid{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:16px !important;
+    margin-top:14px !important;
+    align-items:stretch !important;
+  }
+  .ac-time-photo{
+    grid-column:1 !important;
+    grid-row:auto !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+  }
+  .ac-clock{
+    min-height:120px !important;
+    padding:16px 20px !important;
+    border-radius:18px !important;
+  }
+  .ac-clock .ac-time{
+    font-size:48px !important;
+    font-weight:900 !important;
+  }
+  .ac-clock .ac-day{
+    font-size:14px !important;
+    margin-top:4px !important;
+  }
+  .ac-photo{
+    height:210px !important;
+    border-radius:18px !important;
+    overflow:hidden !important;
+  }
+  .ac-photo img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+  .ac-goals-habits{
+    grid-column:2 !important;
+    grid-row:auto !important;
+    border-radius:18px !important;
+    padding:18px 20px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    height:auto !important;
+    box-sizing:border-box !important;
+  }
+  .ac-timer{
+    grid-column:1 / -1 !important;
+    grid-row:auto !important;
+    border-radius:18px !important;
+    padding:20px !important;
+    min-height:220px !important;
+  }
+
+  /* Grids */
   .home-folder-grid{
-    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
-    gap: 12px !important;
+    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
+    gap:12px !important;
   }
   #sHome .home-folder-grid{
-    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
-  }
-  .home-hub-widgets{
-    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
-    grid-template-areas:
-      "thought thought time"
-      "today theme notes"
-      "folders folders folders"
-      "habits habits timer" !important;
+    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
   }
   .notebooks-shelf-grid{
-    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
-    gap: 16px !important;
+    grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+    gap:18px !important;
   }
 }
 
@@ -4876,7 +4975,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     padding: 4px 12px 32px;
   }
   .ipad-paper-sheet{
-    max-width: min(840px, 100%);
+    max-width: min(880px, 100%);
   }
 }
 </style>
