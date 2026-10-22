@@ -5917,10 +5917,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
         <button type="button" class="jview-tab-btn" id="jview-tab-sparks" onclick="switchJournalMainView('sparks')">💭 Thought Sparks</button>
         <button type="button" class="jview-tab-btn" id="jview-tab-trash" onclick="switchJournalMainView('trash')">🗑️ Trash</button>
       </div>
-      <div style="display:flex;gap:6px;align-items:center;" id="journal-header-actions">
-        <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 10px;">+ New Book</button>
-        <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">+ Write Entry</button>
-      </div>
     </div>
 
     <!-- VIEW 0: BOOKSHELF (DEFAULT VIEW IN JOURNAL) -->
@@ -11338,7 +11334,6 @@ function renderJournalBookshelf(){
   const titleEl = document.getElementById('journal-bookshelf-title');
   const subEl = document.getElementById('journal-bookshelf-sub');
   const actionsEl = document.getElementById('journal-shelf-action-btns');
-  const topActionsEl = document.getElementById('journal-header-actions');
   if(!shelfGrid) return;
 
   const isVault = isJournalVaultActive;
@@ -11366,20 +11361,6 @@ function renderJournalBookshelf(){
       actionsEl.innerHTML = `
         <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="font-size:12px;height:32px;padding:0 10px;">+ New Book</button>
         <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="background:var(--acc);color:var(--t1);border-color:var(--acb);font-size:12px;height:32px;padding:0 12px;">+ Write Entry</button>
-      `;
-    }
-  }
-
-  if(topActionsEl){
-    if(isVault){
-      topActionsEl.innerHTML = `
-        <button type="button" class="notes-top-btn" onclick="openCreateBookModal(true)" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;height:34px;padding:0 10px;">+ Secret Book</button>
-        <button type="button" class="notes-top-btn" onclick="lockJournalVault()" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;height:34px;padding:0 10px;color:var(--rdc);background:rgba(255,80,80,0.12);border-color:rgba(255,80,80,0.3);">🔒 Lock Diary</button>
-      `;
-    } else {
-      topActionsEl.innerHTML = `
-        <button type="button" class="notes-top-btn" onclick="openCreateBookModal(false)" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 10px;">+ New Book</button>
-        <button type="button" class="notes-top-btn" onclick="openNewJournalEntryModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;height:34px;padding:0 12px;background:var(--acc);color:var(--t1);border-color:var(--acb);">+ Write Entry</button>
       `;
     }
   }
