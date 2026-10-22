@@ -25,6 +25,15 @@
     document.documentElement.setAttribute('data-t', bootTheme);
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
+
+    // Auto-reload to immediately break browser disk cache for new full-width build
+    const BUILD_TAG = '20261022_fullwidth_v1';
+    if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
+      localStorage.setItem('calverse_build_tag', BUILD_TAG);
+      if (!location.search.includes('v=')) {
+        location.replace(location.pathname + '?v=' + Date.now());
+      }
+    }
   } catch (_) {}
 })();
 </script>
@@ -83,7 +92,7 @@ body::before,body::after,#app::before{display:none;}
 @keyframes spFadeOut{0%{opacity:1}100%{opacity:0}}
 @keyframes dp{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(-2px);opacity:1}}
 @keyframes fUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-#app{position:relative;width:min(100%,460px);max-width:460px;margin:0 auto;padding:0 calc(10px + var(--safe-right)) calc(112px + var(--safe-bottom)) calc(10px + var(--safe-left));opacity:0;transform:translateY(18px);transition:opacity .36s var(--ease-open),transform .36s var(--ease-open);z-index:1;min-height:100dvh;}
+#app{position:relative;width:100%;max-width:100%;margin:0 auto;padding:0 calc(12px + var(--safe-right)) calc(112px + var(--safe-bottom)) calc(12px + var(--safe-left));opacity:0;transform:translateY(18px);transition:opacity .36s var(--ease-open),transform .36s var(--ease-open);z-index:1;min-height:100dvh;}
 #app.show{opacity:1;transform:translateY(0);}
 .topbar{display:flex;align-items:center;justify-content:flex-end;padding:14px 14px 14px 16px;position:sticky;top:max(8px,var(--safe-top));z-index:10;margin:10px 0 16px;border-radius:24px;background:linear-gradient(180deg,rgba(24,28,38,.96),rgba(13,17,24,.94));border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 34px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.03);overflow:hidden;backdrop-filter:none;-webkit-backdrop-filter:none;}
 .topbar::before{content:'';position:absolute;inset:0;border-radius:24px;pointer-events:none;background-image:radial-gradient(circle at 18% 20%,rgba(255,255,255,.045) 0 1px,transparent 1.2px),radial-gradient(circle at 72% 64%,rgba(255,255,255,.03) 0 1px,transparent 1.3px),linear-gradient(180deg,rgba(255,255,255,.018),rgba(0,0,0,.045));background-size:14px 14px,18px 18px,100% 100%;background-position:0 0,7px 9px,0 0;opacity:.92;}
@@ -4842,147 +4851,158 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── WIDE PHONE (560px - 767px) ── */
-@media (min-width:560px) and (max-width:767px){
+/* ── ALL WIDE PHONES (560px+) ── */
+@media (min-width: 560px){
   #app{
-    max-width:min(640px, calc(100vw - 24px)) !important;
-    width:min(640px, calc(100vw - 24px)) !important;
-    padding-left:calc(16px + var(--safe-left));
-    padding-right:calc(16px + var(--safe-right));
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: calc(16px + var(--safe-left)) !important;
+    padding-right: calc(16px + var(--safe-right)) !important;
   }
   .bnav{
-    width:min(580px, calc(100% - 24px)) !important;
+    width: min(860px, calc(100% - 32px)) !important;
   }
 }
 
-/* ── TABLET & LARGE SCREENS IN PORTRAIT (768px - 1400px+) ── */
-@media (min-width:768px) and (orientation:portrait), (min-width:768px) and (max-width:899px){
+/* ── ALL TABLETS, IPADS & LARGE SCREENS (768px+) — EDGE-TO-EDGE FULL WIDTH ── */
+@media (min-width: 768px){
   #app{
-    max-width:min(960px, calc(100vw - 40px)) !important;
-    width:min(960px, calc(100vw - 40px)) !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    padding-left:calc(20px + var(--safe-left)) !important;
-    padding-right:calc(20px + var(--safe-right)) !important;
-    padding-bottom:calc(110px + var(--safe-bottom)) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: calc(24px + var(--safe-left)) !important;
+    padding-right: calc(24px + var(--safe-right)) !important;
+    padding-bottom: calc(120px + var(--safe-bottom)) !important;
   }
   .bnav{
-    display:flex !important;
-    width:min(820px, calc(100% - 40px)) !important;
-    left:50% !important;
-    transform:translateX(-50%) !important;
-    padding:8px 16px !important;
-    border-radius:26px !important;
-    gap:4px !important;
+    display: flex !important;
+    width: min(940px, calc(100% - 40px)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 10px 20px !important;
+    border-radius: 28px !important;
+    gap: 6px !important;
   }
   .bni{
-    flex:1 1 0 !important;
-    font-size:9.5px !important;
-    letter-spacing:.2px !important;
-    height:44px !important;
+    flex: 1 1 0 !important;
+    font-size: 10px !important;
+    letter-spacing: .25px !important;
+    height: 46px !important;
   }
   .bnico{
-    font-size:20px !important;
-    width:26px !important;
-    height:24px !important;
+    font-size: 22px !important;
+    width: 28px !important;
+    height: 26px !important;
   }
 
-  /* ── ACADEMIA HOME SCREEN TABLET DASHBOARD ── */
+  /* ── ACADEMIA HOME SPREAD FULL-WIDTH (ZERO BROWN GAPS!) ── */
   .academia-home{
-    padding:20px 24px 28px !important;
-    border-radius:26px !important;
+    width: 100% !important;
+    padding: 24px 28px 36px !important;
+    border-radius: 28px !important;
   }
   .ac-banner{
-    height:190px !important;
-    border-radius:18px !important;
+    width: 100% !important;
+    height: 220px !important;
+    border-radius: 20px !important;
   }
   .ac-header .ac-title{
-    font-size:32px !important;
+    font-size: 36px !important;
   }
   .ac-sub{
-    font-size:14px !important;
-    margin:8px 0 18px !important;
+    font-size: 15px !important;
+    margin: 8px 0 20px !important;
+  }
+  .home-search-row{
+    width: 100% !important;
   }
   .home-search-row .home-search{
-    max-width:620px !important;
-    margin:0 auto !important;
+    max-width: 720px !important;
+    margin: 0 auto !important;
   }
   .home-search input{
-    height:46px !important;
-    font-size:14.5px !important;
-    border-radius:16px !important;
+    height: 50px !important;
+    font-size: 15px !important;
+    border-radius: 18px !important;
   }
 
-  /* 2-Column Dashboard Grid: Left = Time & Photo, Right = Goals & Habits */
+  /* SPREAD THE 3 DASHBOARD CARDS ACROSS FULL WIDTH */
   .ac-search-hide{
-    display:block !important;
+    display: block !important;
+    width: 100% !important;
   }
   .ac-search-hide .ac-mid{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:16px !important;
-    margin-top:14px !important;
-    align-items:stretch !important;
+    display: grid !important;
+    grid-template-columns: 280px 1.15fr 1fr !important;
+    gap: 16px !important;
+    margin-top: 16px !important;
+    align-items: stretch !important;
+    width: 100% !important;
   }
   .ac-time-photo{
-    grid-column:1 !important;
-    grid-row:auto !important;
-    display:flex !important;
-    flex-direction:column !important;
-    gap:12px !important;
+    grid-column: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
   }
   .ac-clock{
-    min-height:120px !important;
-    padding:16px 20px !important;
-    border-radius:18px !important;
+    min-height: 120px !important;
+    padding: 18px 22px !important;
+    border-radius: 18px !important;
   }
   .ac-clock .ac-time{
-    font-size:48px !important;
-    font-weight:900 !important;
+    font-size: 52px !important;
+    font-weight: 900 !important;
   }
   .ac-clock .ac-day{
-    font-size:14px !important;
-    margin-top:4px !important;
+    font-size: 14.5px !important;
+    margin-top: 4px !important;
   }
   .ac-photo{
-    height:210px !important;
-    border-radius:18px !important;
-    overflow:hidden !important;
+    flex: 1 1 auto !important;
+    min-height: 200px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
   }
   .ac-photo img{
-    width:100% !important;
-    height:100% !important;
-    object-fit:cover !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
   .ac-goals-habits{
-    grid-column:2 !important;
-    grid-row:auto !important;
-    border-radius:18px !important;
-    padding:18px 20px !important;
-    display:flex !important;
-    flex-direction:column !important;
-    height:auto !important;
-    box-sizing:border-box !important;
+    grid-column: 2 !important;
+    border-radius: 18px !important;
+    padding: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
   .ac-timer{
-    grid-column:1 / -1 !important;
-    grid-row:auto !important;
-    border-radius:18px !important;
-    padding:20px !important;
-    min-height:220px !important;
+    grid-column: 3 !important;
+    border-radius: 18px !important;
+    padding: 22px !important;
+    min-height: 220px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
-  /* Grids */
+  /* FOLDERS AND NOTEBOOKS SPREAD WIDE */
   .home-folder-grid{
-    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
-    gap:12px !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
   }
   #sHome .home-folder-grid{
-    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
   .notebooks-shelf-grid{
-    grid-template-columns:repeat(3, minmax(0,1fr)) !important;
-    gap:18px !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
   }
 }
 
