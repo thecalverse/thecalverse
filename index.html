@@ -1590,7 +1590,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   pointer-events:none;
   z-index:1;
   border-radius:inherit;
-  background-size:cover;
+  background-size:contain;
   background-position:center center;
   background-repeat:no-repeat;
   opacity:1;
@@ -4801,6 +4801,62 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   .washi-pattern-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 8px !important;
+  }
+}
+
+/* ── WIDE PHONE (560px - 899px) ── */
+@media (min-width:560px) and (max-width:899px){
+  #app{
+    max-width:min(640px, calc(100vw - 24px));
+    width:min(640px, calc(100vw - 24px));
+    padding-left: calc(16px + var(--safe-left));
+    padding-right: calc(16px + var(--safe-right));
+  }
+  .bnav{
+    width:min(560px, calc(100% - 24px));
+  }
+}
+
+/* ── TABLET PORTRAIT (768px - 899px) ── */
+@media (min-width:768px) and (max-width:899px){
+  #app{
+    max-width:min(760px, calc(100vw - 32px));
+    width:min(760px, calc(100vw - 32px));
+    padding-left: calc(20px + var(--safe-left));
+    padding-right: calc(20px + var(--safe-right));
+  }
+  .bnav{
+    width:min(700px, calc(100% - 32px));
+  }
+  .home-folder-grid{
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 12px !important;
+  }
+  #sHome .home-folder-grid{
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  }
+  .home-hub-widgets{
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    grid-template-areas:
+      "thought thought time"
+      "today theme notes"
+      "folders folders folders"
+      "habits habits timer" !important;
+  }
+  .notebooks-shelf-grid{
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    gap: 16px !important;
+  }
+}
+
+/* ── JOURNAL SHEET WIDER AT 600px+ ── */
+@media (min-width:600px){
+  .ipad-stage{
+    max-width: 100%;
+    padding: 4px 12px 32px;
+  }
+  .ipad-paper-sheet{
+    max-width: min(840px, 100%);
   }
 }
 </style>
@@ -10412,12 +10468,12 @@ function applyPageBackgroundToSheet(bgValue, dim = 100){
   const val = String(bgValue);
   if(val.startsWith('data:') || val.startsWith('http') || val.startsWith('/') || val.startsWith('assets/') || val.startsWith('url(') || val.includes('.webp') || val.includes('.jpg') || val.includes('.png')){
     layer.style.backgroundImage = val.startsWith('url(') ? val : `url("${val}")`;
-    layer.style.backgroundSize = 'cover';
+    layer.style.backgroundSize = 'contain';
     layer.style.backgroundPosition = 'center';
     layer.style.backgroundRepeat = 'no-repeat';
   } else {
     layer.style.background = val;
-    layer.style.backgroundSize = 'cover';
+    layer.style.backgroundSize = 'contain';
     layer.style.backgroundPosition = 'center';
     layer.style.backgroundRepeat = 'no-repeat';
   }
@@ -13700,6 +13756,21 @@ function initIpadCanvasEngine(){
     }
     if(item){
       selectCanvasItem(item);
+      if(!e.target.closest("button, select, input, textarea, .cbar-select, .cbar-btn, .cbar-typo-pill, .canvas-rotate-handle, [class*='canvas-resize']")){
+        e.preventDefault();
+        e.stopPropagation();
+        try { item.setPointerCapture(e.pointerId); } catch(_){}
+        activeDragState = {
+          pointerId: e.pointerId,
+          handle: item,
+          item: item,
+          startX: e.clientX,
+          startY: e.clientY,
+          startLeft: item.offsetLeft,
+          startTop: item.offsetTop
+        };
+        item.classList.add("is-dragging");
+      }
       return;
     }
 
@@ -14432,7 +14503,7 @@ function initIpadInkEngine(){
         e.preventDefault();
         e.stopPropagation();
         selectCanvasItem(item);
-        const dragTarget = elements.find(el => el.classList && (el.classList.contains("canvas-photo-card") || el.classList.contains("washi-tape-strip") || el.classList.contains("canvas-sticker-glyph") || el.classList.contains("journal-sticky-note") || el.classList.contains("canvas-shape-container"))) || item;
+        const dragTarget = item;
         try { dragTarget.setPointerCapture(e.pointerId); } catch(_){}
         activeDragState = {
           pointerId: e.pointerId,
