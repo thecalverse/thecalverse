@@ -27,7 +27,7 @@
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
 
     // Auto-reload to immediately break browser disk cache for new full-width build
-    const BUILD_TAG = '20261022_fullwidth_v1';
+    const BUILD_TAG = '20261022_landscape_v2';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       if (!location.search.includes('v=')) {
@@ -4866,8 +4866,11 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 
-/* ── ALL TABLETS, IPADS & LARGE SCREENS (768px+) — EDGE-TO-EDGE FULL WIDTH ── */
-@media (min-width: 768px){
+/* ── ALL TABLETS, IPADS & LARGE SCREENS (768px+) ── */
+@media (min-width: 768px) and (orientation: portrait){
+  .landscape-nav{
+    display: none !important;
+  }
   #app{
     width: 100% !important;
     max-width: 100% !important;
@@ -4898,7 +4901,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     height: 26px !important;
   }
 
-  /* ── ACADEMIA HOME SPREAD FULL-WIDTH (ZERO BROWN GAPS!) ── */
+  /* ── ACADEMIA HOME SPREAD FULL-WIDTH (PORTRAIT) ── */
   .academia-home{
     width: 100% !important;
     padding: 24px 28px 36px !important;
@@ -5002,6 +5005,101 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   .notebooks-shelf-grid{
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 18px !important;
+    width: 100% !important;
+  }
+}
+
+/* ── TABLETS & DESKTOPS IN LANDSCAPE (900px+) — CLEAN SIDEBAR + FULL WIDTH CONTENT ── */
+@media (min-width: 900px) and (orientation: landscape){
+  .landscape-nav{
+    display: grid !important;
+    position: fixed !important;
+    left: 12px !important;
+    top: 12px !important;
+    bottom: 12px !important;
+    width: 270px !important;
+    z-index: 70 !important;
+  }
+  #app{
+    width: calc(100% - 306px) !important;
+    max-width: calc(100% - 306px) !important;
+    margin-left: 294px !important;
+    margin-right: 12px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 12px !important;
+    padding-bottom: 24px !important;
+  }
+  /* NEVER SHOW DOCK IN LANDSCAPE (SIDEBAR HANDLES NAVIGATION) */
+  .bnav{
+    display: none !important;
+  }
+  .academia-home{
+    width: 100% !important;
+    padding: 20px 24px 28px !important;
+    border-radius: 24px !important;
+  }
+  .ac-banner{
+    width: 100% !important;
+    height: 180px !important;
+    border-radius: 18px !important;
+  }
+  .ac-header .ac-title{
+    font-size: 34px !important;
+  }
+  .ac-search-hide{
+    display: block !important;
+    width: 100% !important;
+  }
+  .ac-search-hide .ac-mid{
+    display: grid !important;
+    grid-template-columns: 240px 1.15fr 1fr !important;
+    gap: 14px !important;
+    margin-top: 14px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .ac-time-photo{
+    grid-column: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .ac-clock{
+    min-height: 110px !important;
+    padding: 14px 18px !important;
+    border-radius: 16px !important;
+  }
+  .ac-clock .ac-time{
+    font-size: 48px !important;
+    font-weight: 900 !important;
+  }
+  .ac-photo{
+    flex: 1 1 auto !important;
+    min-height: 160px !important;
+    border-radius: 16px !important;
+  }
+  .ac-goals-habits{
+    grid-column: 2 !important;
+    border-radius: 16px !important;
+    padding: 18px !important;
+  }
+  .ac-timer{
+    grid-column: 3 !important;
+    border-radius: 16px !important;
+    padding: 18px !important;
+  }
+  .home-folder-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  #sHome .home-folder-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  .notebooks-shelf-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 16px !important;
     width: 100% !important;
   }
 }
