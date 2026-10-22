@@ -4,6 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e4d2bf" id="theme-color-meta">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -18,8 +21,10 @@
     const platform = new URLSearchParams(location.search).get('platform');
     if (platform) document.documentElement.setAttribute('data-platform', platform);
     const rawTheme = localStorage.getItem('calverse_theme');
-    const bootTheme = ['black','light'].includes(rawTheme) ? rawTheme : 'black';
+    const bootTheme = ['black','light'].includes(rawTheme) ? rawTheme : 'light';
     document.documentElement.setAttribute('data-t', bootTheme);
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
   } catch (_) {}
 })();
 </script>
@@ -45,10 +50,10 @@
 [data-t=light] .mc .mi{box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 10px 18px rgba(145,112,86,.12);}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{height:100%;background:var(--bg);overflow-x:hidden;}
-body{min-height:100vh;width:100%;background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
-[data-t=black]{background:radial-gradient(circle at top,rgba(176,138,91,.08),transparent 24%),radial-gradient(circle at 82% 16%,rgba(103,143,176,.07),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 28%,var(--bg) 100%);}
-[data-t=light]{background:radial-gradient(circle at top,rgba(181,128,92,.18),transparent 26%),radial-gradient(circle at 82% 16%,rgba(146,167,118,.12),transparent 22%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 30%,var(--bg) 100%);}
+html{height:100%;background-color:var(--bg);background:var(--bg);color-scheme:light dark;overflow-x:hidden;}
+body{min-height:100vh;min-height:100dvh;width:100%;background-color:var(--bg);background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
+[data-t=black],html[data-t=black],body[data-t=black]{background-color:#070708!important;background:radial-gradient(circle at top,rgba(176,138,91,.08),transparent 24%),radial-gradient(circle at 82% 16%,rgba(103,143,176,.07),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 28%,var(--bg) 100%);}
+[data-t=light],html[data-t=light],body[data-t=light]{background-color:#e4d2bf!important;background:radial-gradient(circle at top,rgba(181,128,92,.18),transparent 26%),radial-gradient(circle at 82% 16%,rgba(146,167,118,.12),transparent 22%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 30%,var(--bg) 100%);}
 body::before,body::after,#app::before{display:none;}
 #sHome{position:relative;}
 #sHome::before,#sHome::after{content:'';position:absolute;pointer-events:none;z-index:0;border-radius:50%;filter:blur(36px);opacity:.18;}
@@ -4821,6 +4826,19 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   .washi-pattern-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 8px !important;
+  }
+}
+
+/* ── DUAL SCREEN & FOLDABLE (iPhone Duo, Galaxy Fold) ── */
+@media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical) {
+  html, body {
+    background-color: var(--bg) !important;
+  }
+  #app {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right, 0px)) !important;
   }
 }
 
@@ -19618,6 +19636,8 @@ function setTheme(t,showMsg=true){
     return;
   }
   document.documentElement.setAttribute('data-t',t);
+  const metaTheme = document.getElementById('theme-color-meta');
+  if(metaTheme) metaTheme.setAttribute('content', t === 'light' ? '#e4d2bf' : '#070708');
   getThemeHost().setAttribute('data-t',t);
   try{localStorage.setItem(THEME_KEY,t);}catch(e){}
   applyThemeToAutoNotes();
