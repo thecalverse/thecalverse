@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#e4d2bf" id="theme-color-meta">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -43,12 +43,12 @@
 [data-t=black]{--bg:#070708;--bg2:#0f1114;--bg3:#191b20;--gl:rgba(255,247,236,.028);--gl2:rgba(255,247,236,.014);--glb:rgba(224,210,186,.055);--glh:rgba(255,255,255,.04);--t1:rgba(245,241,234,.95);--t2:rgba(193,183,168,.58);--t3:rgba(139,131,118,.28);--acc:rgba(173,138,93,.11);--acb:rgba(173,138,93,.2);--act:#e4cfb0;--acc2:rgba(107,143,186,.09);--accg:linear-gradient(135deg,rgba(162,124,82,.96),rgba(88,118,156,.92));--tealg:linear-gradient(135deg,rgba(103,143,176,.62),rgba(154,118,83,.54));--goldg:linear-gradient(135deg,rgba(215,180,118,.72),rgba(110,152,133,.58));--tl:rgba(110,145,171,.08);--tlc:#c7d9e7;--am:rgba(214,170,104,.1);--amc:#e6c386;--rd:rgba(214,96,96,.1);--rdc:#eca9a0;--ok:#82d2a2;--er:#e79c95;--glow:rgba(160,126,84,.06);--glow2:rgba(107,143,186,.04);--shadow-lg:0 16px 32px rgba(0,0,0,.24);--shadow-md:0 10px 18px rgba(0,0,0,.14);}
 [data-t=light]{--bg:#e4d2bf;--bg2:#d1baa3;--bg3:#f2e6d8;--gl:rgba(246,234,222,.82);--gl2:rgba(226,208,191,.62);--glb:rgba(123,88,63,.14);--glh:rgba(255,255,255,.74);--t1:rgba(52,37,26,.96);--t2:rgba(92,67,51,.86);--t3:rgba(118,87,66,.7);--acc:rgba(156,104,73,.14);--acb:rgba(156,104,73,.24);--act:#744a34;--acc2:rgba(116,145,102,.11);--accg:linear-gradient(135deg,rgba(149,96,67,.96),rgba(190,142,101,.9));--tealg:linear-gradient(135deg,rgba(122,146,103,.82),rgba(185,136,98,.72));--goldg:linear-gradient(135deg,rgba(201,150,100,.82),rgba(139,158,113,.72));--tl:rgba(116,145,102,.13);--tlc:#465d41;--am:rgba(180,132,86,.16);--amc:#6f4a2e;--rd:rgba(182,94,81,.13);--rdc:#9c483f;--ok:#3c6041;--er:#9d4d44;--glow:rgba(160,110,75,.12);--glow2:rgba(116,145,102,.09);--shadow-lg:0 18px 30px rgba(104,76,56,.14);--shadow-md:0 8px 18px rgba(104,76,56,.1);}
 [data-t=black] .bnav{background:linear-gradient(180deg,rgba(18,17,18,.84),rgba(9,9,10,.96));border-top:1px solid rgba(224,210,186,.05);}
-[data-t=black] .topbar{background:linear-gradient(180deg,rgba(24,23,24,.9),rgba(12,12,14,.8));}
+[data-t=black] .topbar{background:#0e1017!important;}
 [data-t=black] #sp{background:#070708;}
 [data-t=black] .folder-btn,[data-t=black] .mc,[data-t=black] .gp,[data-t=black] .ic,[data-t=black] .rb,[data-t=black] .info-section,[data-t=black] .slist{background:linear-gradient(180deg,rgba(28,27,29,.92),rgba(16,16,18,.94));border-color:rgba(224,210,186,.05);box-shadow:0 12px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.02);}
 [data-t=black] .go{background:linear-gradient(135deg,rgba(162,124,82,.96),rgba(88,118,156,.94));box-shadow:0 10px 18px rgba(16,18,20,.18),inset 0 1px 0 rgba(255,255,255,.08);}
 [data-t=light] .bnav{background:linear-gradient(180deg,rgba(250,241,232,.92),rgba(234,219,204,.88));border:1px solid rgba(131,98,74,.1);box-shadow:0 12px 24px rgba(145,112,86,.12);}
-[data-t=light] .topbar{background:linear-gradient(180deg,rgba(250,243,236,.96),rgba(237,224,209,.86));}
+[data-t=light] .topbar{background:#ebdccf!important;}
 [data-t=light] #sp{background:#f2e7da;}
 [data-t=light] .cdsp{background:linear-gradient(180deg,rgba(238,223,208,.96),rgba(245,235,224,.78));}
 [data-t=light] .ic,[data-t=light] .rb,[data-t=light] .hi,[data-t=light] .info-section,[data-t=light] .slist,[data-t=light] .folder-btn,[data-t=light] .mc,[data-t=light] .gp{background:linear-gradient(180deg,rgba(255,249,243,.92),rgba(237,222,208,.78));border-color:rgba(131,98,74,.1);box-shadow:0 14px 28px rgba(145,112,86,.1),inset 0 1px 0 rgba(255,255,255,.68);}
@@ -59,8 +59,8 @@
 [data-t=light] .mc .mi{box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 10px 18px rgba(145,112,86,.12);}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{height:100%;background-color:var(--bg);background:var(--bg);color-scheme:light dark;overflow-x:hidden;}
-body{min-height:100vh;min-height:100dvh;width:100%;background-color:var(--bg);background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
+html{height:100%;background-color:var(--bg)!important;background:var(--bg)!important;color-scheme:light dark;overflow-x:hidden;overscroll-behavior:none;}
+body{min-height:100vh;min-height:100dvh;width:100%;background-color:var(--bg)!important;overscroll-behavior:none;background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
 [data-t=black],html[data-t=black],body[data-t=black]{background-color:#070708!important;background:radial-gradient(circle at top,rgba(176,138,91,.08),transparent 24%),radial-gradient(circle at 82% 16%,rgba(103,143,176,.07),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 28%,var(--bg) 100%);}
 [data-t=light],html[data-t=light],body[data-t=light]{background-color:#e4d2bf!important;background:radial-gradient(circle at top,rgba(181,128,92,.18),transparent 26%),radial-gradient(circle at 82% 16%,rgba(146,167,118,.12),transparent 22%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 30%,var(--bg) 100%);}
 body::before,body::after,#app::before{display:none;}
@@ -445,9 +445,7 @@ html[data-search-active="1"] #sHome .search-results{
 .home-folder-grid .folder-count{margin-left:0;font-size:10px;line-height:1.25;opacity:.88;font-weight:600;display:block;max-width:100%;}
 .home-folder-grid .folder-count{text-align:center;}
 .home-folder-grid .folder-arrow{align-self:end;justify-self:end;font-size:15px;opacity:.92;}
-#sCalcs .stitle{text-align:center;}
-#calcs-folder-grid .folder-btn-left{justify-content:center;text-align:center;width:100%;}
-#calcs-folder-grid .folder-title{text-align:center;width:100%;}
+#sCalcs .stitle{text-align:left;font-size:26px;font-weight:900;margin-bottom:20px;}
 #sHome.active .home-folder-grid .calc-group{opacity:1;transform:none;will-change:auto;}
 #app.show #sHome.active #grp-math{animation-delay:.18s;}
 #app.show #sHome.active #grp-phys{animation-delay:.26s;}
@@ -4629,25 +4627,85 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
     cursor:pointer;
   }
-  #calcs-folder-grid .folder-body .mgrid{
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-    grid-auto-flow:row;
-    align-items:stretch;
+  #sCalcs #calcs-folder-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
-  #calcs-folder-grid .folder-body.open{
-    max-height:none!important;
-    overflow:visible!important;
+  #sCalcs #calcs-folder-grid .calc-group {
+    width: 100% !important;
+    margin-bottom: 0 !important;
   }
-  #calcs-folder-grid .folder-body .mc{
-    height:100%;
-    min-height:170px;
+  #sCalcs #calcs-folder-grid .folder-btn {
+    width: 100% !important;
+    min-height: 52px !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-radius: 16px !important;
+    margin-bottom: 14px !important;
   }
-  #calcs-folder-grid .folder-body .ml{
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-    min-height:32px;
+  #sCalcs #calcs-folder-grid .folder-btn-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: auto !important;
+    text-align: left !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-title {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    letter-spacing: .4px !important;
+    text-align: left !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-count {
+    font-size: 11.5px !important;
+    text-align: left !important;
+    opacity: .8 !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-body.open {
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-body .mgrid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-body .mc {
+    min-height: 118px !important;
+    height: auto !important;
+    padding: 16px 10px 14px !important;
+    border-radius: 18px !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-body .mi {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 22px !important;
+    border-radius: 16px !important;
+  }
+  #sCalcs #calcs-folder-grid .folder-body .ml {
+    display: block !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    min-height: auto !important;
+    word-break: normal !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  #sFolder .mgrid,
+  #search-results .mgrid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
   }
 }
 @media (max-width:899px){
@@ -4843,7 +4901,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
    ========================================================================== */
 
 /* ── 1. IPHONE DUO & DUAL-SCREEN FOLDABLES (EXCLUSIVELY) ── */
-/* Targets ONLY dual-screen hardware and foldable viewports (iPhone Duo, Surface Duo, Galaxy Fold) */
+/* Targets dual-screen hardware, foldable viewports & injected Duo sandbox mode */
 @media (horizontal-viewport-segments: 2), (screen-spanning: single-fold-vertical), (vertical-viewport-segments: 2), (screen-spanning: single-fold-horizontal) {
   html, body {
     background-color: var(--bg) !important;
@@ -4853,37 +4911,154 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
-    padding-right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+    padding-top: max(48px, env(safe-area-inset-top, 48px)) !important;
+    padding-left: calc(12px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(12px + env(safe-area-inset-right, 0px)) !important;
   }
   .bnav {
-    width: min(720px, calc(100% - 32px)) !important;
+    width: min(720px, calc(100% - 24px)) !important;
   }
   .ipad-stage {
     max-width: 100% !important;
     width: 100% !important;
+    padding: 4px 0 32px !important;
   }
   .ipad-frame {
     max-width: 100% !important;
     width: 100% !important;
+    border-radius: 18px !important;
   }
   .ipad-paper-sheet {
     max-width: 100% !important;
+    width: 100% !important;
   }
 }
 
-/* ── 2. STANDARD WIDE PHONES (560px - 767px Single Screen) ── */
-@media (min-width: 560px) and (max-width: 767px) {
+/* Explicit iPhone Duo Sandbox Targeting */
+html[data-device="iphone-duo"] #app,
+html.mode-iphone-duo-dmg #app {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-top: max(40px, env(safe-area-inset-top, 40px)) !important;
+  padding-left: calc(8px + env(safe-area-inset-left, 0px)) !important;
+  padding-right: calc(8px + env(safe-area-inset-right, 0px)) !important;
+}
+
+/* Portrait iPhone Duo (single screen) */
+@media (max-width: 899px) {
+  html[data-device="iphone-duo"] .landscape-nav,
+  html.mode-iphone-duo-dmg .landscape-nav {
+    display: none !important;
+  }
+}
+
+/* Dual-screen or Spanned / Landscape iPhone Duo */
+@media (min-width: 900px) and (orientation: landscape), (horizontal-viewport-segments: 2) {
+  html[data-device="iphone-duo"] .landscape-nav,
+  html.mode-iphone-duo-dmg .landscape-nav {
+    display: grid !important;
+    position: fixed !important;
+    width: 270px !important;
+    left: max(12px, env(safe-area-inset-left, 12px)) !important;
+    top: max(24px, env(safe-area-inset-top, 24px)) !important;
+    bottom: 12px !important;
+    z-index: 70 !important;
+  }
+  html[data-device="iphone-duo"] #app,
+  html.mode-iphone-duo-dmg #app {
+    width: calc(100% - 304px) !important;
+    max-width: calc(100% - 304px) !important;
+    margin-left: 296px !important;
+    margin-right: 8px !important;
+    padding-left: 8px !important;
+    padding-right: calc(8px + env(safe-area-inset-right, 0px)) !important;
+    padding-top: max(24px, env(safe-area-inset-top, 24px)) !important;
+  }
+}
+
+html[data-device="iphone-duo"] .topbar,
+html.mode-iphone-duo-dmg .topbar {
+  top: max(40px, env(safe-area-inset-top, 40px)) !important;
+}
+html[data-device="iphone-duo"] .ipad-stage,
+html.mode-iphone-duo-dmg .ipad-stage {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 4px 0 24px !important;
+  background: transparent !important;
+}
+html[data-device="iphone-duo"] .ipad-frame,
+html.mode-iphone-duo-dmg .ipad-frame {
+  max-width: 100% !important;
+  width: 100% !important;
+  border-radius: 18px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 4px !important;
+}
+html[data-device="iphone-duo"] .ipad-paper-sheet,
+html.mode-iphone-duo-dmg .ipad-paper-sheet {
+  max-width: 100% !important;
+  width: 100% !important;
+  aspect-ratio: auto !important;
+  min-height: 82vh !important;
+  margin: 0 !important;
+  padding: 24px 20px 48px !important;
+}
+
+/* Hide redundant sticky topbar in Journal view to prevent header collisions */
+#app:has(#sJournal.active) > .topbar,
+#app[data-active-screen="sJournal"] > .topbar {
+  display: none !important;
+}
+
+/* ── 2. PHONES (ALL SIZES UP TO 767px - PORTRAIT & LANDSCAPE) ── */
+@media (max-width: 767px) {
   #app {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding-left: calc(16px + var(--safe-left)) !important;
-    padding-right: calc(16px + var(--safe-right)) !important;
+    padding-top: max(54px, env(safe-area-inset-top, 54px)) !important;
+    padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+  .topbar {
+    top: max(10px, env(safe-area-inset-top, 10px)) !important;
   }
   .bnav {
-    width: min(640px, calc(100% - 32px)) !important;
+    width: min(420px, calc(100% - 24px)) !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+  }
+}
+
+/* Phone in Landscape Orientation (Dynamic Island on side) */
+@media (max-width: 932px) and (orientation: landscape) {
+  #app {
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    padding-left: max(56px, env(safe-area-inset-left, 56px)) !important;
+    padding-right: max(56px, env(safe-area-inset-right, 56px)) !important;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+  .bnav {
+    bottom: max(10px, env(safe-area-inset-bottom, 10px)) !important;
+    width: min(540px, calc(100% - 130px)) !important;
+  }
+}
+
+/* Explicit iPhone device targeting */
+html[data-device="iphone"] #app {
+  padding-top: max(54px, env(safe-area-inset-top, 54px)) !important;
+}
+@media (orientation: landscape) {
+  html[data-device="iphone"] #app {
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    padding-left: max(56px, env(safe-area-inset-left, 56px)) !important;
+    padding-right: max(56px, env(safe-area-inset-right, 56px)) !important;
   }
 }
 
@@ -4897,8 +5072,9 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding-left: calc(24px + var(--safe-left)) !important;
-    padding-right: calc(24px + var(--safe-right)) !important;
+    padding-top: max(34px, env(safe-area-inset-top, 34px)) !important;
+    padding-left: calc(20px + var(--safe-left)) !important;
+    padding-right: calc(20px + var(--safe-right)) !important;
     padding-bottom: calc(120px + var(--safe-bottom)) !important;
   }
   .bnav {
@@ -5018,13 +5194,14 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
   .notebooks-shelf-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 18px !important;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+    gap: 20px !important;
     width: 100% !important;
   }
   .ipad-stage {
     max-width: 100% !important;
     width: 100% !important;
+    padding: 4px 0 32px !important;
   }
   .ipad-frame {
     max-width: 100% !important;
@@ -5032,6 +5209,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
   .ipad-paper-sheet {
     max-width: 100% !important;
+    width: 100% !important;
   }
 }
 
@@ -5041,7 +5219,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     display: grid !important;
     position: fixed !important;
     left: 12px !important;
-    top: 12px !important;
+    top: max(28px, env(safe-area-inset-top, 28px)) !important;
     bottom: 12px !important;
     width: 270px !important;
     z-index: 70 !important;
@@ -5053,7 +5231,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     margin-right: 12px !important;
     padding-left: 12px !important;
     padding-right: 12px !important;
-    padding-top: 12px !important;
+    padding-top: max(28px, env(safe-area-inset-top, 28px)) !important;
     padding-bottom: 24px !important;
   }
   .bnav {
@@ -5146,7 +5324,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     display: grid !important;
     position: fixed !important;
     left: 16px !important;
-    top: 16px !important;
+    top: max(20px, env(safe-area-inset-top, 20px)) !important;
     bottom: 16px !important;
     width: 280px !important;
     z-index: 70 !important;
@@ -5158,7 +5336,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     margin-right: auto !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
-    padding-top: 16px !important;
+    padding-top: max(20px, env(safe-area-inset-top, 20px)) !important;
     padding-bottom: 32px !important;
   }
   .bnav {
@@ -19868,6 +20046,7 @@ function setTheme(t,showMsg=true){
   const metaTheme = document.getElementById('theme-color-meta');
   if(metaTheme) metaTheme.setAttribute('content', t === 'light' ? '#e4d2bf' : '#070708');
   getThemeHost().setAttribute('data-t',t);
+  try{window.webkit?.messageHandlers?.themeChanged?.postMessage(t);}catch(_){}
   try{localStorage.setItem(THEME_KEY,t);}catch(e){}
   applyThemeToAutoNotes();
   syncThemeUI(t);
@@ -20756,6 +20935,8 @@ function setActiveScreen(id,name,opts={}){
   if(curScr==='Timer'&&id!=='sTimer')stopTimerAndExit();
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById(id);if(!el)return null;
+  const appEl=document.getElementById('app');
+  if(appEl)appEl.setAttribute('data-active-screen',id);
   const dir=opts.direction||0;
   const isDesktopLandscape=window.matchMedia&&window.matchMedia('(min-width:900px) and (orientation:landscape)').matches;
   el.style.setProperty('--screen-enter-x',isDesktopLandscape?'0px':(dir>0?'18px':dir<0?'-18px':'0px'));
