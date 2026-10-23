@@ -4955,40 +4955,52 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* Remove transform on #app so position:fixed elements anchor to the real viewport! */
+  /* Remove transform on #app so position:fixed elements anchor cleanly to the real viewport! */
   html[data-device="iphone-duo"] #app,
   html.mode-iphone-duo-dmg #app {
     transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding-top: max(14px, env(safe-area-inset-top, 14px)) !important;
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
     padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
-    padding-right: 74px !important; /* reserve clear 74px for the right camera/controls strip */
+    padding-right: 76px !important; /* clean room for the side edge dock */
     box-sizing: border-box !important;
   }
 
-  /* Place CALVERSE brand + sound/theme toggles directly in the right strip where pointer was indicated */
+  /* Luxurious Floating Dynamic Edge Dock in the side strip below camera & status icons */
   html[data-device="iphone-duo"] .topbar,
   html.mode-iphone-duo-dmg .topbar {
     position: fixed !important;
-    right: 8px !important;
+    right: 7px !important;
     left: auto !important;
-    top: max(112px, calc(env(safe-area-inset-top, 0px) + 86px)) !important;
-    width: 54px !important;
+    top: max(185px, calc(env(safe-area-inset-top, 0px) + 155px)) !important;
+    width: 48px !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 6px 0 !important;
+    padding: 12px 4px 10px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
     gap: 12px !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    border-radius: 24px !important;
+    background: linear-gradient(180deg, rgba(255, 248, 240, 0.78), rgba(238, 222, 206, 0.72)) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(131, 98, 74, 0.16) !important;
+    box-shadow: 0 10px 24px rgba(110, 75, 50, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
     z-index: 9999 !important;
     transform: none !important;
+  }
+
+  [data-t="black"] html[data-device="iphone-duo"] .topbar,
+  [data-t="black"] html.mode-iphone-duo-dmg .topbar,
+  html[data-device="iphone-duo"][data-t="black"] .topbar,
+  html.mode-iphone-duo-dmg[data-t="black"] .topbar {
+    background: linear-gradient(180deg, rgba(28, 27, 30, 0.88), rgba(16, 16, 18, 0.92)) !important;
+    border: 1px solid rgba(224, 210, 186, 0.1) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   }
 
   html[data-device="iphone-duo"] .topbar::before,
@@ -4996,22 +5008,23 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* Vertical CALVERSE brand in the side strip */
+  /* Micro-caps Brand Badge: Elegant Vertical Typography */
   html[data-device="iphone-duo"] .topbar .brand,
   html.mode-iphone-duo-dmg .topbar .brand {
     position: static !important;
     transform: none !important;
     writing-mode: vertical-rl !important;
     text-orientation: upright !important;
-    font-size: 11px !important;
+    font-size: 8.5px !important;
     font-weight: 900 !important;
-    letter-spacing: 3px !important;
+    letter-spacing: 2.2px !important;
     padding: 0 !important;
-    margin: 4px 0 6px !important;
+    margin: 2px 0 4px !important;
     display: block !important;
-    line-height: 1.2 !important;
+    line-height: 1.15 !important;
     color: var(--t1) !important;
-    opacity: 0.9 !important;
+    opacity: 0.72 !important;
+    text-transform: uppercase !important;
   }
 
   html[data-device="iphone-duo"] .topbar .brand::after,
@@ -5024,27 +5037,51 @@ html.mode-iphone-duo-dmg body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 8px !important;
     margin: 0 !important;
   }
 
+  /* Hide calculator favorite star from edge dock */
+  html[data-device="iphone-duo"] .topbar .icb.calc-fav,
+  html.mode-iphone-duo-dmg .topbar .icb.calc-fav {
+    display: none !important;
+  }
+
+  /* Polished Rounded Action Buttons */
   html[data-device="iphone-duo"] .topbar .icb,
   html.mode-iphone-duo-dmg .topbar .icb {
-    width: 38px !important;
-    height: 38px !important;
+    width: 36px !important;
+    height: 36px !important;
     border-radius: 12px !important;
-    font-size: 16px !important;
+    font-size: 15px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.4) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(242, 230, 218, 0.85)) !important;
+    border: 1px solid rgba(131, 98, 74, 0.15) !important;
+    box-shadow: 0 3px 8px rgba(110, 75, 50, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    transition: transform 0.15s ease, filter 0.15s ease !important;
+  }
+
+  [data-t="black"] html[data-device="iphone-duo"] .topbar .icb,
+  [data-t="black"] html.mode-iphone-duo-dmg .topbar .icb,
+  html[data-device="iphone-duo"][data-t="black"] .topbar .icb,
+  html.mode-iphone-duo-dmg[data-t="black"] .topbar .icb {
+    background: linear-gradient(180deg, rgba(42, 40, 44, 0.92), rgba(24, 23, 26, 0.94)) !important;
+    border: 1px solid rgba(224, 210, 186, 0.08) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar .icb:active,
+  html.mode-iphone-duo-dmg .topbar .icb:active {
+    transform: scale(0.92) !important;
   }
 
   /* Bottom nav centered on the active left screen */
   html[data-device="iphone-duo"] .bnav,
   html.mode-iphone-duo-dmg .bnav {
-    width: min(390px, calc(100% - 90px)) !important;
-    left: calc((100% - 74px) / 2) !important;
+    width: min(390px, calc(100% - 92px)) !important;
+    left: calc((100% - 76px) / 2) !important;
     transform: translateX(-50%) !important;
   }
 
