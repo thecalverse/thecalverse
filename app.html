@@ -4955,30 +4955,30 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* App container leaves room for the camera/clock/toggle strip on the right */
+  /* Remove transform on #app so position:fixed elements anchor to the real viewport! */
   html[data-device="iphone-duo"] #app,
   html.mode-iphone-duo-dmg #app {
-    width: calc(100% - 66px) !important;
-    max-width: calc(100% - 66px) !important;
-    margin-left: 0 !important;
-    margin-right: auto !important;
-    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
-    padding-left: max(10px, env(safe-area-inset-left, 10px)) !important;
-    padding-right: 6px !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-top: max(14px, env(safe-area-inset-top, 14px)) !important;
+    padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
+    padding-right: 74px !important; /* reserve clear 74px for the right camera/controls strip */
     box-sizing: border-box !important;
   }
 
-  /* Move topbar (CALVERSE brand + toggles) to the empty side strip below camera & status clock */
+  /* Place CALVERSE brand + sound/theme toggles directly in the right strip where pointer was indicated */
   html[data-device="iphone-duo"] .topbar,
   html.mode-iphone-duo-dmg .topbar {
     position: fixed !important;
-    right: 4px !important;
+    right: 8px !important;
     left: auto !important;
-    top: max(108px, calc(env(safe-area-inset-top, 0px) + 84px)) !important;
-    width: 56px !important;
+    top: max(112px, calc(env(safe-area-inset-top, 0px) + 86px)) !important;
+    width: 54px !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 6px 2px !important;
+    padding: 6px 0 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
@@ -4987,7 +4987,8 @@ html.mode-iphone-duo-dmg body {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    z-index: 95 !important;
+    z-index: 9999 !important;
+    transform: none !important;
   }
 
   html[data-device="iphone-duo"] .topbar::before,
@@ -5006,11 +5007,11 @@ html.mode-iphone-duo-dmg body {
     font-weight: 900 !important;
     letter-spacing: 3px !important;
     padding: 0 !important;
-    margin: 8px 0 6px !important;
+    margin: 4px 0 6px !important;
     display: block !important;
     line-height: 1.2 !important;
     color: var(--t1) !important;
-    opacity: 0.85 !important;
+    opacity: 0.9 !important;
   }
 
   html[data-device="iphone-duo"] .topbar .brand::after,
@@ -5039,11 +5040,11 @@ html.mode-iphone-duo-dmg body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.4) !important;
   }
 
-  /* Bottom nav fits cleanly on the left screen */
+  /* Bottom nav centered on the active left screen */
   html[data-device="iphone-duo"] .bnav,
   html.mode-iphone-duo-dmg .bnav {
-    width: min(390px, calc(100% - 74px)) !important;
-    left: calc((100% - 66px) / 2) !important;
+    width: min(390px, calc(100% - 90px)) !important;
+    left: calc((100% - 74px) / 2) !important;
     transform: translateX(-50%) !important;
   }
 
