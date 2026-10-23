@@ -4968,30 +4968,32 @@ html.mode-iphone-duo-dmg body {
     box-sizing: border-box !important;
   }
 
-  /* Luxurious Floating Dynamic Edge Dock in the side strip below camera & status icons */
+  /* Luxurious Floating Dynamic Edge Dock - Vertically Enlarged Companion Bar */
   html[data-device="iphone-duo"] .topbar,
   html.mode-iphone-duo-dmg .topbar {
     position: fixed !important;
     right: 7px !important;
     left: auto !important;
-    top: max(185px, calc(env(safe-area-inset-top, 0px) + 155px)) !important;
+    top: max(160px, calc(env(safe-area-inset-top, 0px) + 130px)) !important;
     width: 48px !important;
+    min-height: 290px !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 12px 4px 10px !important;
+    padding: 18px 4px 16px !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: space-between !important;
     align-items: center !important;
-    gap: 12px !important;
-    border-radius: 24px !important;
-    background: linear-gradient(180deg, rgba(255, 248, 240, 0.78), rgba(238, 222, 206, 0.72)) !important;
+    gap: 16px !important;
+    border-radius: 26px !important;
+    background: linear-gradient(180deg, rgba(255, 248, 240, 0.82), rgba(238, 222, 206, 0.78)) !important;
     backdrop-filter: blur(20px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-    border: 1px solid rgba(131, 98, 74, 0.16) !important;
-    box-shadow: 0 10px 24px rgba(110, 75, 50, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(131, 98, 74, 0.18) !important;
+    box-shadow: 0 12px 28px rgba(110, 75, 50, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
     z-index: 9999 !important;
     transform: none !important;
+    box-sizing: border-box !important;
   }
 
   [data-t="black"] html[data-device="iphone-duo"] .topbar,
@@ -5008,23 +5010,27 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* Micro-caps Brand Badge: Elegant Vertical Typography */
+  /* Elegant Vertical Branding with generous letter pacing */
   html[data-device="iphone-duo"] .topbar .brand,
   html.mode-iphone-duo-dmg .topbar .brand {
     position: static !important;
     transform: none !important;
     writing-mode: vertical-rl !important;
     text-orientation: upright !important;
-    font-size: 8.5px !important;
+    font-size: 10px !important;
     font-weight: 900 !important;
-    letter-spacing: 2.2px !important;
+    letter-spacing: 4px !important;
     padding: 0 !important;
-    margin: 2px 0 4px !important;
+    margin: 4px 0 8px !important;
     display: block !important;
-    line-height: 1.15 !important;
+    line-height: 1.25 !important;
     color: var(--t1) !important;
-    opacity: 0.72 !important;
+    opacity: 0.82 !important;
     text-transform: uppercase !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   html[data-device="iphone-duo"] .topbar .brand::after,
@@ -5037,7 +5043,7 @@ html.mode-iphone-duo-dmg body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 12px !important;
     margin: 0 !important;
   }
 
@@ -5047,19 +5053,19 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* Polished Rounded Action Buttons */
+  /* Polished Rounded Action Buttons - Enriched Vertical Presence */
   html[data-device="iphone-duo"] .topbar .icb,
   html.mode-iphone-duo-dmg .topbar .icb {
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 12px !important;
-    font-size: 15px !important;
+    width: 38px !important;
+    height: 42px !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(242, 230, 218, 0.85)) !important;
-    border: 1px solid rgba(131, 98, 74, 0.15) !important;
-    box-shadow: 0 3px 8px rgba(110, 75, 50, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(242, 230, 218, 0.88)) !important;
+    border: 1px solid rgba(131, 98, 74, 0.16) !important;
+    box-shadow: 0 4px 10px rgba(110, 75, 50, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
     transition: transform 0.15s ease, filter 0.15s ease !important;
   }
 
