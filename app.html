@@ -4955,7 +4955,7 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* #app fills the left display, leaving 66px clear for the vertical navigation bar on the right */
+  /* #app fills the left display, with generous 76px padding-right so nothing touches the side bar */
   html[data-device="iphone-duo"] #app,
   html.mode-iphone-duo-dmg #app {
     transform: none !important;
@@ -4964,8 +4964,8 @@ html.mode-iphone-duo-dmg body {
     margin: 0 !important;
     padding-top: max(10px, env(safe-area-inset-top, 10px)) !important;
     padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
-    padding-right: 68px !important; /* leaves clean room for the right-side vertical nav bar */
-    padding-bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important; /* no bottom bar covering content! */
+    padding-right: 76px !important; /* increased from 68px to eliminate touching with side nav bar */
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
     box-sizing: border-box !important;
   }
 
@@ -5058,11 +5058,11 @@ html.mode-iphone-duo-dmg body {
   html[data-device="iphone-duo"] .bnav,
   html.mode-iphone-duo-dmg .bnav {
     position: fixed !important;
-    right: 7px !important;
+    right: 6px !important; /* 6px from edge */
     left: auto !important;
     top: max(148px, calc(env(safe-area-inset-top, 0px) + 120px)) !important;
     bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
-    width: 48px !important;
+    width: 46px !important; /* slightly slimmer so it has abundant space */
     height: auto !important;
     transform: none !important;
     display: flex !important;
@@ -5094,7 +5094,7 @@ html.mode-iphone-duo-dmg body {
   html[data-device="iphone-duo"] .bnav .bni,
   html.mode-iphone-duo-dmg .bnav .bni {
     flex: 1 1 0 !important;
-    width: 40px !important;
+    width: 38px !important;
     min-height: 42px !important;
     max-height: 58px !important;
     padding: 3px 0 !important;
@@ -5108,14 +5108,14 @@ html.mode-iphone-duo-dmg body {
 
   html[data-device="iphone-duo"] .bnav .bnico,
   html.mode-iphone-duo-dmg .bnav .bnico {
-    font-size: 17px !important;
+    font-size: 16px !important;
     width: 22px !important;
     height: 20px !important;
   }
 
   html[data-device="iphone-duo"] .bnav .bni span,
   html.mode-iphone-duo-dmg .bnav .bni span {
-    font-size: 7.5px !important;
+    font-size: 7px !important;
     font-weight: 800 !important;
     line-height: 1 !important;
   }
@@ -5123,7 +5123,7 @@ html.mode-iphone-duo-dmg body {
   /* Active Indicator for vertical orientation */
   html[data-device="iphone-duo"] .bnav-ind,
   html.mode-iphone-duo-dmg .bnav-ind {
-    width: 40px !important;
+    width: 38px !important;
     border-radius: 14px !important;
     left: 4px !important;
     top: 0 !important;
@@ -5143,24 +5143,24 @@ html.mode-iphone-duo-dmg body {
   html.mode-iphone-duo-dmg .landscape-nav {
     display: grid !important;
     position: fixed !important;
-    width: 250px !important;
-    left: max(12px, env(safe-area-inset-left, 12px)) !important;
-    top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    width: 240px !important;
+    left: max(10px, env(safe-area-inset-left, 10px)) !important;
+    top: max(14px, env(safe-area-inset-top, 14px)) !important;
     bottom: 12px !important;
     z-index: 70 !important;
     box-sizing: border-box !important;
   }
 
-  /* #app fills the secondary/right screen without pushing content off screen */
+  /* #app expands across the entire right screen to actively use all side space edge-to-edge! */
   html[data-device="iphone-duo"] #app,
   html.mode-iphone-duo-dmg #app {
-    width: calc(100% - 274px) !important;
-    max-width: calc(100% - 274px) !important;
-    margin-left: 266px !important;
+    width: calc(100% - 248px) !important;
+    max-width: calc(100% - 248px) !important;
+    margin-left: 244px !important;
     margin-right: 0 !important;
-    padding-left: 10px !important;
-    padding-right: max(16px, env(safe-area-inset-right, 16px)) !important;
-    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    padding-left: 8px !important;
+    padding-right: max(14px, env(safe-area-inset-right, 14px)) !important;
+    padding-top: max(12px, env(safe-area-inset-top, 12px)) !important;
     box-sizing: border-box !important;
     overflow-x: hidden !important;
   }
@@ -5175,11 +5175,25 @@ html.mode-iphone-duo-dmg body {
     display: none !important;
   }
 
-  /* Fit widget cards inside the right screen width seamlessly without horizontal overflow */
-  html[data-device="iphone-duo"] .home-folder-grid,
-  html.mode-iphone-duo-dmg .home-folder-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
+  /* Expand academia home and hero elements to fill 100% width with no blank spaces */
+  html[data-device="iphone-duo"] .academia-home,
+  html.mode-iphone-duo-dmg .academia-home {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-banner,
+  html.mode-iphone-duo-dmg .ac-banner {
+    width: 100% !important;
+    height: 140px !important;
+  }
+
+  html[data-device="iphone-duo"] .home-search,
+  html.mode-iphone-duo-dmg .home-search {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   html[data-device="iphone-duo"] .home-desktop-hub,
@@ -5190,33 +5204,41 @@ html.mode-iphone-duo-dmg body {
     overflow-x: hidden !important;
   }
 
+  /* 3-column rich layout utilizing the entire right screen width smoothly */
   html[data-device="iphone-duo"] .home-hub-widgets,
   html.mode-iphone-duo-dmg .home-hub-widgets {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     grid-template-areas:
-      "thought thought"
-      "today time"
-      "theme notes"
-      "habits habits"
-      "timer timer" !important;
+      "thought thought timer"
+      "today time timer"
+      "theme notes habits" !important;
     gap: 10px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* Prevent individual cards from forcing horizontal overflow */
+  /* Prevent individual cards from clipping while letting them expand */
   html[data-device="iphone-duo"] .home-hub-widget,
   html.mode-iphone-duo-dmg .home-hub-widget {
     min-width: 0 !important;
+    width: 100% !important;
     box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .home-folder-grid,
+  html.mode-iphone-duo-dmg .home-folder-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
   }
 
   html[data-device="iphone-duo"] .notebooks-shelf-grid,
   html.mode-iphone-duo-dmg .notebooks-shelf-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     gap: 12px !important;
+    width: 100% !important;
   }
 }
 
