@@ -5227,6 +5227,295 @@ html.mode-iphone-duo-dmg body {
     box-sizing: border-box !important;
   }
 
+  /* FIX FOR TIMER & GOAL CARDS IN UNFOLDED LANDSCAPE */
+  html[data-device="iphone-duo"] .ac-search-hide,
+  html.mode-iphone-duo-dmg .ac-search-hide {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Re-arrange .ac-mid into a 2-column balanced grid where cards have abundant width and never squeeze */
+  html[data-device="iphone-duo"] .ac-search-hide .ac-mid,
+  html[data-device="iphone-duo"] .ac-mid,
+  html.mode-iphone-duo-dmg .ac-search-hide .ac-mid,
+  html.mode-iphone-duo-dmg .ac-mid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) !important;
+    grid-template-areas:
+      "time goal"
+      "timer timer" !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    align-items: stretch !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-time-photo,
+  html.mode-iphone-duo-dmg .ac-time-photo {
+    grid-area: time !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-clock,
+  html.mode-iphone-duo-dmg .ac-clock {
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-clock .ac-time,
+  html.mode-iphone-duo-dmg .ac-clock .ac-time {
+    font-size: 38px !important;
+    line-height: 1 !important;
+    letter-spacing: 0.5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-clock .ac-day,
+  html.mode-iphone-duo-dmg .ac-clock .ac-day {
+    font-size: 11px !important;
+    margin-top: 4px !important;
+    letter-spacing: 1px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-photo,
+  html.mode-iphone-duo-dmg .ac-photo {
+    flex: 1 1 auto !important;
+    min-height: 90px !important;
+    max-height: 130px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-photo img,
+  html.mode-iphone-duo-dmg .ac-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-goals-habits,
+  html.mode-iphone-duo-dmg .ac-goals-habits {
+    grid-area: goal !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 10px 12px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-goals-habits .ac-k.center,
+  html.mode-iphone-duo-dmg .ac-goals-habits .ac-k.center {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 6px !important;
+    text-align: center !important;
+  }
+
+  /* Goal card clean typography and padding */
+  html[data-device="iphone-duo"] .ac-goal,
+  html.mode-iphone-duo-dmg .ac-goal {
+    min-height: 52px !important;
+    padding: 6px 10px !important;
+    font-size: 12.5px !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-goals-habits .ac-divider,
+  html.mode-iphone-duo-dmg .ac-goals-habits .ac-divider {
+    margin: 8px 0 !important;
+  }
+
+  /* Habit row clean spacing with no text collision */
+  html[data-device="iphone-duo"] .ac-habits,
+  html.mode-iphone-duo-dmg .ac-habits {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    max-height: 125px !important;
+    overflow-y: auto !important;
+    width: 100% !important;
+    padding-right: 2px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-habit-row,
+  html.mode-iphone-duo-dmg .ac-habit-row {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 6px 10px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-habit-name,
+  html.mode-iphone-duo-dmg .ac-habit-name {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-habit-btn,
+  html.mode-iphone-duo-dmg .ac-habit-btn {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+    padding: 4px 8px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid var(--glb) !important;
+  }
+
+  /* Timer card gets full spanning width across the 2 columns */
+  html[data-device="iphone-duo"] .ac-timer,
+  html.mode-iphone-duo-dmg .ac-timer {
+    grid-area: timer !important;
+    width: 100% !important;
+    min-height: 180px !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Preset buttons evenly spread across full card width */
+  html[data-device="iphone-duo"] .ac-timer-row:first-child,
+  html.mode-iphone-duo-dmg .ac-timer-row:first-child {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer-row .ac-btn,
+  html.mode-iphone-duo-dmg .ac-timer-row .ac-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 6px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3 timer wheels fill the full width with ample space per wheel */
+  html[data-device="iphone-duo"] .ac-timer .home-timer-wheels,
+  html.mode-iphone-duo-dmg .ac-timer .home-timer-wheels {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin: 6px 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer .timer-wheel,
+  html.mode-iphone-duo-dmg .ac-timer .timer-wheel {
+    min-height: 110px !important;
+    width: 100% !important;
+    padding: 8px 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer .timer-wheel-track,
+  html.mode-iphone-duo-dmg .ac-timer .timer-wheel-track {
+    min-height: 70px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer .timer-wheel-value,
+  html.mode-iphone-duo-dmg .ac-timer .timer-wheel-value {
+    font-size: 36px !important;
+    letter-spacing: -1px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer .timer-wheel-ghost,
+  html.mode-iphone-duo-dmg .ac-timer .timer-wheel-ghost {
+    font-size: 16px !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-timer .timer-banner-ad,
+  html.mode-iphone-duo-dmg .ac-timer .timer-banner-ad {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Bottom calendar and folders */
+  html[data-device="iphone-duo"] .ac-search-hide .ac-bottom,
+  html[data-device="iphone-duo"] .ac-bottom,
+  html.mode-iphone-duo-dmg .ac-search-hide .ac-bottom,
+  html.mode-iphone-duo-dmg .ac-bottom {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-folders,
+  html.mode-iphone-duo-dmg .ac-folders {
+    grid-column: 1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-calendar,
+  html.mode-iphone-duo-dmg .ac-calendar {
+    grid-column: 2 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-gallery,
+  html.mode-iphone-duo-dmg .ac-gallery {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  html[data-device="iphone-duo"] .ac-gallery img,
+  html.mode-iphone-duo-dmg .ac-gallery img {
+    height: 78px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
   html[data-device="iphone-duo"] .home-folder-grid,
   html.mode-iphone-duo-dmg .home-folder-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
