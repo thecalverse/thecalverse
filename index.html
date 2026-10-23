@@ -327,8 +327,8 @@ html[data-search-active="1"] #sHome .search-results{
 .ac-calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
 .ac-month{font-size:13px;font-weight:800;margin-bottom:0;}
 .ac-cal-nav{display:flex;gap:6px;align-items:center;}
-.ac-cal-nav button{height:28px;min-width:28px;border:1px solid var(--glb);border-radius:9px;background:rgba(255,255,255,.06);color:var(--t1);cursor:pointer;}
-.ac-cal-nav select{height:28px;border:1px solid var(--glb);border-radius:9px;background:rgba(255,255,255,.06);color:var(--t1);font-size:11px;padding:0 6px;}
+.ac-cal-nav button{height:28px;min-width:26px;padding:0 5px;border:1px solid var(--glb);border-radius:9px;background:rgba(255,255,255,.06);color:var(--t1);cursor:pointer;}
+.ac-cal-nav select{height:28px;border:1px solid var(--glb);border-radius:9px;background:rgba(255,255,255,.06);color:var(--t1);font-size:11px;font-weight:700;padding:0 4px 0 6px !important;background-image:none !important;width:auto !important;max-width:68px !important;min-width:0 !important;text-align:center;}
 .ac-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;}
 .ac-grid div{height:28px;border-radius:7px;border:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--t2);}
 .ac-grid .h{font-weight:800;color:var(--t3);border-color:transparent;height:16px;}
@@ -4935,53 +4935,209 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 }
 
 /* Explicit iPhone Duo Sandbox Targeting */
-html[data-device="iphone-duo"] #app,
-html.mode-iphone-duo-dmg #app {
+html[data-device="iphone-duo"],
+html[data-device="iphone-duo"] body,
+html.mode-iphone-duo-dmg,
+html.mode-iphone-duo-dmg body {
   width: 100% !important;
+  min-width: 100% !important;
   max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-top: max(40px, env(safe-area-inset-top, 40px)) !important;
-  padding-left: calc(8px + env(safe-area-inset-left, 0px)) !important;
-  padding-right: calc(8px + env(safe-area-inset-right, 0px)) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  background-color: var(--bg-main, #E4D2BF) !important;
 }
 
-/* Portrait iPhone Duo (single screen) */
+/* Portrait / Folded iPhone Duo (single screen) */
 @media (max-width: 899px) {
   html[data-device="iphone-duo"] .landscape-nav,
   html.mode-iphone-duo-dmg .landscape-nav {
     display: none !important;
   }
+
+  /* App container leaves room for the camera/clock/toggle strip on the right */
+  html[data-device="iphone-duo"] #app,
+  html.mode-iphone-duo-dmg #app {
+    width: calc(100% - 66px) !important;
+    max-width: calc(100% - 66px) !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    padding-left: max(10px, env(safe-area-inset-left, 10px)) !important;
+    padding-right: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Move topbar (CALVERSE brand + toggles) to the empty side strip below camera & status clock */
+  html[data-device="iphone-duo"] .topbar,
+  html.mode-iphone-duo-dmg .topbar {
+    position: fixed !important;
+    right: 4px !important;
+    left: auto !important;
+    top: max(108px, calc(env(safe-area-inset-top, 0px) + 84px)) !important;
+    width: 56px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 6px 2px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: 95 !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar::before,
+  html.mode-iphone-duo-dmg .topbar::before {
+    display: none !important;
+  }
+
+  /* Vertical CALVERSE brand in the side strip */
+  html[data-device="iphone-duo"] .topbar .brand,
+  html.mode-iphone-duo-dmg .topbar .brand {
+    position: static !important;
+    transform: none !important;
+    writing-mode: vertical-rl !important;
+    text-orientation: upright !important;
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    letter-spacing: 3px !important;
+    padding: 0 !important;
+    margin: 8px 0 6px !important;
+    display: block !important;
+    line-height: 1.2 !important;
+    color: var(--t1) !important;
+    opacity: 0.85 !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar .brand::after,
+  html.mode-iphone-duo-dmg .topbar .brand::after {
+    display: none !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar .tbtns,
+  html.mode-iphone-duo-dmg .topbar .tbtns {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 0 !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar .icb,
+  html.mode-iphone-duo-dmg .topbar .icb {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.4) !important;
+  }
+
+  /* Bottom nav fits cleanly on the left screen */
+  html[data-device="iphone-duo"] .bnav,
+  html.mode-iphone-duo-dmg .bnav {
+    width: min(390px, calc(100% - 74px)) !important;
+    left: calc((100% - 66px) / 2) !important;
+    transform: translateX(-50%) !important;
+  }
+
+  html[data-device="iphone-duo"] .academia-home,
+  html.mode-iphone-duo-dmg .academia-home {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
 }
 
-/* Dual-screen or Spanned / Landscape iPhone Duo */
-@media (min-width: 900px) and (orientation: landscape), (horizontal-viewport-segments: 2) {
+/* Dual-screen / Spanned / Unfolded Landscape iPhone Duo */
+@media (min-width: 900px), (orientation: landscape), (horizontal-viewport-segments: 2) {
   html[data-device="iphone-duo"] .landscape-nav,
   html.mode-iphone-duo-dmg .landscape-nav {
     display: grid !important;
     position: fixed !important;
-    width: 270px !important;
+    width: 250px !important;
     left: max(12px, env(safe-area-inset-left, 12px)) !important;
-    top: max(24px, env(safe-area-inset-top, 24px)) !important;
+    top: max(16px, env(safe-area-inset-top, 16px)) !important;
     bottom: 12px !important;
     z-index: 70 !important;
+    box-sizing: border-box !important;
   }
+
+  /* #app fills the secondary/right screen without pushing content off screen */
   html[data-device="iphone-duo"] #app,
   html.mode-iphone-duo-dmg #app {
-    width: calc(100% - 304px) !important;
-    max-width: calc(100% - 304px) !important;
-    margin-left: 296px !important;
-    margin-right: 8px !important;
-    padding-left: 8px !important;
-    padding-right: calc(8px + env(safe-area-inset-right, 0px)) !important;
-    padding-top: max(24px, env(safe-area-inset-top, 24px)) !important;
+    width: calc(100% - 274px) !important;
+    max-width: calc(100% - 274px) !important;
+    margin-left: 266px !important;
+    margin-right: 0 !important;
+    padding-left: 10px !important;
+    padding-right: max(16px, env(safe-area-inset-right, 16px)) !important;
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  html[data-device="iphone-duo"] .bnav,
+  html.mode-iphone-duo-dmg .bnav {
+    display: none !important;
+  }
+
+  html[data-device="iphone-duo"] .topbar,
+  html.mode-iphone-duo-dmg .topbar {
+    display: none !important;
+  }
+
+  /* Fit widget cards inside the right screen width seamlessly without horizontal overflow */
+  html[data-device="iphone-duo"] .home-folder-grid,
+  html.mode-iphone-duo-dmg .home-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  html[data-device="iphone-duo"] .home-desktop-hub,
+  html.mode-iphone-duo-dmg .home-desktop-hub {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  html[data-device="iphone-duo"] .home-hub-widgets,
+  html.mode-iphone-duo-dmg .home-hub-widgets {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-areas:
+      "thought thought"
+      "today time"
+      "theme notes"
+      "habits habits"
+      "timer timer" !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Prevent individual cards from forcing horizontal overflow */
+  html[data-device="iphone-duo"] .home-hub-widget,
+  html.mode-iphone-duo-dmg .home-hub-widget {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-device="iphone-duo"] .notebooks-shelf-grid,
+  html.mode-iphone-duo-dmg .notebooks-shelf-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
   }
 }
 
-html[data-device="iphone-duo"] .topbar,
-html.mode-iphone-duo-dmg .topbar {
-  top: max(40px, env(safe-area-inset-top, 40px)) !important;
-}
 html[data-device="iphone-duo"] .ipad-stage,
 html.mode-iphone-duo-dmg .ipad-stage {
   max-width: 100% !important;
@@ -5072,30 +5228,50 @@ html[data-device="iphone"] #app {
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding-top: max(34px, env(safe-area-inset-top, 34px)) !important;
+    padding-top: max(48px, env(safe-area-inset-top, 48px)) !important;
     padding-left: calc(20px + var(--safe-left)) !important;
     padding-right: calc(20px + var(--safe-right)) !important;
     padding-bottom: calc(120px + var(--safe-bottom)) !important;
+  }
+  .topbar {
+    top: max(16px, env(safe-area-inset-top, 16px)) !important;
+    margin: 4px 0 16px !important;
+  }
+  .timer-focus-actions {
+    top: max(42px, env(safe-area-inset-top, 42px)) !important;
+    left: max(24px, env(safe-area-inset-left, 24px)) !important;
   }
   .bnav {
     display: flex !important;
     width: min(940px, calc(100% - 40px)) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    padding: 10px 20px !important;
+    padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px)) !important;
     border-radius: 28px !important;
     gap: 6px !important;
+    align-items: center !important;
+  }
+  .bnav-ind {
+    top: 6px !important;
+    height: 52px !important;
+    border-radius: 20px !important;
   }
   .bni {
     flex: 1 1 0 !important;
-    font-size: 10px !important;
+    font-size: 10.5px !important;
     letter-spacing: .25px !important;
-    height: 46px !important;
+    height: 52px !important;
+    padding: 4px 2px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 2px !important;
   }
   .bnico {
-    font-size: 22px !important;
-    width: 28px !important;
-    height: 26px !important;
+    font-size: 20px !important;
+    width: 26px !important;
+    height: 24px !important;
   }
   .academia-home {
     width: 100% !important;
@@ -13567,7 +13743,7 @@ function selectCanvasItem(item){
   deselectAllCanvasItems();
   if(!item) return;
   item.classList.add("is-selected");
-  item.style.zIndex = "" + (++canvasMaxZIndex);
+  item.style.zIndex = item.classList.contains("is-below-ink") ? "20" : ("" + (++canvasMaxZIndex));
   lastActiveTextBoxId = item.id;
   syncTopbarTypographyForItem(item);
 }
@@ -13575,6 +13751,9 @@ function selectCanvasItem(item){
 function deselectAllCanvasItems(){
   document.querySelectorAll("#ipad-paper-sheet .canvas-item.is-selected").forEach(el => {
     el.classList.remove("is-selected");
+    if(el.classList.contains("is-below-ink")){
+      el.style.zIndex = "20";
+    }
   });
 }
 
@@ -13901,13 +14080,13 @@ function handleCanvasAction(btn, e){
       item.style.zIndex = "20";
       btn.textContent = "⬆️ Over Ink";
       btn.title = "Bring item above written pen / highlighter strokes";
-      showToast("Placed below written pen & highlighter ⬇️✨");
+      showToast("Placed below ink ⬇️ (pen/highlighter draws over it)");
     } else {
       item.dataset.layer = "above-ink";
       item.style.zIndex = "" + (++canvasMaxZIndex);
       btn.textContent = "⬇️ Below Ink";
       btn.title = "Put item below written pen / highlighter strokes";
-      showToast("Brought above written pen & highlighter ⬆️✨");
+      showToast("Brought above ink ⬆️ (floats over written strokes)");
     }
     queueIpadSave();
     return;
@@ -14915,7 +15094,26 @@ function initIpadInkEngine(){
     resizeIpadInkCanvas();
   });
 
+  const activeInkTouches = new Map();
+  let isTwoFingerScrolling = false;
+  let lastTwoFingerY = 0;
+
   canvas.addEventListener("pointerdown", (e) => {
+    if(e.pointerType === "touch"){
+      activeInkTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if(activeInkTouches.size >= 2){
+        isTwoFingerScrolling = true;
+        isDrawingInk = false;
+        currentStroke = null;
+        redrawAllInkStrokes();
+        try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
+        let sumY = 0;
+        activeInkTouches.forEach(t => sumY += t.y);
+        lastTwoFingerY = sumY / activeInkTouches.size;
+        return;
+      }
+    }
+
     if(ipadActiveTool !== "pen" && ipadActiveTool !== "highlighter" && ipadActiveTool !== "eraser") return;
 
     // Check if user clicked on a toolbar button, handle, or item
@@ -15055,6 +15253,26 @@ function initIpadInkEngine(){
   });
 
   canvas.addEventListener("pointermove", (e) => {
+    if(e.pointerType === "touch" && activeInkTouches.has(e.pointerId)){
+      activeInkTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if(activeInkTouches.size >= 2 || isTwoFingerScrolling){
+        isTwoFingerScrolling = true;
+        isDrawingInk = false;
+        currentStroke = null;
+        let sumY = 0;
+        activeInkTouches.forEach(t => sumY += t.y);
+        const currentAvgY = sumY / activeInkTouches.size;
+        const deltaY = lastTwoFingerY - currentAvgY;
+        lastTwoFingerY = currentAvgY;
+        if(Math.abs(deltaY) > 0.5){
+          const scrollContainer = document.getElementById("app") || window;
+          if(scrollContainer === window) window.scrollBy(0, deltaY);
+          else scrollContainer.scrollTop += deltaY;
+        }
+        return;
+      }
+    }
+
     if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk || !currentStroke) return;
     e.preventDefault();
@@ -15064,6 +15282,13 @@ function initIpadInkEngine(){
   });
 
   function stopInkDrawing(e){
+    if(e.pointerType === "touch"){
+      activeInkTouches.delete(e.pointerId);
+      if(activeInkTouches.size === 0){
+        isTwoFingerScrolling = false;
+      }
+    }
+    if(isTwoFingerScrolling) return;
     if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk) return;
     isDrawingInk = false;
@@ -15080,7 +15305,6 @@ function initIpadInkEngine(){
   canvas.addEventListener("pointerup", stopInkDrawing);
   canvas.addEventListener("pointercancel", stopInkDrawing);
 }
-
 function getInkCanvasCoords(e, canvas){
   const rect = canvas.getBoundingClientRect();
   const zoom = currentIpadZoom || 1;
