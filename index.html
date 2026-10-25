@@ -4962,96 +4962,17 @@ html.mode-iphone-duo-dmg body {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding-top: max(10px, env(safe-area-inset-top, 10px)) !important;
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
     padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
     padding-right: 76px !important; /* increased from 68px to eliminate touching with side nav bar */
     padding-bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
     box-sizing: border-box !important;
   }
 
-  /* Topbar restored to standard top position: CALVERSE brand on left, toggles on right */
+  /* Remove CALVERSE header and toggles for iPhone Duo exclusively (kept on website) */
   html[data-device="iphone-duo"] .topbar,
   html.mode-iphone-duo-dmg .topbar {
-    position: sticky !important;
-    top: max(8px, env(safe-area-inset-top, 8px)) !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    margin: 6px 0 16px !important;
-    padding: 12px 14px 12px 16px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    border-radius: 24px !important;
-    background: linear-gradient(180deg, rgba(255, 248, 240, 0.92), rgba(238, 222, 206, 0.86)) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(131, 98, 74, 0.16) !important;
-    box-shadow: 0 10px 22px rgba(104, 76, 56, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
-    z-index: 10 !important;
-    transform: none !important;
-  }
-
-  [data-t="black"] html[data-device="iphone-duo"] .topbar,
-  [data-t="black"] html.mode-iphone-duo-dmg .topbar,
-  html[data-device="iphone-duo"][data-t="black"] .topbar,
-  html.mode-iphone-duo-dmg[data-t="black"] .topbar {
-    background: linear-gradient(180deg, rgba(24, 28, 38, 0.94), rgba(13, 17, 24, 0.92)) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
-  }
-
-  /* CALVERSE text at original top-left */
-  html[data-device="iphone-duo"] .topbar .brand,
-  html.mode-iphone-duo-dmg .topbar .brand {
-    position: absolute !important;
-    left: 16px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-    font-size: 17px !important;
-    font-weight: 950 !important;
-    letter-spacing: 3.8px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: inline-flex !important;
-    color: var(--t1) !important;
-    background: linear-gradient(135deg, #34251a 0%, #8d5b38 60%, #b57b4f 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-  }
-
-  [data-t="black"] html[data-device="iphone-duo"] .topbar .brand,
-  [data-t="black"] html.mode-iphone-duo-dmg .topbar .brand,
-  html[data-device="iphone-duo"][data-t="black"] .topbar .brand,
-  html.mode-iphone-duo-dmg[data-t="black"] .topbar .brand {
-    background: linear-gradient(135deg, #ffffff 0%, #d8d0ff 55%, #9bc5ff 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-  }
-
-  /* Toggles at top-right */
-  html[data-device="iphone-duo"] .topbar .tbtns,
-  html.mode-iphone-duo-dmg .topbar .tbtns {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 8px !important;
-    margin: 0 !important;
-  }
-
-  html[data-device="iphone-duo"] .topbar .icb,
-  html.mode-iphone-duo-dmg .topbar .icb {
-    width: 38px !important;
-    height: 38px !important;
-    border-radius: 12px !important;
-    font-size: 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: none !important;
   }
 
   /* VERTICAL NAVIGATION BAR ON THE RIGHT SIDE STRIP */
