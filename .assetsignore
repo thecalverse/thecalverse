@@ -5,3 +5,11 @@
 .DS_Store
 *.backup
 *.backup.html
+desktop-app
+desktop-app/**
+ios-app
+ios-app/**
+*.dmg
+*.app
+*.sh
+
