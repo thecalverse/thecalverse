@@ -38,7 +38,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261030_timer_ad_v3';
+    const BUILD_TAG = '20261030_notes_ad_v1';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -3830,6 +3830,8 @@ canvas#gc{display:block;width:100%;height:240px;}
 .timer-actions{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;}
 .timer-banner-ad{width:100%;min-height:90px;margin-top:12px;display:flex;justify-content:center;align-items:center;overflow:hidden;border-radius:14px;}
 .timer-banner-ad ins.adsbygoogle{width:100%!important;min-height:60px;}
+.notes-banner-ad{width:100%;min-height:90px;display:flex;justify-content:center;align-items:center;overflow:hidden;border-radius:14px;}
+.notes-banner-ad ins.adsbygoogle{width:100%!important;min-height:60px;}
 .timer-main{font-size:16px;padding:15px 12px;}
 .timer-reset{
   background:linear-gradient(135deg,rgba(74,126,108,.42),rgba(86,132,168,.34),rgba(116,98,164,.3))!important;
@@ -6941,6 +6943,18 @@ html[data-device="iphone"] #app {
           <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
           <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
+      </div>
+      <div class="notes-banner-ad" aria-label="Advertisement">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
+             crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-6365346135619596"
+             data-ad-slot="5619840293"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       </div>
       <div class="gp note-surface">
         <div class="notes-controls" style="grid-template-columns:1fr auto auto;gap:8px;">
@@ -12330,6 +12344,7 @@ function openNotes(opts={}){
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
+  setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
 }
 
@@ -16025,6 +16040,7 @@ function openVaultNotes(opts={}){
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
+  setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
 }
 
@@ -21575,7 +21591,7 @@ function go(n,subcat,opts){
   }
   if(n==='Hist')renderH();if(n==='Unit')initUC();
   if(n==='Tracker')scheduleTrackerRender({deferMs:170});
-  if(n==='Notes')renderNotesList();
+  if(n==='Notes'){renderNotesList();setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);}
   if(n==='Timer')setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
   if(n==='Age'){const t=document.getElementById('ag-t');if(t&&!t.value)t.value=new Date().toISOString().split('T')[0];}
   if(n==='Graph')setTimeout(()=>requestPlotGraph(),80);if(n==='Matrix')initMx();if(n==='Area')updateAreaInputs();if(n==='Vol')updateVolInputs();
