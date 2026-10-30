@@ -30,7 +30,7 @@
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
 
     // Auto-reload to immediately break browser disk cache for new full-width build
-    const BUILD_TAG = '20261029_adsense_v1';
+    const BUILD_TAG = '20261030_timer_ad_v1';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       if (!location.search.includes('v=')) {
@@ -6005,7 +6005,20 @@ html[data-device="iphone"] #app {
             <div class="ac-timer-row">
               <button class="ac-btn" onclick="startAcademiaTimer()">Start</button>
             </div>
-            <div class="timer-banner-ad" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6365346135619596" data-ad-slot="2268025555" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+            <div class="timer-banner-ad" aria-label="Advertisement">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
+               crossorigin="anonymous"></script>
+          <!-- TIMER -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-6365346135619596"
+               data-ad-slot="7789661882"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
           </div>
         </div>
         <div class="ac-divider"></div>
@@ -6814,7 +6827,20 @@ html[data-device="iphone"] #app {
           <button class="go timer-main" id="timer-start" onclick="toggleTimer()">Start</button>
           <button class="go timer-reset" onclick="resetTimer()">Reset</button>
         </div>
-        <div class="timer-banner-ad" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6365346135619596" data-ad-slot="2268025555" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+        <div class="timer-banner-ad" aria-label="Advertisement">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
+               crossorigin="anonymous"></script>
+          <!-- TIMER -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-6365346135619596"
+               data-ad-slot="7789661882"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
       </div>
     </div>
   </div>
@@ -8905,6 +8931,7 @@ function openTimer(opts={}){
   setBottomTab('timer');
   setActiveScreen('sTimer','Timer',opts||{});
   renderTimer(true);
+  setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
   if(opts?.push!==false)rememberView({type:'timer'},!!opts?.replace);
 }
 
@@ -21538,6 +21565,7 @@ function go(n,subcat,opts){
   if(n==='Hist')renderH();if(n==='Unit')initUC();
   if(n==='Tracker')scheduleTrackerRender({deferMs:170});
   if(n==='Notes')renderNotesList();
+  if(n==='Timer')setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
   if(n==='Age'){const t=document.getElementById('ag-t');if(t&&!t.value)t.value=new Date().toISOString().split('T')[0];}
   if(n==='Graph')setTimeout(()=>requestPlotGraph(),80);if(n==='Matrix')initMx();if(n==='Area')updateAreaInputs();if(n==='Vol')updateVolInputs();
   if(n==='Chem'){currentChemCategory=subcat||'all';filterChem();document.getElementById('chem-title').textContent=currentChemCategory!=='all'?currentChemCategory:'Chemistry Calculator';}
