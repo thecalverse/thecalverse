@@ -13,3 +13,5 @@ ios-app/**
 *.app
 *.sh
 
+scripts
+scripts/**

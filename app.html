@@ -2,6 +2,7 @@
 
 <html lang="en">
 <head>
+<base href="/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#e4d2bf" id="theme-color-meta">
@@ -38,7 +39,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261031_ads_spa_loader_v1';
+    const BUILD_TAG = '20261031_multi_page_routes_v1';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -8516,6 +8517,47 @@ function schedulePostBootWarmup(){
   setTimeout(()=>{try{cacheAndTrimHomeGrids();}catch(e){}},280);
   setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,340);
 }
+function hideSpImmediately(){
+  if(spDone)return;
+  spDone=true;
+  const sp=document.getElementById('sp');
+  const app=document.getElementById('app');
+  if(sp&&sp.parentNode)sp.remove();
+  if(app){
+    app.classList.add('show');
+    resetViewportTop();
+    schedulePostBootWarmup();
+  }
+}
+
+function getInitialViewFromPath(pathname){
+  const clean = (pathname || window.location.pathname || '/').replace(/\/+$/, '') || '/';
+  const routes = {
+    '/timer': {type:'timer'},
+    '/notes': {type:'notes'},
+    '/tracker': {type:'tracker'},
+    '/journal': {type:'journal'},
+    '/history': {type:'screen', name:'Hist'},
+    '/calculators': {type:'screen', name:'Calcs'},
+    '/maths': {type:'folder', folderKey:'math'},
+    '/physics': {type:'folder', folderKey:'phys'},
+    '/chemistry': {type:'folder', folderKey:'chem'},
+    '/privacy-policy': {type:'info', key:'privacy'},
+    '/terms': {type:'info', key:'terms'},
+    '/disclaimer': {type:'info', key:'disclaimer'},
+    '/contact': {type:'info', key:'contact'},
+    '/about': {type:'info', key:'about'},
+    '/scientific-calculator': {type:'screen', name:'Sci'},
+    '/graphing-calculator': {type:'screen', name:'Graph'},
+    '/matrix-calculator': {type:'screen', name:'Matrix'},
+    '/unit-converter': {type:'screen', name:'Unit'},
+    '/bmi-calculator': {type:'screen', name:'Bmi'},
+    '/age-calculator': {type:'screen', name:'Age'},
+    '/emi-calculator': {type:'screen', name:'Emi'}
+  };
+  return routes[clean] || null;
+}
+
 function hideSp(){
   if(spDone)return;
   spDone=true;
@@ -8534,6 +8576,11 @@ function hideSp(){
   },1460);
 }
 window.addEventListener('load',()=>{
+  const initV = getInitialViewFromPath(window.location.pathname);
+  if(initV && initV.type !== 'home'){
+    hideSpImmediately();
+    return;
+  }
   const isAndroidApp=document.documentElement.getAttribute('data-platform')==='android-app';
   const minSplash=isAndroidApp?1200:1400;
   const wait=Math.max(0,minSplash-(performance.now()-splashStart));
@@ -21520,13 +21567,58 @@ function syncBottomIndicator(immediate=false){
   ind.style.width=`${width}px`;
   ind.style.transform=`translate3d(${left}px,0,0)`;
 }
+function getViewUrl(view){
+  if(!view||!view.type||view.type==='home')return '/';
+  if(view.type==='timer')return '/timer';
+  if(view.type==='notes')return '/notes';
+  if(view.type==='tracker')return '/tracker';
+  if(view.type==='journal')return '/journal';
+  if(view.type==='calcs')return '/calculators';
+  if(view.type==='folder'){
+    if(view.folderKey==='math')return '/maths';
+    if(view.folderKey==='phys')return '/physics';
+    if(view.folderKey==='chem')return '/chemistry';
+    return '/calculators';
+  }
+  if(view.type==='info'){
+    if(view.key==='privacy')return '/privacy-policy';
+    if(view.key==='terms')return '/terms';
+    if(view.key==='disclaimer')return '/disclaimer';
+    if(view.key==='contact')return '/contact';
+    if(view.key==='about')return '/about';
+  }
+  if(view.type==='screen'){
+    const map = {
+      'Calcs': '/calculators',
+      'Hist': '/history',
+      'Physics': '/physics',
+      'Chem': '/chemistry',
+      'Sci': '/scientific-calculator',
+      'Graph': '/graphing-calculator',
+      'Matrix': '/matrix-calculator',
+      'Unit': '/unit-converter',
+      'Bmi': '/bmi-calculator',
+      'Age': '/age-calculator',
+      'Emi': '/emi-calculator'
+    };
+    if(map[view.name])return map[view.name];
+  }
+  return null;
+}
+
 function rememberView(view,replace=false){
   if(!navReady||navLock)return;
   const cur=history.state;
   if(!replace&&cur&&JSON.stringify(cur)===JSON.stringify(view))return;
+  const targetUrl=getViewUrl(view);
   try{
-    if(replace)history.replaceState(view,'');
-    else history.pushState(view,'');
+    if(replace){
+      if(targetUrl)history.replaceState(view,'',targetUrl);
+      else history.replaceState(view,'');
+    }else{
+      if(targetUrl)history.pushState(view,'',targetUrl);
+      else history.pushState(view,'');
+    }
   }catch(e){}
 }
 function goBack(){
@@ -21812,7 +21904,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     const noteBackBtn=document.getElementById('note-edit-back');
     if(noteBackBtn)noteBackBtn.onclick=handleNoteEditBack;
     navReady=true;
-    rememberView({type:'home'},true);
+    const initialView = getInitialViewFromPath(window.location.pathname) || {type:'home'};
+    rememberView(initialView, true);
+    if(initialView.type !== 'home'){
+      hideSpImmediately();
+      restoreView(initialView, 0);
+    }
     initNotesFeature();
     loadTrackerData();
     enforceMobileHomeOrder();
