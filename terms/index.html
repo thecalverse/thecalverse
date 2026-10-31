@@ -45,7 +45,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261031_open_tracker_fix';
+    const BUILD_TAG = '20261031_open_tracker_visible_v2';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -4772,7 +4772,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   }
 }
 @media (max-width:899px){
-  .ws-open-tracker{display:none!important;}
   .screen.active{animation:none;}
   #app.show #sHome.active>div:first-child{animation:none;}
   .ac-header .tbtns{gap:6px!important;}
