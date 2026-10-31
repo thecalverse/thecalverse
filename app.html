@@ -38,7 +38,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261030_notes_mobile_fixed';
+    const BUILD_TAG = '20261031_ads_spa_loader_v1';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -3861,7 +3861,8 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notes-banner-ad{width:100%!important;max-width:100%!important;min-height:50px;max-height:280px;display:flex;justify-content:center;align-items:center;overflow:hidden;border-radius:14px;box-sizing:border-box;margin:6px 0 10px!important;}
 .notes-banner-ad ins.adsbygoogle{width:100%!important;max-width:100%!important;max-height:280px!important;overflow:hidden!important;box-sizing:border-box!important;}
 .notes-banner-ad iframe{max-width:100%!important;max-height:280px!important;}
-.notes-banner-ad:has(ins[data-ad-status="unfilled"]){display:none!important;}
+.timer-banner-ad:has(ins[data-ad-status="unfilled"]),
+.notes-banner-ad:has(ins[data-ad-status="unfilled"]){display:none!important;min-height:0!important;height:0!important;margin:0!important;padding:0!important;}
 .timer-main{font-size:16px;padding:15px 12px;}
 .timer-reset{
   background:linear-gradient(135deg,rgba(74,126,108,.42),rgba(86,132,168,.34),rgba(116,98,164,.3))!important;
@@ -6057,20 +6058,6 @@ html[data-device="iphone"] #app {
             <div class="ac-timer-row">
               <button class="ac-btn" onclick="startAcademiaTimer()">Start</button>
             </div>
-            <div class="timer-banner-ad" aria-label="Advertisement">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
-               crossorigin="anonymous"></script>
-          <!-- TIMER -->
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6365346135619596"
-               data-ad-slot="7789661882"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
           </div>
         </div>
         <div class="ac-divider"></div>
@@ -6879,20 +6866,7 @@ html[data-device="iphone"] #app {
           <button class="go timer-main" id="timer-start" onclick="toggleTimer()">Start</button>
           <button class="go timer-reset" onclick="resetTimer()">Reset</button>
         </div>
-        <div class="timer-banner-ad" aria-label="Advertisement">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
-               crossorigin="anonymous"></script>
-          <!-- TIMER -->
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6365346135619596"
-               data-ad-slot="7789661882"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        <div class="timer-banner-ad" id="timer-screen-ad" aria-label="Advertisement"></div>
       </div>
     </div>
   </div>
@@ -6983,18 +6957,7 @@ html[data-device="iphone"] #app {
           <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
       </div>
-      <div class="notes-banner-ad" aria-label="Advertisement">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
-             crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-6365346135619596"
-             data-ad-slot="5619840293"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
+      <div class="notes-banner-ad" id="notes-screen-ad" aria-label="Advertisement"></div>
       <div class="gp note-surface">
         <div class="notes-controls">
           <input type="text" id="notes-search-input" class="app-dialog-input" placeholder="🔍 Search notes, tags (#math, #revision), notebooks..." oninput="handleNotesSearch(this.value)" style="height:44px;font-size:13px;border-radius:14px;padding:0 14px;background:rgba(255,255,255,.05);border:1px solid var(--glb);">
@@ -8991,11 +8954,40 @@ async function releaseTimerScreen(){
     if(document.fullscreenElement && document.exitFullscreen)await document.exitFullscreen();
   }catch(e){}
 }
+function loadScreenAd(containerSelector, slotId, format = 'auto') {
+  try {
+    const container = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;
+    if (!container) return;
+    if (container.querySelector('iframe')) return;
+    const parentScreen = container.closest('.screen');
+    if (parentScreen && !parentScreen.classList.contains('active')) {
+      setTimeout(() => loadScreenAd(containerSelector, slotId, format), 150);
+      return;
+    }
+    container.innerHTML = '';
+    const ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.display = 'block';
+    ins.setAttribute('data-ad-client', 'ca-pub-6365346135619596');
+    ins.setAttribute('data-ad-slot', slotId);
+    if (format === 'autorelaxed') {
+      ins.setAttribute('data-ad-format', 'autorelaxed');
+    } else {
+      ins.setAttribute('data-ad-format', 'auto');
+      ins.setAttribute('data-full-width-responsive', 'true');
+    }
+    container.appendChild(ins);
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (err) {
+    console.warn('AdSense load notice:', err);
+  }
+}
+
 function openTimer(opts={}){
   setBottomTab('timer');
   setActiveScreen('sTimer','Timer',opts||{});
   renderTimer(true);
-  setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
+  setTimeout(()=>{ loadScreenAd('#timer-screen-ad', '7789661882', 'auto'); }, 150);
   if(opts?.push!==false)rememberView({type:'timer'},!!opts?.replace);
 }
 
@@ -12383,7 +12375,7 @@ function openNotes(opts={}){
   syncNotesPaneUI();
   renderNotesList();
   resetViewportTop();
-  setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(_){}} ,120);
+  setTimeout(()=>{ loadScreenAd('#notes-screen-ad', '5619840293', 'autorelaxed'); }, 150);
   if(opts?.push!==false)rememberView({type:'notes'},!!opts?.replace);
 }
 
