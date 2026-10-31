@@ -23,7 +23,6 @@
 <meta name="google-adsense-account" content="ca-pub-6365346135619596">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6365346135619596"
      crossorigin="anonymous"></script>
-<script>(function(s){s.dataset.zone='12134097',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <title>Scientific Calculator Online — Calverse</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +47,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261031_open_tracker_visible_v2';
+    const BUILD_TAG = '20261031_remove_popunder_library_page_v1';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -8543,6 +8542,7 @@ function getInitialViewFromPath(pathname){
   const routes = {
     '/timer': {type:'timer'},
     '/notes': {type:'notes'},
+    '/library': {type:'library'},
     '/tracker': {type:'tracker'},
     '/journal': {type:'journal'},
     '/history': {type:'screen', name:'Hist'},
@@ -21580,6 +21580,7 @@ function getViewUrl(view){
   if(!view||!view.type||view.type==='home')return '/';
   if(view.type==='timer')return '/timer';
   if(view.type==='notes')return '/notes';
+  if(view.type==='library')return '/library';
   if(view.type==='tracker')return '/tracker';
   if(view.type==='journal')return '/journal';
   if(view.type==='calcs')return '/calculators';

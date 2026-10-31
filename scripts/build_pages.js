@@ -38,6 +38,14 @@ const ROUTES = [
     tab: 'notes'
   },
   {
+    path: 'library',
+    title: 'Study Library & Saved Files — Calverse',
+    description: 'Store, view, and organize study documents, notes, revision files, PDFs, and academic subject folders.',
+    screenId: 'sNotes',
+    tab: 'library',
+    isLibrary: true
+  },
+  {
     path: 'tracker',
     title: 'Study Habit & Daily Goal Tracker — Calverse',
     description: 'Track study habits, daily routines, progress streaks, and task checklists in one connected workspace.',
@@ -217,11 +225,22 @@ function buildPage(route) {
     html = html.replace('<div class="mgrid" id="folder-page-grid"></div>', `<div class="mgrid" id="folder-page-grid">${route.folderGrid}</div>`);
   }
 
+  // Pre-render Library content
+  if (route.isLibrary) {
+    html = html.replace('<div class="stitle" id="notes-page-title" style="margin-bottom:0">Notes &amp; Workspaces</div>', '<div class="stitle" id="notes-page-title" style="margin-bottom:0">Study Library &amp; Files</div>');
+    html = html.replace('<div class="notes-sub" id="notes-page-sub">Your study notebook, quick thoughts, formula sheets &amp; digital notebooks.</div>', '<div class="notes-sub" id="notes-page-sub">Subject folders and uploaded study files.</div>');
+    html = html.replace('<div class="notes-controls">', '<div class="notes-controls" style="display:none">');
+    html = html.replace('<div class="notes-list" id="notes-list"></div>', '<div class="notes-list" id="notes-list" style="display:none"></div>');
+    html = html.replace('<div class="library-pane" id="library-pane" style="display:none"></div>', '<div class="library-pane" id="library-pane" style="display:grid"><div class="library-toolbar"><div class="library-toolbar-copy"><div class="lib-title">Subject Folders</div><div class="lib-sub">Organize your revision documents, notes, formulas, and study files.</div></div></div></div>');
+    html = html.replace('<div class="notes-pane-seg" role="tablist" aria-label="Notes panes">', '<div class="notes-pane-seg" role="tablist" aria-label="Notes panes" style="display:none">');
+    html = html.replace('<div class="notes-shell">', '<div class="notes-shell library-mode">');
+  }
+
   // Update Bottom Tab if route maps to a bottom tab
   if (route.tab) {
     html = html.replace('<div class="bni on" id="bn-home"', '<div class="bni" id="bn-home"');
-    const tabRegex = new RegExp(`id="bn-${route.tab}"`);
-    html = html.replace(tabRegex, `id="bn-${route.tab}" class="bni on"`);
+    const tabRegex = new RegExp(`<div class="bni" id="bn-${route.tab}"`);
+    html = html.replace(tabRegex, `<div class="bni on" id="bn-${route.tab}"`);
   }
 
   const outDir = path.join(ROOT, route.path);
@@ -243,7 +262,7 @@ const sitemapUrls = [
   { loc: 'https://thecalverse.com/', priority: '1.0' },
   ...ROUTES.map(r => ({
     loc: `https://thecalverse.com/${r.path}`,
-    priority: r.path === 'timer' || r.path === 'notes' || r.path === 'maths' || r.path === 'physics' ? '0.9' : '0.8'
+    priority: r.path === 'timer' || r.path === 'notes' || r.path === 'library' || r.path === 'tracker' || r.path === 'maths' || r.path === 'physics' ? '0.9' : '0.8'
   }))
 ];
 
