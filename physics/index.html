@@ -47,7 +47,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261031_remove_popunder_library_page_v1';
+    const BUILD_TAG = '20261031_tablet_desktop_unified_layout_v2';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -363,12 +363,12 @@ html[data-search-active="1"] #sHome .search-results{
 .timer-custom-card label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;font-weight:800;text-align:center;}
 .timer-custom-card input{height:34px;padding:8px;font-size:12px;border-radius:10px;text-align:center;}
 .timer-custom-btn{height:34px;border:1px solid var(--glb);border-radius:10px;background:rgba(255,255,255,.06);color:var(--t1);font-weight:800;cursor:pointer;text-align:center;justify-content:center;}
-@media (max-width:1050px){
+@media (max-width:767px){
   .ac-strip{grid-template-columns:repeat(3,minmax(0,1fr));}
   .ac-mid{grid-template-columns:1fr;}
   .ac-bottom{grid-template-columns:1fr;}
 }
-@media (max-width:899px){
+@media (max-width:767px){
   #calc-search{
     padding-left:42px!important;
     padding-right:42px!important;
@@ -451,7 +451,7 @@ html[data-search-active="1"] #sHome .search-results{
   .ac-timer-row .ac-btn{min-width:96px;}
   .ac-timer-row .ac-btn:last-child{min-width:140px;}
 }
-@media (min-width:900px){
+@media (min-width:768px){
   #app>.topbar{display:none!important;}
 }
 .home-folder-grid .calc-group{margin-bottom:0;height:auto;align-self:start;}
@@ -4481,7 +4481,7 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   color:#2f2117!important;
   border-color:rgba(121,86,62,.2)!important;
 }
-@media (min-width:900px) and (orientation:landscape){
+@media (min-width:768px){
   #sNotes .library-file-grid{
     grid-template-columns:1fr;
   }
@@ -5596,199 +5596,31 @@ html[data-device="iphone"] #app {
   }
 }
 
-/* ── 3. TABLETS IN PORTRAIT ORIENTATION ONLY (768px - 1199px Portrait) ── */
-@media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
-  .landscape-nav {
-    display: none !important;
-  }
-  #app {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-top: max(48px, env(safe-area-inset-top, 48px)) !important;
-    padding-left: calc(20px + var(--safe-left)) !important;
-    padding-right: calc(20px + var(--safe-right)) !important;
-    padding-bottom: calc(120px + var(--safe-bottom)) !important;
-  }
-  .topbar {
-    top: max(16px, env(safe-area-inset-top, 16px)) !important;
-    margin: 4px 0 16px !important;
-  }
-  .timer-focus-actions {
-    top: max(42px, env(safe-area-inset-top, 42px)) !important;
-    left: max(24px, env(safe-area-inset-left, 24px)) !important;
-  }
-  .bnav {
-    display: flex !important;
-    width: min(940px, calc(100% - 40px)) !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px)) !important;
-    border-radius: 28px !important;
-    gap: 6px !important;
-    align-items: center !important;
-  }
-  .bnav-ind {
-    top: 6px !important;
-    height: 52px !important;
-    border-radius: 20px !important;
-  }
-  .bni {
-    flex: 1 1 0 !important;
-    font-size: 10.5px !important;
-    letter-spacing: .25px !important;
-    height: 52px !important;
-    padding: 4px 2px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 2px !important;
-  }
-  .bnico {
-    font-size: 20px !important;
-    width: 26px !important;
-    height: 24px !important;
-  }
-  .academia-home {
-    width: 100% !important;
-    padding: 24px 28px 36px !important;
-    border-radius: 28px !important;
-  }
-  .ac-banner {
-    width: 100% !important;
-    height: 220px !important;
-    border-radius: 20px !important;
-  }
-  .ac-header .ac-title {
-    font-size: 36px !important;
-  }
-  .ac-sub {
-    font-size: 15px !important;
-    margin: 8px 0 20px !important;
-  }
-  .home-search-row {
-    width: 100% !important;
-  }
-  .home-search-row .home-search {
-    max-width: 720px !important;
-    margin: 0 auto !important;
-  }
-  .home-search input {
-    height: 50px !important;
-    font-size: 15px !important;
-    border-radius: 18px !important;
-  }
-  .ac-search-hide {
-    display: block !important;
-    width: 100% !important;
-  }
-  .ac-search-hide .ac-mid {
-    display: grid !important;
-    grid-template-columns: 280px 1.15fr 1fr !important;
-    gap: 16px !important;
-    margin-top: 16px !important;
-    align-items: stretch !important;
-    width: 100% !important;
-  }
-  .ac-time-photo {
-    grid-column: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-  .ac-clock {
-    min-height: 120px !important;
-    padding: 18px 22px !important;
-    border-radius: 18px !important;
-  }
-  .ac-clock .ac-time {
-    font-size: 52px !important;
-    font-weight: 900 !important;
-  }
-  .ac-clock .ac-day {
-    font-size: 14.5px !important;
-    margin-top: 4px !important;
-  }
-  .ac-photo {
-    flex: 1 1 auto !important;
-    min-height: 200px !important;
-    border-radius: 18px !important;
-    overflow: hidden !important;
-  }
-  .ac-photo img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-  .ac-goals-habits {
-    grid-column: 2 !important;
-    border-radius: 18px !important;
-    padding: 22px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-  }
-  .ac-timer {
-    grid-column: 3 !important;
-    border-radius: 18px !important;
-    padding: 22px !important;
-    min-height: 220px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-  .home-folder-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 14px !important;
-    width: 100% !important;
-  }
-  #sHome .home-folder-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  }
-  .notebooks-shelf-grid {
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
-    gap: 20px !important;
-    width: 100% !important;
-  }
-  .ipad-stage {
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 4px 0 32px !important;
-  }
-  .ipad-frame {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-  .ipad-paper-sheet {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-}
-
-/* ── 4. TABLETS IN LANDSCAPE ORIENTATION ONLY (900px - 1199px Landscape) ── */
-@media (min-width: 900px) and (max-width: 1199px) and (orientation: landscape) {
+/* ── 3. TABLETS & COMPACT DESKTOPS (768px - 1199px - PORTRAIT & LANDSCAPE) ── */
+@media (min-width: 768px) and (max-width: 1199px) {
   .landscape-nav {
     display: grid !important;
     position: fixed !important;
     left: 12px !important;
-    top: max(28px, env(safe-area-inset-top, 28px)) !important;
+    top: max(16px, env(safe-area-inset-top, 16px)) !important;
     bottom: 12px !important;
-    width: 270px !important;
+    width: 250px !important;
     z-index: 70 !important;
   }
   #app {
-    width: calc(100% - 306px) !important;
-    max-width: calc(100% - 306px) !important;
-    margin-left: 294px !important;
+    width: calc(100% - 276px) !important;
+    max-width: calc(100% - 276px) !important;
+    margin-left: 264px !important;
     margin-right: 12px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    padding-top: max(28px, env(safe-area-inset-top, 28px)) !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: max(16px, env(safe-area-inset-top, 16px)) !important;
     padding-bottom: 24px !important;
   }
   .bnav {
+    display: none !important;
+  }
+  #app > .topbar {
     display: none !important;
   }
   .academia-home {
@@ -5804,16 +5636,41 @@ html[data-device="iphone"] #app {
   .ac-header .ac-title {
     font-size: 34px !important;
   }
+  .ac-sub {
+    font-size: 14px !important;
+    margin: 8px 0 16px !important;
+  }
+  .home-search-row {
+    width: 100% !important;
+  }
+  .home-search-row .home-search {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+  }
+  .home-search input {
+    height: 48px !important;
+    font-size: 15px !important;
+    border-radius: 18px !important;
+  }
   .ac-search-hide {
     display: block !important;
     width: 100% !important;
   }
-  .ac-search-hide .ac-mid {
+  .ac-search-hide .ac-mid,
+  .ac-mid {
     display: grid !important;
-    grid-template-columns: 240px 1.15fr 1fr !important;
-    gap: 14px !important;
+    grid-template-columns: minmax(130px, 190px) 1.15fr 1fr !important;
+    gap: 12px !important;
     margin-top: 14px !important;
     align-items: stretch !important;
+    width: 100% !important;
+  }
+  .ac-search-hide .ac-bottom,
+  .ac-bottom {
+    display: grid !important;
+    grid-template-columns: minmax(100px, 150px) 1fr minmax(100px, 150px) !important;
+    gap: 12px !important;
+    margin-top: 14px !important;
     width: 100% !important;
   }
   .ac-time-photo {
@@ -5824,44 +5681,62 @@ html[data-device="iphone"] #app {
   }
   .ac-clock {
     min-height: 110px !important;
-    padding: 14px 18px !important;
+    padding: 12px 14px !important;
     border-radius: 16px !important;
   }
   .ac-clock .ac-time {
-    font-size: 48px !important;
+    font-size: clamp(28px, 4vw, 46px) !important;
     font-weight: 900 !important;
+  }
+  .ac-clock .ac-day {
+    font-size: 13px !important;
+    margin-top: 4px !important;
   }
   .ac-photo {
     flex: 1 1 auto !important;
     min-height: 160px !important;
     border-radius: 16px !important;
+    overflow: hidden !important;
+  }
+  .ac-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
   .ac-goals-habits {
     grid-column: 2 !important;
     border-radius: 16px !important;
     padding: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
   .ac-timer {
     grid-column: 3 !important;
     border-radius: 16px !important;
     padding: 18px !important;
+    min-height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
   .home-folder-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     gap: 12px !important;
     width: 100% !important;
   }
   #sHome .home-folder-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
   .notebooks-shelf-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
     gap: 16px !important;
     width: 100% !important;
   }
   .ipad-stage {
     max-width: 100% !important;
     width: 100% !important;
+    padding: 4px 0 32px !important;
   }
   .ipad-frame {
     max-width: 100% !important;
@@ -5869,6 +5744,7 @@ html[data-device="iphone"] #app {
   }
   .ipad-paper-sheet {
     max-width: 100% !important;
+    width: 100% !important;
   }
 }
 
@@ -21192,7 +21068,7 @@ function enforceMobileHomeOrder(){
   const hubWidgets=hub?.querySelector('.home-hub-widgets');
   const folders=home?.querySelector('.home-folder-grid');
   if(!home||!hub||!hubWidgets||!folders)return;
-  const mobile=window.matchMedia('(max-width: 899px)').matches;
+  const mobile=window.matchMedia('(max-width: 767px)').matches;
   if(mobile){
     if(folders.parentElement!==hubWidgets)hubWidgets.appendChild(folders);
   }else{
@@ -21686,7 +21562,7 @@ function setActiveScreen(id,name,opts={}){
   const appEl=document.getElementById('app');
   if(appEl)appEl.setAttribute('data-active-screen',id);
   const dir=opts.direction||0;
-  const isDesktopLandscape=window.matchMedia&&window.matchMedia('(min-width:900px) and (orientation:landscape)').matches;
+  const isDesktopLandscape=window.matchMedia&&window.matchMedia('(min-width:768px)').matches;
   el.style.setProperty('--screen-enter-x',isDesktopLandscape?'0px':(dir>0?'18px':dir<0?'-18px':'0px'));
   curScr=name;
   if(name!=='Calcs')favPanelActive=false;
