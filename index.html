@@ -39,7 +39,7 @@
     }
 
     // Auto-reload to immediately break browser disk cache
-    const BUILD_TAG = '20261031_multi_page_routes_v1';
+    const BUILD_TAG = '20261031_open_tracker_fix';
     if (localStorage.getItem('calverse_build_tag') !== BUILD_TAG) {
       localStorage.setItem('calverse_build_tag', BUILD_TAG);
       const u = new URL(location.href);
@@ -6098,7 +6098,7 @@ html[data-device="iphone"] #app {
           <div class="ws-row">
             <button type="button" class="ws-btn primary" onclick="continueLastSession()">Continue where I left off</button>
             <button type="button" class="ws-btn" onclick="openCalculatorsPanel()">Open Calculate</button>
-            <button type="button" class="ws-btn ws-open-tracker" onclick="bnav('tracker')">Open Tracker</button>
+            <button type="button" class="ws-btn ws-open-tracker" onclick="openTracker({direction:1})">Open Tracker</button>
             <button type="button" class="ws-btn" onclick="openTimer({direction:1})">Focus Timer</button>
           </div>
         </div>
@@ -20375,9 +20375,10 @@ function renderTrackerChunked(){
 }
 renderTracker=renderTrackerChunked;
 function openTracker(opts={}){
-  if(currentTab!=='tracker')setBottomTab('tracker');
+  setBottomTab('tracker');
   setActiveScreen('sTracker','Tracker',opts||{});
-  scheduleTrackerRender({deferMs:170});
+  try{renderTracker();}catch(e){}
+  scheduleTrackerRender({deferMs:0,force:true});
   if(opts?.push!==false)rememberView({type:'tracker'},!!opts?.replace);
 }
 
@@ -21149,7 +21150,7 @@ function renderAcademiaHabitsQuick(){
   const todayKey=getTrackerDayKey();
   const habits=Array.isArray(TRACKER)?TRACKER:[];
   if(!habits.length){
-    dst.innerHTML='<div class="ac-habit-row"><div class="ac-habit-name">No habits yet</div><button type="button" class="ac-habit-btn" onclick="go(5)">Open Tracker</button></div>';
+    dst.innerHTML='<div class="ac-habit-row"><div class="ac-habit-name">No habits yet</div><button type="button" class="ac-habit-btn" onclick="openTracker({direction:1})">Open Tracker</button></div>';
     return;
   }
   dst.innerHTML=habits.map(h=>{
@@ -21164,7 +21165,7 @@ function renderHomeHabitQuick(){
   const todayKey=getTrackerDayKey();
   const habits=Array.isArray(TRACKER)?TRACKER:[];
   if(!habits.length){
-    listEl.innerHTML='<div class="home-habit-row"><div class="home-habit-name">No habits yet</div></div>';
+    listEl.innerHTML='<div class="home-habit-row"><div class="home-habit-name">No habits yet</div><button type="button" class="home-habit-btn" onclick="openTracker({direction:1})">Open Tracker</button></div>';
     return;
   }
   listEl.innerHTML=habits.map(h=>{
@@ -21473,7 +21474,7 @@ function handleSearchKey(e){
 }
 
 /* ── NAVIGATION ── */
-const SM={Basic:'sBasic',Sci:'sSci',Trig:'sTrig',Pct:'sPct',Age:'sAge',Bmi:'sBmi',Emi:'sEmi',Unit:'sUnit',Matrix:'sMatrix',Stat:'sStat',Graph:'sGraph',Base:'sBase',Quad:'sQuad',Lcm:'sLcm',Prime:'sPrime',Si:'sSi',Pl:'sPl',Disc:'sDisc',Frac:'sFrac',TimeC:'sTimeC',Rng:'sRng',Ncr:'sNcr',Area:'sArea',Vol:'sVol',Prob:'sProb',Physics:'sPhysics',Chem:'sChem',Hist:'sHist',Timer:'sTimer',Tracker:'sTracker',Notes:'sNotes',Journal:'sJournal',NoteEdit:'sNoteEdit',Settings:'sSettings',Info:'sInfo',C11:'sC11',Calcs:'sCalcs'};
+const SM={Basic:'sBasic',Sci:'sSci',Trig:'sTrig',Pct:'sPct',Age:'sAge',Bmi:'sBmi',Emi:'sEmi',Unit:'sUnit',Matrix:'sMatrix',Stat:'sStat',Graph:'sGraph',Base:'sBase',Quad:'sQuad',Lcm:'sLcm',Prime:'sPrime',Si:'sSi',Pl:'sPl',Disc:'sDisc',Frac:'sFrac',TimeC:'sTimeC',Rng:'sRng',Ncr:'sNcr',Area:'sArea',Vol:'sVol',Prob:'sProb',Physics:'sPhysics',Chem:'sChem',Hist:'sHist',Timer:'sTimer',Tracker:'sTracker',tracker:'sTracker',5:'sTracker',Notes:'sNotes',Journal:'sJournal',NoteEdit:'sNoteEdit',Settings:'sSettings',Info:'sInfo',C11:'sC11',Calcs:'sCalcs'};
 function setBottomTab(tab){
   const nextTab=tab||'home';
   if(nextTab!=='notes'&&isVaultActive){
@@ -21706,6 +21707,7 @@ let currentPhysCategory='all';
 let currentChemCategory='all';
 function go(n,subcat,opts){
   if((!opts||Object.keys(opts).length===0)&&window.event?.currentTarget?.classList?.contains('sbk')){goBack();return;}
+  if(n===5||n==='5'||n==='Tracker'||n==='tracker'){openTracker(opts);return;}
   const el=setActiveScreen(SM[n],n,opts||{});if(!el)return;
   if(n==='Calcs'){
     renderCalculatorsPage();
@@ -21855,7 +21857,8 @@ function renderDashboardGreeting(){
 function bnav(t){
   const order={home:0,fav:1,hist:2,tracker:3,library:4,timer:5,notes:6,journal:7,sett:8};
   const prev=currentTab;
-  if((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='journal'&&curScr==='Journal')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings'))return;
+  const isTargetScreenActive = document.querySelector('.screen.active')?.id === SM[t.charAt(0).toUpperCase() + t.slice(1)];
+  if(isTargetScreenActive && ((t==='home'&&curScr==='Home')||(t==='notes'&&curScr==='Notes'&&notesPane==='notes')||(t==='journal'&&curScr==='Journal')||(t==='library'&&curScr==='Notes'&&notesPane==='library')||(t==='timer'&&curScr==='Timer')||(t==='hist'&&curScr==='Hist')||(t==='tracker'&&curScr==='Tracker')||(t==='sett'&&curScr==='Settings')))return;
   playClick('nav');vib('nav');
   if(t!=='fav')setBottomTab(t);
   const dir=(order[t]??0)>(order[prev]??0)?1:-1;
