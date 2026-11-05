@@ -6,6 +6,7 @@ Ensures:
 2. Responsive layout for both mobile and tablet.
 3. Proper Android bridge support (CalverseBridge).
 4. Signed with Android debug keystore and zipalign.
+5. Android WebView performance optimizations (no backdrop-filter tile memory exhaustion).
 """
 
 import os
@@ -23,6 +24,7 @@ ANDROID_APP_DIR = os.path.join(PROJECT_ROOT, "android-app")
 BASE_APK = os.path.join(ANDROID_APP_DIR, "calverse-base.apk")
 OUTPUT_APK = os.path.join(ANDROID_APP_DIR, "Calverse.apk")
 OUTPUT_DEBUG_APK = os.path.join(ANDROID_APP_DIR, "calverse-v17-debug.apk")
+DESKTOP_APK = os.path.expanduser("~/Desktop/Calverse.apk")
 
 BUILD_TOOLS_DIR = "/Users/maddhamsolanki/Library/Android/sdk/build-tools/35.0.0"
 KEYSTORE = os.path.expanduser("~/.android/debug.keystore")
@@ -39,8 +41,8 @@ def prepare_v17_html(source_path):
     # 2. Remove external AdSense script tag
     html = re.sub(r'<script\s+async\s+src=["\']https://pagead2\.googlesyndication\.com/[^"\']*["\'][^>]*></script>', '', html, flags=re.IGNORECASE)
 
-    # 3. Strip or neutralize ad units
-    ad_cleanup_css = """
+    # 3. Strip or neutralize ad units and add Android WebView optimizations
+    ad_cleanup_and_optimizations = """
 <style id="android-ad-suppression">
   .dashboard-banner-ad, [class*="-banner-ad"], ins.adsbygoogle {
     display: none !important;
@@ -50,6 +52,46 @@ def prepare_v17_html(source_path):
     padding: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+  }
+  /* Disable heavy backdrop-filter blur on Android to prevent Chromium tile memory overflow */
+  html[data-platform="android-app"] *,
+  html[data-platform="android-app"] *::before,
+  html[data-platform="android-app"] *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  /* Ensure app is always visible on Android */
+  html[data-platform="android-app"] #app {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Ensure splash screen fades cleanly */
+  #sp.hide, #sp.play-out {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    display: none !important;
+  }
+  /* Bottom nav bar fits all phone screen sizes neatly without overflow */
+  @media (max-width: 520px) {
+    .bnav {
+      width: calc(100% - 16px) !important;
+      max-width: 420px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      padding: 4px 4px calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+      gap: 2px !important;
+    }
+    .bni {
+      font-size: 9.5px !important;
+      padding: 3px 2px !important;
+      min-width: 0 !important;
+      flex: 1 1 0 !important;
+    }
+    .bnico {
+      font-size: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
   }
 </style>
 <script id="android-ad-mock">
@@ -61,14 +103,13 @@ def prepare_v17_html(source_path):
 """
     # Insert right before </head>
     if "</head>" in html:
-        html = html.replace("</head>", ad_cleanup_css + "\n</head>", 1)
+        html = html.replace("</head>", ad_cleanup_and_optimizations + "\n</head>", 1)
     else:
-        html = ad_cleanup_css + "\n" + html
+        html = ad_cleanup_and_optimizations + "\n" + html
 
     # 4. Ensure html tag has data-platform="android-app"
     if "<html" in html:
         html = re.sub(r'<html([^>]*)>', r'<html\1 data-platform="android-app">', html, count=1)
-        # remove duplicate if present
         html = html.replace('data-platform="android-app" data-platform="android-app"', 'data-platform="android-app"')
 
     return html
@@ -121,7 +162,6 @@ def build_apk():
                 for file in files:
                     full_path = os.path.join(root, file)
                     rel_path = os.path.relpath(full_path, extracted_dir)
-                    # resources.arsc and uncompressed assets should be stored without compression if possible
                     if rel_path.endswith((".png", ".webp", ".so", "resources.arsc")):
                         zip_out.write(full_path, rel_path, compress_type=zipfile.ZIP_STORED)
                     else:
@@ -146,13 +186,15 @@ def build_apk():
         print("Verifying signed APK...")
         subprocess.check_call([apksigner_bin, "verify", "--verbose", aligned_apk])
 
-        # Copy to destination
+        # Copy to destinations
         shutil.copy2(aligned_apk, OUTPUT_APK)
         shutil.copy2(aligned_apk, OUTPUT_DEBUG_APK)
+        shutil.copy2(aligned_apk, DESKTOP_APK)
 
         size_mb = os.path.getsize(OUTPUT_APK) / (1024 * 1024)
         print(f"SUCCESS! Output APK: {OUTPUT_APK} ({size_mb:.2f} MB)")
         print(f"SUCCESS! Also created: {OUTPUT_DEBUG_APK}")
+        print(f"SUCCESS! Updated on Desktop: {DESKTOP_APK}")
 
 if __name__ == "__main__":
     build_apk()
