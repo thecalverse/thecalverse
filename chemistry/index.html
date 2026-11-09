@@ -80,8 +80,8 @@
 [data-t=light] .mc .mi{box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 10px 18px rgba(145,112,86,.12);}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{height:100%;background-color:var(--bg)!important;background:var(--bg)!important;color-scheme:light dark;overflow-x:hidden;overscroll-behavior:none;}
-body{min-height:100vh;min-height:100dvh;width:100%;background-color:var(--bg)!important;overscroll-behavior:none;background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
+html{min-height:100%;height:auto!important;background-color:var(--bg)!important;background:var(--bg)!important;color-scheme:light dark;overflow-x:hidden;overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
+body{min-height:100vh;min-height:100dvh;height:auto!important;width:100%;background-color:var(--bg)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at top,rgba(112,96,220,.1),transparent 28%),radial-gradient(circle at 82% 16%,rgba(60,108,196,.06),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 26%,var(--bg) 100%);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;color:var(--t1);overflow-x:hidden;transition:background var(--dur-theme) var(--ease-flow),color var(--dur-theme) var(--ease-flow);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
 [data-t=black],html[data-t=black],body[data-t=black]{background-color:#070708!important;background:radial-gradient(circle at top,rgba(176,138,91,.08),transparent 24%),radial-gradient(circle at 82% 16%,rgba(103,143,176,.07),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 28%,var(--bg) 100%);}
 [data-t=light],html[data-t=light],body[data-t=light]{background-color:#e4d2bf!important;background:radial-gradient(circle at top,rgba(181,128,92,.18),transparent 26%),radial-gradient(circle at 82% 16%,rgba(146,167,118,.12),transparent 22%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 30%,var(--bg) 100%);}
 body::before,body::after,#app::before{display:none;}
@@ -262,7 +262,13 @@ html[data-search-active="1"] #sHome .search-results{
 }
 
 /* Academia Home (primary homepage surface) */
-#sHome>.workspace-shell,#sHome>.home-desktop-hub,#sHome>.home-folder-grid{display:none!important;}
+#sHome>.workspace-shell,#sHome>.home-desktop-hub{display:none!important;}
+@media (min-width:768px){
+  #sHome>.home-folder-grid{display:none!important;}
+}
+@media (max-width:767px){
+  #sHome>.home-folder-grid{display:grid!important;margin-top:16px;}
+}
 .academia-home{
   border:1px solid var(--glb);
   border-radius:24px;
@@ -1022,7 +1028,7 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notes-top-btn.on{background:var(--acc);border-color:var(--acb);box-shadow:0 0 0 1px rgba(140,126,255,.22),0 0 20px color-mix(in srgb,var(--act) 16%,transparent),var(--shadow-md);}
 .notes-top-btn.warn{border-color:rgba(255,80,80,.24);background:rgba(255,80,80,.08);color:var(--rdc);box-shadow:none;}
 .notes-top-btn.ghost{display:none;}
-.notes-top-btn.ghost.show{display:inline-flex;align-items:center;justify-content:center;}
+.notes-top-btn.ghost.show{display:inline-flex!important;align-items:center;justify-content:center;}
 .notes-top-btn.library-only{display:none;}
 .notes-top-btn.library-only.show{display:inline-flex;align-items:center;justify-content:center;}
 .notes-top-btn.vault-only{display:none;}
@@ -1035,6 +1041,9 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 .notes-sub{font-size:12px;color:var(--t2);line-height:1.6;word-break:break-word;overflow-wrap:break-word;}
 .notes-add{flex:1 1 100%;max-width:none;width:100%;height:44px;border:none;border-radius:14px;background:var(--accg);color:#fff;font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;box-shadow:0 10px 20px rgba(84,92,180,.2),inset 0 1px 0 rgba(255,255,255,.22);gap:10px;overflow:hidden;padding:0 14px;box-sizing:border-box;}
+@media (min-width:601px){
+  .notes-add{flex:0 0 auto;width:auto;min-width:130px;}
+}
 .notes-add.expanded{flex:1 1 100%;max-width:none;width:100%;}
 .notes-add-ico{font-size:20px;line-height:1;font-weight:900;flex:0 0 auto;}
 .notes-add-label{font-size:13px;font-weight:900;letter-spacing:.2px;white-space:nowrap;}
@@ -1480,17 +1489,24 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .ipad-frame{background:linear-gradient(145deg,#e9e1d8,#d5c8b7);border-color:rgba(131,98,74,.22);box-shadow:0 20px 48px rgba(104,76,56,.18),0 1px 0 rgba(255,255,255,.8) inset;}
 
 /* iPad Top Bar */
-.ipad-top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:4px 4px 2px;}
-.ipad-notebook-meta{display:flex;align-items:center;gap:6px;}
+.ipad-top-bar{display:flex;flex-direction:column;gap:6px;padding:4px 4px 2px;}
+.ipad-top-nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;width:100%;}
+.ipad-top-page-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;width:100%;}
+.ipad-notebook-meta{display:flex;align-items:center;gap:6px;min-width:0;flex:1 1 auto;}
+.ipad-top-right-actions{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;}
+.ipad-top-page-tools{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;}
 .ipad-notebook-select{height:30px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--t1);font-size:12px;font-weight:800;padding:0 24px 0 8px;cursor:pointer;outline:none;}
 [data-t=light] .ipad-notebook-select{background:rgba(255,255,255,.75);border-color:rgba(131,98,74,.25);color:#3f2d22;}
 
-.ipad-page-stepper{display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:2px 4px;}
+.ipad-page-stepper{display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:2px 4px;flex-shrink:0;}
 [data-t=light] .ipad-page-stepper{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.25);}
-.ipad-step-btn{height:26px;min-width:26px;border-radius:7px;border:none;background:transparent;color:var(--t1);font-size:12.5px;font-weight:800;cursor:pointer;display:grid;place-items:center;transition:background .15s;}
+.ipad-step-btn{height:28px;min-width:28px;border-radius:8px;border:none;background:transparent;color:var(--t1);font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s;white-space:nowrap;}
 .ipad-step-btn:hover:not(:disabled){background:rgba(255,255,255,.12);}
 .ipad-step-btn:disabled{opacity:.35;cursor:not-allowed;}
 .ipad-page-counter{font-size:11.5px;font-weight:800;color:var(--t1);padding:0 6px;white-space:nowrap;user-select:none;}
+
+.ipad-shapes-popover{background:rgba(18,22,32,.98)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:14px!important;padding:8px 10px!important;box-shadow:0 10px 28px rgba(0,0,0,.45)!important;z-index:85!important;animation:dockSlideIn .18s cubic-bezier(.2,1,.3,1);}
+[data-t=light] .ipad-shapes-popover{background:rgba(255,250,244,.98)!important;border-color:rgba(131,98,74,.25)!important;box-shadow:0 8px 24px rgba(104,76,56,.15)!important;}
 
 /* ── INNER VOICE THOUGHT SPARK WIDGET ── */
 .prompt-spark-container{margin-bottom:16px;}
@@ -1922,6 +1938,10 @@ canvas#gc{display:block;width:100%;height:240px;}
 .ipad-paper-title{width:100%;border:none;background:transparent;outline:none;font-size:24px;font-weight:900;letter-spacing:-.3px;color:inherit;margin-bottom:12px;padding:0 0 8px 0;border-bottom:1.5px dashed rgba(255,255,255,.15);box-sizing:border-box;}
 @media (max-width:580px){.ipad-paper-title{font-size:19px;}}
 [data-t=light] .ipad-paper-title{border-bottom-color:rgba(0,0,0,.12);}
+.ipad-paper-sheet.has-custom-bg{color:#1a1a2e!important;}
+.ipad-paper-sheet.has-custom-bg .ipad-paper-title{color:#1a1a2e!important;border-bottom-color:rgba(0,0,0,.18)!important;}
+.ipad-paper-sheet.has-custom-bg .ipad-paper-canvas{color:#1a1a2e!important;}
+.ipad-paper-sheet.has-custom-bg .ipad-paper-canvas:empty::before{color:rgba(26,26,46,.45)!important;}
 
 /* ══════════════════════════════════════════════════════════════════════════
    CANVA / POWERPOINT FREEFORM CANVAS ENGINE FOR IPAD JOURNAL
@@ -2704,8 +2724,11 @@ canvas#gc{display:block;width:100%;height:240px;}
 /* View Mode Locked Clean Reading */
 .ipad-frame.is-view-mode .ipad-stylus-dock,
 .ipad-frame.is-view-mode .ipad-ink-subbar,
-.ipad-frame.is-view-mode .ipad-edit-only{
+.ipad-frame.is-view-mode .ipad-edit-only,
+.ipad-frame.is-view-mode #ipad-ink-canvas,
+.ipad-paper-sheet.is-view-mode #ipad-ink-canvas{
   display:none!important;
+  pointer-events:none!important;
 }
 .ipad-paper-sheet.is-view-mode{
   user-select:text;
@@ -4346,7 +4369,7 @@ html[data-platform=android-app] .topbar{
 #sNotes .notes-controls{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;}
 #sNotes .notes-banner-ad{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;}
 .hist-sub{margin:-8px 0 12px;}
-html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .mc,html[data-platform=android-app] .gp,html[data-platform=android-app] .ic,html[data-platform=android-app] .rb,html[data-platform=android-app] .hi,html[data-platform=android-app] .note-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .mc,html[data-platform=android-app] .gp,html[data-platform=android-app] .ic,html[data-platform=android-app] .rb,html[data-platform=android-app] .hi,html[data-platform=android-app] .note-card,html[data-platform=android-app] .ipad-frame,html[data-platform=android-app] .ipad-stylus-dock,html[data-platform=android-app] .ipad-ink-subbar,html[data-platform=android-app] .ipad-shapes-popover,html[data-platform=android-app] .notebook-cover-card,html[data-platform=android-app] .canvas-item-bar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
 html[data-platform=android-app] .folder-btn,html[data-platform=android-app] .home-folder-grid .folder-btn{box-shadow:0 10px 18px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06)!important;}
 html[data-platform=android-app] .note-card:hover{transform:none;}
 html[data-platform=android-app] #sp{background:linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 42%,var(--bg) 100%)!important;}
@@ -4817,7 +4840,6 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
 
   /* Inking Subbar: Touch-friendly horizontal swipe bar */
   .ipad-ink-subbar {
-    display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -4828,6 +4850,15 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     border-radius: 12px !important;
   }
   .ipad-ink-subbar::-webkit-scrollbar { display: none !important; }
+  .ipad-ink-subbar:empty,
+  .ipad-ink-subbar[style*="display: none"],
+  .ipad-ink-subbar[style*="display:none"] {
+    display: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    height: 0 !important;
+  }
   .ink-sub-group { flex-shrink: 0 !important; }
 
   /* Floating Item Bar: Never overflows screen width on mobile/tablet */
@@ -4838,6 +4869,11 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     scrollbar-width: none !important;
   }
   .canvas-item-bar::-webkit-scrollbar { display: none !important; }
+  .canvas-item.is-near-top .canvas-item-bar,
+  .canvas-item[data-near-top="true"] .canvas-item-bar {
+    top: calc(100% + 8px) !important;
+    bottom: auto !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -4857,17 +4893,46 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     font-size: 10.5px !important;
   }
 
-  /* Top Control Bar on Phone */
+  /* Top Control Bar on Phone: 2 clean non-colliding rows */
   .ipad-top-bar {
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-direction: column !important;
     gap: 5px !important;
-    padding: 3px 2px !important;
+    padding: 2px !important;
   }
+  .ipad-top-nav-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+  }
+  .ipad-top-page-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .ipad-top-page-row::-webkit-scrollbar { display: none !important; }
   .ipad-notebook-meta {
     flex: 1 1 auto !important;
+    min-width: 0 !important;
     overflow: hidden !important;
-    gap: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .ipad-book-badge {
+    max-width: 135px !important;
+    font-size: 11px !important;
+    padding: 0 6px !important;
+    height: 26px !important;
   }
   .ipad-notebook-select {
     max-width: 105px !important;
@@ -4880,15 +4945,31 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     display: none !important; /* Mobile devices pinch-to-zoom natively */
   }
   .ipad-page-stepper {
-    padding: 1px 3px !important;
+    padding: 1px 2px !important;
+    flex-shrink: 0 !important;
   }
   .ipad-page-counter {
-    font-size: 10.5px !important;
-    padding: 0 3px !important;
+    font-size: 10px !important;
+    padding: 0 4px !important;
+  }
+  .ipad-top-page-tools {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+  .ipad-top-right-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
   }
   .ipad-step-btn {
     height: 26px !important;
-    font-size: 11.5px !important;
+    font-size: 10.5px !important;
+    padding: 0 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   /* Compact Frame & Sheet for maximum screen space on Phone */
@@ -4904,14 +4985,38 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     border-radius: 12px !important;
   }
   .ipad-paper-sheet {
+    position: relative !important;
     padding: 14px 12px 28px !important;
     min-height: 400px !important;
     font-size: 15px !important;
   }
   .ipad-paper-title {
+    position: relative !important;
+    z-index: 20 !important;
     font-size: 18px !important;
     padding: 2px 0 8px !important;
     margin-bottom: 10px !important;
+  }
+  .ipad-paper-bg-layer {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+  #ipad-page-editor {
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  #ipad-ink-canvas {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 15 !important;
+  }
+  .ipad-stylus-dock,
+  .ipad-ink-subbar,
+  .ipad-shapes-popover {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   /* Journal View Tabs scroll smoothly on phone */
@@ -6825,20 +6930,14 @@ html[data-device="iphone"] #app {
           <div class="notes-sub" id="notes-page-sub">Your study notebook, quick thoughts, formula sheets &amp; digital notebooks.</div>
         </div>
         <div class="notes-top-actions">
+          <button class="notes-top-btn ghost" id="notes-trash-back" onclick="exitNotesTrash()" type="button" style="align-items:center;gap:4px;">← Back</button>
           <button class="notes-top-btn ghost" id="notes-restore-all" onclick="restoreAllTrashedNotes()">Restore All</button>
           <button class="notes-top-btn ghost warn" id="notes-delete-all" onclick="deleteAllTrash()">Delete All</button>
           <button class="notes-top-btn vault-only" id="notes-vault-back" onclick="exitVaultToNotes()" type="button" style="display:none;align-items:center;gap:4px;">← Notes</button>
           <button class="notes-top-btn vault-only" id="notes-vault-lock" onclick="lockVault()" type="button">🔒 Lock</button>
           <button class="notes-top-btn vault-only" id="notes-vault-change-pass" onclick="openVaultChangePassModal()" type="button">⚙️ Passcode</button>
-          <div class="notes-pane-seg" role="tablist" aria-label="Notes panes">
-            <button class="notes-pane-btn on" id="notes-pane-notes" onclick="setNotesPane('notes')" type="button">📄 Notes</button>
-            <button class="notes-pane-btn" id="notes-pane-books" onclick="setNotesPane('books')" type="button">📚 Notebooks</button>
-            <button class="notes-pane-btn" id="notes-pane-study" onclick="setNotesPane('study')" type="button">🎓 Study</button>
-            <button class="notes-pane-btn" id="notes-pane-library" onclick="setNotesPane('library')" type="button">📁 Library</button>
-            <button class="notes-pane-btn" id="notes-pane-trash" onclick="setNotesPane('trash')" type="button">🗑️ Trash</button>
-          </div>
+          <button class="notes-top-btn notes-pane-btn" id="notes-pane-trash" onclick="toggleNotesTrash()" type="button" style="display:inline-flex;align-items:center;gap:6px;" title="Trash">🗑️ Trash</button>
           <button class="notes-top-btn" id="notes-backup-btn" onclick="openNotesBackupModal()" type="button" style="display:inline-flex;align-items:center;gap:6px;" title="Backup &amp; Export">💾 Backup</button>
-          <button class="notes-top-btn" id="notes-tpl-btn" onclick="openTemplatePickerModal('list')" type="button" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border-color:rgba(140,126,255,0.35);color:var(--t1);">✨ Templates</button>
           <button class="notes-add" id="notes-add-btn" onclick="requestNewNote()" aria-label="Create note"><span class="notes-add-ico">+</span><span class="notes-add-label">New Note</span></button>
         </div>
       </div>
@@ -6893,34 +6992,41 @@ html[data-device="iphone"] #app {
     <!-- VIEW 1: AUTHENTIC IPAD STAGE -->
     <div class="ipad-stage" id="journal-notebook-view" style="display:none;">
       <div class="ipad-frame">
-        <!-- Top Control Bar -->
+        <!-- Top Control Bar (Clean 2-Row Responsive Layout) -->
         <div class="ipad-top-bar">
-          <div class="ipad-notebook-meta">
-            <button type="button" class="ipad-step-btn" onclick="handleBookshelfReturnClick()" title="Return to Bookshelf" style="font-weight:700;padding:0 9px;gap:4px;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">← Bookshelf</button>
-            <div class="ipad-book-badge" id="ipad-book-badge" title="Active Notebook" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--t1);padding:0 9px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-              <span id="ipad-current-book-name">📖 Notebook</span>
+          <div class="ipad-top-nav-row">
+            <div class="ipad-notebook-meta">
+              <button type="button" class="ipad-step-btn" onclick="handleBookshelfReturnClick()" title="Return to Bookshelf" style="font-weight:700;padding:0 9px;gap:4px;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">← Bookshelf</button>
+              <div class="ipad-book-badge" id="ipad-book-badge" title="Active Notebook">
+                <span id="ipad-current-book-name">📖 Notebook</span>
+              </div>
             </div>
-            <button type="button" class="ipad-step-btn" id="ipad-pages-toggle-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 10px;font-size:12px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
-          </div>
-          
-          <div class="ipad-page-stepper">
-            <button type="button" class="ipad-step-btn" id="ipad-prev-page-btn" onclick="flipIpadPage(-1)" title="Previous Page">‹</button>
-            <span class="ipad-page-counter" id="ipad-page-counter">Page 1 of 1</span>
-            <button type="button" class="ipad-step-btn" id="ipad-next-page-btn" onclick="flipIpadPage(1)" title="Next Page">›</button>
-            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-add-page-btn" onclick="addIpadPage()" title="Add New Page" style="border-left:1px solid rgba(255,255,255,0.15);padding-left:6px;margin-left:2px;color:var(--act);">+ Page</button>
+            
+            <div class="ipad-top-right-actions">
+              <div class="ipad-zoom-pill ipad-edit-only" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
+                <button type="button" class="ipad-step-btn" onclick="zoomIpad(-0.15)" title="Zoom Out" style="width:22px;height:24px;">−</button>
+                <span id="ipad-zoom-val" style="font-size:11px;font-weight:800;min-width:34px;text-align:center;user-select:none;">100%</span>
+                <button type="button" class="ipad-step-btn" onclick="zoomIpad(0.15)" title="Zoom In" style="width:22px;height:24px;">＋</button>
+                <button type="button" class="ipad-step-btn" onclick="setIpadZoom(1.0)" title="Reset Zoom" style="font-size:10px;padding:0 5px;border-left:1px solid rgba(255,255,255,0.12);">Fit</button>
+              </div>
+              <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);height:28px;">✏️ Edit</button>
+              <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;padding:0 8px;height:28px;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);border-radius:8px;">🗑️</button>
+            </div>
           </div>
 
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div class="ipad-zoom-pill ipad-edit-only" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
-              <button type="button" class="ipad-step-btn" onclick="zoomIpad(-0.15)" title="Zoom Out" style="width:22px;height:24px;">−</button>
-              <span id="ipad-zoom-val" style="font-size:11px;font-weight:800;min-width:34px;text-align:center;user-select:none;">100%</span>
-              <button type="button" class="ipad-step-btn" onclick="zoomIpad(0.15)" title="Zoom In" style="width:22px;height:24px;">＋</button>
-              <button type="button" class="ipad-step-btn" onclick="setIpadZoom(1.0)" title="Reset Zoom" style="font-size:10px;padding:0 5px;border-left:1px solid rgba(255,255,255,0.12);">Fit</button>
+          <div class="ipad-top-page-row">
+            <div class="ipad-page-stepper">
+              <button type="button" class="ipad-step-btn" id="ipad-prev-page-btn" onclick="flipIpadPage(-1)" title="Previous Page">‹</button>
+              <span class="ipad-page-counter" id="ipad-page-counter">Page 1 of 1</span>
+              <button type="button" class="ipad-step-btn" id="ipad-next-page-btn" onclick="flipIpadPage(1)" title="Next Page">›</button>
+              <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-add-page-btn" onclick="addIpadPage()" title="Add New Page" style="border-left:1px solid rgba(255,255,255,0.15);padding-left:6px;margin-left:2px;color:var(--act);">+ Page</button>
             </div>
-            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;">📓 Binder</button>
-            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openTemplatePickerModal('ipad')" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);" title="Study Templates">✨ Templates</button>
-            <button type="button" class="ipad-step-btn" id="ipad-mode-toggle-btn" onclick="toggleIpadViewMode()" title="Toggle View / Edit Mode" style="padding:0 12px;font-size:12px;font-weight:900;gap:5px;display:flex;align-items:center;background:var(--acc);border:1px solid var(--acb);border-radius:9px;color:var(--act);">✏️ Edit</button>
-            <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-del-page-btn" onclick="deleteCurrentIpadPage()" title="Delete This Page" style="color:var(--rdc);font-size:14px;">🗑️</button>
+
+            <div class="ipad-top-page-tools">
+              <button type="button" class="ipad-step-btn" id="ipad-pages-toggle-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 9px;font-size:11.5px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);height:28px;border-radius:8px;">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
+              <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;height:28px;border-radius:8px;">📓 Binder</button>
+              <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openJournalTemplatesModal()" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);height:28px;border-radius:8px;" title="Templates &amp; Backgrounds">✨ Templates</button>
+            </div>
           </div>
         </div>
 
@@ -6936,7 +7042,7 @@ html[data-device="iphone"] #app {
           <div class="dock-divider"></div>
 
           <!-- Freeform Canvas Insertables -->
-          <div class="ipad-tool-grp" style="position:relative;">
+          <div class="ipad-tool-grp">
             <button type="button" class="note-tool-btn" onclick="insertIpadTextBox()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert movable text box anywhere">🔤 Text Box</button>
             <button type="button" class="note-tool-btn" onclick="insertIpadStickyPrompt()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert aesthetic sticky note">📝 Sticky</button>
             <button type="button" class="note-tool-btn" onclick="toggleIpadShapesMenu(event)" id="ipad-shapes-btn" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert Apple Freeform shapes">📐 Shapes ▾</button>
@@ -6944,18 +7050,6 @@ html[data-device="iphone"] #app {
             <button type="button" class="note-tool-btn" onclick="openStickersModal()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Movable planner stickers">🎀 Stickers</button>
             <button type="button" class="note-tool-btn" onclick="triggerIpadPhotoUpload()" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Insert photo or diagram">🖼️ Photo</button>
             <button type="button" class="note-tool-btn" onclick="openMathSymbolsPalette('ipad')" style="font-size:11.5px;height:30px;padding:0 8px;gap:4px;display:inline-flex;align-items:center;" title="Mathematical &amp; STEM Symbols">🔢 Math</button>
-
-            <!-- Freeform Shapes Menu Popover -->
-            <div id="ipad-shapes-menu" class="hl-palette" style="display:none;grid-template-columns:repeat(4,1fr);gap:6px;min-width:270px;padding:10px;top:38px;right:0;" onclick="event.stopPropagation()">
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('rect')" title="Rectangle Card">🔲 Card</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('rounded')" title="Rounded Pill">🏷️ Pill</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('circle')" title="Circle / Oval">⚪ Circle</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('arrow')" title="Arrow Connector">➡️ Arrow</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('speech')" title="Speech Bubble">💬 Speech</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('star')" title="Star">⭐ Star</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('heart')" title="Heart">❤️ Heart</button>
-              <button type="button" class="jphoto-btn" onclick="insertIpadShape('diamond')" title="Diamond">🔷 Diamond</button>
-            </div>
           </div>
 
           <div class="dock-divider"></div>
@@ -7018,6 +7112,21 @@ html[data-device="iphone"] #app {
               <button type="button" class="ipad-step-btn" onclick="stepIpadFontSize(2)" title="Increase Font Size (A+)" style="width:22px;height:26px;font-size:11px;font-weight:800;">A▴</button>
             </div>
             <button type="button" class="ipad-step-btn" onclick="openUniversalColorPickerForIpadText()" title="Ink &amp; Text Color Dial" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:inline-flex;align-items:center;height:28px;">🎨 Ink</button>
+          </div>
+        </div>
+
+        <!-- Freeform Shapes Menu Popover (clean dropdown below dock) -->
+        <div id="ipad-shapes-menu" class="hl-palette ipad-shapes-popover" style="display:none;" onclick="event.stopPropagation()">
+          <div style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding:2px 4px;">📐 Apple Freeform Shapes</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('rect')" title="Rectangle Card">🔲 Card</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('rounded')" title="Rounded Pill">🏷️ Pill</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('circle')" title="Circle / Oval">⚪ Circle</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('arrow')" title="Arrow Connector">➡️ Arrow</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('speech')" title="Speech Bubble">💬 Speech</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('star')" title="Star">⭐ Star</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('heart')" title="Heart">❤️ Heart</button>
+            <button type="button" class="jphoto-btn" onclick="insertIpadShape('diamond')" title="Diamond">🔷 Diamond</button>
           </div>
         </div>
 
@@ -9664,11 +9773,31 @@ function getFilteredNotes(){
   else list.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
   return list;
 }
+let lastNotesActivePane = 'notes';
+
+function toggleNotesTrash(){
+  if(notesPane === 'trash'){
+    exitNotesTrash();
+  } else {
+    lastNotesActivePane = (notesPane === 'library') ? 'library' : 'notes';
+    setNotesPane('trash');
+  }
+}
+
+function exitNotesTrash(){
+  if(lastNotesActivePane === 'library'){
+    openLibrary();
+  } else {
+    openNotes();
+  }
+}
+
 function syncNotesPaneUI(){
   const notesShell=document.querySelector('#sNotes .notes-shell');
   const title=document.getElementById('notes-page-title');
   const sub=document.getElementById('notes-page-sub');
   const trashBtn=document.getElementById('notes-pane-trash');
+  const trashBackBtn=document.getElementById('notes-trash-back');
   const notesBtn=document.getElementById('notes-pane-notes');
   const booksBtn=document.getElementById('notes-pane-books');
   const studyBtn=document.getElementById('notes-pane-study');
@@ -9690,7 +9819,8 @@ function syncNotesPaneUI(){
   if(notesPane==='vault'){
     if(title)title.textContent='🔒 Hidden Notes';
     if(sub)sub.textContent='Private hidden notebook · Tap Lock or ← Notes to exit';
-    if(trashBtn)trashBtn.classList.remove('on');
+    if(trashBtn){ trashBtn.classList.remove('on'); trashBtn.style.display='none'; }
+    if(trashBackBtn)trashBackBtn.classList.remove('show');
     if(notesBtn)notesBtn.classList.remove('on');
     if(booksBtn)booksBtn.classList.remove('on');
     if(studyBtn)studyBtn.classList.remove('on');
@@ -9702,7 +9832,7 @@ function syncNotesPaneUI(){
     if(lockBtn)lockBtn.classList.add('show');
     if(passBtn)passBtn.classList.add('show');
     if(addNoteBtn)addNoteBtn.style.display='flex';
-    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(tplBtn)tplBtn.style.display='none';
     if(controls)controls.style.display='grid';
     if(notesList)notesList.style.display='grid';
     if(libraryPane)libraryPane.style.display='none';
@@ -9715,12 +9845,12 @@ function syncNotesPaneUI(){
   if(vaultBackBtn)vaultBackBtn.classList.remove('show');
   if(lockBtn)lockBtn.classList.remove('show');
   if(passBtn)passBtn.classList.remove('show');
+  if(trashBtn){ trashBtn.style.display='inline-flex'; trashBtn.classList.toggle('on',notesPane==='trash'); }
 
   if(notesBtn)notesBtn.classList.toggle('on',notesPane==='notes');
   if(booksBtn)booksBtn.classList.toggle('on',notesPane==='books');
   if(studyBtn)studyBtn.classList.toggle('on',notesPane==='study');
   if(libBtn)libBtn.classList.toggle('on',notesPane==='library');
-  if(trashBtn)trashBtn.classList.toggle('on',notesPane==='trash');
 
   if(notesPane==='notes'){
     if(title)title.textContent='Notes & Workspaces';
@@ -9732,7 +9862,7 @@ function syncNotesPaneUI(){
       const lbl = addNoteBtn.querySelector('.notes-add-label');
       if(lbl) lbl.textContent = 'New Note';
     }
-    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='grid';
     if(libraryPane)libraryPane.style.display='none';
     if(notebooksPane)notebooksPane.style.display='none';
@@ -9762,19 +9892,20 @@ function syncNotesPaneUI(){
       const lbl = addNoteBtn.querySelector('.notes-add-label');
       if(lbl) lbl.textContent = 'Study Note';
     }
-    if(tplBtn)tplBtn.style.display='inline-flex';
+    if(tplBtn)tplBtn.style.display='none';
     if(notesList)notesList.style.display='none';
     if(libraryPane)libraryPane.style.display='none';
     if(notebooksPane)notebooksPane.style.display='none';
     if(studyPane)studyPane.style.display='block';
   }else if(notesPane==='trash'){
-    if(title)title.textContent='Trash';
-    if(sub)sub.textContent='Trash shows deleted notes and deleted files.';
+    const isLibTrash = (lastNotesActivePane === 'library');
+    if(title)title.textContent = isLibTrash ? 'Library Trash' : 'Trash';
+    if(sub)sub.textContent = isLibTrash ? 'Deleted folders and uploads. Tap ← Back or Trash to return.' : 'Deleted notes and pages. Tap ← Back or Trash to return.';
     if(controls)controls.style.display='none';
     if(addNoteBtn)addNoteBtn.style.display='none';
     if(tplBtn)tplBtn.style.display='none';
-    if(notesList)notesList.style.display='grid';
-    if(libraryPane)libraryPane.style.display='none';
+    if(notesList)notesList.style.display = isLibTrash ? 'none' : 'grid';
+    if(libraryPane)libraryPane.style.display = isLibTrash ? 'grid' : 'none';
     if(notebooksPane)notebooksPane.style.display='none';
     if(studyPane)studyPane.style.display='none';
   }else if(notesPane==='library'){
@@ -9791,7 +9922,8 @@ function syncNotesPaneUI(){
 
   if(restoreAllBtn)restoreAllBtn.classList.toggle('show',notesPane==='trash');
   if(deleteAllBtn)deleteAllBtn.classList.toggle('show',notesPane==='trash');
-  if(paneSeg)paneSeg.style.display=(notesPane==='library')?'none':'flex';
+  if(trashBackBtn)trashBackBtn.classList.toggle('show',notesPane==='trash');
+  if(paneSeg)paneSeg.style.display='none';
   if(notesShell)notesShell.classList.toggle('library-mode',notesPane==='library');
 }
 
@@ -10227,6 +10359,27 @@ function setWashiTapeTextColor(item, hex){
   showToast(`Washi text ink set to ${hex} ✒️`);
 }
 
+
+/* ── CALVERSE GIT CDN ASSET RESOLVER (ENSURES ASSETS LOAD ACROSS WEB, APK, MAC, IOS) ── */
+const CALVERSE_GIT_CDN_BASE = 'https://cdn.jsdelivr.net/gh/thecalverse/thecalverse@main/';
+const CALVERSE_GIT_RAW_BASE = 'https://raw.githubusercontent.com/thecalverse/thecalverse/main/';
+
+function resolveCalverseAsset(path){
+  if(!path) return '';
+  const p = String(path).trim();
+  if(p.startsWith('data:') || p.startsWith('blob:') || p.startsWith('http://') || p.startsWith('https://')){
+    return p;
+  }
+  let clean = p;
+  if(clean.startsWith('url(') && clean.endsWith(')')){
+    clean = clean.slice(4, -1).replace(/^['"]|['"]$/g, '').trim();
+  }
+  if(clean.startsWith('data:') || clean.startsWith('blob:') || clean.startsWith('http://') || clean.startsWith('https://')){
+    return clean;
+  }
+  clean = clean.replace(/^(\.\/|\/)/, '');
+  return CALVERSE_GIT_CDN_BASE + clean;
+}
 
 /* ── JOURNAL PAGE BACKGROUND ENGINE & COLLECTION ── */
 const JOURNAL_BACKGROUNDS = [
@@ -11179,6 +11332,22 @@ const JOURNAL_BACKGROUNDS = [
   }
 ];
 
+// Automatically resolve all bundled backgrounds to Git CDN so native APK, Mac DMG, and iOS apps load backgrounds flawlessly
+try {
+  JOURNAL_BACKGROUNDS.forEach(bg => {
+    if(bg.value && (bg.value.startsWith('assets/') || bg.value.startsWith('./assets/'))){
+      bg.rawLocalValue = bg.value;
+      bg.value = resolveCalverseAsset(bg.value);
+    }
+    if(bg.thumb && (bg.thumb.startsWith('assets/') || bg.thumb.startsWith('./assets/'))){
+      bg.rawLocalThumb = bg.thumb;
+      bg.thumb = resolveCalverseAsset(bg.thumb);
+    }
+  });
+} catch(e) {
+  console.warn('Error resolving journal backgrounds from git CDN:', e);
+}
+
 const JOURNAL_CUSTOM_BG_KEY = 'calverse_custom_page_backgrounds';
 let journalBgActiveCategory = 'grids';
 
@@ -11293,15 +11462,17 @@ function renderJournalBackgroundGrid(category = 'grids'){
 
   let cardHtmls = [];
   filtered.forEach(bg => {
+    const resolvedThumb = resolveCalverseAsset(bg.thumb || bg.value);
+    const resolvedVal = resolveCalverseAsset(bg.value);
     const isCur = bg.styleKey 
       ? (!curBg && curPaper === bg.styleKey)
-      : (curBgId === bg.id || (curBg && curBg === bg.value));
+      : (curBgId === bg.id || (curBg && (curBg === bg.value || curBg === bg.rawLocalValue || resolveCalverseAsset(curBg) === resolvedVal)));
 
     const bgCss = bg.previewCss 
       ? (bg.previewCss.startsWith('background') ? bg.previewCss : `background:${bg.previewCss};`)
-      : (bg.thumb || bg.value)
-        ? `background-image:url('${bg.thumb || bg.value}'); background-size:cover; background-position:center; background-repeat:no-repeat;`
-        : `background:${bg.value || '#fff'};`;
+      : (resolvedThumb || resolvedVal)
+        ? `background-image:url('${resolvedThumb || resolvedVal}'); background-size:cover; background-position:center; background-repeat:no-repeat;`
+        : `background:${resolvedVal || '#fff'};`;
 
     const delBtn = bg.isCustom 
       ? `<button type="button" onclick="removeJournalCustomBackground('${bg.id}', event)" title="Delete from grid completely" style="background:rgba(0,0,0,0.65);border:none;color:#ff5252;width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:900;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.4);">✕</button>` 
@@ -11495,6 +11666,7 @@ function handleJournalBgUpload(e){
 
 function applyPageBackgroundToSheet(bgValue, dim = 100){
   const layer = document.getElementById('ipad-paper-bg-layer');
+  const sheet = document.getElementById('ipad-paper-sheet');
   const btn = document.getElementById('ipad-bg-btn');
   if(!layer) return;
 
@@ -11502,6 +11674,7 @@ function applyPageBackgroundToSheet(bgValue, dim = 100){
     layer.style.display = 'none';
     layer.style.backgroundImage = 'none';
     layer.classList.remove('is-active');
+    if(sheet) sheet.classList.remove('has-custom-bg');
     if(btn){
       btn.style.background = '';
       btn.style.borderColor = '';
@@ -11512,8 +11685,10 @@ function applyPageBackgroundToSheet(bgValue, dim = 100){
 
   layer.style.display = 'block';
   layer.classList.add('is-active');
+  if(sheet) sheet.classList.add('has-custom-bg');
 
-  const val = String(bgValue);
+  const rawVal = String(bgValue);
+  const val = resolveCalverseAsset(rawVal);
   if(val.startsWith('data:') || val.startsWith('http') || val.startsWith('/') || val.startsWith('assets/') || val.startsWith('url(') || val.includes('.webp') || val.includes('.jpg') || val.includes('.png')){
     layer.style.backgroundImage = val.startsWith('url(') ? val : `url("${val}")`;
     layer.style.backgroundSize = '100% 100%';
@@ -12280,9 +12455,10 @@ function renderTrashedNoteCard(note){
 }
 
 function renderTrashPane(){
+  const isLibTrash = (lastNotesActivePane === 'library');
   const listEl=document.getElementById('notes-list');
   const pane=document.getElementById('library-pane');
-  if(listEl){
+  if(listEl && !isLibTrash){
     listEl.className=`notes-list view-${notesView}`;
     const noteList=[...notesTrash];
     if(!noteList.length){
@@ -12292,12 +12468,13 @@ function renderTrashPane(){
       requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
     }
   }
-  if(pane){
+  if(pane && isLibTrash){
     renderLibraryTrashPane();
   }
 }
 
 function openNotes(opts={}){
+  lastNotesActivePane='notes';
   if(!opts?.keepVault){
     notesPane='notes';
     isVaultActive=false;
@@ -12335,6 +12512,15 @@ function switchJournalMainView(viewName){
   document.querySelectorAll('#sJournal .jview-tab-btn').forEach(btn => {
     btn.classList.toggle('on', btn.id === `jview-tab-${viewName}`);
   });
+
+  const tabsWrap = document.querySelector('#sJournal .journal-view-tabs')?.parentElement;
+  if(tabsWrap){
+    if(window.innerWidth <= 600 && viewName === 'notebook'){
+      tabsWrap.style.display = 'none';
+    } else {
+      tabsWrap.style.display = 'flex';
+    }
+  }
 
   const shelfView = document.getElementById('journal-bookshelf-view');
   const notebookView = document.getElementById('journal-notebook-view');
@@ -13893,6 +14079,10 @@ function setIpadViewMode(isView){
   if(inkSubbar && ipadIsViewMode){
     inkSubbar.style.display = "none";
   }
+  const shapesMenu = document.getElementById("ipad-shapes-menu");
+  if(shapesMenu && ipadIsViewMode){
+    shapesMenu.style.display = "none";
+  }
   if(inkCanvas && ipadIsViewMode){
     inkCanvas.classList.remove("is-active", "is-eraser");
   }
@@ -14063,19 +14253,24 @@ function upgradeLegacyIpadElements(editorEl){
 
 function getNextCanvasItemPosition(width=280, height=120){
   const editor = document.getElementById("ipad-page-editor");
-  if(!editor) return { left: 40, top: 40 };
+  if(!editor) return { left: 40, top: 60 };
   const items = editor.querySelectorAll(".canvas-item");
   const count = items.length;
   const canvasWidth = editor.clientWidth || 700;
   const left = Math.min(canvasWidth - width - 20, 24 + ((count * 36) % 240));
-  const top = 30 + ((count * 48) % 360);
-  return { left: Math.max(10, Math.round(left)), top: Math.max(10, Math.round(top)) };
+  const top = 60 + ((count * 48) % 360);
+  return { left: Math.max(10, Math.round(left)), top: Math.max(55, Math.round(top)) };
 }
 
 function selectCanvasItem(item){
   deselectAllCanvasItems();
   if(!item) return;
   item.classList.add("is-selected");
+  if(item.offsetTop < 52){
+    item.classList.add("is-near-top");
+  } else {
+    item.classList.remove("is-near-top");
+  }
   item.style.zIndex = item.classList.contains("is-below-ink") ? "20" : ("" + (++canvasMaxZIndex));
   lastActiveTextBoxId = item.id;
   syncTopbarTypographyForItem(item);
@@ -14917,6 +15112,11 @@ function initIpadCanvasEngine(){
 
       s.item.style.left = newLeft + "px";
       s.item.style.top = newTop + "px";
+      if(newTop < 52){
+        s.item.classList.add("is-near-top");
+      } else {
+        s.item.classList.remove("is-near-top");
+      }
       return;
     }
   });
@@ -15423,15 +15623,23 @@ function initIpadInkEngine(){
   ipadInkEngineInitialized = true;
 
   resizeIpadInkCanvas();
+  let ipadInkResizeTimer = null;
   window.addEventListener("resize", () => {
-    resizeIpadInkCanvas();
+    clearTimeout(ipadInkResizeTimer);
+    ipadInkResizeTimer = setTimeout(() => {
+      resizeIpadInkCanvas();
+    }, 120);
   });
 
   const activeInkTouches = new Map();
   let isTwoFingerScrolling = false;
+  let lastTwoFingerX = 0;
   let lastTwoFingerY = 0;
 
   canvas.addEventListener("pointerdown", (e) => {
+    // Only intercept touches when in Journal edit mode and an inking tool is active
+    if(ipadIsViewMode || (ipadActiveTool !== "pen" && ipadActiveTool !== "highlighter" && ipadActiveTool !== "eraser")) return;
+
     if(e.pointerType === "touch"){
       activeInkTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if(activeInkTouches.size >= 2){
@@ -15440,14 +15648,13 @@ function initIpadInkEngine(){
         currentStroke = null;
         redrawAllInkStrokes();
         try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
-        let sumY = 0;
-        activeInkTouches.forEach(t => sumY += t.y);
+        let sumX = 0, sumY = 0;
+        activeInkTouches.forEach(t => { sumX += t.x; sumY += t.y; });
+        lastTwoFingerX = sumX / activeInkTouches.size;
         lastTwoFingerY = sumY / activeInkTouches.size;
         return;
       }
     }
-
-    if(ipadActiveTool !== "pen" && ipadActiveTool !== "highlighter" && ipadActiveTool !== "eraser") return;
 
     // Check if user clicked on a toolbar button, handle, or item
     const elements = document.elementsFromPoint(e.clientX, e.clientY);
@@ -15570,7 +15777,9 @@ function initIpadInkEngine(){
     try { canvas.setPointerCapture(e.pointerId); } catch(_){}
 
     isDrawingInk = true;
-    const pt = getInkCanvasCoords(e, canvas);
+    cachedInkCanvasRect = canvas.getBoundingClientRect();
+    cachedInkCanvasZoom = currentIpadZoom || 1;
+    const pt = getCachedInkCanvasCoords(e, cachedInkCanvasRect, cachedInkCanvasZoom);
     const tool = ipadActiveTool;
     const color = (tool === "highlighter") ? ipadHighlighterColor : ipadPenColor;
     const size = (tool === "highlighter") ? ipadHighlighterWidth : (tool === "eraser") ? ipadEraserWidth : ipadPenWidth;
@@ -15582,7 +15791,13 @@ function initIpadInkEngine(){
       points: [pt]
     };
 
-    redrawAllInkStrokes(currentStroke);
+    // Incremental start dot on 2D context
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    drawStrokeSegment(ctx, currentStroke);
+    ctx.restore();
   });
 
   canvas.addEventListener("pointermove", (e) => {
@@ -15592,15 +15807,19 @@ function initIpadInkEngine(){
         isTwoFingerScrolling = true;
         isDrawingInk = false;
         currentStroke = null;
-        let sumY = 0;
-        activeInkTouches.forEach(t => sumY += t.y);
+        let sumX = 0, sumY = 0;
+        activeInkTouches.forEach(t => { sumX += t.x; sumY += t.y; });
+        const currentAvgX = sumX / activeInkTouches.size;
         const currentAvgY = sumY / activeInkTouches.size;
+        const deltaX = lastTwoFingerX - currentAvgX;
         const deltaY = lastTwoFingerY - currentAvgY;
+        lastTwoFingerX = currentAvgX;
         lastTwoFingerY = currentAvgY;
-        if(Math.abs(deltaY) > 0.5){
-          const scrollContainer = document.getElementById("app") || window;
-          if(scrollContainer === window) window.scrollBy(0, deltaY);
-          else scrollContainer.scrollTop += deltaY;
+        if(Math.abs(deltaY) > 0.5 || Math.abs(deltaX) > 0.5){
+          window.scrollBy({ left: deltaX, top: deltaY, behavior: 'auto' });
+          if(document.scrollingElement){
+            document.scrollingElement.scrollTop += deltaY;
+          }
         }
         return;
       }
@@ -15609,15 +15828,25 @@ function initIpadInkEngine(){
     if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk || !currentStroke) return;
     e.preventDefault();
-    const pt = getInkCanvasCoords(e, canvas);
-    currentStroke.points.push(pt);
-    redrawAllInkStrokes(currentStroke);
+    if(!cachedInkCanvasRect) cachedInkCanvasRect = canvas.getBoundingClientRect();
+    const pt = getCachedInkCanvasCoords(e, cachedInkCanvasRect, cachedInkCanvasZoom);
+    const pts = currentStroke.points;
+    const prevPt = pts[pts.length - 1];
+    pts.push(pt);
+
+    // Butter-smooth incremental segment drawing without full canvas clearing!
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    drawIncrementalSegment(ctx, currentStroke, prevPt, pt);
+    ctx.restore();
   });
 
   function stopInkDrawing(e){
     if(e.pointerType === "touch"){
       activeInkTouches.delete(e.pointerId);
-      if(activeInkTouches.size === 0){
+      if(activeInkTouches.size < 2){
         isTwoFingerScrolling = false;
       }
     }
@@ -15625,18 +15854,59 @@ function initIpadInkEngine(){
     if(activeDragState || activeResizeState || activeRotateState) return;
     if(!isDrawingInk) return;
     isDrawingInk = false;
+    cachedInkCanvasRect = null;
     try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
     if(currentStroke && currentStroke.points.length > 0){
       currentInkStrokes.push(currentStroke);
       inkRedoStack = [];
       queueIpadSave();
+      // Final smooth bezier redraw
+      redrawAllInkStrokes();
     }
     currentStroke = null;
-    redrawAllInkStrokes();
   }
 
   canvas.addEventListener("pointerup", stopInkDrawing);
   canvas.addEventListener("pointercancel", stopInkDrawing);
+}
+
+let cachedInkCanvasRect = null;
+let cachedInkCanvasZoom = 1.0;
+
+function getCachedInkCanvasCoords(e, rect, zoom){
+  const z = zoom || 1;
+  const x = (e.clientX - rect.left) / z;
+  const y = (e.clientY - rect.top) / z;
+  return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
+}
+
+function drawIncrementalSegment(ctx, stroke, p1, p2){
+  ctx.save();
+  if(stroke.tool === 'highlighter'){
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = stroke.color;
+    ctx.fillStyle = stroke.color;
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  } else if(stroke.tool === 'eraser'){
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = stroke.color;
+    ctx.fillStyle = stroke.color;
+    ctx.lineWidth = stroke.size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  ctx.beginPath();
+  ctx.moveTo(p1.x, p1.y);
+  ctx.lineTo(p2.x, p2.y);
+  ctx.stroke();
+  ctx.restore();
 }
 function getInkCanvasCoords(e, canvas){
   const rect = canvas.getBoundingClientRect();
@@ -16873,17 +17143,30 @@ const GRAPHIC_STICKERS = [
   }
 ];
 
+// Automatically resolve all bundled stickers to Git CDN so native APK, Mac DMG, and iOS apps load stickers flawlessly
+try {
+  GRAPHIC_STICKERS.forEach(s => {
+    if(s.src && (s.src.startsWith('assets/') || s.src.startsWith('./assets/'))){
+      s.rawLocalSrc = s.src;
+      s.src = resolveCalverseAsset(s.src);
+    }
+  });
+} catch(e) {
+  console.warn('Error resolving stickers from git CDN:', e);
+}
+
 function insertGraphicStickerToJournal(src, name){
   closeStickersModal();
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
 
+  const resolvedSrc = resolveCalverseAsset(src);
   const id = "cgstk_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
   const w = 150;
   const h = 150;
   const contentHtml = `
     <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:move;padding:4px;box-sizing:border-box;">
-      <img src="${escapeHtml(src)}" alt="${escapeHtml(name || 'Sticker')}" style="max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.18));">
+      <img src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(name || 'Sticker')}" style="max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.18));">
     </div>
   `;
 
@@ -16939,7 +17222,7 @@ function filterStickerTab(tab,btn){
   if(tab==='aesthetic_pack'){
     const items = GRAPHIC_STICKERS.map(s => `
       <div class="graphic-sticker-card" onclick="insertGraphicStickerToJournal('${s.src}', '${escapeHtml(s.name)}')" title="${escapeHtml(s.name)} - Click to place on page">
-        <img src="${s.src}" alt="${escapeHtml(s.name)}" loading="lazy">
+        <img src="${resolveCalverseAsset(s.src)}" alt="${escapeHtml(s.name)}" loading="lazy">
       </div>
     `).join('');
     box.innerHTML = `<div class="graphic-stickers-grid">${items}</div>`;
@@ -17758,6 +18041,7 @@ function initJournalMediaListeners(){
   });
 }
 function openLibrary(opts={}){
+  lastNotesActivePane='library';
   notesPane='library';
   libraryView='folders';
   setBottomTab('library');

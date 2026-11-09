@@ -60,10 +60,24 @@ def prepare_v17_html(source_path):
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  /* Ensure app is always visible on Android */
+  /* Ensure app and scrolling work smoothly on Android */
+  html[data-platform="android-app"],
+  html[data-platform="android-app"] body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
   html[data-platform="android-app"] #app {
     opacity: 1 !important;
     transform: none !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+  html[data-platform="android-app"] .screen {
+    overflow: visible !important;
   }
   /* Ensure splash screen fades cleanly */
   #sp.hide, #sp.play-out {
