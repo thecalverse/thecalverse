@@ -65,6 +65,9 @@ def prepare_v17_html(source_path):
     backdrop-filter: blur(24px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
   }
+  html[data-platform="android-app"] .topbar {
+    padding-top: max(58px, calc(env(safe-area-inset-top, 0px) + 18px)) !important;
+  }
   /* Ensure app and scrolling work smoothly on Android */
   html[data-platform="android-app"],
   html[data-platform="android-app"] body {
