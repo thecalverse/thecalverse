@@ -332,8 +332,7 @@ html[data-search-active="1"] #sHome .search-results{
 .ac-shot{border-radius:12px;overflow:hidden;border:1px solid var(--glb);background:#111;}
 .ac-shot img{display:block;width:100%;height:104px;object-fit:cover;filter:saturate(.72) brightness(.82);}
 .ac-shot span{display:block;padding:6px;font-size:10px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ac-mid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
-.ac-mid{align-items:stretch;}
+.ac-mid{display:grid;grid-template-columns:220px 1fr 1fr;gap:10px;margin-top:14px;align-items:stretch;}
 .ac-time-photo,.ac-goals-habits{height:100%;}
 .ac-time-photo{display:grid;grid-template-rows:auto 1fr;gap:8px;}
 .ac-clock{
@@ -425,6 +424,7 @@ html[data-search-active="1"] #sHome .search-results{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:8px;
+    align-items:stretch;
   }
   .ac-time-photo{grid-row:2;}
   .ac-goals-habits{grid-row:3;}
@@ -432,18 +432,14 @@ html[data-search-active="1"] #sHome .search-results{
   .ac-timer{grid-row:5;}
   .ac-calendar{grid-row:6;}
   .ac-gallery{grid-row:7;}
-  .ac-time-photo .ac-photo{margin-top:0;}
-  .ac-time-photo .ac-photo img{height:154px;}
+  .ac-time-photo .ac-photo{margin-top:0;height:100%;border-radius:12px;overflow:hidden;border:1px solid var(--glb);}
+  .ac-time-photo .ac-photo img{height:100%;min-height:154px;object-fit:cover;display:block;}
   .ac-time-photo .ac-clock{
-    padding:8px 9px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+    padding:8px;
+    height:100%;
+    min-height:154px;
+    box-sizing:border-box;
   }
-  .ac-time-photo .ac-time{font-size:40px;line-height:.95;}
-  .ac-time-photo .ac-day{font-size:11px;margin-top:4px;}
   .ac-goals-habits{grid-column:1/-1;}
   .ac-folders{
     grid-column:1/-1;
@@ -503,13 +499,20 @@ html[data-search-active="1"] #sHome .search-results{
 .home-folder-grid .folder-count{margin-left:0;font-size:10px;line-height:1.25;opacity:.88;font-weight:600;display:block;max-width:100%;}
 .home-folder-grid .folder-count{text-align:center;}
 .home-folder-grid .folder-arrow{align-self:end;justify-self:end;font-size:15px;opacity:.92;}
-#sHome .home-folder-grid{display:flex!important;flex-direction:column!important;grid-template-columns:1fr!important;gap:12px!important;width:100%!important;margin:12px 0 16px 0!important;}
-#sHome .home-folder-grid .calc-group{width:100%!important;margin-bottom:0!important;}
-#sHome .home-folder-grid .folder-btn{width:100%!important;min-height:68px!important;height:auto!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;padding:14px 18px!important;border-radius:20px!important;box-sizing:border-box!important;}
-#sHome .home-folder-grid .folder-btn-left{width:auto!important;display:flex!important;flex-direction:row!important;align-items:center!important;gap:14px!important;justify-items:flex-start!important;text-align:left!important;}
-#sHome .home-folder-grid .folder-icon{width:44px!important;height:44px!important;min-width:44px!important;font-size:24px!important;border-radius:14px!important;display:grid!important;place-items:center!important;}
-#sHome .home-folder-grid .folder-title{font-size:16px!important;font-weight:800!important;letter-spacing:.5px!important;}
-#sHome .home-folder-grid .folder-arrow{font-size:16px!important;align-self:center!important;justify-self:flex-end!important;}
+.ac-clock.ac-calc-box{display:flex!important;flex-direction:column!important;justify-content:space-between!important;gap:6px!important;padding:8px!important;box-sizing:border-box!important;height:100%!important;min-height:154px!important;border:1px solid var(--glb)!important;border-radius:12px!important;background:rgba(205,188,163,.1)!important;}
+.ac-clock.ac-calc-box .calc-group{width:100%!important;margin:0!important;flex:1 1 0!important;display:flex!important;}
+.ac-clock.ac-calc-box .folder-btn{width:100%!important;height:100%!important;min-height:40px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;padding:6px 10px!important;border-radius:9px!important;box-sizing:border-box!important;margin:0!important;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important;border:1px solid var(--glb)!important;box-shadow:0 4px 10px rgba(0,0,0,.14)!important;cursor:pointer!important;transition:transform .18s ease,background .18s ease!important;}
+.ac-clock.ac-calc-box .folder-btn:active{transform:scale(.98)!important;}
+.ac-clock.ac-calc-box .folder-btn-left{display:flex!important;flex-direction:row!important;align-items:center!important;gap:8px!important;min-width:0!important;justify-items:flex-start!important;text-align:left!important;}
+.ac-clock.ac-calc-box .folder-icon{width:26px!important;height:26px!important;min-width:26px!important;font-size:14px!important;border-radius:7px!important;display:grid!important;place-items:center!important;background:rgba(255,255,255,.08)!important;color:var(--t1)!important;}
+.ac-clock.ac-calc-box .folder-title{font-size:12px!important;font-weight:800!important;letter-spacing:.5px!important;color:var(--t1)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+.ac-clock.ac-calc-box .folder-arrow{font-size:11px!important;opacity:.75!important;color:var(--t2)!important;align-self:center!important;}
+.ac-clock.ac-calc-box .folder-body{display:none!important;}
+[data-t=light] .ac-clock.ac-calc-box{background:rgba(220,200,180,.28)!important;border-color:rgba(123,88,63,.24)!important;}
+[data-t=light] .ac-clock.ac-calc-box .folder-btn{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(245,235,224,.68))!important;border-color:rgba(123,88,63,.22)!important;box-shadow:0 4px 8px rgba(104,76,56,.08)!important;}
+[data-t=light] .ac-clock.ac-calc-box .folder-icon{background:rgba(123,88,63,.12)!important;color:#2e1e12!important;}
+[data-t=light] .ac-clock.ac-calc-box .folder-title{color:#2e1e12!important;}
+[data-t=light] .ac-clock.ac-calc-box .folder-arrow{color:#7a5840!important;}
 #sCalcs .stitle{text-align:left;font-size:26px;font-weight:900;margin-bottom:20px;}
 #sHome.active .home-folder-grid .calc-group{opacity:1;transform:none;will-change:auto;}
 #app.show #sHome.active #grp-math{animation-delay:.18s;}
@@ -3962,7 +3965,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   #app{max-width:none;padding:0 10px 90px;}
   .sp-ring{width:min(72vmin,360px);height:min(72vmin,360px);border-radius:min(20vmin,100px);font-size:min(34vmin,150px);}
   .sp-name{font-size:clamp(24px,6vw,34px);letter-spacing:5.6px;}
-  .topbar{padding:max(44px,calc(var(--safe-top,0px) + 14px)) 16px 12px;margin:0 calc(-1 * (10px + var(--safe-right))) 12px calc(-1 * (10px + var(--safe-left)));width:calc(100% + calc(10px + var(--safe-left)) + calc(10px + var(--safe-right)));top:0;border-radius:0;justify-content:space-between;}
+  .topbar{padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(16px + var(--safe-right)) 12px calc(16px + var(--safe-left));margin:0!important;width:100%!important;left:0!important;right:0!important;top:0!important;border-radius:0;justify-content:space-between;}
   .brand{font-size:17.5px;letter-spacing:3.6px;max-width:none;}
   .tbtns{gap:8px;}
   .icb{width:36px;height:36px;font-size:16px;border-radius:12px;}
@@ -4178,12 +4181,12 @@ canvas#gc{display:block;width:100%;height:240px;}
       calc(12px + var(--safe-left));
   }
   .topbar{
-    position:sticky;
-    top:0;
-    left:0;
-    right:0;
-    width:calc(100% + calc(12px + var(--safe-left)) + calc(12px + var(--safe-right)));
-    margin:0 calc(-1 * (12px + var(--safe-right))) 12px calc(-1 * (12px + var(--safe-left)));
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    margin:0!important;
     display:flex!important;
     align-items:center!important;
     justify-content:space-between!important;
@@ -4297,7 +4300,7 @@ canvas#gc{display:block;width:100%;height:240px;}
       calc(88px + var(--safe-bottom))
       calc(10px + var(--safe-left));
   }
-  .topbar{display:flex!important;justify-content:space-between!important;min-height:48px;padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(12px + var(--safe-right)) 10px calc(12px + var(--safe-left));width:calc(100% + calc(10px + var(--safe-left)) + calc(10px + var(--safe-right)));margin:0 calc(-1 * (10px + var(--safe-right))) 10px calc(-1 * (10px + var(--safe-left)));border-radius:0!important;}
+  .topbar{display:flex!important;justify-content:space-between!important;min-height:48px;padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(12px + var(--safe-right)) 10px calc(12px + var(--safe-left));width:100%!important;margin:0!important;left:0!important;right:0!important;border-radius:0!important;}
   .brand{font-size:15.5px;letter-spacing:2.8px;}
   .tbtns{min-width:auto;gap:6px;}
   .icb{width:32px;height:32px;font-size:14px;}
@@ -4325,11 +4328,12 @@ html[data-platform=android-app] .topbar{
       calc(12px + var(--safe-left));
   }
   html[data-platform=android-app] .topbar{
-    top:0;
-    left:0;
-    right:0;
-    width:calc(100% + calc(12px + var(--safe-left)) + calc(12px + var(--safe-right)));
-    margin:0 calc(-1 * (12px + var(--safe-right))) 12px calc(-1 * (12px + var(--safe-left)));
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    margin:0!important;
     min-height:52px;
     padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(14px + var(--safe-right)) 12px calc(14px + var(--safe-left));
     border-radius:0;
@@ -5851,14 +5855,12 @@ html.mode-iphone-duo-dmg .ipad-paper-sheet {
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 16px)) !important;
   }
   .topbar {
+    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    width: calc(100% + calc(14px + env(safe-area-inset-left, 0px)) + calc(14px + env(safe-area-inset-right, 0px))) !important;
-    margin-left: calc(-1 * (14px + env(safe-area-inset-left, 0px))) !important;
-    margin-right: calc(-1 * (14px + env(safe-area-inset-right, 0px))) !important;
-    margin-top: 0 !important;
-    margin-bottom: 14px !important;
+    width: 100% !important;
+    margin: 0 !important;
     padding-top: max(44px, calc(env(safe-area-inset-top, 0px) + 14px)) !important;
     padding-bottom: 12px !important;
     padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
@@ -6026,12 +6028,6 @@ html[data-device="iphone"] #app {
     gap: 12px !important;
     width: 100% !important;
   }
-  #sHome .home-folder-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
   .notebooks-shelf-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
     gap: 16px !important;
@@ -6105,12 +6101,6 @@ html[data-device="iphone"] #app {
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
     gap: 14px !important;
     width: 100% !important;
-  }
-  #sHome .home-folder-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
   }
   .notebooks-shelf-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
@@ -6199,7 +6189,9 @@ html[data-device="iphone"] #app {
         </div>
         <div class="ac-search-hide">
         <div class="ac-divider"></div>
-        <div class="home-folder-grid">
+        <div class="ac-mid">
+          <div class="ac-time-photo">
+            <div class="ac-clock ac-calc-box">
     <!-- MATHS FOLDER -->
     <div class="calc-group" id="grp-math">
       <div class="folder-btn" onclick="openHomeFolder('math','math-body','math-arrow')">
@@ -6355,8 +6347,9 @@ html[data-device="iphone"] #app {
         </div>
       </div>
       </div>
-    </div>
-        <div class="ac-mid">
+            </div>
+            <div class="ac-photo"><img id="ac-main-photo" src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=700&q=80" alt="Academia books"></div>
+          </div>
           <div class="ac-card ac-goals-habits">
             <div class="ac-k center">Goal / Dream</div>
             <div id="ac-goal-input" class="ac-goal" tabindex="0">Long press to edit your goal</div>
@@ -21777,9 +21770,9 @@ function searchCalcs(){
     const gMath=document.getElementById('grp-math');
     const gPhys=document.getElementById('grp-phys');
     const gChem=document.getElementById('grp-chem');
-    if(gMath)gMath.style.display='block';
-    if(gPhys)gPhys.style.display='block';
-    if(gChem)gChem.style.display='block';
+    if(gMath)gMath.style.display='';
+    if(gPhys)gPhys.style.display='';
+    if(gChem)gChem.style.display='';
     document.querySelectorAll('#math-grid .mc,#phys-grid .mc,#chem-grid .mc').forEach(el=>el.style.display='');
     if(homeGrid)homeGrid.style.display='';
     if(homeHub)homeHub.style.display='';
