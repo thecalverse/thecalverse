@@ -62,7 +62,7 @@ const campaignData = [
     id: '06_exam_hall_reality',
     num: 6,
     question: 'Why calculate manually?',
-    body: 'Because ChatGPT won\'t be sitting next to you in the exam hall. Understanding the step-by-step formula logic is the only thing that actually protects your GPA.',
+    body: 'Because an AI won\'t be sitting next to you in the exam hall. Understanding the step-by-step formula logic is the only thing that actually protects your GPA.',
     punchline: 'Understand the logic. Ace the exam.',
     accent: '#cda270'
   },
