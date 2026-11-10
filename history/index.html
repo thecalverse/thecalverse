@@ -617,7 +617,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--acb);box-shadow:0 0 0
 .ucarr{padding-bottom:9px;color:var(--t2);font-size:17px;}
 .bnav{--bn-gap:5px;--bn-pad:6px;--bn-count:7;--bn-slot:calc((100% - (var(--bn-pad) * 2) - (var(--bn-gap) * (var(--bn-count) - 1))) / var(--bn-count));position:fixed;bottom:max(10px,var(--safe-bottom));left:50%;right:auto;transform:translateX(-50%);width:min(420px,calc(100% - 20px));z-index:100;display:flex;justify-content:center;align-items:center;gap:var(--bn-gap);padding:var(--bn-pad) var(--bn-pad) calc(var(--bn-pad) + var(--safe-bottom));background:linear-gradient(180deg,rgba(20,26,40,.86),rgba(11,15,24,.72));backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.12);border-radius:24px;box-shadow:0 16px 36px rgba(0,0,0,.32),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.14);overflow:hidden;isolation:isolate;contain:layout style paint;}
 .bnav-ind{position:absolute;left:0;top:var(--bn-pad);width:var(--bn-slot);height:calc(100% - (var(--bn-pad) * 2) - env(safe-area-inset-bottom,0px));border-radius:18px;pointer-events:none;z-index:0;background:linear-gradient(135deg,rgba(124,92,255,.26),rgba(78,161,255,.22));border:1px solid rgba(255,255,255,.14);box-shadow:0 4px 14px rgba(124,92,255,.24);transform:translate3d(var(--bn-pad),0,0);transition:transform 260ms cubic-bezier(.22,1,.36,1),width 260ms cubic-bezier(.22,1,.36,1),background-color 120ms cubic-bezier(.22,1,.36,1);will-change:transform,width;}
-.bni{position:relative;z-index:1;flex:1;min-height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;color:var(--t3);font-size:8px;line-height:1;letter-spacing:.28px;user-select:none;transition:color .24s var(--ease-flow),opacity .24s var(--ease-flow),transform 140ms var(--ease-flow);padding:3px 0;border-radius:16px;opacity:.88;}
+.bni{position:relative;z-index:1;flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);user-select:none;transition:color .24s var(--ease-flow),opacity .24s var(--ease-flow),transform 140ms var(--ease-flow);padding:0;border-radius:18px;opacity:.88;}
+.bni span{display:none!important;}
 .bni:active{transform:scale(.95);}
 .bni.on{color:#fff;opacity:1;}
 .bni:not(.on){color:var(--t3)!important;text-shadow:none!important;}
@@ -1870,6 +1871,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   color:#2b221a!important;
 }
 .ipad-paper-sheet.paper-cream-dots .ipad-paper-title{border-bottom-color:rgba(43,34,26,.15)!important;color:#2b221a!important;}
+.ipad-paper-sheet.paper-cream-dots .ipad-paper-title::placeholder{color:rgba(43,34,26,.45)!important;}
 .ipad-paper-sheet.paper-cream-dots .ipad-paper-canvas{color:#2b221a!important;}
 
 .ipad-paper-sheet.paper-graph{
@@ -3670,11 +3672,13 @@ canvas#gc{display:block;width:100%;height:240px;}
 .notebook-cover-card{
   aspect-ratio:3 / 4;
   border-radius:18px;
-  padding:20px 18px 16px 26px;
+  padding:22px 18px 14px 28px;
   position:relative;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  align-items:center;
+  text-align:center;
   box-shadow:0 18px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);
   cursor:pointer;
   transition:all .22s cubic-bezier(.2,.8,.2,1);
@@ -3705,31 +3709,48 @@ canvas#gc{display:block;width:100%;height:240px;}
   width:2px;
   background:rgba(255,255,255,.15);
 }
+.notebook-cover-body{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  margin:auto 0;
+}
 .notebook-cover-emblem{
-  font-size:36px;
-  margin-bottom:8px;
-  filter:drop-shadow(0 4px 6px rgba(0,0,0,.3));
+  font-size:42px;
+  margin:0 auto 10px auto;
+  text-align:center;
+  display:block;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.35));
 }
 .notebook-cover-title{
-  font-size:18px;
+  font-size:18.5px;
   font-weight:900;
   color:#fff;
-  line-height:1.25;
+  line-height:1.28;
   letter-spacing:.3px;
   text-shadow:0 2px 4px rgba(0,0,0,.4);
   word-break:break-word;
+  text-align:center;
+  margin:0 auto;
+  width:100%;
 }
 .notebook-cover-desc{
   font-size:11.5px;
-  color:rgba(255,255,255,.8);
-  line-height:1.4;
-  margin-top:6px;
+  color:rgba(255,255,255,.82);
+  line-height:1.45;
+  margin:8px auto 0 auto;
+  text-align:center;
+  width:100%;
   display:-webkit-box;
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
   overflow:hidden;
 }
 .notebook-cover-footer{
+  width:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -3895,9 +3916,9 @@ canvas#gc{display:block;width:100%;height:240px;}
 /* Clean bottom navigation: no texture, clear active state. */
 .bnav{--bn-gap:5px;--bn-pad:6px;--bn-count:7;bottom:10px;width:min(460px,calc(100% - 18px));justify-content:space-between;align-items:center;border-radius:24px;background:linear-gradient(180deg,rgba(20,26,40,.86),rgba(11,15,24,.72))!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 16px 36px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.12)!important;backdrop-filter:blur(16px) saturate(180%)!important;-webkit-backdrop-filter:blur(16px) saturate(180%)!important;}
 .bnav-ind{border-radius:22px;background:var(--acc)!important;border:1px solid var(--acb);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 18px rgba(0,0,0,.12);}
-.bni{flex:1 1 0;min-width:0;min-height:46px;justify-content:center;align-items:center;gap:3px;padding:5px 0 4px;border-radius:18px;font-size:8.4px;font-weight:800;line-height:1;color:var(--t2)!important;opacity:1;text-align:center;}
-.bni span{display:flex;align-items:center;justify-content:center;width:100%;min-height:12px;line-height:1.05;text-align:center;font-family:'Segoe UI','SF Pro Display',sans-serif;font-weight:800;letter-spacing:0;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;}
-.bnico{width:24px;height:22px;display:grid;place-items:center;margin:0 auto;font-size:17px;line-height:1;color:currentColor;font-family:'Segoe UI Symbol','Cambria Math','Segoe UI',sans-serif;font-variant-emoji:text;font-weight:900;filter:none;text-shadow:none;}
+.bni{flex:1 1 0;min-width:0;min-height:46px;height:46px;display:flex;justify-content:center;align-items:center;padding:0;border-radius:18px;color:var(--t2)!important;opacity:1;text-align:center;}
+.bni span{display:none!important;}
+.bnico{width:26px;height:26px;display:grid;place-items:center;margin:0 auto;font-size:20px;line-height:1;color:currentColor;font-family:'Segoe UI Symbol','Cambria Math','Segoe UI',sans-serif;font-variant-emoji:text;font-weight:900;filter:none;text-shadow:none;}
 .bni.on{color:var(--t1)!important;text-shadow:none;}
 .bni.on .bnico{filter:none;}
 [data-t=black] .bnav{background:linear-gradient(180deg,rgba(17,18,22,.88),rgba(8,8,10,.72))!important;border:1px solid rgba(255,255,255,.08)!important;border-color:rgba(224,210,186,.12)!important;box-shadow:0 16px 36px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.06)!important;backdrop-filter:blur(16px) saturate(180%)!important;-webkit-backdrop-filter:blur(16px) saturate(180%)!important;}
@@ -4176,26 +4197,16 @@ canvas#gc{display:block;width:100%;height:240px;}
   .bni{
     flex:1 1 0;
     min-width:0;
-    min-height:44px;
+    min-height:46px;
+    height:46px;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:2px;
-    padding:4px 6px;
-    font-size:10px;
-    letter-spacing:.1px;
-    line-height:1;
+    padding:0;
     border-radius:22px;
   }
-  .bni span{
-    min-height:10px;
-    width:100%;
-    text-align:center;
-    white-space:nowrap;
-    line-height:1;
-  }
-  .bnico{width:20px;height:20px;font-size:20px;margin:0 auto;}
+  .bni span{display:none!important;}
+  .bnico{width:24px;height:24px;font-size:20px;margin:0 auto;}
 }
 @media (max-width:380px){
   #app{
@@ -4213,10 +4224,11 @@ canvas#gc{display:block;width:100%;height:240px;}
   .search-hint{font-size:9.5px;margin:0 4px 9px;}
   .home-folder-grid .folder-btn{min-height:92px;padding:12px 12px 11px;}
   .home-folder-grid .folder-icon{width:40px;height:40px;min-width:40px;font-size:22px;}
-  .bnav{width:min(88vw,410px);min-height:52px;border-radius:28px;bottom:34px;padding:5px 6px;}
-  .bnav-ind{top:5px;height:42px;border-radius:21px;}
-  .bni{font-size:10px;min-height:42px;padding:4px 5px;gap:2px;}
-  .bnico{width:19px;height:19px;font-size:19px;}
+  .bnav{width:min(88vw,410px);min-height:48px;border-radius:28px;bottom:34px;padding:4px 6px;}
+  .bnav-ind{top:4px;height:40px;border-radius:20px;}
+  .bni{min-height:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;}
+  .bni span{display:none!important;}
+  .bnico{width:20px;height:20px;font-size:19px;}
 }
 html[data-platform=android-app] .topbar{
   backdrop-filter:none!important;
@@ -4955,11 +4967,23 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
     gap: 10px !important;
   }
   .notebook-cover-card {
-    padding: 14px 12px 12px 16px !important;
+    padding: 14px 10px 10px 18px !important;
     border-radius: 14px !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .notebook-cover-emblem {
+    font-size: 30px !important;
+    margin: 0 auto 6px auto !important;
   }
   .notebook-cover-title {
     font-size: 13.5px !important;
+    text-align: center !important;
+  }
+  .notebook-cover-desc {
+    text-align: center !important;
+    font-size: 10px !important;
+    margin: 4px auto 0 auto !important;
   }
   .notebook-cover-count {
     font-size: 10.5px !important;
@@ -7137,8 +7161,8 @@ html[data-device="iphone"] #app {
               <span id="ipad-bg-btn-icon" style="font-size:14px;">🖼️</span> <span>Background</span>
             </button>
             <select id="ipad-paper-select" onchange="applyIpadPaperStyle(this.value)" style="display:none;" title="Paper Template">
-              <option value="obsidian" selected>🖤 Obsidian Grid</option>
-              <option value="cream">📑 Cream Dots</option>
+              <option value="obsidian">🖤 Obsidian Grid</option>
+              <option value="cream" selected>📑 Cream Dots</option>
               <option value="ruled">📜 Lined Notebook</option>
               <option value="graph">📐 Engineering Graph</option>
               <option value="cornell">🎓 Cornell Study Notes</option>
@@ -7230,7 +7254,7 @@ html[data-device="iphone"] #app {
             <div class="ipad-spiral-ring"></div>
           </div>
 
-          <div class="ipad-paper-sheet paper-obsidian-grid" id="ipad-paper-sheet">
+          <div class="ipad-paper-sheet paper-cream-dots" id="ipad-paper-sheet">
             <div id="ipad-paper-bg-layer" class="ipad-paper-bg-layer"></div>
             <input type="text" id="ipad-page-title" class="ipad-paper-title" placeholder="Page Title (e.g. Bioenergetics & ATP Cycle...)" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(true)">
             <!-- Freehand Inking Canvas Layer -->
@@ -7531,16 +7555,16 @@ html[data-device="iphone"] #app {
   </div>
 </div>
 
-  <div class="bnav" id="bnav">
+  <div class="bnav" id="bnav" role="navigation" aria-label="Main Navigation">
     <div class="bnav-ind" id="bnav-ind"></div>
-    <div class="bni" id="bn-home" onclick="bnav('home')"><div class="bnico">⌂</div><span>Dash</span></div>
-    <div class="bni on" id="bn-hist" onclick="bnav('hist')"><div class="bnico">⟲</div><span>History</span></div>
-    <div class="bni" id="bn-tracker" onclick="bnav('tracker')"><div class="bnico">◉</div><span>Tracker</span></div>
-    <div class="bni" id="bn-library" onclick="bnav('library')"><div class="bnico">▤</div><span>Library</span></div>
-    <div class="bni" id="bn-timer" onclick="bnav('timer')"><div class="bnico">&#9719;</div><span>Timer</span></div>
-    <div class="bni" id="bn-notes" onclick="bnav('notes')"><div class="bnico">📝</div><span>Notes</span></div>
-    <div class="bni" id="bn-journal" onclick="bnav('journal')"><div class="bnico">📖</div><span>Journal</span></div>
-    <div class="bni" id="bn-sett" onclick="bnav('sett')"><div class="bnico">⚙</div><span>Settings</span></div>
+    <div class="bni" id="bn-home" onclick="bnav('home')" title="Dashboard" aria-label="Dashboard"><div class="bnico">⌂</div></div>
+    <div class="bni on" id="bn-hist" onclick="bnav('hist')" title="History" aria-label="History"><div class="bnico">⟲</div></div>
+    <div class="bni" id="bn-tracker" onclick="bnav('tracker')" title="Tracker" aria-label="Tracker"><div class="bnico">◉</div></div>
+    <div class="bni" id="bn-library" onclick="bnav('library')" title="Library" aria-label="Library"><div class="bnico">▤</div></div>
+    <div class="bni" id="bn-timer" onclick="bnav('timer')" title="Timer" aria-label="Timer"><div class="bnico">&#9719;</div></div>
+    <div class="bni" id="bn-notes" onclick="bnav('notes')" title="Notes" aria-label="Notes"><div class="bnico">📝</div></div>
+    <div class="bni" id="bn-journal" onclick="bnav('journal')" title="Journal" aria-label="Journal"><div class="bnico">📖</div></div>
+    <div class="bni" id="bn-sett" onclick="bnav('sett')" title="Settings" aria-label="Settings"><div class="bnico">⚙</div></div>
   </div>
 <div id="copy-toast" class="copy-toast">Copied!</div>
 <div id="note-action-toast" class="note-action-toast"></div>
@@ -7643,6 +7667,9 @@ html[data-device="iphone"] #app {
         </button>
         <button type="button" class="app-dialog-btn" onclick="removeJournalPageBackground()" style="font-size:12px;height:32px;background:rgba(255,75,75,0.12);border:1px solid rgba(255,75,75,0.38);color:#ff5a5a;font-weight:800;display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:0 12px;cursor:pointer;" title="Remove active background and return to clean blank canvas">
           <span>🚫</span> <span>Remove Background</span>
+        </button>
+        <button type="button" class="app-dialog-btn" onclick="resetToCreamDots()" style="font-size:12px;height:32px;background:rgba(255,255,255,0.06);border:1px solid var(--glb);color:var(--t1);font-weight:700;display:inline-flex;align-items:center;gap:5px;border-radius:8px;padding:0 10px;cursor:pointer;" title="Reset to Cream Dots (Default)">
+          <span>📑</span> <span>Cream Dots</span>
         </button>
         <button type="button" class="app-dialog-btn" onclick="resetToObsidianGrid()" style="font-size:12px;height:32px;background:rgba(255,255,255,0.06);border:1px solid var(--glb);color:var(--t1);font-weight:700;display:inline-flex;align-items:center;gap:5px;border-radius:8px;padding:0 10px;cursor:pointer;" title="Reset to Obsidian Black Grid">
           <span>🖤</span> <span>Obsidian Grid</span>
@@ -8274,7 +8301,7 @@ function sanitizeNoteRecord(note,{fromTrash=false}={}){
     textColor,
     textColorMode,
     bookId: typeof note.bookId==='string'?note.bookId:'',
-    paperStyle: typeof note.paperStyle==='string'?note.paperStyle:'ruled',
+    paperStyle: (typeof note.bookId==='string'&&note.bookId) ? ((typeof note.paperStyle==='string'&&note.paperStyle!=='obsidian'&&note.paperStyle!=='ruled')?note.paperStyle:'cream') : (typeof note.paperStyle==='string'?note.paperStyle:'ruled'),
     pageBg: typeof note.pageBg==='string'?note.pageBg:(note.pageBg||null),
     pageBgId: typeof note.pageBgId==='string'?note.pageBgId:(note.pageBgId||null),
     pageBgDim: (note.pageBgDim !== undefined && note.pageBgDim !== null) ? Number(note.pageBgDim) : 100,
@@ -10072,7 +10099,7 @@ function renderNotebooksShelf(){
     const emblem = book.emblem || '📖';
     return `
       <div class="notebook-cover-card ${escapeHtml(themeClass)}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
-        <div>
+        <div class="notebook-cover-body">
           <div class="notebook-cover-emblem">${escapeHtml(emblem)}</div>
           <div class="notebook-cover-title">${escapeHtml(book.title)}</div>
           <div class="notebook-cover-desc">${escapeHtml(book.desc || 'Multipage notebook')}</div>
@@ -10173,10 +10200,10 @@ function toggleNotesView(){
 function getStarterBooks(){
   const now=Date.now();
   return [
-    {id:'book_daily',title:'Daily Mindful Journal',desc:'Morning intentions, reflections, gratitude & daily thoughts.',coverTheme:'theme-blush',emblem:'🌸',createdAt:now-86400000*3,updatedAt:now-86400000*3},
-    {id:'book_scrap',title:'Reading & Scrapbook',desc:'Book reviews, aesthetic polaroids, quotes & creative clippings.',coverTheme:'theme-latte',emblem:'📖',createdAt:now-86400000*2,updatedAt:now-86400000*2},
-    {id:'book_study',title:'Study & Cornell Binder',desc:'Lecture notes, formulas, exam summaries & study trackers.',coverTheme:'theme-matcha',emblem:'🌿',createdAt:now-86400000,updatedAt:now-86400000},
-    {id:'book_vision',title:'Vision & Mood Board',desc:'Dreams, travel goals, aesthetic inspiration & memory boards.',coverTheme:'theme-lavender',emblem:'✨',createdAt:now,updatedAt:now}
+    {id:'book_daily',title:'Daily Mindful Journal',desc:'Morning intentions, reflections, gratitude & daily thoughts.',coverTheme:'theme-blush',emblem:'🌸',paperStyle:'cream',createdAt:now-86400000*3,updatedAt:now-86400000*3},
+    {id:'book_scrap',title:'Reading & Scrapbook',desc:'Book reviews, aesthetic polaroids, quotes & creative clippings.',coverTheme:'theme-latte',emblem:'📖',paperStyle:'cream',createdAt:now-86400000*2,updatedAt:now-86400000*2},
+    {id:'book_study',title:'Study & Cornell Binder',desc:'Lecture notes, formulas, exam summaries & study trackers.',coverTheme:'theme-matcha',emblem:'🌿',paperStyle:'cream',createdAt:now-86400000,updatedAt:now-86400000},
+    {id:'book_vision',title:'Vision & Mood Board',desc:'Dreams, travel goals, aesthetic inspiration & memory boards.',coverTheme:'theme-lavender',emblem:'✨',paperStyle:'cream',createdAt:now,updatedAt:now}
   ];
 }
 
@@ -10186,7 +10213,7 @@ function loadJournalBooks(){
     if(raw){
       const parsed=JSON.parse(raw);
       if(Array.isArray(parsed)&&parsed.length>0){
-        JOURNAL_BOOKS=parsed;
+        JOURNAL_BOOKS=parsed.map(b=>({...b,paperStyle:b.paperStyle||'cream'}));
         return;
       }
     }
@@ -10211,6 +10238,7 @@ function getStarterVaultBooks(){
       coverTheme:'theme-noir',
       emblem:'🔐',
       isVault:true,
+      paperStyle:'cream',
       createdAt:now-86400000*2,
       updatedAt:now-86400000*2
     },
@@ -10221,6 +10249,7 @@ function getStarterVaultBooks(){
       coverTheme:'theme-plum',
       emblem:'🕯️',
       isVault:true,
+      paperStyle:'cream',
       createdAt:now-86400000,
       updatedAt:now-86400000
     }
@@ -10233,7 +10262,7 @@ function loadVaultJournalBooks(){
     if(raw){
       const parsed=JSON.parse(raw);
       if(Array.isArray(parsed)&&parsed.length>0){
-        VAULT_JOURNAL_BOOKS=parsed.map(b=>({...b,isVault:true}));
+        VAULT_JOURNAL_BOOKS=parsed.map(b=>({...b,isVault:true,paperStyle:b.paperStyle||'cream'}));
         return;
       }
     }
@@ -11520,7 +11549,7 @@ function renderJournalBackgroundGrid(category = 'grids'){
   if(!container) return;
 
   const note = getNoteById(currentNoteId);
-  const curPaper = note ? (note.paperStyle || 'obsidian') : 'obsidian';
+  const curPaper = note ? (note.paperStyle || 'cream') : 'cream';
   const curBg = note ? note.pageBg : null;
   const curBgId = note ? note.pageBgId : null;
 
@@ -11715,6 +11744,19 @@ function removeJournalPageBackground(){
   saveCurrentIpadPage(false);
   renderJournalBackgroundGrid(journalBgActiveCategory);
   showToast('Background removed from page 🚫');
+}
+
+function resetToCreamDots(){
+  const note = getNoteById(currentNoteId);
+  if(!note) return;
+  note.pageBg = null;
+  note.pageBgId = 'paper_cream';
+  note.paperStyle = 'cream';
+  applyPageBackgroundToSheet(null);
+  applyIpadPaperStyle('cream');
+  saveCurrentIpadPage(false);
+  renderJournalBackgroundGrid(journalBgActiveCategory);
+  showToast('Reset to Cream Dots 📑');
 }
 
 function resetToObsidianGrid(){
@@ -12328,6 +12370,7 @@ function submitBookModal(){
       desc,
       coverTheme,
       emblem,
+      paperStyle: 'cream',
       isVault: isVault,
       createdAt:now,
       updatedAt:now
@@ -12708,7 +12751,7 @@ function renderJournalBookshelf(){
     const emblem = book.emblem || (isVault ? '🔐' : '📖');
     return `
       <div class="notebook-cover-card ${escapeHtml(themeClass)}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
-        <div>
+        <div class="notebook-cover-body">
           <div class="notebook-cover-emblem">${escapeHtml(emblem)}</div>
           <div class="notebook-cover-title">${escapeHtml(book.title)}</div>
           <div class="notebook-cover-desc">${escapeHtml(book.desc || (isVault ? 'Confidential diary' : 'Multipage notebook'))}</div>
@@ -13262,7 +13305,13 @@ function getIpadPagesForCurrentBook(){
   if(!currentJournalBookId && books.length > 0){
     currentJournalBookId = books[0].id;
   }
-  return source.filter(n => n.bookId === currentJournalBookId);
+  const pages = source.filter(n => n.bookId === currentJournalBookId);
+  pages.forEach(p => {
+    if(!p.paperStyle || p.paperStyle === 'obsidian' || p.paperStyle === 'ruled'){
+      p.paperStyle = 'cream';
+    }
+  });
+  return pages;
 }
 
 function syncIpadNotebookSelect(){
@@ -13314,7 +13363,7 @@ function loadIpadActivePage(){
       textColor: getDefaultNoteTextColor(),
       textColorMode: 'auto',
       bookId: currentJournalBookId,
-      paperStyle: isVault ? 'cream' : 'obsidian',
+      paperStyle: 'cream',
       tags: isVault ? ['#secret', '#diary'] : []
     };
     if(isVault){
@@ -13350,14 +13399,14 @@ function loadIpadActivePage(){
     editorEl.dataset.noteFont = activeNote.fontFamily || 'patrick';
   }
   if(fontSel) fontSel.value = activeNote.fontFamily || 'patrick';
-  if(paperSel) paperSel.value = activeNote.paperStyle || 'obsidian';
+  if(paperSel) paperSel.value = activeNote.paperStyle || 'cream';
   applyPageBackgroundToSheet(activeNote.pageBg, activeNote.pageBgDim || 100);
   if(counterEl) counterEl.textContent = `Page ${currentJournalPageIndex + 1} of ${pages.length}`;
   if(pagesLabel) pagesLabel.textContent = `Pages (${pages.length})`;
   if(prevBtn) prevBtn.disabled = (currentJournalPageIndex === 0);
   if(nextBtn) nextBtn.disabled = (currentJournalPageIndex >= pages.length - 1);
 
-  applyIpadPaperStyle(activeNote.paperStyle || 'obsidian');
+  applyIpadPaperStyle(activeNote.paperStyle || 'cream');
   const wholePageCheck = document.getElementById('ipad-font-whole-page');
   if(wholePageCheck) wholePageCheck.checked = false;
   applyIpadTypography(true);
@@ -13386,7 +13435,7 @@ function addIpadPage(){
   const pages = getIpadPagesForCurrentBook();
   const currentNote = getNoteById(currentNoteId);
   const preferredFont = currentNote?.fontFamily || (isVault ? 'caveat' : 'patrick');
-  const preferredPaper = currentNote?.paperStyle || (isVault ? 'cream' : 'obsidian');
+  const preferredPaper = currentNote?.paperStyle || 'cream';
   const now = Date.now();
   const nextNum = pages.length + 1;
   const pageTitle = isVault ? `Private Entry ${nextNum} 🔐` : `Page ${nextNum}`;
@@ -13486,7 +13535,7 @@ function saveCurrentIpadPage(showFeedback=false){
   }
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
   const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','brown','coffee','dark_dots','dark_ruled','pastel_pink','pastel_mint','pastel_lavender','blank'];
-  const nextPaper = (paperSel && validPapers.includes(paperSel.value)) ? paperSel.value : 'obsidian';
+  const nextPaper = (paperSel && validPapers.includes(paperSel.value)) ? paperSel.value : 'cream';
 
   note.title = nextTitle;
   note.content = nextContent;
@@ -13558,7 +13607,7 @@ function applyIpadPaperStyle(style){
     'paper-pastel-lavender'
   );
 
-  const cleanStyle = style === 'brown-kraft' ? 'brown' : (style || 'obsidian');
+  const cleanStyle = style === 'brown-kraft' ? 'brown' : (style || 'cream');
 
   if(cleanStyle === 'brown') sheet.classList.add('paper-brown-kraft');
   else if(cleanStyle === 'obsidian') sheet.classList.add('paper-obsidian-grid');
