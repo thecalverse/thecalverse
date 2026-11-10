@@ -114,23 +114,16 @@ html:not([data-platform="android-app"]) #sp{display:none!important;pointer-event
 @keyframes spFadeOut{0%{opacity:1}100%{opacity:0}}
 @keyframes dp{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(-2px);opacity:1}}
 @keyframes fUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-#app{--topbar-h:calc(max(44px,calc(var(--safe-top,0px) + 14px)) + 46px);position:relative;width:100%;max-width:100%;margin:0 auto;padding:var(--topbar-h) calc(12px + var(--safe-right)) calc(112px + var(--safe-bottom)) calc(12px + var(--safe-left));opacity:1;transform:none;transition:opacity .2s ease;z-index:1;min-height:100dvh;overflow-x:clip;box-sizing:border-box;}
+#app{position:relative;width:100%;max-width:100%;margin:0 auto;padding:0 calc(12px + var(--safe-right)) calc(112px + var(--safe-bottom)) calc(12px + var(--safe-left));opacity:1;transform:none;transition:opacity .2s ease;z-index:1;min-height:100dvh;overflow-x:clip;box-sizing:border-box;}
 #app.show{opacity:1;transform:none;}
-.topbar{display:flex;align-items:center;justify-content:space-between;position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:1000!important;width:100%!important;max-width:100%!important;margin:0!important;padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(16px + var(--safe-right)) 12px calc(16px + var(--safe-left));border-radius:0!important;background:linear-gradient(180deg,rgba(20,24,34,.45),rgba(12,15,22,.24))!important;border:none!important;border-bottom:1px solid rgba(255,255,255,.08)!important;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden;backdrop-filter:blur(24px) saturate(200%)!important;-webkit-backdrop-filter:blur(24px) saturate(200%)!important;box-sizing:border-box;}
+.topbar{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;left:0;right:0;z-index:95;width:calc(100% + calc(12px + var(--safe-left)) + calc(12px + var(--safe-right)));margin:0 calc(-1 * (12px + var(--safe-right))) 14px calc(-1 * (12px + var(--safe-left)));padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(16px + var(--safe-right)) 12px calc(16px + var(--safe-left));border-radius:0!important;background:linear-gradient(180deg,rgba(22,27,38,.58),rgba(13,17,24,.36));border:none!important;border-bottom:1px solid rgba(255,255,255,.08)!important;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden;backdrop-filter:blur(22px) saturate(190%);-webkit-backdrop-filter:blur(22px) saturate(190%);box-sizing:border-box;}
 .topbar::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(180deg,rgba(255,255,255,.012),rgba(0,0,0,.03));opacity:.12;}
 .brand{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:flex-start;border:0;background:transparent;font-family:'Cinzel', 'Playfair Display', -apple-system-ui-serif, 'New York', Georgia, 'Times New Roman', serif;font-size:18.5px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#ffffff;cursor:pointer;padding:0;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-appearance:none;appearance:none;text-align:left;white-space:nowrap;line-height:1;transition:opacity .2s ease,transform .2s ease;}
 .brand:hover{opacity:.88;transform:scale(1.015);}
 .brand:active{transform:scale(.98);}
 .brand::after{display:none!important;}
 [data-t=light] .brand{color:#34251a!important;background:none;-webkit-text-fill-color:initial;}
-.tbtns{position:relative;z-index:3;display:inline-flex;align-items:center;gap:8px;margin-left:auto;}
-.topbar-hist-btn{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.07);color:#ffffff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:background .2s ease,border-color .2s ease,transform .16s ease,opacity .2s ease,box-shadow .2s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 4px 10px rgba(0,0,0,.1);}
-.topbar-hist-btn:hover{background:rgba(255,255,255,.14);transform:translateY(-1px);}
-.topbar-hist-btn:active{transform:scale(.94);}
-.topbar-hist-btn.on{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 0 12px var(--acb);}
-[data-t=light] .topbar-hist-btn{background:rgba(123,88,63,.12);border-color:rgba(123,88,63,.16);color:#34251a;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 4px 10px rgba(104,76,56,.08);}
-[data-t=light] .topbar-hist-btn:hover{background:rgba(123,88,63,.18);}
-[data-t=light] .topbar-hist-btn.on{background:#7a4f32;border-color:#5a3820;color:#ffffff;box-shadow:0 2px 8px rgba(100,60,30,.25);}
+.tbtns{position:relative;z-index:3;display:inline-flex;align-items:center;gap:10px;margin-left:auto;}
 .topbar-snd-btn{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.07);color:#ffffff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:background .2s ease,border-color .2s ease,transform .16s ease,opacity .2s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 4px 10px rgba(0,0,0,.1);}
 .topbar-snd-btn:hover{background:rgba(255,255,255,.14);transform:translateY(-1px);}
 .topbar-snd-btn:active{transform:scale(.94);}
@@ -434,18 +427,28 @@ html[data-search-active="1"] #sHome .search-results{
   .ac-gallery{grid-row:7;}
   .ac-time-photo .ac-photo{margin-top:0;height:100%;border-radius:12px;overflow:hidden;border:1px solid var(--glb);}
   .ac-time-photo .ac-photo img{height:100%;min-height:154px;object-fit:cover;display:block;}
-  .ac-time-photo .ac-clock{
+  .ac-clock-desktop{display:none!important;}
+  .ac-calc-mobile{
+    display:flex!important;
     padding:8px;
     height:100%;
     min-height:154px;
     box-sizing:border-box;
   }
   .ac-goals-habits{grid-column:1/-1;}
-  .ac-folders{
-    grid-column:1/-1;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:8px;
+  .ac-bottom .ac-folders{display:none!important;}
+}
+@media (min-width:768px){
+  .ac-clock-desktop{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    padding:10px;
+  }
+  .ac-calc-mobile{display:none!important;}
+}
   }
   .ac-folders .ac-k{
     grid-column:1/-1;
@@ -499,7 +502,13 @@ html[data-search-active="1"] #sHome .search-results{
 .home-folder-grid .folder-count{margin-left:0;font-size:10px;line-height:1.25;opacity:.88;font-weight:600;display:block;max-width:100%;}
 .home-folder-grid .folder-count{text-align:center;}
 .home-folder-grid .folder-arrow{align-self:end;justify-self:end;font-size:15px;opacity:.92;}
-.ac-clock.ac-calc-box{display:flex!important;flex-direction:column!important;justify-content:space-between!important;gap:6px!important;padding:8px!important;box-sizing:border-box!important;height:100%!important;min-height:154px!important;border:1px solid var(--glb)!important;border-radius:12px!important;background:rgba(205,188,163,.1)!important;}
+@media (max-width: 767px){
+  .ac-clock.ac-calc-box{display:flex!important;flex-direction:column!important;justify-content:space-between!important;gap:6px!important;padding:8px!important;box-sizing:border-box!important;height:100%!important;min-height:154px!important;border:1px solid var(--glb)!important;border-radius:12px!important;background:rgba(205,188,163,.1)!important;}
+}
+@media (min-width: 768px){
+  .ac-calc-mobile,
+  .ac-clock.ac-calc-box{display:none!important;}
+}
 .ac-clock.ac-calc-box .calc-group{width:100%!important;margin:0!important;flex:1 1 0!important;display:flex!important;}
 .ac-clock.ac-calc-box .folder-btn{width:100%!important;height:100%!important;min-height:40px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;padding:6px 10px!important;border-radius:9px!important;box-sizing:border-box!important;margin:0!important;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important;border:1px solid var(--glb)!important;box-shadow:0 4px 10px rgba(0,0,0,.14)!important;cursor:pointer!important;transition:transform .18s ease,background .18s ease!important;}
 .ac-clock.ac-calc-box .folder-btn:active{transform:scale(.98)!important;}
@@ -3965,7 +3974,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   #app{max-width:none;padding:0 10px 90px;}
   .sp-ring{width:min(72vmin,360px);height:min(72vmin,360px);border-radius:min(20vmin,100px);font-size:min(34vmin,150px);}
   .sp-name{font-size:clamp(24px,6vw,34px);letter-spacing:5.6px;}
-  .topbar{padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(16px + var(--safe-right)) 12px calc(16px + var(--safe-left));margin:0!important;width:100%!important;left:0!important;right:0!important;top:0!important;border-radius:0;justify-content:space-between;}
+  .topbar{padding:max(44px,calc(var(--safe-top,0px) + 14px)) 16px 12px;margin:0 calc(-1 * (10px + var(--safe-right))) 12px calc(-1 * (10px + var(--safe-left)));width:calc(100% + calc(10px + var(--safe-left)) + calc(10px + var(--safe-right)));top:0;border-radius:0;justify-content:space-between;}
   .brand{font-size:17.5px;letter-spacing:3.6px;max-width:none;}
   .tbtns{gap:8px;}
   .icb{width:36px;height:36px;font-size:16px;border-radius:12px;}
@@ -4181,12 +4190,12 @@ canvas#gc{display:block;width:100%;height:240px;}
       calc(12px + var(--safe-left));
   }
   .topbar{
-    position:fixed!important;
-    top:0!important;
-    left:0!important;
-    right:0!important;
-    width:100%!important;
-    margin:0!important;
+    position:sticky;
+    top:0;
+    left:0;
+    right:0;
+    width:calc(100% + calc(12px + var(--safe-left)) + calc(12px + var(--safe-right)));
+    margin:0 calc(-1 * (12px + var(--safe-right))) 12px calc(-1 * (12px + var(--safe-left)));
     display:flex!important;
     align-items:center!important;
     justify-content:space-between!important;
@@ -4289,7 +4298,6 @@ canvas#gc{display:block;width:100%;height:240px;}
     border-radius:22px;
   }
   .bni span{display:none!important;}
-  #bnav #bn-hist{display:none!important;}
   .bnico{width:24px;height:24px;font-size:20px;margin:0 auto;}
 }
 @media (max-width:380px){
@@ -4300,7 +4308,7 @@ canvas#gc{display:block;width:100%;height:240px;}
       calc(88px + var(--safe-bottom))
       calc(10px + var(--safe-left));
   }
-  .topbar{display:flex!important;justify-content:space-between!important;min-height:48px;padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(12px + var(--safe-right)) 10px calc(12px + var(--safe-left));width:100%!important;margin:0!important;left:0!important;right:0!important;border-radius:0!important;}
+  .topbar{display:flex!important;justify-content:space-between!important;min-height:48px;padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(12px + var(--safe-right)) 10px calc(12px + var(--safe-left));width:calc(100% + calc(10px + var(--safe-left)) + calc(10px + var(--safe-right)));margin:0 calc(-1 * (10px + var(--safe-right))) 10px calc(-1 * (10px + var(--safe-left)));border-radius:0!important;}
   .brand{font-size:15.5px;letter-spacing:2.8px;}
   .tbtns{min-width:auto;gap:6px;}
   .icb{width:32px;height:32px;font-size:14px;}
@@ -4312,7 +4320,6 @@ canvas#gc{display:block;width:100%;height:240px;}
   .bnav-ind{top:4px;height:40px;border-radius:20px;}
   .bni{min-height:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;}
   .bni span{display:none!important;}
-  #bnav #bn-hist{display:none!important;}
   .bnico{width:20px;height:20px;font-size:19px;}
 }
 html[data-platform=android-app] .topbar{
@@ -4328,12 +4335,11 @@ html[data-platform=android-app] .topbar{
       calc(12px + var(--safe-left));
   }
   html[data-platform=android-app] .topbar{
-    position:fixed!important;
-    top:0!important;
-    left:0!important;
-    right:0!important;
-    width:100%!important;
-    margin:0!important;
+    top:0;
+    left:0;
+    right:0;
+    width:calc(100% + calc(12px + var(--safe-left)) + calc(12px + var(--safe-right)));
+    margin:0 calc(-1 * (12px + var(--safe-right))) 12px calc(-1 * (12px + var(--safe-left)));
     min-height:52px;
     padding:max(44px,calc(var(--safe-top,0px) + 14px)) calc(14px + var(--safe-right)) 12px calc(14px + var(--safe-left));
     border-radius:0;
@@ -5855,12 +5861,14 @@ html.mode-iphone-duo-dmg .ipad-paper-sheet {
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 16px)) !important;
   }
   .topbar {
-    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    width: 100% !important;
-    margin: 0 !important;
+    width: calc(100% + calc(14px + env(safe-area-inset-left, 0px)) + calc(14px + env(safe-area-inset-right, 0px))) !important;
+    margin-left: calc(-1 * (14px + env(safe-area-inset-left, 0px))) !important;
+    margin-right: calc(-1 * (14px + env(safe-area-inset-right, 0px))) !important;
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
     padding-top: max(44px, calc(env(safe-area-inset-top, 0px) + 14px)) !important;
     padding-bottom: 12px !important;
     padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
@@ -6155,20 +6163,20 @@ html[data-device="iphone"] #app {
     <div class="sni" id="sn-tracker" onclick="bnav('tracker')"><span class="snico">&#9673;</span><span>Tracker</span></div>
     <div class="sni" id="sn-library" onclick="bnav('library')"><span class="snico">&#9636;</span><span>Library</span></div>
     <div class="sni" id="sn-timer" onclick="bnav('timer')"><span class="snico">&#9719;</span><span>Timer</span></div>
-    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">📝</span><span>Notes</span></div>
-    <div class="sni" id="sn-journal" onclick="bnav('journal')"><span class="snico">📖</span><span>Journal</span></div>
+    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;display:block;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span>Notes</span></div>
+    <div class="sni" id="sn-journal" onclick="bnav('journal')"><span class="snico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;display:block;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span><span>Journal</span></div>
   </div>
   <div class="sn-head">Info</div>
   <div class="lsnav">
     <div class="sni" onclick="goInfo('about')"><span class="snico">&#9432;</span><span>About Calverse</span></div>
-    <div class="sni" onclick="goInfo('privacy')"><span class="snico">&#128737;</span><span>Privacy Policy</span></div>
+    <div class="sni" onclick="goInfo('privacy')"><span class="snico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;display:block;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span>Privacy Policy</span></div>
     <div class="sni" onclick="goInfo('terms')"><span class="snico">&#9878;</span><span>Terms &amp; Conditions</span></div>
     <div class="sni" onclick="goInfo('disclaimer')"><span class="snico">&#9888;</span><span>Disclaimer</span></div>
     <div class="sni" onclick="goInfo('contact')"><span class="snico">&#9993;</span><span>Contact Us</span></div>
   </div>
 </aside>
 <div id="app">
-  <div class="topbar"><button type="button" class="brand" onclick="goHome({direction:-1})" aria-label="Calverse Home">CALVERSE</button><div class="tbtns"><div class="icb calc-fav" id="calcFavBtn" style="display:none;" onclick="toggleCurrentCalcFavorite()" title="Favorite" aria-label="Favorite calculator">☆</div><button type="button" class="topbar-hist-btn" id="topbarHistBtn" onclick="bnav('hist')" title="History" aria-label="Calculation and Note History"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px;display:block;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><polyline points="12 7 12 12 15 15"/></svg></button><button type="button" class="topbar-snd-btn" id="sndBtn" onclick="togSnd()" title="Sound Feedback" aria-label="Toggle Sound Feedback"><svg class="snd-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path class="snd-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path class="snd-wave" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><line class="snd-mute" x1="23" y1="9" x2="17" y2="15"></line><line class="snd-mute" x1="17" y1="9" x2="23" y2="15"></line></svg></button><div class="theme-switch" id="thmSwitch" onclick="cycleTheme()" role="switch" aria-checked="false" title="Switch Theme (Dark / Latte)" aria-label="Toggle dark and latte mode"><div class="theme-switch-thumb"></div></div></div></div>
+  <div class="topbar"><button type="button" class="brand" onclick="goHome({direction:-1})" aria-label="Calverse Home">CALVERSE</button><div class="tbtns"><div class="icb calc-fav" id="calcFavBtn" style="display:none;" onclick="toggleCurrentCalcFavorite()" title="Favorite" aria-label="Favorite calculator">☆</div><button type="button" class="topbar-snd-btn" id="sndBtn" onclick="togSnd()" title="Sound Feedback" aria-label="Toggle Sound Feedback"><svg class="snd-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path class="snd-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path class="snd-wave" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><line class="snd-mute" x1="23" y1="9" x2="17" y2="15"></line><line class="snd-mute" x1="17" y1="9" x2="23" y2="15"></line></svg></button><div class="theme-switch" id="thmSwitch" onclick="cycleTheme()" role="switch" aria-checked="false" title="Switch Theme (Dark / Latte)" aria-label="Toggle dark and latte mode"><div class="theme-switch-thumb"></div></div></div></div>
 
   <!-- HOME -->
   <div class="screen" id="sHome">
@@ -6191,7 +6199,11 @@ html[data-device="iphone"] #app {
         <div class="ac-divider"></div>
         <div class="ac-mid">
           <div class="ac-time-photo">
-            <div class="ac-clock ac-calc-box">
+            <div class="ac-clock ac-clock-desktop">
+              <div class="ac-time"><span id="ac-hour">00</span><span>:</span><span id="ac-min">00</span></div>
+              <div class="ac-day" id="ac-day">Sunday</div>
+            </div>
+            <div class="ac-clock ac-calc-box ac-calc-mobile">
     <!-- MATHS FOLDER -->
     <div class="calc-group" id="grp-math">
       <div class="folder-btn" onclick="openHomeFolder('math','math-body','math-arrow')">
@@ -21910,7 +21922,6 @@ function setBottomTab(tab){
   const sideActive=document.getElementById('sn-'+currentTab);
   if(active)active.classList.add('on');
   if(sideActive)sideActive.classList.add('on');
-  document.getElementById('topbarHistBtn')?.classList.toggle('on', currentTab==='hist');
   syncBottomIndicator();
   syncSideNavIndicator();
 }
