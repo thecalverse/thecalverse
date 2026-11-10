@@ -53,12 +53,17 @@ def prepare_v17_html(source_path):
     visibility: hidden !important;
     pointer-events: none !important;
   }
-  /* Disable heavy backdrop-filter blur on Android to prevent Chromium tile memory overflow */
-  html[data-platform="android-app"] *,
-  html[data-platform="android-app"] *::before,
-  html[data-platform="android-app"] *::after {
+  /* Disable heavy backdrop-filter blur on inner cards on Android to prevent Chromium tile memory overflow, but KEEP translucent blur on topbar and bnav */
+  html[data-platform="android-app"] *:not(.topbar):not(.bnav):not(.topbar *):not(.bnav *),
+  html[data-platform="android-app"] *:not(.topbar):not(.bnav):not(.topbar *):not(.bnav *)::before,
+  html[data-platform="android-app"] *:not(.topbar):not(.bnav):not(.topbar *):not(.bnav *)::after {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+  }
+  html[data-platform="android-app"] .topbar,
+  html[data-platform="android-app"] .bnav {
+    backdrop-filter: blur(24px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
   }
   /* Ensure app and scrolling work smoothly on Android */
   html[data-platform="android-app"],
