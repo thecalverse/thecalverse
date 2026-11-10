@@ -33,7 +33,7 @@
     const platform = new URLSearchParams(location.search).get('platform');
     if (platform) document.documentElement.setAttribute('data-platform', platform);
     const rawTheme = localStorage.getItem('calverse_theme');
-    const bootTheme = ['black','light'].includes(rawTheme) ? rawTheme : 'light';
+    const bootTheme = ['black','light'].includes(rawTheme) ? rawTheme : 'black';
     document.documentElement.setAttribute('data-t', bootTheme);
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', bootTheme === 'light' ? '#e4d2bf' : '#070708');
@@ -65,12 +65,12 @@
 [data-t=light]{--bg:#e4d2bf;--bg2:#d1baa3;--bg3:#f2e6d8;--gl:rgba(246,234,222,.82);--gl2:rgba(226,208,191,.62);--glb:rgba(123,88,63,.14);--glh:rgba(255,255,255,.74);--t1:rgba(52,37,26,.96);--t2:rgba(92,67,51,.86);--t3:rgba(118,87,66,.7);--acc:rgba(156,104,73,.14);--acb:rgba(156,104,73,.24);--act:#744a34;--acc2:rgba(116,145,102,.11);--accg:linear-gradient(135deg,rgba(149,96,67,.96),rgba(190,142,101,.9));--tealg:linear-gradient(135deg,rgba(122,146,103,.82),rgba(185,136,98,.72));--goldg:linear-gradient(135deg,rgba(201,150,100,.82),rgba(139,158,113,.72));--tl:rgba(116,145,102,.13);--tlc:#465d41;--am:rgba(180,132,86,.16);--amc:#6f4a2e;--rd:rgba(182,94,81,.13);--rdc:#9c483f;--ok:#3c6041;--er:#9d4d44;--glow:rgba(160,110,75,.12);--glow2:rgba(116,145,102,.09);--shadow-lg:0 18px 30px rgba(104,76,56,.14);--shadow-md:0 8px 18px rgba(104,76,56,.1);}
 [data-t=black] .bnav{background:linear-gradient(180deg,rgba(16,17,22,.48),rgba(8,8,10,.28))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(24px) saturate(200%)!important;-webkit-backdrop-filter:blur(24px) saturate(200%)!important;}
 [data-t=black] .topbar{background:linear-gradient(180deg,rgba(14,14,18,.38),rgba(8,8,10,.18))!important;border:none!important;border-bottom:1px solid rgba(224,210,186,.08)!important;backdrop-filter:blur(24px) saturate(200%)!important;-webkit-backdrop-filter:blur(24px) saturate(200%)!important;}
-[data-t=black] #sp{background:#070708;}
+[data-t=black] #sp{background:#070708!important;}
 [data-t=black] .folder-btn,[data-t=black] .mc,[data-t=black] .gp,[data-t=black] .ic,[data-t=black] .rb,[data-t=black] .info-section,[data-t=black] .slist{background:linear-gradient(180deg,rgba(28,27,29,.92),rgba(16,16,18,.94));border-color:rgba(224,210,186,.05);box-shadow:0 12px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.02);}
 [data-t=black] .go{background:linear-gradient(135deg,rgba(162,124,82,.96),rgba(88,118,156,.94));box-shadow:0 10px 18px rgba(16,18,20,.18),inset 0 1px 0 rgba(255,255,255,.08);}
 [data-t=light] .bnav{background:linear-gradient(180deg,rgba(246,234,222,.52),rgba(226,208,191,.28))!important;border:1px solid rgba(131,98,74,.18)!important;backdrop-filter:blur(24px) saturate(200%)!important;-webkit-backdrop-filter:blur(24px) saturate(200%)!important;}
 [data-t=light] .topbar{background:linear-gradient(180deg,rgba(246,234,222,.48),rgba(226,208,191,.24))!important;border:none!important;border-bottom:1px solid rgba(131,98,74,.14)!important;backdrop-filter:blur(24px) saturate(200%)!important;-webkit-backdrop-filter:blur(24px) saturate(200%)!important;}
-[data-t=light] #sp{background:#f2e7da;}
+[data-t=light] #sp{background:#070708!important;}
 [data-t=light] .cdsp{background:linear-gradient(180deg,rgba(238,223,208,.96),rgba(245,235,224,.78));}
 [data-t=light] .ic,[data-t=light] .rb,[data-t=light] .hi,[data-t=light] .info-section,[data-t=light] .slist,[data-t=light] .folder-btn,[data-t=light] .mc,[data-t=light] .gp{background:linear-gradient(180deg,rgba(255,249,243,.92),rgba(237,222,208,.78));border-color:rgba(131,98,74,.1);box-shadow:0 14px 28px rgba(145,112,86,.1),inset 0 1px 0 rgba(255,255,255,.68);}
 [data-t=light] input[type=text],[data-t=light] input[type=number],[data-t=light] input[type=date],[data-t=light] textarea,[data-t=light] select{background:linear-gradient(180deg,rgba(250,240,230,.96),rgba(230,212,195,.88));border-color:rgba(131,98,74,.16);}
@@ -89,7 +89,7 @@ body::before,body::after,#app::before{display:none;}
 #sHome::before,#sHome::after{content:'';position:absolute;pointer-events:none;z-index:0;border-radius:50%;opacity:.18;transform:translateZ(0);}
 #sHome::before{width:220px;height:220px;top:-20px;left:-20px;background:radial-gradient(circle,rgba(132,108,255,.32),transparent 70%);}
 #sHome::after{width:220px;height:220px;top:20px;right:-20px;background:radial-gradient(circle,rgba(78,161,255,.26),transparent 72%);}
-#sp{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 22%,rgba(126,96,255,.18),transparent 24%),radial-gradient(circle at 24% 72%,rgba(84,170,255,.14),transparent 22%),radial-gradient(circle at 76% 74%,rgba(255,176,92,.12),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 40%,var(--bg) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .45s var(--ease-flow),transform .45s var(--ease-flow);overflow:hidden;}
+#sp{position:fixed;inset:0;z-index:9999;background:#070708!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .45s var(--ease-flow),transform .45s var(--ease-flow);overflow:hidden;}
 #sp.hide{opacity:0;transform:scale(1.02);pointer-events:none;}#sp.gone{display:none;}
 #sp.play-out{pointer-events:none;}
 .sp-ring{width:min(24vmin,132px);height:min(24vmin,132px);border-radius:min(7vmin,34px);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:min(10.5vmin,54px);opacity:0;transform:translateY(10px) rotate(-4deg);animation:rIn .88s var(--ease-open) .12s forwards;box-shadow:0 0 0 1px rgba(255,255,255,.04),0 18px 32px rgba(0,0,0,.18),0 0 24px rgba(126,96,255,.12),inset 0 1px 0 rgba(255,255,255,.18);}
@@ -6152,7 +6152,7 @@ html[data-device="iphone"] #app {
 <script>
 (() => {
   try {
-    const bootTheme = document.documentElement.getAttribute('data-t') || 'light';
+    const bootTheme = document.documentElement.getAttribute('data-t') || 'black';
     document.body.setAttribute('data-t', bootTheme);
   } catch (_) {}
 })();
