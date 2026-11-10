@@ -89,10 +89,9 @@ body::before,body::after,#app::before{display:none;}
 #sHome::before,#sHome::after{content:'';position:absolute;pointer-events:none;z-index:0;border-radius:50%;opacity:.18;transform:translateZ(0);}
 #sHome::before{width:220px;height:220px;top:-20px;left:-20px;background:radial-gradient(circle,rgba(132,108,255,.32),transparent 70%);}
 #sHome::after{width:220px;height:220px;top:20px;right:-20px;background:radial-gradient(circle,rgba(78,161,255,.26),transparent 72%);}
-html:not([data-platform="android-app"]) #sp{display:none!important;pointer-events:none!important;visibility:hidden!important;}
-#sp{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 22%,rgba(126,96,255,.18),transparent 24%),radial-gradient(circle at 24% 72%,rgba(84,170,255,.14),transparent 22%),radial-gradient(circle at 76% 74%,rgba(255,176,92,.12),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 40%,var(--bg) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .24s var(--ease-flow),transform .24s var(--ease-flow);overflow:hidden;}
+#sp{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 22%,rgba(126,96,255,.18),transparent 24%),radial-gradient(circle at 24% 72%,rgba(84,170,255,.14),transparent 22%),radial-gradient(circle at 76% 74%,rgba(255,176,92,.12),transparent 20%),linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 40%,var(--bg) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity .45s var(--ease-flow),transform .45s var(--ease-flow);overflow:hidden;}
 #sp.hide{opacity:0;transform:scale(1.02);pointer-events:none;}#sp.gone{display:none;}
-#sp.play-out{opacity:0;pointer-events:none;transition:opacity .22s ease;}
+#sp.play-out{pointer-events:none;}
 .sp-ring{width:min(24vmin,132px);height:min(24vmin,132px);border-radius:min(7vmin,34px);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:min(10.5vmin,54px);opacity:0;transform:translateY(10px) rotate(-4deg);animation:rIn .88s var(--ease-open) .12s forwards;box-shadow:0 0 0 1px rgba(255,255,255,.04),0 18px 32px rgba(0,0,0,.18),0 0 24px rgba(126,96,255,.12),inset 0 1px 0 rgba(255,255,255,.18);}
 @media (min-width:900px){
   .sp-ring{
@@ -3338,11 +3337,18 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .math-solution{background:linear-gradient(180deg,rgba(255,246,235,.95),rgba(244,231,214,.92));border-color:rgba(129,95,69,.16);box-shadow:0 10px 24px rgba(71,49,34,.08),inset 0 1px 0 rgba(255,255,255,.45);}
 [data-t=light] .math-line{color:#2b1e16;}
 [data-t=light] .math-line.final{color:#386a41;}
-[data-t=light] .sbs-toggle{background:linear-gradient(180deg,rgba(255,248,240,.92),rgba(240,226,211,.76));border-color:rgba(131,98,74,.14);box-shadow:0 10px 20px rgba(91,63,46,.08),inset 0 1px 0 rgba(255,255,255,.34);}
-[data-t=light] .sbs-work-line{background:rgba(92,64,47,.05);}
-[data-t=light] .sbs-work-line.hl{background:rgba(112,140,96,.12);}
-[data-t=light] .sbs-eq{background:rgba(92,64,47,.06);}
-[data-t=light] .sbs-step{background:linear-gradient(180deg,rgba(255,248,240,.9),rgba(240,226,211,.72));border-color:rgba(131,98,74,.12);box-shadow:0 10px 20px rgba(91,63,46,.08),inset 0 1px 0 rgba(255,255,255,.32);}
+.sbs-toggle{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px 12px;color:var(--t1);display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;font-size:12px;font-weight:800;cursor:pointer;transition:all .18s ease;user-select:none;}
+.sbs-toggle span{color:inherit;}
+.sbs-toggle:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.24);color:#ffffff;}
+[data-t=light] .sbs-toggle{background:linear-gradient(180deg,rgba(255,248,240,.96),rgba(238,220,202,.86))!important;border:1px solid rgba(131,98,74,.24)!important;color:#34251a!important;box-shadow:0 8px 18px rgba(91,63,46,.09),inset 0 1px 0 rgba(255,255,255,.45)!important;}
+[data-t=light] .sbs-toggle:hover{background:linear-gradient(180deg,rgba(255,252,248,1),rgba(244,228,212,.94))!important;color:#1e140d!important;border-color:rgba(131,98,74,.36)!important;}
+[data-t=light] .sbs-toggle span{color:#34251a!important;font-weight:800!important;}
+[data-t=light] .sbs-work-line{background:linear-gradient(180deg,rgba(255,248,240,.95),rgba(242,228,214,.82))!important;color:#2b1e16!important;border:1px solid rgba(131,98,74,.16)!important;border-left:3px solid rgba(156,104,73,.65)!important;}
+[data-t=light] .sbs-work-line.hl{background:rgba(112,140,96,.14)!important;color:#204022!important;border-left-color:rgba(78,122,66,.75)!important;}
+[data-t=light] .sbs-work-label{color:#744a34!important;font-weight:800!important;}
+[data-t=light] .sbs-eq{background:rgba(131,98,74,.09)!important;color:#1f150e!important;border-radius:4px;padding:2px 5px;}
+[data-t=light] .sbs-note{color:#5a3c24!important;}
+[data-t=light] .sbs-step{background:linear-gradient(180deg,rgba(255,248,240,.92),rgba(240,226,211,.76))!important;border:1px solid rgba(131,98,74,.16)!important;color:#2b1e16!important;box-shadow:0 8px 18px rgba(91,63,46,.08),inset 0 1px 0 rgba(255,255,255,.32)!important;}
 
 /* ── ULTIMATE NOTES & JOURNALING ECOSYSTEM STYLES ── */
 .journal-view-tabs{
@@ -4580,6 +4586,25 @@ html[data-perf=lite] .mi,html[data-perf=lite] .folder-icon{box-shadow:0 8px 12px
   background:linear-gradient(165deg,rgba(251,241,232,.9),rgba(232,214,198,.64))!important;
   border-color:rgba(123,88,63,.16)!important;
   box-shadow:0 8px 18px rgba(104,76,56,.085),inset 0 1px 0 rgba(255,255,255,.28)!important;
+}
+.search-card-meta{font-size:11px;color:var(--t3);margin-top:2px;text-align:center;font-weight:500;}
+[data-t=light] .search-results-title{color:#34251a!important;font-weight:900!important;}
+[data-t=light] .search-results-meta{color:#744a34!important;font-weight:600!important;}
+[data-t=light] .search-card-meta{color:#744a34!important;}
+[data-t=light] #search-empty{color:#5a3c24!important;}
+[data-t=light] .search-results .mc .ml{color:#34251a!important;font-weight:700!important;}
+[data-t=light] .mi.ip,
+[data-t=light] .mi.it,
+[data-t=light] .mi.ia,
+[data-t=light] .mi.ib,
+[data-t=light] .mi.ipk,
+[data-t=light] .mi.ig,
+[data-t=light] .mi.ir,
+[data-t=light] .mi.ic2,
+[data-t=light] .mi.io,
+[data-t=light] .mi.icyn,
+[data-t=light] .mi.ibl2{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 4px 8px rgba(104,76,56,.08)!important;
 }
 [data-t=light] .ac-clock,
 [data-t=light] .ac-card,
@@ -5940,9 +5965,12 @@ html[data-device="iphone"] #app {
     font-size: 15px !important;
     border-radius: 18px !important;
   }
-  .ac-search-hide {
+  html:not([data-search-active="1"]) .ac-search-hide {
     display: block !important;
     width: 100% !important;
+  }
+  html[data-search-active="1"] .ac-search-hide {
+    display: none !important;
   }
   .ac-search-hide .ac-mid,
   .ac-mid {
@@ -6070,9 +6098,12 @@ html[data-device="iphone"] #app {
   .ac-header .ac-title {
     font-size: 38px !important;
   }
-  .ac-search-hide {
+  html:not([data-search-active="1"]) .ac-search-hide {
     display: block !important;
     width: 100% !important;
+  }
+  html[data-search-active="1"] .ac-search-hide {
+    display: none !important;
   }
   .ac-search-hide .ac-mid {
     display: grid !important;
@@ -6172,6 +6203,22 @@ html[data-device="iphone"] #app {
             <div class="search-hint">Try <span style="color:var(--act)">"force"</span>, <span style="color:var(--tlc)">"mirror formula"</span>, or <span style="color:var(--amc)">"mole concept"</span></div>
           </div>
         </div>
+
+        <div class="search-results" id="search-results">
+          <div class="search-results-head">
+            <div class="search-results-title">Search Results</div>
+            <div class="search-results-meta" id="search-results-meta">0 matches</div>
+          </div>
+          <div class="mgrid" id="search-results-grid"></div>
+        </div>
+
+        <!-- NO RESULTS -->
+        <div id="search-empty" style="display:none;text-align:center;padding:34px 20px 24px;color:var(--t2)">
+          <div style="font-size:32px;margin-bottom:8px">🔍</div>
+          <div style="font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px">No calculators found</div>
+          <div style="font-size:12px;line-height:1.6;color:var(--t2)">Try searching for <span style="color:var(--act)">"force"</span>, <span style="color:var(--act)">"matrix"</span>, <span style="color:var(--act)">"mirror"</span>, or <span style="color:var(--act)">"quadratic"</span></div>
+        </div>
+
         <div class="ac-search-hide">
         <div class="ac-divider"></div>
         <div class="ac-mid">
@@ -6506,21 +6553,6 @@ html[data-device="iphone"] #app {
         </div>
       </div>
     <div id="home-lower-widgets"></div>
-
-    <div class="search-results" id="search-results">
-      <div class="search-results-head">
-        <div class="search-results-title">Search Results</div>
-        <div class="search-results-meta" id="search-results-meta">0 matches</div>
-      </div>
-      <div class="mgrid" id="search-results-grid"></div>
-    </div>
-
-    <!-- NO RESULTS -->
-    <div id="search-empty" style="display:none;text-align:center;padding:40px 20px;color:var(--t3)">
-      <div style="font-size:36px;margin-bottom:10px">🔍</div>
-      <div style="font-size:15px;font-weight:600;color:var(--t2);margin-bottom:6px">No results found</div>
-      <div style="font-size:12px;line-height:1.7">Try searching for things like<br><span style="color:var(--act)">"speed"</span>, <span style="color:var(--act)">"area of triangle"</span>, <span style="color:var(--act)">"compound interest"</span>, <span style="color:var(--act)">"mirror"</span></div>
-    </div>
 
   </div><!-- end sHome -->
 
@@ -8439,6 +8471,7 @@ function buildSearchCardIndex(){
     }
     SEARCH_CARD_INDEX.push({key,label,lookupKey,kws,html:el.outerHTML});
   });
+  window.SEARCH_CARD_INDEX=SEARCH_CARD_INDEX;
 }
 function loadCalcFavs(){
   try{
@@ -8730,45 +8763,31 @@ function hideSp(){
   spDone=true;
   const sp=document.getElementById('sp');
   const app=document.getElementById('app');
-  if(app){
-    app.classList.add('show');
-    resetViewportTop();
-    requestAnimationFrame(()=>applyLiquidStagger(document.querySelector('.home-folder-grid'),'.calc-group'));
-    schedulePostBootWarmup();
-  }
-  if(sp){
-    sp.classList.add('play-out');
-    sp.classList.add('hide');
-    setTimeout(()=>{
-      if(sp&&sp.parentNode)sp.remove();
-    },220);
-  }
-}
-const isAndroidApp=document.documentElement.getAttribute('data-platform')==='android-app';
-if(!isAndroidApp){
-  hideSpImmediately();
+  if(sp)sp.classList.add('play-out');
+  setTimeout(()=>{if(sp)sp.classList.add('hide');},920);
+  setTimeout(()=>{
+    if(sp&&sp.parentNode)sp.remove();
+    if(app)requestAnimationFrame(()=>{
+      app.classList.add('show');
+      resetViewportTop();
+      requestAnimationFrame(()=>applyLiquidStagger(document.querySelector('.home-folder-grid'),'.calc-group'));
+      schedulePostBootWarmup();
+    });
+  },1400);
 }
 window.addEventListener('load',()=>{
-  if(!isAndroidApp){
-    hideSpImmediately();
-    return;
-  }
   const initV = getInitialViewFromPath(window.location.pathname);
   if(initV && initV.type !== 'home'){
     hideSpImmediately();
     return;
   }
-  const minSplash=250;
+  const minSplash=1100;
   const wait=Math.max(0,minSplash-(performance.now()-splashStart));
   if(wait>0) setTimeout(hideSp,wait);
   else hideSp();
 },{once:true});
 document.addEventListener('DOMContentLoaded',()=>{
-  if(!isAndroidApp){
-    hideSpImmediately();
-  } else {
-    setTimeout(()=>{if(!document.getElementById('app')?.classList.contains('show'))hideSp();},200);
-  }
+  setTimeout(()=>{if(!document.getElementById('app')?.classList.contains('show') && !spDone)hideSp();},2400);
 },{once:true});
 window.onerror=function(msg,src,ln,col,err){console.error('Calverse error:',msg,'line:',ln,err);hideSp();return true;};
 
@@ -21807,16 +21826,14 @@ function searchCalcs(){
   }
 
   const results=[];
-  if(typeof window.SEARCH_CARD_INDEX==='undefined')window.SEARCH_CARD_INDEX=null;
-  if(!window.SEARCH_CARD_INDEX||!window.SEARCH_CARD_INDEX.length){
+  if(typeof SEARCH_CARD_INDEX==='undefined'||!SEARCH_CARD_INDEX||!SEARCH_CARD_INDEX.length){
     if(typeof buildSearchCardIndex==='function')buildSearchCardIndex();
   }
-  if(typeof SEARCH_FORMULA_INDEX==='undefined')SEARCH_FORMULA_INDEX=null;
-  if(!SEARCH_FORMULA_INDEX||!SEARCH_FORMULA_INDEX.length){
+  if(typeof SEARCH_FORMULA_INDEX==='undefined'||!SEARCH_FORMULA_INDEX||!SEARCH_FORMULA_INDEX.length){
     if(typeof buildSearchFormulaIndex==='function')buildSearchFormulaIndex();
   }
   const formulaIndex=Array.isArray(SEARCH_FORMULA_INDEX)?SEARCH_FORMULA_INDEX:[];
-  const cardIndex=Array.isArray(window.SEARCH_CARD_INDEX)?window.SEARCH_CARD_INDEX:[];
+  const cardIndex=(Array.isArray(SEARCH_CARD_INDEX)&&SEARCH_CARD_INDEX.length)?SEARCH_CARD_INDEX:(Array.isArray(window.SEARCH_CARD_INDEX)?window.SEARCH_CARD_INDEX:[]);
   formulaIndex.forEach(item=>{
     const score=scoreMatch(item.haystack,item.name,item.category||'');
     if(score<=0)return;
@@ -21825,7 +21842,7 @@ function searchCalcs(){
     const safeName=escapeHtml(item.name||'Calculator');
     const safeMeta=escapeHtml(item.meta||'');
     const safeCat=String(item.category||'all').replace(/'/g,"\\'");
-    const html=`<div class="mc" data-key="search_${item.type}_${item.id}" onclick="openSearchResult('${item.type}','${item.id}','${safeCat}')"><div class="mi ${tint}">${icon}</div><div class="ml">${safeName}</div><div style="font-size:11px;color:var(--t3);margin-top:2px;text-align:center">${safeMeta}</div></div>`;
+    const html=`<div class="mc" data-key="search_${item.type}_${item.id}" onclick="openSearchResult('${item.type}','${item.id}','${safeCat}')"><div class="mi ${tint}">${icon}</div><div class="ml">${safeName}</div><div class="search-card-meta">${safeMeta}</div></div>`;
     results.push({score:score+45,key:`${item.type}_${item.id}`,html});
   });
   cardIndex.forEach(item=>{
@@ -22620,7 +22637,7 @@ function makeSBS(steps){
   if(!stepsHtml) return '';
 
   return `
-    <button type="button" class="sbs-toggle" id="${id}-btn" onclick="toggleSBS('${id}')" style="display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;font-size:12px;font-weight:800;cursor:pointer;">
+    <button type="button" class="sbs-toggle" id="${id}-btn" onclick="toggleSBS('${id}')">
       <span>▶ Step-by-Step Working</span>
     </button>
     <div id="${id}-wrap" class="sbs-work" style="display:none;margin-top:6px;">

@@ -87,8 +87,8 @@ def prepare_v17_html(source_path):
   html[data-platform="android-app"] .screen {
     overflow: visible !important;
   }
-  /* Ensure splash screen fades cleanly */
-  #sp.hide, #sp.play-out {
+  /* Ensure splash screen fades cleanly after animation completes */
+  #sp.hide {
     opacity: 0 !important;
     pointer-events: none !important;
     display: none !important;
