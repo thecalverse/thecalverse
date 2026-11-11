@@ -225,6 +225,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
 
         if action == "saveFile", let filename = dict["filename"] as? String, let dataUrl = dict["dataUrl"] as? String {
             saveDataUrlToDisk(filename: filename, dataUrl: dataUrl)
+        } else if action == "openFile", let filename = dict["filename"] as? String, let dataUrl = dict["dataUrl"] as? String {
+            openDataUrlWithDefaultApp(filename: filename, dataUrl: dataUrl)
+        }
+    }
+
+    func openDataUrlWithDefaultApp(filename: String, dataUrl: String) {
+        guard let commaIdx = dataUrl.firstIndex(of: ",") else { return }
+        let base64Str = String(dataUrl[dataUrl.index(after: commaIdx)...])
+        guard let data = Data(base64Encoded: base64Str, options: .ignoreUnknownCharacters) else { return }
+
+        let tempDir = FileManager.default.temporaryDirectory
+        let safeName = filename.isEmpty ? "calverse_file" : filename
+        let fileURL = tempDir.appendingPathComponent(safeName)
+        do {
+            try data.write(to: fileURL)
+            DispatchQueue.main.async {
+                NSWorkspace.shared.open(fileURL)
+            }
+        } catch {
+            print("Failed to open file: \(error)")
         }
     }
 

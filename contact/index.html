@@ -9,10 +9,10 @@
 <meta property="og:description" content="Get in touch with the Calverse team for feedback, questions, bug reports, and suggestions.">
 <meta property="og:url" content="https://thecalverse.com/contact">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="shortcut icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
@@ -9939,9 +9939,28 @@ async function openLibraryFileViewer(item){
       </div>
     `;
   } else if(mime === 'application/pdf' || name.endsWith('.pdf')){
+    const isNativeMac = !!(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.calverseNative);
     body.innerHTML = `
       <div class="lib-viewer-pdf-wrap">
-        <iframe src="${escapeHtml(viewUrl)}" class="lib-viewer-iframe" title="${escapeHtml(item.name)}"></iframe>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:10px;margin-bottom:10px;gap:8px;flex-shrink:0;">
+          <div style="font-size:12px;color:var(--t2);">📄 PDF Document (${formatFileSize(item.size)})</div>
+          <div style="display:flex;gap:6px;">
+            <button type="button" class="lib-viewer-btn acc" style="height:28px;padding:0 12px;font-size:11.5px;" onclick="openLibraryItemExternal('${item.id}')">
+              ${isNativeMac ? '🖥️ Open in Preview' : '↗️ Open Fullscreen'}
+            </button>
+            <button type="button" class="lib-viewer-btn" style="height:28px;padding:0 10px;font-size:11.5px;" onclick="downloadLibraryItem('${item.id}')">
+              ⬇️ Download
+            </button>
+          </div>
+        </div>
+        <object data="${escapeHtml(viewUrl)}" type="application/pdf" class="lib-viewer-iframe" style="flex:1;min-height:50vh;">
+          <iframe src="${escapeHtml(viewUrl)}" class="lib-viewer-iframe" title="${escapeHtml(item.name)}">
+            <div style="padding:40px;text-align:center;color:var(--t2);">
+              <p>Inline PDF preview is not supported by your browser.</p>
+              <button class="lib-viewer-btn acc" onclick="openLibraryItemExternal('${item.id}')">Open PDF</button>
+            </div>
+          </iframe>
+        </object>
       </div>
     `;
   } else if(mime.startsWith('text/') || /\.(txt|md|json|js|ts|py|html|css|c|cpp|java|csv|xml|sh|rb|php)$/i.test(name)){
@@ -10049,21 +10068,67 @@ async function downloadLibraryItem(id){
 }
 
 async function openLibraryItemExternal(id){
-  const item = libraryItems.find(entry => entry.id === id);
+  const item = libraryItems.find(entry => entry.id === id) || libraryTrashItems.find(entry => entry.id === id);
   if(!item) return;
-  let url = '';
-  if(item.blob instanceof Blob){
-    try { url = URL.createObjectURL(item.blob); } catch(e){}
+
+  // 1. Native macOS Desktop App Support: Open natively with system Preview/default app
+  if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.calverseNative){
+    try {
+      let dataUrl = item.dataUrl;
+      if(!dataUrl && item.blob instanceof Blob){
+        dataUrl = await readFileAsDataUrl(item.blob);
+      }
+      if(dataUrl){
+        window.webkit.messageHandlers.calverseNative.postMessage({
+          action: 'openFile',
+          filename: item.name || 'study-file',
+          dataUrl: dataUrl
+        });
+        showToast(`Opening ${item.name || 'file'} in Mac...`);
+        return;
+      }
+    } catch(e){}
   }
-  if(!url && item.dataUrl) url = item.dataUrl;
-  if(!url){
+
+  // 2. Browser blob URL support
+  let openUrl = '';
+  let shouldRevoke = false;
+  if(item.blob instanceof Blob){
+    try {
+      openUrl = URL.createObjectURL(item.blob);
+      shouldRevoke = true;
+    } catch(e){}
+  } else if(item.dataUrl){
+    try {
+      const parts = item.dataUrl.split(',');
+      if(parts.length > 1){
+        const mimeMatch = parts[0].match(/:(.*?);/);
+        const mime = mimeMatch ? mimeMatch[1] : (item.mimeType || 'application/octet-stream');
+        const bstr = atob(parts[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--) u8arr[n] = bstr.charCodeAt(n);
+        const blob = new Blob([u8arr], { type: mime });
+        openUrl = URL.createObjectURL(blob);
+        shouldRevoke = true;
+      }
+    } catch(e){
+      openUrl = item.dataUrl;
+    }
+  }
+
+  if(!openUrl){
     showToast('Cannot open file');
     return;
   }
-  const w = window.open(url, '_blank');
+
+  const w = window.open(openUrl, '_blank');
   if(!w){
     downloadLibraryItem(id);
-    showToast('Popup blocked by browser. Downloading instead.');
+    showToast('Opening as download...');
+  }
+  if(shouldRevoke){
+    setTimeout(() => { try { URL.revokeObjectURL(openUrl); } catch(e){} }, 60000);
   }
 }
 
@@ -13044,9 +13109,9 @@ function renderTrashPane(){
   const pane=document.getElementById('library-pane');
   if(listEl && !isLibTrash){
     listEl.className=`notes-list view-${notesView}`;
-    const noteList=[...notesTrash];
+    const noteList=[...notesTrash].filter(n => !n.bookId && !n.isJournal && !n.isJournalPage && n.type !== 'journal');
     if(!noteList.length){
-      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗑️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No deleted journal pages.</div><div style="font-size:12px">Delete a page to see it here.</div></div>`;
+      listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗑️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No deleted study notes.</div><div style="font-size:12px">Delete a note to see it here.</div></div>`;
     }else{
       listEl.innerHTML=noteList.map(renderTrashedNoteCard).join('');
       requestAnimationFrame(()=>applyLiquidStagger(listEl,'.note-card'));
@@ -19201,41 +19266,51 @@ function restoreTrashedNote(id,showRedo=true){
   if(showRedo)showNoteActionToast('Note restored',[{label:'Redo',accent:true,action:'redoDelete'},{label:'Open Note',action:`openNote:${restored.id}`}]);
 }
 function restoreAllTrashedNotes(){
-  const noteIds=notesTrash.map(n=>n.id);
-  const noteCount=noteIds.length;
-  for(const id of noteIds)restoreTrashedNote(id,false);
-  const libCount=libraryTrashFolders.length+libraryTrashItems.length;
-  if(libCount)restoreAllLibraryTrash();
-  syncNotesPaneUI();
-  renderNotesList();
-  if(noteCount||libCount)showToast('Restored all trash');
+  const isLib = (lastNotesActivePane === 'library');
+  if(isLib){
+    const libCount = libraryTrashFolders.length + libraryTrashItems.length;
+    if(libCount) restoreAllLibraryTrash();
+    renderTrashPane();
+    showToast('Restored library trash');
+    return;
+  }
+  const studyTrash = notesTrash.filter(n => !n.bookId && !n.isJournal && !n.isJournalPage && n.type !== 'journal');
+  const noteIds = studyTrash.map(n => n.id);
+  for(const id of noteIds) restoreTrashedNote(id, false);
+  renderTrashPane();
+  if(noteIds.length) showToast(`Restored ${noteIds.length} note${noteIds.length === 1 ? '' : 's'}`);
 }
 function deleteTrashForever(id){
   notesTrash=notesTrash.filter(item=>item.id!==id);
   saveNotesTrash();
   syncNotesPaneUI();
-  renderNotesList();
+  renderTrashPane();
   showToast('Deleted forever');
 }
 function deleteAllTrash(){
-  const noteCount=notesTrash.length;
-  const libCount=libraryTrashFolders.length+libraryTrashItems.length;
-  if(!noteCount && !libCount)return;
+  const isLib = (lastNotesActivePane === 'library');
+  const studyTrashCount = notesTrash.filter(n => !n.bookId && !n.isJournal && !n.isJournalPage && n.type !== 'journal').length;
+  const libCount = libraryTrashFolders.length + libraryTrashItems.length;
+  if(isLib && !libCount) return;
+  if(!isLib && !studyTrashCount) return;
+
   showAppDialog({
-    title:'Empty Trash',
-    message:`Delete all trashed notes and library files forever?`,
-    confirmText:'Delete',
-    cancelText:'Cancel',
-    tone:'warn',
-    onConfirm:()=>{
-      notesTrash=[];
-      saveNotesTrash();
-      libraryTrashFolders=[];
-      libraryTrashItems=[];
-      currentLibraryTrashFolderId='';
-      saveLibraryData();
-      syncNotesPaneUI();
-      renderNotesList();
+    title: isLib ? 'Empty Library Trash' : 'Empty Notes Trash',
+    message: isLib ? 'Delete all trashed folders and files forever?' : 'Delete all trashed study notes forever?',
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+    tone: 'warn',
+    onConfirm: () => {
+      if(isLib){
+        libraryTrashFolders = [];
+        libraryTrashItems = [];
+        currentLibraryTrashFolderId = '';
+        saveLibraryData();
+      } else {
+        notesTrash = notesTrash.filter(n => n.bookId || n.isJournal || n.isJournalPage || n.type === 'journal');
+        saveNotesTrash();
+      }
+      renderTrashPane();
       showToast('Trash cleared');
     }
   });
@@ -20211,7 +20286,7 @@ function writeFromCurrentPromptSpark(){
 function renderJournalTrashView(){
   const grid = document.getElementById('journal-trash-grid');
   if(!grid) return;
-  const items = notesTrash.filter(n => n.isJournalPage || n.notebook || (n.tags && n.tags.includes('journal')) || n.type === 'journal' || !n.book || n.book === currentJournalBookId);
+  const items = notesTrash.filter(n => n.bookId || n.isJournal || n.isJournalPage || n.type === 'journal');
   if(items.length === 0){
     grid.innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--t3);">
@@ -26117,7 +26192,7 @@ function calcPhysics(){
 
   // Special cases: series/parallel resistance
   if(pf.special==='series_r'){
-    const raw=document.getElementById('ph0').value;
+    const raw=document.getElementById('ph0')?.value||'';
     const rs=raw.split(/[,\s;]+/).map(Number).filter(n=>!isNaN(n)&&n>0);
     if(rs.length<1){res.innerHTML='<span class="er">Enter at least one resistance</span>';return;}
     const tot=rs.reduce((a,b)=>a+b,0);
@@ -26131,7 +26206,7 @@ function calcPhysics(){
     addH('phys',pf.name,`${fmt(tot)} Ω`,{kind:'phys',formulaId:pf.id,category:pf.cat,vals:[raw]});return;
   }
   if(pf.special==='parallel_r'){
-    const raw=document.getElementById('ph0').value;
+    const raw=document.getElementById('ph0')?.value||'';
     const rs=raw.split(/[,\s;]+/).map(Number).filter(n=>!isNaN(n)&&n>0);
     if(rs.length<1){res.innerHTML='<span class="er">Enter at least one resistance</span>';return;}
     const tot=1/rs.reduce((a,b)=>a+1/b,0);

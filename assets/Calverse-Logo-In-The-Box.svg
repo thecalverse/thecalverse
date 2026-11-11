@@ -9,7 +9,7 @@
     </filter>
   </defs>
   <!-- Squircle Box -->
-  <rect x="36" y="36" width="952" height="952" rx="230" ry="230" fill="url(#boxGrad)" stroke="#33343a" stroke-width="6" filter="url(#subtleGlow)"/>
+  <rect x="36" y="36" width="952" height="952" rx="230" ry="230" fill="url(#boxGrad)" stroke="none" filter="url(#subtleGlow)"/>
   <!-- Calverse ~ Wave Symbol -->
   <path d="M 346 546 C 368 506 394 456 432 456 C 474 456 488 518 518 560 C 546 598 568 608 596 608 C 632 608 658 564 676 524" 
         fill="none" 
