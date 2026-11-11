@@ -33,7 +33,7 @@ const ROUTES = [
   {
     path: 'notes',
     title: 'Study Notes & Revision Workspace — Calverse',
-    description: 'Clean, minimalist study notes and revision workspace with tags, notebooks, templates, and instant search.',
+    description: 'Clean, minimalist study notes and revision workspace with study fonts, highlighters, folders, and instant search.',
     screenId: 'sNotes',
     tab: 'notes'
   },
