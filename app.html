@@ -2235,17 +2235,27 @@ canvas#gc{display:block;width:100%;height:240px;}
   cursor:grab;
   display:inline-flex;
   align-items:center;
-  gap:3px;
-  font-size:11px;
+  gap:4px;
+  font-size:11.5px;
   font-weight:800;
   color:#fff;
-  padding:0 4px;
+  padding:3px 8px;
+  min-height:24px;
   user-select:none;
+  -webkit-user-select:none;
+  touch-action:none !important;
 }
 [data-t=light] .canvas-drag-handle{
   color:#3b281c;
 }
 .canvas-drag-handle:active{cursor:grabbing;}
+@media (max-width: 600px){
+  .canvas-drag-handle{
+    font-size:12px;
+    padding:4px 10px;
+    min-height:28px;
+  }
+}
 
 .canvas-bar-btns{
   display:inline-flex;
@@ -2477,8 +2487,14 @@ canvas#gc{display:block;width:100%;height:240px;}
   min-width:120px;
   min-height:30px;
   cursor:grab;
+  touch-action:none !important;
+  user-select:none;
+  -webkit-user-select:none;
 }
-.canvas-item.canvas-washi:active{cursor:grabbing;}
+.canvas-item.canvas-washi:active,
+.canvas-item.canvas-washi.is-dragging{
+  cursor:grabbing !important;
+}
 .canvas-item.canvas-washi .washi-tape-strip{
   width:100%;
   height:100%;
@@ -2493,8 +2509,12 @@ canvas#gc{display:block;width:100%;height:240px;}
   cursor:grab;
   overflow:hidden;
   border-radius:2px;
+  touch-action:none !important;
 }
-.canvas-item.canvas-washi .washi-tape-strip:active{cursor:grabbing;}
+.canvas-item.canvas-washi .washi-tape-strip:active,
+.canvas-item.canvas-washi.is-dragging .washi-tape-strip{
+  cursor:grabbing !important;
+}
 
 /* Editable Text Inside Washi Tape */
 .washi-tape-label{
@@ -2514,9 +2534,17 @@ canvas#gc{display:block;width:100%;height:240px;}
   overflow-wrap:anywhere;
   overflow:hidden;
   user-select:text;
+  -webkit-user-select:text;
   cursor:text;
   padding:2px 4px;
   transition:color .15s ease;
+  touch-action:none !important;
+}
+.canvas-item.canvas-washi.is-dragging .washi-tape-label{
+  user-select:none !important;
+  -webkit-user-select:none !important;
+  cursor:grabbing !important;
+  pointer-events:none;
 }
 .washi-tape-label:empty::before{
   content:attr(data-placeholder);
@@ -15897,11 +15925,13 @@ function initIpadCanvasEngine(){
 
     if(item){
       selectCanvasItem(item);
+      const isWashi = item.dataset.type === "washi" || item.classList.contains("canvas-washi") || !!e.target.closest(".canvas-washi, .washi-tape-strip, .washi-tape-label");
       const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .journal-sticky-note, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
-      if(editable){
+
+      // For paragraph text bodies (e.g. desktop mouse selecting characters in a text box), allow native text selection when already focused.
+      // But for washi tape (and touch interactions), initiate drag state so swiping effortlessly moves the tape!
+      if(editable && !isWashi && e.pointerType !== "touch" && document.activeElement === editable){
         lastActiveTextBoxId = item.id;
-        // CRITICAL FIX: DO NOT preventDefault or start dragging when clicking on text body!
-        // Allow native pointer interaction: click to place cursor, drag to select text characters, double click words!
         return;
       }
       e.preventDefault();
@@ -15925,7 +15955,7 @@ function initIpadCanvasEngine(){
     deselectAllCanvasItems();
   });
 
-  sheet.addEventListener("pointermove", (e) => {
+  function handleCanvasPointerMove(e){
     if(activeRotateState && activeRotateState.pointerId === e.pointerId){
       e.preventDefault();
       const s = activeRotateState;
@@ -16061,7 +16091,9 @@ function initIpadCanvasEngine(){
       }
       return;
     }
-  });
+  }
+  sheet.addEventListener("pointermove", handleCanvasPointerMove);
+  window.addEventListener("pointermove", handleCanvasPointerMove);
 
   function endPointerInteractions(e){
     if(activeRotateState && activeRotateState.pointerId === e.pointerId){
@@ -16089,7 +16121,32 @@ function initIpadCanvasEngine(){
       if(hadMoved){
         queueIpadSave();
       } else if(edTarget){
-        try { edTarget.focus(); } catch(_){}
+        try {
+          edTarget.focus();
+          let range = null;
+          if(document.caretRangeFromPoint){
+            range = document.caretRangeFromPoint(e.clientX, e.clientY);
+          } else if(document.caretPositionFromPoint){
+            const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+            if(pos && pos.offsetNode){
+              range = document.createRange();
+              range.setStart(pos.offsetNode, pos.offset);
+              range.collapse(true);
+            }
+          }
+          const sel = window.getSelection();
+          if(sel){
+            sel.removeAllRanges();
+            if(range && edTarget.contains(range.startContainer)){
+              sel.addRange(range);
+            } else {
+              const r = document.createRange();
+              r.selectNodeContents(edTarget);
+              r.collapse(false);
+              sel.addRange(r);
+            }
+          }
+        } catch(_){}
       }
     }
   }
