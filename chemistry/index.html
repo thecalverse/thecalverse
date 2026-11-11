@@ -7285,7 +7285,7 @@ html[data-device="iphone"] #app {
           </select>
           <button type="button" class="view-toggle-btn" id="notes-view-toggle" onclick="toggleNotesView()" aria-label="Toggle notes view"><span class="view-toggle-ico" id="notes-view-toggle-ico">▦</span><span class="view-toggle-label" id="notes-view-toggle-label">Grid</span></button>
         </div>
-        <input type="file" id="library-file-input" multiple style="display:none" onchange="handleLibraryFileInput(event)">
+        <input type="file" id="library-file-input" multiple style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleLibraryFileInput(event)">
         <div class="notes-list" id="notes-list"></div>
         <div class="notebooks-pane" id="notebooks-pane" style="display:none"></div>
         <div class="study-pane" id="study-pane" style="display:none"></div>
@@ -7495,7 +7495,7 @@ html[data-device="iphone"] #app {
         <!-- Inking Secondary Subbar (Contextual for Pen, Highlighter, Eraser) -->
         <div id="ipad-ink-subbar" class="ipad-ink-subbar" style="display:none;"></div>
 
-        <input type="file" id="ipad-photo-input" accept="image/*" style="display:none" onchange="handleIpadPhotoUpload(event)">
+        <input type="file" id="ipad-photo-input" accept="image/*" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleIpadPhotoUpload(event)">
 
         <!-- Page Title State (Handled cleanly for notebook data, no heading clutter on pages) -->
         <input type="hidden" id="ipad-page-title" value="">
@@ -7731,7 +7731,7 @@ html[data-device="iphone"] #app {
           </div>
         </div>
       </div>
-      <input type="file" id="journal-photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+      <input type="file" id="journal-photo-input" accept="image/*" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handlePhotoUpload(event)">
       <div class="note-paper" id="note-paper">
         <div class="note-empty-tpl-banner" id="note-empty-tpl-banner" onclick="openTemplatePickerModal('editor')" style="display:none;">
           <div class="note-empty-tpl-sparkle">✨</div>
@@ -7923,7 +7923,7 @@ html[data-device="iphone"] #app {
         <div style="font-size:12px;color:var(--t2);">Tap any background to apply it immediately to your page.</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <input type="file" id="journal-bg-file-input" accept="image/*" style="display:none;" onchange="handleJournalBgUpload(event)">
+        <input type="file" id="journal-bg-file-input" accept="image/*" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleJournalBgUpload(event)">
         <button type="button" class="app-dialog-btn acc" onclick="triggerJournalBgUpload()" style="font-size:11.5px;height:30px;padding:0 11px;font-weight:800;display:inline-flex;align-items:center;gap:5px;">
           <span>📤</span> <span>Upload</span>
         </button>
@@ -8182,7 +8182,7 @@ html[data-device="iphone"] #app {
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div>
           <label style="font-size:11px;font-weight:800;color:var(--t2);text-transform:uppercase;">Select Image / Photo</label>
-          <input type="file" id="custom-photo-file-input" accept="image/*" style="display:none;" onchange="handleCustomStickerPhotoUpload(event)">
+          <input type="file" id="custom-photo-file-input" accept="image/*" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleCustomStickerPhotoUpload(event)">
           <div style="display:flex;gap:8px;margin-top:6px;">
             <button type="button" class="notes-top-btn" onclick="document.getElementById('custom-photo-file-input').click()" style="height:34px;padding:0 12px;display:inline-flex;align-items:center;gap:6px;">📁 Choose Image...</button>
             <input type="text" id="custom-photo-label" class="note-inp" placeholder="Sticker label (optional)" maxlength="20" style="flex:1;">
@@ -8277,7 +8277,7 @@ html[data-device="iphone"] #app {
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button type="button" class="note-card-btn acc" onclick="exportNotesAsJson()">Export JSON Backup</button>
           <button type="button" class="note-card-btn" onclick="triggerJsonImport()">Restore from JSON</button>
-          <input type="file" id="notes-json-import-input" accept=".json" style="display:none;" onchange="handleJsonImport(event)">
+          <input type="file" id="notes-json-import-input" accept=".json" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleJsonImport(event)">
         </div>
       </div>
       <div style="background:rgba(255,255,255,.04);border:1px solid var(--glb);border-radius:14px;padding:12px;">
@@ -9786,11 +9786,28 @@ function deleteLibraryFolder(id){
 }
 function triggerLibraryUpload(){
   if(!currentLibraryFolderId){
-    showToast('Create a folder first');
-    return;
+    if(Array.isArray(libraryFolders) && libraryFolders.length > 0){
+      currentLibraryFolderId = libraryFolders[0].id;
+    } else {
+      const defaultFolder = {
+        id: `libf_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
+        name: 'General Uploads',
+        color: 'blue',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+      if(!Array.isArray(libraryFolders)) libraryFolders = [];
+      libraryFolders.unshift(defaultFolder);
+      currentLibraryFolderId = defaultFolder.id;
+      saveLibraryData();
+      renderLibraryPane();
+    }
   }
-  const input=document.getElementById('library-file-input');
-  if(input)input.click();
+  const input = document.getElementById('library-file-input');
+  if(input){
+    input.value = '';
+    input.click();
+  }
 }
 function readFileAsDataUrl(file){
   return new Promise((resolve,reject)=>{
@@ -11977,16 +11994,21 @@ function setJournalBgDim(val){
 
 function triggerJournalBgUpload(){
   const input = document.getElementById('journal-bg-file-input');
-  if(input) input.click();
+  if(input){
+    input.value = '';
+    input.click();
+  }
 }
 
-function handleJournalBgUpload(e){
+async function handleJournalBgUpload(e){
   const file = e.target.files && e.target.files[0];
+  if(e.target) e.target.value = '';
   if(!file) return;
-  const reader = new FileReader();
-  reader.onload = (evt) => {
-    const dataUrl = evt.target.result;
-    const cleanName = file.name.replace(/\.[^/.]+$/, '').slice(0, 24) || 'Custom Background';
+
+  showToast('Processing custom background... 🖼️');
+  try {
+    const dataUrl = await compressImageToDataUrl(file, 1600, 0.86);
+    const cleanName = (file.name || 'Custom Background').replace(/\.[^/.]+$/, '').slice(0, 24) || 'Custom Background';
     const bgItem = {
       id: 'custom_' + Date.now(),
       name: cleanName,
@@ -11996,10 +12018,13 @@ function handleJournalBgUpload(e){
     };
     addJournalCustomBackground(bgItem);
     applyJournalPageBackground(bgItem.value, bgItem.id);
+    closeJournalBackgroundModal();
+    renderJournalBackgroundGrid('all');
     showToast('Custom background applied & saved ✨');
-  };
-  reader.readAsDataURL(file);
-  e.target.value = '';
+  } catch(err) {
+    console.error('Failed to upload background:', err);
+    showToast('Could not process image, please try another file');
+  }
 }
 
 function applyPageBackgroundToSheet(bgValue, dim = 100){
@@ -14093,7 +14118,10 @@ function applyIpadHighlighter(color){
 
 function triggerIpadPhotoUpload(){
   const inp = document.getElementById('ipad-photo-input');
-  if(inp) inp.click();
+  if(inp){
+    inp.value = '';
+    inp.click();
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -14774,20 +14802,25 @@ function insertIpadPhotoFromDataUrl(dataUrl){
   `;
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
+  const box = document.getElementById(id);
+  if(box) selectCanvasItem(box);
   queueIpadSave();
   if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast("Photo placed! Drag, resize or rotate anywhere 🎀");
 }
 
-function handleIpadPhotoUpload(e){
+async function handleIpadPhotoUpload(e){
   const file = e?.target?.files?.[0];
+  if(e?.target) e.target.value = "";
   if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    insertIpadPhotoFromDataUrl(evt.target.result);
-  };
-  reader.readAsDataURL(file);
-  e.target.value = "";
+  showToast("Placing photo on page... 🎀");
+  try {
+    const dataUrl = await compressImageToDataUrl(file, 1400, 0.88);
+    insertIpadPhotoFromDataUrl(dataUrl);
+  } catch(err) {
+    console.error("Failed to load photo:", err);
+    showToast("Could not load image file");
+  }
 }
 
 function insertIpadSticker(stickerEmoji){
@@ -17907,15 +17940,17 @@ function updateCustomStickerPreview(){
   }
 }
 
-function handleCustomStickerPhotoUpload(e){
+async function handleCustomStickerPhotoUpload(e){
   const file = e?.target?.files?.[0];
+  if(e?.target) e.target.value = '';
   if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    activeCustomPhotoData = evt.target.result;
+  try {
+    activeCustomPhotoData = await compressImageToDataUrl(file, 500, 0.90);
     updateCustomPhotoStickerPreview();
-  };
-  reader.readAsDataURL(file);
+  } catch(err) {
+    console.error("Failed to load sticker photo:", err);
+    showToast("Could not load image file");
+  }
 }
 
 function updateCustomPhotoStickerPreview(){

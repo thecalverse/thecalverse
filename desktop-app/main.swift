@@ -176,6 +176,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
         NSApp.mainMenu = mainMenu
     }
 
+    // MARK: - WKUIDelegate (Native File Upload Support for macOS WKWebView)
+    func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = true
+        openPanel.canChooseDirectories = false
+        openPanel.allowsMultipleSelection = parameters.allowsMultipleSelection
+        if let win = self.window {
+            openPanel.beginSheetModal(for: win) { response in
+                completionHandler(response == .OK ? openPanel.urls : nil)
+            }
+        } else {
+            let response = openPanel.runModal()
+            completionHandler(response == .OK ? openPanel.urls : nil)
+        }
+    }
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let duoExtra = (DEFAULT_DEVICE == "iphone-duo") ? "document.documentElement.classList.add('mode-iphone-duo-dmg'); window.__CALVERSE_DMG_DUO__ = true;" : ""
         let js = """
