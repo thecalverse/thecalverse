@@ -137,7 +137,22 @@ def prepare_v17_html(source_path):
     -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
   }
   html[data-platform="android-app"] .topbar {
-    padding-top: max(58px, calc(env(safe-area-inset-top, 0px) + 18px)) !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    z-index: 1000 !important;
+    padding-top: max(48px, calc(env(safe-area-inset-top, 0px) + 12px)) !important;
+    padding-bottom: 10px !important;
+    padding-left: calc(16px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+    box-sizing: border-box !important;
+    border-radius: 0 !important;
+  }
+  html[data-platform="android-app"] #app {
+    padding-top: calc(max(48px, calc(env(safe-area-inset-top, 0px) + 12px)) + 48px) !important;
   }
   /* Ensure app and scrolling work smoothly on Android */
   html[data-platform="android-app"],
@@ -251,6 +266,47 @@ def build_apk():
         v17_target = os.path.join(assets_dir, "V17.html")
         with open(v17_target, "w", encoding="utf-8") as f:
             f.write(v17_content)
+
+        # Copy all bundled web assets into APK assets/assets/ and assets/
+        print("Copying offline web assets (logos, stickers, backgrounds) into APK...")
+        src_assets = os.path.join(PROJECT_ROOT, "assets")
+        nested_assets = os.path.join(assets_dir, "assets")
+        os.makedirs(nested_assets, exist_ok=True)
+
+        # 1. Logos & metadata
+        logo_files = [
+            "calverse-logo.png",
+            "calverse-logo-latte.png",
+            "calverse-wave-symbol.png",
+            "Calverse-Logo-In-The-Box.svg",
+            "Calverse-Logo-Round.png",
+            "Calverse-Logo-Round.svg",
+            "templates_manifest.json"
+        ]
+        for lf in logo_files:
+            src_file = os.path.join(src_assets, lf)
+            if os.path.exists(src_file):
+                shutil.copy2(src_file, os.path.join(nested_assets, lf))
+                shutil.copy2(src_file, os.path.join(assets_dir, lf))
+        print("✓ Bundled logos and manifest into APK")
+
+        # 2. Stickers
+        src_stickers = os.path.join(src_assets, "stickers")
+        if os.path.exists(src_stickers):
+            dst_nested_stickers = os.path.join(nested_assets, "stickers")
+            if os.path.exists(dst_nested_stickers):
+                shutil.rmtree(dst_nested_stickers)
+            shutil.copytree(src_stickers, dst_nested_stickers)
+            print(f"✓ Bundled {len(os.listdir(src_stickers))} stickers into APK")
+
+        # 3. Backgrounds (full + thumbs)
+        src_bg = os.path.join(src_assets, "backgrounds")
+        if os.path.exists(src_bg):
+            dst_nested_bg = os.path.join(nested_assets, "backgrounds")
+            if os.path.exists(dst_nested_bg):
+                shutil.rmtree(dst_nested_bg)
+            shutil.copytree(src_bg, dst_nested_bg)
+            print("✓ Bundled backgrounds into APK")
 
         # Update Android launcher icons from extracted_icons
         icons_source = os.path.join(ANDROID_APP_DIR, "extracted_icons")
