@@ -15,6 +15,7 @@ WEB_DIR="$RESOURCES_DIR/web"
 STAGING_DIR="/tmp/calverse_dmg_stage"
 OUTPUT_DMG="$DIR/$APP_NAME.dmg"
 DESKTOP_DMG="$HOME/Desktop/$APP_NAME.dmg"
+TARGET_APP="/Applications/$APP_NAME.app"
 
 # 1. Clean previous builds
 rm -rf "$APP_BUNDLE" "$STAGING_DIR" "$OUTPUT_DMG"
@@ -42,12 +43,29 @@ fi
 echo "🔐 Ad-hoc code signing $APP_NAME.app..."
 codesign --force --deep --sign - "$APP_BUNDLE"
 
-# 5. Prepare DMG Staging
+# 5. Direct Install / Update to /Applications/Calverse.app (No DMG reinstall needed!)
+echo "💻 Updating installed MacBook app at $TARGET_APP..."
+if pgrep -x "$APP_NAME" > /dev/null 2>&1; then
+    echo "🔄 Quitting currently running instance of $APP_NAME..."
+    osascript -e "tell application \"$APP_NAME\" to quit" 2>/dev/null || pkill -x "$APP_NAME" 2>/dev/null || true
+    sleep 1
+fi
+
+rm -rf "$TARGET_APP"
+cp -R "$APP_BUNDLE" "$TARGET_APP"
+codesign --force --deep --sign - "$TARGET_APP" 2>/dev/null || true
+echo "✅ Installed MacBook app updated directly at $TARGET_APP!"
+
+# Relaunch updated MacBook app automatically
+echo "🚀 Launching updated MacBook app..."
+open "$TARGET_APP"
+
+# 6. Prepare DMG Staging
 echo "💿 Staging DMG volume..."
 cp -R "$APP_BUNDLE" "$STAGING_DIR/"
 ln -s /Applications "$STAGING_DIR/Applications"
 
-# 6. Create Compressed DMG
+# 7. Create Compressed DMG
 echo "🗜️ Creating Apple Disk Image ($OUTPUT_DMG)..."
 hdiutil create \
     -volname "Calverse Studio" \
@@ -58,9 +76,11 @@ hdiutil create \
 
 # Also copy to user Desktop for instant 1-click access
 cp "$OUTPUT_DMG" "$DESKTOP_DMG"
+rm -rf "$STAGING_DIR"
 
 echo "=== ✅ BUILD COMPLETE ==="
 echo "📁 DMG saved to:"
 echo "   1) $DESKTOP_DMG"
 echo "   2) $OUTPUT_DMG"
+echo "💻 MacBook App updated directly at: $TARGET_APP"
 echo "📦 App Bundle at: $APP_BUNDLE"
