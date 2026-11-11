@@ -179,27 +179,60 @@ def prepare_v17_html(source_path):
     pointer-events: none !important;
     display: none !important;
   }
-  /* Bottom nav bar fits all phone screen sizes neatly without overflow */
-  @media (max-width: 520px) {
-    .bnav {
-      width: calc(100% - 16px) !important;
-      max-width: 420px !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      padding: 4px 4px calc(4px + env(safe-area-inset-bottom, 0px)) !important;
-      gap: 2px !important;
-    }
-    .bni {
-      font-size: 9.5px !important;
-      padding: 3px 2px !important;
-      min-width: 0 !important;
-      flex: 1 1 0 !important;
-    }
-    .bnico {
-      font-size: 16px !important;
-      width: 16px !important;
-      height: 16px !important;
-    }
+  /* Floating compact bottom nav matching website exactly */
+  .bnav,
+  html[data-platform="android-app"] .bnav {
+    position: fixed !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(400px, calc(100% - 24px)) !important;
+    max-width: 400px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    padding: 4px 5px !important;
+    border-radius: 25px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .bnav-ind,
+  html[data-platform="android-app"] .bnav-ind {
+    top: 4px !important;
+    height: 42px !important;
+    border-radius: 21px !important;
+  }
+  .bni,
+  html[data-platform="android-app"] .bni {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 21px !important;
+  }
+  .bni span,
+  html[data-platform="android-app"] .bni span {
+    display: none !important;
+  }
+  .bnico,
+  html[data-platform="android-app"] .bnico {
+    font-size: 20px !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: grid !important;
+    place-items: center !important;
+    margin: 0 auto !important;
+  }
+  html[data-platform="android-app"] #app {
+    padding-bottom: 76px !important;
   }
 </style>
 <script id="android-ad-mock">
