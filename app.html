@@ -15,6 +15,15 @@
 <meta property="og:image" content="https://thecalverse.com/assets/calverse-logo.png">
 <meta name="twitter:image" content="https://thecalverse.com/assets/calverse-logo.png">
 <meta charset="UTF-8">
+<meta name="description" content="Calverse — The all-in-one digital study sanctuary and academic workspace built for students. STEM calculators, formula solvers, study notes, digital journals, focus timers, and habit trackers.">
+<meta property="og:title" content="Calverse — Digital Study Sanctuary & Academic Workspace">
+<meta property="og:description" content="Calverse — The all-in-one digital study sanctuary and academic workspace built for students. STEM calculators, formula solvers, study notes, digital journals, focus timers, and habit trackers.">
+<meta property="og:url" content="https://thecalverse.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Calverse — Digital Study Sanctuary & Academic Workspace">
+<meta name="twitter:description" content="Calverse — The all-in-one digital study sanctuary and academic workspace built for students. STEM calculators, formula solvers, study notes, digital journals, focus timers, and habit trackers.">
+<link rel="canonical" href="https://thecalverse.com/">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#e4d2bf" id="theme-color-meta">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1266,9 +1275,9 @@ canvas#gc{display:block;width:100%;height:240px;}
 .note-color-swatch:hover{transform:scale(1.22);}
 .note-color-swatch:active{transform:scale(.94);}
 .note-color-swatch.on{transform:scale(1.25);border-color:#fff;box-shadow:0 0 0 2px var(--acc, rgba(140,126,255,.6));}
-.note-paper{--note-line-gap:32px;--note-pad-top:20px;--note-pad-right:18px;--note-pad-bottom:28px;--note-pad-left:38px;--note-text-shift:4px;--note-ruled-height:100%;position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));box-shadow:0 12px 26px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.06);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 312px);max-height:calc(100dvh - 312px);}
-.note-paper::before{content:'';position:absolute;top:var(--note-pad-top);left:0;right:0;height:var(--note-ruled-height);pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) calc(var(--note-line-gap) - 1px),rgba(146,166,210,.12) calc(var(--note-line-gap) - 1px),rgba(146,166,210,.12) var(--note-line-gap));opacity:.92;}
-.note-paper::after{content:'';position:absolute;top:0;left:24px;width:1px;height:var(--note-ruled-height);background:rgba(255,126,126,.14);pointer-events:none;}
+.note-paper{--note-line-gap:32px;--note-pad-top:20px;--note-pad-right:18px;--note-pad-bottom:28px;--note-pad-left:38px;--note-text-shift:4px;--note-ruled-height:100%;position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.08);background:#0d1017;box-shadow:0 14px 30px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.06);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 312px);max-height:calc(100dvh - 312px);}
+.note-paper::before{content:'';position:absolute;top:var(--note-pad-top);left:0;right:0;height:var(--note-ruled-height);pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--note-line-gap) - 1px),rgba(255,255,255,.06) calc(var(--note-line-gap) - 1px),rgba(255,255,255,.06) var(--note-line-gap));opacity:.92;}
+.note-paper::after{content:'';position:absolute;top:0;left:24px;width:1px;height:var(--note-ruled-height);background:rgba(140,126,255,.18);pointer-events:none;}
 .note-view{position:relative;z-index:1;min-height:56vh;padding:calc(var(--note-pad-top) + var(--note-line-gap) + var(--note-text-shift)) var(--note-pad-right) var(--note-pad-bottom) var(--note-pad-left);color:var(--t1);font-size:18px;line-height:var(--note-line-gap);white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;}
 .note-view *{max-width:100%;line-height:inherit;}
 .note-view div,.note-view p{margin:0;min-height:var(--note-line-gap);}
@@ -3467,10 +3476,10 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .tracker-progress-wrap,[data-t=light] .tracker-progress-card,[data-t=light] .tracker-pie-card{background:linear-gradient(180deg,rgba(255,249,241,.95),rgba(239,224,208,.84));border-color:rgba(131,98,74,.12);}
 [data-t=light] .tracker-pie::after{background:#f0dfcf;}
 @media (max-width:520px){.tracker-progress-grid,.tracker-pies{grid-template-columns:1fr;}}
-[data-t=light] .note-paper{background:linear-gradient(180deg,rgba(255,249,241,.96),rgba(245,231,216,.92));border-color:rgba(131,98,74,.1);}
-[data-t=light] .note-paper::before{background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) calc(var(--note-line-gap) - 1px),rgba(161,125,98,.16) calc(var(--note-line-gap) - 1px),rgba(161,125,98,.16) var(--note-line-gap));}
-[data-t=light] .note-paper::after{background:rgba(191,112,92,.16);}
-[data-t=light] .note-editor{color:#3f2d22;}
+[data-t=light] .note-paper{background:#fbf8f3!important;border-color:rgba(131,98,74,.18)!important;box-shadow:0 12px 28px rgba(104,76,56,.12),inset 0 1px 0 rgba(255,255,255,.8)!important;}
+[data-t=light] .note-paper::before{background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) calc(var(--note-line-gap) - 1px),rgba(161,125,98,.14) calc(var(--note-line-gap) - 1px),rgba(161,125,98,.14) var(--note-line-gap))!important;}
+[data-t=light] .note-paper::after{background:rgba(191,112,92,.18)!important;}
+[data-t=light] .note-editor, [data-t=light] .note-view{color:#2b2319!important;}
 [data-t=light] .note-card{background:linear-gradient(180deg,rgba(255,246,235,.96),rgba(239,212,184,.88));border-color:rgba(145,88,45,.12);}
 [data-t=light] .notes-empty{border-color:rgba(131,98,74,.12);background:linear-gradient(180deg,rgba(255,248,240,.86),rgba(240,226,211,.76));}
 [data-t=light] .formula-box{background:linear-gradient(135deg,rgba(220,194,166,.98),rgba(190,156,122,.95));border-color:rgba(129,95,69,.3);color:#3f2818;box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 10px 20px rgba(86,58,39,.1);}
@@ -7403,7 +7412,6 @@ html[data-device="iphone"] #app {
               </div>
               <button type="button" class="ipad-step-btn" id="ipad-pages-toggle-btn" onclick="openIpadPagesDrawer()" title="View All Pages in Notebook" style="padding:0 9px;font-size:11.5px;font-weight:800;gap:4px;display:inline-flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);height:28px;border-radius:8px;">📑 <span id="ipad-pages-btn-label">Pages (1)</span></button>
               <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-binder-toggle-btn" onclick="toggleIpadSpiralBinder()" title="Toggle Penly Spiral Binder Spine" style="padding:0 8px;font-size:11.5px;font-weight:800;gap:4px;display:flex;align-items:center;height:28px;border-radius:8px;">📓 Binder</button>
-              <button type="button" class="ipad-step-btn ipad-edit-only" id="ipad-templates-btn" onclick="openJournalTemplatesModal()" style="background:linear-gradient(135deg,rgba(140,126,255,0.18),rgba(255,140,200,0.12));border:1px solid rgba(140,126,255,0.3);padding:0 10px;font-size:11.5px;color:var(--t1);height:28px;border-radius:8px;" title="Templates">✨ Templates</button>
             </div>
           </div>
         </div>
@@ -7662,48 +7670,36 @@ html[data-device="iphone"] #app {
     </div>
   </div>
 
-  <!-- JOURNAL EDITOR -->
+  <!-- STUDY NOTES EDITOR -->
   <div class="screen" id="sNoteEdit">
     <div class="sbk" id="note-edit-back" onclick="handleNoteEditBack()">← Notes</div>
     <div class="note-editor-wrap view-mode" id="note-editor-wrap">
       <div class="note-editor-head">
-      <input type="text" id="note-title" class="note-title-input" placeholder="Title (e.g. Oct 20 Reflection, Chapter 3...)" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
+      <input type="text" id="note-title" class="note-title-input" placeholder="Title (e.g. Chapter 3 Calculus, Quantum Mechanics, Formulas...)" oninput="queueNoteSave()" onblur="saveCurrentNote(true)">
       <div class="note-meta-row">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <div class="note-meta" id="note-meta">Saved locally</div>
-          <select id="note-book-assign" class="note-tool-select" onchange="assignCurrentNoteToBook(this.value)" style="min-width:130px;height:30px;font-size:11.5px;padding:0 22px 0 8px;">
-            <option value="">📚 No Book</option>
-          </select>
         </div>
         <div class="note-editor-actions">
-          <button class="note-card-btn" id="note-act-convert" onclick="promptConvertNoteToBookPage()" style="display:inline-flex;align-items:center;gap:4px;" title="Convert to Notebook Page">📚 To Page</button>
           <button class="note-card-btn" id="note-act-backup" onclick="openNotesBackupModal()" style="display:inline-flex;align-items:center;gap:4px;" title="Export / Backup">📥 Export</button>
-          <button class="note-card-btn" id="note-act-tpl" onclick="openTemplatePickerModal('editor')" style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(140,126,255,0.15),rgba(255,140,200,0.1));border-color:rgba(140,126,255,0.3);">✨ Templates</button>
           <button class="note-card-btn acc" id="note-act-edit" onclick="setNoteEditMode(true,true)">Edit</button>
           <button class="note-card-btn acc" id="note-act-done" onclick="setNoteEditMode(false,false)">Done</button>
         </div>
       </div>
         <div class="note-toolbar">
-          <!-- FRONT AESTHETIC GROUP: Background, Stickers & Washi Tape -->
-          <div class="note-tool-group" style="background:linear-gradient(135deg,rgba(223,190,149,0.16),rgba(140,126,255,0.12));border:1px solid rgba(223,190,149,0.38);" title="Aesthetic Paper & Decor">
-            <button class="note-tool-btn" type="button" onclick="openJournalBackgroundModal()" style="font-weight:900;color:var(--t1);gap:5px;" title="Paper Background">🖼️ Background</button>
-            <button class="note-tool-btn" type="button" onclick="openStickersModal()" style="font-weight:800;gap:4px;" title="Add Stickers">🎀 Stickers</button>
-            <button class="note-tool-btn" type="button" onclick="insertWashiTapeToJournal('washi-blush')" style="font-weight:800;gap:4px;" title="Add Washi Tape">📌 Washi</button>
-          </div>
-
           <!-- SEGMENT 1: Typography & Paper Style -->
           <div class="note-tool-group" title="Typography &amp; Paper">
             <select id="note-font" class="note-tool-select" onchange="applyNoteTypography()" title="Font Style">
-              <option value="caveat">✨ Aesthetic Cursive (Caveat)</option>
-              <option value="patrick" selected>📝 Study Notebook (Patrick Hand)</option>
-              <option value="kalam">🖋️ Ink Ballpoint (Kalam)</option>
-              <option value="shantell">🌸 Modern Print (Shantell)</option>
-              <option value="architect">📐 Technical Hand (Architect)</option>
-              <option value="clean">Clean Sans - balanced</option>
+              <option value="clean" selected>Clean Sans - balanced</option>
               <option value="serif">Elegant Serif - classic</option>
               <option value="book">Book Serif - study</option>
               <option value="modern">Modern Sans - crisp</option>
               <option value="mono">Mono Focus - tidy</option>
+              <option value="patrick">📝 Study Notebook (Patrick Hand)</option>
+              <option value="caveat">✨ Aesthetic Cursive (Caveat)</option>
+              <option value="kalam">🖋️ Ink Ballpoint (Kalam)</option>
+              <option value="shantell">🌸 Modern Print (Shantell)</option>
+              <option value="architect">📐 Technical Hand (Architect)</option>
             </select>
             <div class="note-size-stepper" title="Font Size (pt)">
               <button type="button" class="note-tool-btn" style="min-width:28px;height:30px;padding:0 5px;border:none;background:transparent;font-size:11px;" onclick="stepGeneralNoteFontSize(-2)" title="Smaller (A▾)">A▾</button>
@@ -7748,26 +7744,14 @@ html[data-device="iphone"] #app {
             <button type="button" class="note-tool-btn" onclick="openUniversalColorPickerForText()" title="Text Color Dial &amp; Intensity" style="min-width:28px;height:28px;padding:0 5px;font-size:12px;margin-left:2px;">🎨</button>
           </div>
 
-          <!-- SEGMENT 3: Insert Tools & Interactive Elements -->
-          <div class="note-tool-group" style="position:relative;" title="Insert Tools">
+          <!-- SEGMENT 3: Insert Study Tools -->
+          <div class="note-tool-group" style="position:relative;" title="Insert Study Tools">
             <button class="note-tool-btn" type="button" onclick="insertChecklistItem('editor')" title="Interactive Checklist">☑️ Check</button>
             <button class="note-tool-btn" type="button" onclick="openMathSymbolsPalette('editor')" title="Math &amp; STEM Symbols">🔢 Math</button>
-            <button class="note-tool-btn" type="button" onclick="openStickersModal()" title="Add Stickers">🎀 Stickers</button>
-            <button class="note-tool-btn" type="button" onclick="triggerPhotoUpload()" title="Insert Photo">🖼️ Photo</button>
-            <button class="note-tool-btn" type="button" onclick="insertStickyNotePrompt()" title="Insert Sticky Note">📝 Sticky</button>
           </div>
         </div>
       </div>
-      <input type="file" id="journal-photo-input" accept="image/*" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handlePhotoUpload(event)">
       <div class="note-paper" id="note-paper">
-        <div class="note-empty-tpl-banner" id="note-empty-tpl-banner" onclick="openTemplatePickerModal('editor')" style="display:none;">
-          <div class="note-empty-tpl-sparkle">✨</div>
-          <div class="note-empty-tpl-info">
-            <div class="note-empty-tpl-title">Start with an Aesthetic Template</div>
-            <div class="note-empty-tpl-sub">Daily Journal · Cornell Notes · Habit Reset · STEM Formula</div>
-          </div>
-          <button type="button" class="note-empty-tpl-btn">Explore →</button>
-        </div>
         <div id="note-view" class="note-view"></div>
         <div id="note-editor" class="note-editor" contenteditable="true" spellcheck="true" data-placeholder="Start writing here..." data-empty="true"></div>
       </div>
@@ -7886,57 +7870,6 @@ html[data-device="iphone"] #app {
     <div class="app-dialog-title" id="vault-change-title">⚙️ Change Vault Passcode</div>
     <div class="app-dialog-body" id="vault-change-body"></div>
     <div class="app-dialog-actions" id="vault-change-actions"></div>
-  </div>
-</div>
-
-<div id="note-template-modal" class="app-dialog" onclick="handleTemplateModalBackdrop(event)">
-  <div class="tpl-modal-card" onclick="event.stopPropagation()">
-    <div class="tpl-modal-head">
-      <div>
-        <div class="tpl-modal-title"><span>✨</span> Aesthetic Note Templates</div>
-        <div class="tpl-modal-sub">Curated Canva & digital notebook layouts, inner-voice prompts & structured study canvases.</div>
-      </div>
-      <button type="button" class="tpl-modal-close" onclick="closeTemplatePickerModal()" aria-label="Close templates modal">✕</button>
-    </div>
-    <div class="tpl-modal-tabs" id="tpl-modal-tabs">
-      <button type="button" class="tpl-tab-btn on" onclick="filterTemplateCategory('all',this)">🌟 All (36)</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('prompts',this)">💭 Inner Voice & Prompts</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('journal',this)">🌸 Journal & Mood</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('creative',this)">✍️ Scenes & Creative</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('study',this)">🎓 Study & Learning</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('stem',this)">📐 STEM & Formulas</button>
-      <button type="button" class="tpl-tab-btn" onclick="filterTemplateCategory('planning',this)">📅 Habits & Planning</button>
-    </div>
-    <div class="tpl-modal-body">
-      <div class="prompt-spark-container" id="prompt-spark-container">
-        <div class="prompt-spark-card">
-          <div class="prompt-spark-top">
-            <div class="prompt-spark-badge">
-              <span>💭</span>
-              <span>INNER VOICE · THOUGHT SPARK</span>
-            </div>
-            <div class="prompt-spark-meta">
-              <span id="prompt-spark-counter">Spark 1 of 54</span>
-            </div>
-          </div>
-          <div class="prompt-spark-quote" id="prompt-spark-quote">
-            “I don't even know what I'm upset about anymore. Everything just keeps piling up, and I'm supposed to act normal.”
-          </div>
-          <div class="prompt-spark-actions">
-            <div class="prompt-spark-nav">
-              <button type="button" class="prompt-spark-btn" onclick="cyclePromptSpark(-1)" title="Previous thought spark">‹ Prev</button>
-              <button type="button" class="prompt-spark-btn" onclick="shufflePromptSpark()" title="Shuffle random thought spark">↻ Shuffle</button>
-              <button type="button" class="prompt-spark-btn" onclick="cyclePromptSpark(1)" title="Next thought spark">Next ›</button>
-            </div>
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <button type="button" class="prompt-spark-btn" onclick="copyPromptSparkText()" title="Copy prompt to clipboard">📋 Copy</button>
-              <button type="button" class="prompt-spark-btn primary" onclick="writeFromCurrentPromptSpark()" title="Start writing on this prompt">Write on this ✍️</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tpl-grid" id="tpl-modal-grid"></div>
-    </div>
   </div>
 </div>
 
@@ -8431,6 +8364,8 @@ let TRACKER=[],trackerMonthOffset=0,trackerSaveTimer=0;
 let SEARCH_CARD_INDEX=null;
 let SEARCH_FORMULA_INDEX=null;
 let libraryDataReady=false;
+let notesDataReady=false;
+let journalBooksReady=false;
 let CALC_FAVS=new Set();
 const CALC_FAV_KEY='calverse_calc_favs_v1';
 let favPanelActive=false;
@@ -9693,10 +9628,17 @@ function loadLibraryData(){
         await idbSet('libraryItems',libraryItems);
         await idbSet('libraryTrashFolders',libraryTrashFolders);
         await idbSet('libraryTrashItems',libraryTrashItems);
-        try{localStorage.removeItem(LIBRARY_FOLDERS_KEY);localStorage.removeItem(LIBRARY_ITEMS_KEY);localStorage.removeItem(LIBRARY_TRASH_FOLDERS_KEY);localStorage.removeItem(LIBRARY_TRASH_ITEMS_KEY);}catch(e){}
       }else{
-        libraryFolders=(Array.isArray(idbFolders)?idbFolders:[]).map(normalizeLibraryFolder).filter(Boolean);
-        libraryItems=(Array.isArray(idbItems)?idbItems:[]).map(normalizeLibraryItem).filter(Boolean);
+        const fmap = new Map();
+        libraryFolders.forEach(f => fmap.set(f.id, f));
+        (Array.isArray(idbFolders)?idbFolders:[]).map(normalizeLibraryFolder).filter(Boolean).forEach(f => fmap.set(f.id, f));
+        libraryFolders = Array.from(fmap.values());
+
+        const imap = new Map();
+        libraryItems.forEach(i => imap.set(i.id, i));
+        (Array.isArray(idbItems)?idbItems:[]).map(normalizeLibraryItem).filter(Boolean).forEach(i => imap.set(i.id, i));
+        libraryItems = Array.from(imap.values());
+
         libraryTrashFolders=(Array.isArray(idbTrashFolders)?idbTrashFolders:[]).map(normalizeLibraryFolder).filter(Boolean);
         libraryTrashItems=(Array.isArray(idbTrashItems)?idbTrashItems:[]).map(normalizeLibraryItem).filter(Boolean);
         if(!currentLibraryFolderId && libraryFolders.length)currentLibraryFolderId=libraryFolders[0].id;
@@ -9878,9 +9820,21 @@ async function handleLibraryFileInput(event){
   const files = [...(inputEl?.files || [])];
   if(!files.length) return;
   if(!currentLibraryFolderId){
-    showToast('Create a folder first');
-    if(inputEl) inputEl.value = '';
-    return;
+    if(Array.isArray(libraryFolders) && libraryFolders.length > 0){
+      currentLibraryFolderId = libraryFolders[0].id;
+    } else {
+      const defaultFolder = {
+        id: `libf_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
+        name: 'General Uploads',
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        tags: []
+      };
+      if(!Array.isArray(libraryFolders)) libraryFolders = [];
+      libraryFolders.unshift(defaultFolder);
+      currentLibraryFolderId = defaultFolder.id;
+      saveLibraryData();
+    }
   }
   let added = 0;
   const maxBytes = await getDynamicLibraryLimitBytes();
@@ -9890,8 +9844,8 @@ async function handleLibraryFileInput(event){
       continue;
     }
     try{
-      // Always store dataUrl for files up to 25 MB so previews and offline viewing never fail
-      const isLarge = (Number(file.size) || 0) > 25 * 1024 * 1024;
+      // Always store dataUrl for files up to 40 MB so previews and offline viewing never fail
+      const isLarge = (Number(file.size) || 0) > 40 * 1024 * 1024;
       const dataUrl = isLarge ? '' : await readFileAsDataUrl(file);
       const parsed = parseNameAndTags(file.name || 'File');
       libraryItems.unshift({
@@ -10284,11 +10238,14 @@ function renderLibraryTrashPane(){
   requestAnimationFrame(()=>applyLiquidStagger(pane,'.library-folder-card,.library-file-card'));
 }
 function saveNotesData(){
-  // Prefer IndexedDB (larger quota). Keep localStorage as fallback.
-  idbSet('notes',NOTES).catch(()=>{try{localStorage.setItem(NOTES_KEY,JSON.stringify(NOTES));}catch(e){}});
+  if(!notesDataReady)return;
+  try{localStorage.setItem(NOTES_KEY,JSON.stringify(NOTES));}catch(e){}
+  idbSet('notes',NOTES).catch(()=>{});
 }
 function saveNotesTrash(){
-  idbSet('notesTrash',notesTrash).catch(()=>{try{localStorage.setItem(NOTES_TRASH_KEY,JSON.stringify(notesTrash));}catch(e){}});
+  if(!notesDataReady)return;
+  try{localStorage.setItem(NOTES_TRASH_KEY,JSON.stringify(notesTrash));}catch(e){}
+  idbSet('notesTrash',notesTrash).catch(()=>{});
 }
 function purgeOldTrash(){
   const limit=Date.now()-(30*24*60*60*1000);
@@ -10299,47 +10256,56 @@ function purgeOldTrash(){
   }
 }
 function loadNotesData(){
-  let notesChanged=false;
-  // Fast synchronous fallback from localStorage while IndexedDB loads.
+  // 1. Fast synchronous fallback from localStorage (including legacy backup keys)
   try{
-    const raw=localStorage.getItem(NOTES_KEY);
+    let raw=localStorage.getItem(NOTES_KEY);
+    if(!raw)raw=localStorage.getItem('calverse_notes_v17')||localStorage.getItem('calverse_notes_backup')||localStorage.getItem('NOTES')||'';
     const parsed=raw?JSON.parse(raw):[];
-    NOTES=normalizeNoteCollection(parsed);
-    notesChanged=notesChanged||Array.isArray(parsed)&&parsed.length!==NOTES.length;
-  }catch(e){NOTES=[];notesChanged=true;}
+    if(Array.isArray(parsed)&&parsed.length>0){
+      NOTES=normalizeNoteCollection(parsed);
+    }
+  }catch(e){}
   try{
     const trashRaw=localStorage.getItem(NOTES_TRASH_KEY);
     const parsedTrash=trashRaw?JSON.parse(trashRaw):[];
-    notesTrash=normalizeNoteCollection(parsedTrash,{fromTrash:true});
-    notesChanged=notesChanged||Array.isArray(parsedTrash)&&parsedTrash.length!==notesTrash.length;
-  }catch(e){notesTrash=[];notesChanged=true;}
+    if(Array.isArray(parsedTrash)&&parsedTrash.length>0){
+      notesTrash=normalizeNoteCollection(parsedTrash,{fromTrash:true});
+    }
+  }catch(e){}
   try{
     const storedView=localStorage.getItem(NOTES_VIEW_KEY);
     notesView=['grid','list'].includes(storedView)?storedView:'grid';
   }catch(e){notesView='grid';}
   purgeOldTrash();
-  if(notesChanged){
-    saveNotesData();
-    saveNotesTrash();
-  }
   noteUntitledSeed=NOTES.reduce((max,n)=>Math.max(max,Number(n.untitledIndex)||0),0)+1;
 
-  // Async load from IndexedDB (and migrate from localStorage if needed).
+  // 2. Async load from IndexedDB with safe non-destructive merging
   (async ()=>{
     try{
       const idbNotes=await idbGet('notes');
       const idbTrash=await idbGet('notesTrash');
-      if(!idbNotes && !idbTrash){
-        await migrateNotesFromLocalStorage();
-        return;
+      if(Array.isArray(idbNotes)&&idbNotes.length>0){
+        const idbNorm=normalizeNoteCollection(idbNotes);
+        const noteMap=new Map();
+        NOTES.forEach(n=>noteMap.set(n.id,n));
+        idbNorm.forEach(n=>noteMap.set(n.id,n));
+        NOTES=Array.from(noteMap.values());
       }
-      NOTES=normalizeNoteCollection(Array.isArray(idbNotes)?idbNotes:[]);
-      notesTrash=normalizeNoteCollection(Array.isArray(idbTrash)?idbTrash:[],{fromTrash:true});
+      if(Array.isArray(idbTrash)&&idbTrash.length>0){
+        const idbTrashNorm=normalizeNoteCollection(idbTrash,{fromTrash:true});
+        const trashMap=new Map();
+        notesTrash.forEach(n=>trashMap.set(n.id,n));
+        idbTrashNorm.forEach(n=>trashMap.set(n.id,n));
+        notesTrash=Array.from(trashMap.values());
+      }
       purgeOldTrash();
       noteUntitledSeed=NOTES.reduce((max,n)=>Math.max(max,Number(n.untitledIndex)||0),0)+1;
-      if(curScr==='Notes')renderNotesList();
     }catch(e){
-      // Ignore; localStorage fallback already loaded.
+    }finally{
+      notesDataReady=true;
+      saveNotesData();
+      saveNotesTrash();
+      if(curScr==='Notes')renderNotesList();
     }
   })();
 }
@@ -10352,14 +10318,14 @@ function handleNotesSearch(val){
 
 function getFilteredNotes(){
   let list=(notesPane==='vault')?[...VAULT_NOTES]:[...NOTES];
+  // Strict isolation: Study Notes must NEVER include Journal notebook pages or entries
+  list=list.filter(n=>!n.bookId && !n.isJournal && !n.isJournalPage && n.type!=='journal');
   if(notesSearchQuery){
     list = list.filter(n => {
       const title = getNoteDisplayTitle(n).toLowerCase();
       const content = (n.content || '').toLowerCase();
       const tags = (n.tags || []).join(' ').toLowerCase();
-      const book = getJournalBookById(n.bookId);
-      const bookTitle = (book ? book.title : '').toLowerCase();
-      return title.includes(notesSearchQuery) || content.includes(notesSearchQuery) || tags.includes(notesSearchQuery) || bookTitle.includes(notesSearchQuery);
+      return title.includes(notesSearchQuery) || content.includes(notesSearchQuery) || tags.includes(notesSearchQuery);
     });
   }
   if(notesSort==='created')list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
@@ -10463,7 +10429,7 @@ function syncNotesPaneUI(){
     if(studyPane)studyPane.style.display='none';
   }else if(notesPane==='books'){
     if(title)title.textContent='📚 Digital Notebooks & Binders';
-    if(sub)sub.textContent='Structured multipage notebooks with custom covers and paper templates.';
+    if(sub)sub.textContent='Structured multipage notebooks with custom covers and study binders.';
     if(controls)controls.style.display='none';
     if(addNoteBtn){
       addNoteBtn.style.display='flex';
@@ -10617,7 +10583,7 @@ function renderStudyWorkspace(){
     <div class="notes-empty" style="grid-column:1/-1;">
       <div class="notes-empty-ico">🎓</div>
       <div style="font-size:15px;font-weight:800;color:var(--t1);">No study notes tagged yet</div>
-      <div style="font-size:12px;color:var(--t2);">Tag your notes with #study, #math, #physics, or #exam, or start with a STEM template below!</div>
+      <div style="font-size:12px;color:var(--t2);">Tag your notes with #study, #math, #physics, or #exam, or tap + to create one!</div>
     </div>
   `;
 
@@ -10625,14 +10591,14 @@ function renderStudyWorkspace(){
     <div style="display:grid;gap:14px;">
       <div style="background:linear-gradient(165deg,rgba(140,126,255,.12),rgba(255,255,255,.03));border:1px solid rgba(140,126,255,.2);border-radius:20px;padding:16px 18px;">
         <div style="font-size:16px;font-weight:900;color:var(--t1);margin-bottom:4px;">🔬 Academic &amp; STEM Scratchpad</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:12px;">One-click shortcuts to insert calculations, math formulas, Greek symbols, and Cornell notes.</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:12px;">One-click shortcuts to insert calculations, math formulas, Greek symbols, and revision notes.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button type="button" class="note-card-btn acc" onclick="insertCalculatorResult('new')">➗ From Calculator Result</button>
           <button type="button" class="note-card-btn" onclick="openMathSymbolsPalette('study')">🔢 Math Symbol Palette</button>
-          <button type="button" class="note-card-btn" onclick="selectTemplate('cornell_notes')">🎓 Cornell Notes</button>
-          <button type="button" class="note-card-btn" onclick="selectTemplate('physics_mechanics')">⚛️ Physics Formula Sheet</button>
-          <button type="button" class="note-card-btn" onclick="selectTemplate('stem_calculus')">📐 Calculus Breakdown</button>
-          <button type="button" class="note-card-btn" onclick="selectTemplate('chem_kinetics')">🧪 Chemistry Kinetics</button>
+          <button type="button" class="note-card-btn" onclick="createNote({title:'Cornell Revision Notes',tags:['#study','#cornell']})">🎓 Cornell Notes</button>
+          <button type="button" class="note-card-btn" onclick="createNote({title:'Physics Formula Sheet',tags:['#physics','#formulas']})">⚛️ Physics Formula Sheet</button>
+          <button type="button" class="note-card-btn" onclick="createNote({title:'Calculus Breakdown',tags:['#math','#calculus']})">📐 Calculus Breakdown</button>
+          <button type="button" class="note-card-btn" onclick="createNote({title:'Chemistry Kinetics',tags:['#chem','#kinetics']})">🧪 Chemistry Kinetics</button>
         </div>
       </div>
       <div>
@@ -10676,18 +10642,35 @@ function loadJournalBooks(){
       const parsed=JSON.parse(raw);
       if(Array.isArray(parsed)&&parsed.length>0){
         JOURNAL_BOOKS=parsed.map(b=>({...b,paperStyle:b.paperStyle||'cream'}));
-        return;
       }
     }
   }catch(e){}
-  JOURNAL_BOOKS=getStarterBooks();
-  saveJournalBooks();
+  if(!Array.isArray(JOURNAL_BOOKS)||JOURNAL_BOOKS.length===0){
+    JOURNAL_BOOKS=getStarterBooks();
+  }
+  (async ()=>{
+    try{
+      const idbBooks=await idbGet('journalBooks');
+      if(Array.isArray(idbBooks)&&idbBooks.length>0){
+        const map=new Map();
+        JOURNAL_BOOKS.forEach(b=>map.set(b.id,b));
+        idbBooks.forEach(b=>map.set(b.id,{...b,paperStyle:b.paperStyle||'cream'}));
+        JOURNAL_BOOKS=Array.from(map.values());
+      }
+    }catch(e){
+    }finally{
+      journalBooksReady=true;
+      saveJournalBooks();
+      if(curScr==='Journal')renderJournalBookshelf();
+    }
+  })();
 }
 
 function saveJournalBooks(){
   try{
     localStorage.setItem(JOURNAL_BOOKS_KEY,JSON.stringify(JOURNAL_BOOKS));
   }catch(e){}
+  idbSet('journalBooks',JOURNAL_BOOKS).catch(()=>{});
 }
 
 function getStarterVaultBooks(){
@@ -10725,18 +10708,34 @@ function loadVaultJournalBooks(){
       const parsed=JSON.parse(raw);
       if(Array.isArray(parsed)&&parsed.length>0){
         VAULT_JOURNAL_BOOKS=parsed.map(b=>({...b,isVault:true,paperStyle:b.paperStyle||'cream'}));
-        return;
       }
     }
   }catch(e){}
-  VAULT_JOURNAL_BOOKS=getStarterVaultBooks();
-  saveVaultJournalBooks();
+  if(!Array.isArray(VAULT_JOURNAL_BOOKS)||VAULT_JOURNAL_BOOKS.length===0){
+    VAULT_JOURNAL_BOOKS=getStarterVaultBooks();
+  }
+  (async ()=>{
+    try{
+      const idbVaultBooks=await idbGet('vaultJournalBooks');
+      if(Array.isArray(idbVaultBooks)&&idbVaultBooks.length>0){
+        const map=new Map();
+        VAULT_JOURNAL_BOOKS.forEach(b=>map.set(b.id,b));
+        idbVaultBooks.forEach(b=>map.set(b.id,{...b,isVault:true,paperStyle:b.paperStyle||'cream'}));
+        VAULT_JOURNAL_BOOKS=Array.from(map.values());
+      }
+    }catch(e){
+    }finally{
+      saveVaultJournalBooks();
+      if(curScr==='Journal')renderJournalBookshelf();
+    }
+  })();
 }
 
 function saveVaultJournalBooks(){
   try{
     localStorage.setItem(VAULT_JOURNAL_BOOKS_KEY,JSON.stringify(VAULT_JOURNAL_BOOKS));
   }catch(e){}
+  idbSet('vaultJournalBooks',VAULT_JOURNAL_BOOKS).catch(()=>{});
 }
 
 function getJournalBookById(id){
@@ -13016,9 +13015,9 @@ function renderNotesList(){
     const list=getFilteredNotes();
     if(!list.length){
       if(notesPane==='vault'){
-        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🔒</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No hidden journal pages yet.</div><div style="font-size:12px">Tap + to create your first secret page. Everything is private.</div></div>`;
+        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🔒</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No hidden notes yet.</div><div style="font-size:12px">Tap + to create your first secret note. Everything is private.</div></div>`;
       }else{
-        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">🗒️</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No journal pages yet. Tap + to create one.</div><div style="font-size:12px">Everything saves locally, so your journal stays safe even offline.</div></div>`;
+        listEl.innerHTML=`<div class="notes-empty"><div class="notes-empty-ico">📝</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No study notes yet. Tap + to create one.</div><div style="font-size:12px">Your study notes save locally on this device.</div></div>`;
       }
       return;
     }
@@ -13144,7 +13143,7 @@ function renderJournalBookshelf(){
   if(subEl){
     subEl.textContent = isVault 
       ? 'Passcode protected · Completely private & isolated from public books' 
-      : 'Choose a notebook to open its iPad canvas, handwriting, paper templates & journal entries.';
+      : 'Choose a notebook to open its authentic digital canvas, handwriting & journal entries.';
   }
 
   if(actionsEl){
@@ -13780,7 +13779,7 @@ function loadIpadActivePage(){
   const isVault = (isJournalVaultActive || (currentJournalBookId && currentJournalBookId.startsWith('vault_')));
   if(!pages.length){
     const now = Date.now();
-    const starterTitle = isVault ? 'Private Entry 1 🔐' : 'Page 1 — Notes';
+    const starterTitle = isVault ? 'Private Entry 1 🔐' : 'Page 1';
     const starterNote = {
       id: isVault ? `vault_note_${now}_${Math.random().toString(36).slice(2,7)}` : `note_${now}_${Math.random().toString(36).slice(2,7)}`,
       title: starterTitle,
@@ -13788,6 +13787,9 @@ function loadIpadActivePage(){
       createdAt: now,
       updatedAt: now,
       isVault: isVault,
+      isJournal: true,
+      isJournalPage: true,
+      type: 'journal',
       untitledIndex: isVault ? vaultUntitledSeed++ : noteUntitledSeed++,
       fontFamily: isVault ? 'caveat' : 'patrick',
       fontSize: 'medium',
@@ -13881,6 +13883,9 @@ function addIpadPage(){
     createdAt: now,
     updatedAt: now,
     isVault: isVault,
+    isJournal: true,
+    isJournalPage: true,
+    type: 'journal',
     untitledIndex: isVault ? vaultUntitledSeed++ : noteUntitledSeed++,
     fontFamily: preferredFont,
     fontSize: 'medium',
@@ -17014,6 +17019,7 @@ function applyTemplateToIpadActivePage(tpl){
 function applyNotePaperStyle(style){
   const paper=document.getElementById('note-paper');
   if(!paper)return;
+  paper.style.backgroundImage='none';
   paper.classList.remove('paper-obsidian-grid','paper-cream-dots','paper-blank');
   if(style==='obsidian')paper.classList.add('paper-obsidian-grid');
   else if(style==='cream')paper.classList.add('paper-cream-dots');
@@ -19110,9 +19116,9 @@ window.onNotesCreateRewarded=function(){
 };
 function createNote(initialFields={}){
   const now=Date.now();
-  const bookId=(initialFields&&typeof initialFields.bookId==='string')
+  const bookId=(initialFields&&typeof initialFields.bookId==='string'&&curScr==='Journal')
     ?initialFields.bookId
-    :((notesPane==='books'||curScr==='Journal')?(currentJournalBookId||''):'');
+    :'';
   const note={
     id:`note_${now}_${Math.random().toString(36).slice(2,7)}`,
     title:initialFields?.title||'',
@@ -19122,9 +19128,11 @@ function createNote(initialFields={}){
     untitledIndex:noteUntitledSeed++,
     fontFamily:initialFields?.fontFamily||'clean',
     fontSize:'medium',
+    paperStyle:'ruled',
     textColor:getDefaultNoteTextColor(),
     textColorMode:'auto',
     bookId,
+    type: bookId ? 'journal' : 'note',
     tags:[]
   };
   NOTES.unshift(note);
@@ -22855,8 +22863,7 @@ function renderDashboardGreeting(){
   const nEl=document.getElementById('ws-notes');
   if(nEl){
     try{
-      const list=JSON.parse(localStorage.getItem('calverse_notes_v17')||'[]');
-      nEl.textContent=Array.isArray(list)?String(list.length):'0';
+      nEl.textContent=String(getFilteredNotes().length);
     }catch(e){nEl.textContent='0';}
   }
 }

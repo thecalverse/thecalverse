@@ -283,6 +283,20 @@ console.log(`Generated: sitemap.xml (${sitemapUrls.length} URLs)`);
 const robotsTxt = `User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+Allow: /favicon.ico
+Allow: /favicon*.png
+Allow: /apple-touch-icon.png
+Allow: /assets/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /favicon.ico
+Allow: /favicon*.png
+Allow: /apple-touch-icon.png
+Allow: /assets/
+
 Sitemap: https://thecalverse.com/sitemap.xml
 `;
 
