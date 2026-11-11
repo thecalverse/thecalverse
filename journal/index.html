@@ -6294,8 +6294,8 @@ html[data-device="iphone"] #app {
     <div class="sni" id="sn-tracker" onclick="bnav('tracker')"><span class="snico">&#9673;</span><span>Tracker</span></div>
     <div class="sni" id="sn-library" onclick="bnav('library')"><span class="snico">&#9636;</span><span>Library</span></div>
     <div class="sni" id="sn-timer" onclick="bnav('timer')"><span class="snico">&#9719;</span><span>Timer</span></div>
-    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;display:block;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span>Notes</span></div>
-    <div class="sni" id="sn-journal" onclick="bnav('journal')"><span class="snico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;display:block;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span><span>Journal</span></div>
+    <div class="sni" id="sn-notes" onclick="bnav('notes')"><span class="snico">&#9998;</span><span>Notes</span></div>
+    <div class="sni" id="sn-journal" onclick="bnav('journal')"><span class="snico">&#9707;</span><span>Journal</span></div>
   </div>
   <div class="sn-head">Info</div>
   <div class="lsnav">
@@ -7288,6 +7288,12 @@ html[data-device="iphone"] #app {
 
   <!-- AESTHETIC IPAD DIGITAL NOTEBOOK -->
   <div class="screen active" id="sJournal">
+    <div class="notes-top" style="margin-bottom:8px;">
+      <div class="notes-top-copy" onclick="handleJournalHeaderTap()">
+        <div class="stitle" id="journal-main-title">Digital Journal &amp; Notebooks</div>
+        <div class="notes-sub" id="journal-main-sub">Handwriting canvas, aesthetic study binders, stickers &amp; daily thoughts.</div>
+      </div>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 10px 0;width:100%;max-width:100%;box-sizing:border-box;">
       <div class="journal-view-tabs" role="tablist">
         <button type="button" class="jview-tab-btn on" id="jview-tab-books" onclick="handleBookshelfTabClick()">📚 Bookshelf</button>
@@ -7478,11 +7484,8 @@ html[data-device="iphone"] #app {
 
         <input type="file" id="ipad-photo-input" accept="image/*" style="display:none" onchange="handleIpadPhotoUpload(event)">
 
-        <!-- Clean Page Heading Strip (Above Paper Canvas, Not In Page) -->
-        <div class="ipad-page-heading-strip" id="ipad-page-heading-strip">
-          <div class="ipad-heading-badge" title="Page Title">🏷️ Title</div>
-          <input type="text" id="ipad-page-title" class="ipad-top-heading-input" placeholder="Page Title (e.g. Bioenergetics &amp; ATP Cycle...)" oninput="queueIpadSave()" onblur="saveCurrentIpadPage(true)" autocomplete="off" spellcheck="true">
-        </div>
+        <!-- Page Title State (Handled cleanly for notebook data, no heading clutter on pages) -->
+        <input type="hidden" id="ipad-page-title" value="">
 
         <!-- iPad Paper Sheet Surface -->
         <div class="ipad-screen-glass" id="ipad-screen-glass">
@@ -7816,8 +7819,8 @@ html[data-device="iphone"] #app {
     <div class="bni" id="bn-tracker" onclick="bnav('tracker')" title="Tracker" aria-label="Tracker"><div class="bnico">◉</div></div>
     <div class="bni" id="bn-library" onclick="bnav('library')" title="Library" aria-label="Library"><div class="bnico">▤</div></div>
     <div class="bni" id="bn-timer" onclick="bnav('timer')" title="Timer" aria-label="Timer"><div class="bnico">&#9719;</div></div>
-    <div class="bni" id="bn-notes" onclick="bnav('notes')" title="Notes" aria-label="Notes"><div class="bnico">📝</div></div>
-    <div class="bni on" id="bn-journal" onclick="bnav('journal')" title="Journal" aria-label="Journal"><div class="bnico">📖</div></div>
+    <div class="bni" id="bn-notes" onclick="bnav('notes')" title="Notes" aria-label="Notes"><div class="bnico">&#9998;</div></div>
+    <div class="bni on" id="bn-journal" onclick="bnav('journal')" title="Journal" aria-label="Journal"><div class="bnico">&#9707;</div></div>
     <div class="bni" id="bn-sett" onclick="bnav('sett')" title="Settings" aria-label="Settings"><div class="bnico">⚙</div></div>
   </div>
 <div id="copy-toast" class="copy-toast">Copied!</div>
@@ -13542,10 +13545,10 @@ function loadIpadActivePage(){
       tags: isVault ? ['#secret', '#diary'] : []
     };
     if(isVault){
-      VAULT_NOTES.unshift(starterNote);
+      VAULT_NOTES.push(starterNote);
       saveVaultNotesData();
     } else {
-      NOTES.unshift(starterNote);
+      NOTES.push(starterNote);
       saveNotesData();
     }
     pages = [starterNote];
@@ -13632,16 +13635,21 @@ function addIpadPage(){
     inkStrokes: [],
     tags: isVault ? ['#secret', '#diary'] : []
   };
+  const source = isVault ? VAULT_NOTES : NOTES;
+  const curIdxInSource = source.findIndex(n => n.id === currentNoteId);
+  if(curIdxInSource >= 0){
+    source.splice(curIdxInSource + 1, 0, newNote);
+  } else {
+    source.push(newNote);
+  }
   if(isVault){
-    VAULT_NOTES.unshift(newNote);
     saveVaultNotesData();
   } else {
-    NOTES.unshift(newNote);
     saveNotesData();
   }
-  currentJournalPageIndex = pages.length;
+  currentJournalPageIndex = currentJournalPageIndex + 1;
   loadIpadActivePage();
-  showToast(`Added Page ${nextNum} ✨`);
+  showToast(`Added Page ${currentJournalPageIndex + 1} ✨`);
 }
 
 function deleteCurrentIpadPage(){
@@ -13707,6 +13715,9 @@ function saveCurrentIpadPage(showFeedback=false){
         if(titleEl) titleEl.value = nextTitle;
       }
     }
+  }
+  if(!nextTitle){
+    nextTitle = note.title || `Page ${currentJournalPageIndex + 1}`;
   }
   const nextFont = (fontSel && fontSel.value in NOTE_FONT_MAP) ? fontSel.value : 'patrick';
   const validPapers = ['obsidian','cream','ruled','graph','cornell','planner','brown','coffee','dark_dots','dark_ruled','pastel_pink','pastel_mint','pastel_lavender','blank'];
