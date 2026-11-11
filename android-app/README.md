@@ -2,8 +2,14 @@
 
 This directory contains the standalone Android build for Calverse.
 
+## Package Info
+- **Package Name (Application ID):** `com.thecalverse`
+- **Main Activity:** `com.calverse.app.v17.MainActivity`
+- **Version Name:** `1.7-v17`
+- **Version Code:** `17`
+
 ## Files
-- `Calverse.apk`: The latest signed debug APK for mobile and tablet devices.
+- `Calverse.apk`: The latest signed debug APK for mobile and tablet devices with package `com.thecalverse`.
 - `calverse-v17-debug.apk`: Alias build for backward compatibility.
 - `calverse-base.apk`: Template wrapper package containing Android native runtime and bridge.
 

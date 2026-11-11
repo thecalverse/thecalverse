@@ -12,6 +12,7 @@ Ensures:
 import os
 import re
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
@@ -25,6 +26,76 @@ BASE_APK = os.path.join(ANDROID_APP_DIR, "calverse-base.apk")
 OUTPUT_APK = os.path.join(ANDROID_APP_DIR, "Calverse.apk")
 OUTPUT_DEBUG_APK = os.path.join(ANDROID_APP_DIR, "calverse-v17-debug.apk")
 DESKTOP_APK = os.path.expanduser("~/Desktop/Calverse.apk")
+
+PACKAGE_NAME = "com.thecalverse"
+
+def patch_binary_manifest(manifest_path, new_pkg):
+    with open(manifest_path, "rb") as f:
+        data = f.read()
+
+    file_type, file_hdr_size, file_size = struct.unpack_from("<HHI", data, 0)
+    if file_type != 0x0003:
+        return data
+
+    sp_offset = file_hdr_size
+    sp_type, sp_hdr_size, sp_size = struct.unpack_from("<HHI", data, sp_offset)
+    if sp_type != 0x0001:
+        return data
+
+    string_count, style_count, flags, strings_start, styles_start = struct.unpack_from("<IIIII", data, sp_offset + 8)
+
+    offsets_start = sp_offset + 28
+    string_offsets = list(struct.unpack_from(f"<{string_count}I", data, offsets_start))
+
+    strings_data_start = sp_offset + strings_start
+    strings_data_len = (styles_start - strings_start) if style_count > 0 else (sp_size - strings_start)
+    pool_bytes = data[strings_data_start:strings_data_start + strings_data_len]
+
+    strings = []
+    for off in string_offsets:
+        u16len = struct.unpack_from("<H", pool_bytes, off)[0]
+        s = pool_bytes[off + 2: off + 2 + u16len * 2].decode("utf-16le")
+        strings.append(s)
+
+    new_strings = []
+    for s in strings:
+        if s == "com.calverse.app.v17":
+            new_strings.append(new_pkg)
+        elif s == "com.calverse.app.v17.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION":
+            new_strings.append(f"{new_pkg}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION")
+        elif s == "com.calverse.app.v17.androidx-startup":
+            new_strings.append(f"{new_pkg}.androidx-startup")
+        else:
+            new_strings.append(s)
+
+    new_pool_bytes = bytearray()
+    new_offsets = []
+    for s in new_strings:
+        new_offsets.append(len(new_pool_bytes))
+        new_pool_bytes += struct.pack("<H", len(s)) + s.encode("utf-16le") + b"\x00\x00"
+
+    while len(new_pool_bytes) % 4 != 0:
+        new_pool_bytes += b"\x00"
+
+    new_sp_size = 28 + len(new_offsets) * 4 + (style_count * 4) + len(new_pool_bytes)
+    while new_sp_size % 4 != 0:
+        new_sp_size += 1
+        new_pool_bytes += b"\x00"
+
+    delta = new_sp_size - sp_size
+    new_file_size = file_size + delta
+
+    new_data = bytearray()
+    new_data += struct.pack("<HHI", file_type, file_hdr_size, new_file_size)
+    new_data += struct.pack("<HHI", sp_type, sp_hdr_size, new_sp_size)
+    new_data += struct.pack("<IIIII", string_count, style_count, flags, 28 + len(new_offsets) * 4 + (style_count * 4), 0 if style_count == 0 else (styles_start + delta))
+    new_data += struct.pack(f"<{string_count}I", *new_offsets)
+    new_data += new_pool_bytes
+    new_data += data[sp_offset + sp_size:]
+
+    with open(manifest_path, "wb") as f:
+        f.write(new_data)
+    print(f"✓ Patched AndroidManifest.xml package to {new_pkg}")
 
 BUILD_TOOLS_DIR = "/Users/maddhamsolanki/Library/Android/sdk/build-tools/35.0.0"
 KEYSTORE = os.path.expanduser("~/.android/debug.keystore")
@@ -168,6 +239,11 @@ def build_apk():
             for fname in os.listdir(meta_inf):
                 if fname.endswith((".SF", ".RSA", ".DSA", ".MF")):
                     os.remove(os.path.join(meta_inf, fname))
+
+        # Patch AndroidManifest.xml package name to com.thecalverse
+        manifest_file = os.path.join(extracted_dir, "AndroidManifest.xml")
+        if os.path.exists(manifest_file):
+            patch_binary_manifest(manifest_file, PACKAGE_NAME)
 
         # Write new V17.html into assets/
         assets_dir = os.path.join(extracted_dir, "assets")
