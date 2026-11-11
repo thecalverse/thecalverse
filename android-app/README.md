@@ -9,7 +9,8 @@ This directory contains the standalone Android build for Calverse.
 - **Version Code:** `17`
 
 ## Files
-- `Calverse.apk`: The latest signed debug APK for mobile and tablet devices with package `com.thecalverse`.
+- `Calverse.aab`: The signed **Android App Bundle (.aab)** for uploading directly to **Google Play Console**. Google Play dynamically generates device-specific APKs for phones and tablets from this single bundle.
+- `Calverse.apk` & `Calverse-Tablet-and-Phone.apk`: The signed unified APK for direct installation/sideloading onto **mobile phones** and **tablets** (supports `small`, `normal`, `large`, and `xlarge` screens).
 - `calverse-v17-debug.apk`: Alias build for backward compatibility.
 - `calverse-base.apk`: Template wrapper package containing Android native runtime and bridge.
 

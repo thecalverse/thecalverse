@@ -25,7 +25,11 @@ ANDROID_APP_DIR = os.path.join(PROJECT_ROOT, "android-app")
 BASE_APK = os.path.join(ANDROID_APP_DIR, "calverse-base.apk")
 OUTPUT_APK = os.path.join(ANDROID_APP_DIR, "Calverse.apk")
 OUTPUT_DEBUG_APK = os.path.join(ANDROID_APP_DIR, "calverse-v17-debug.apk")
+OUTPUT_TABLET_APK = os.path.join(ANDROID_APP_DIR, "Calverse-Tablet-and-Phone.apk")
+OUTPUT_AAB = os.path.join(ANDROID_APP_DIR, "Calverse.aab")
 DESKTOP_APK = os.path.expanduser("~/Desktop/Calverse.apk")
+DESKTOP_TABLET_APK = os.path.expanduser("~/Desktop/Calverse-Tablet-and-Phone.apk")
+DESKTOP_AAB = os.path.expanduser("~/Desktop/Calverse.aab")
 
 PACKAGE_NAME = "com.thecalverse"
 
@@ -385,15 +389,95 @@ def build_apk():
         print("Verifying signed APK...")
         subprocess.check_call([apksigner_bin, "verify", "--verbose", aligned_apk])
 
-        # Copy to destinations
+        # Copy APK to destinations
         shutil.copy2(aligned_apk, OUTPUT_APK)
         shutil.copy2(aligned_apk, OUTPUT_DEBUG_APK)
+        shutil.copy2(aligned_apk, OUTPUT_TABLET_APK)
         shutil.copy2(aligned_apk, DESKTOP_APK)
+        shutil.copy2(aligned_apk, DESKTOP_TABLET_APK)
 
-        size_mb = os.path.getsize(OUTPUT_APK) / (1024 * 1024)
-        print(f"SUCCESS! Output APK: {OUTPUT_APK} ({size_mb:.2f} MB)")
+        apk_size_mb = os.path.getsize(OUTPUT_APK) / (1024 * 1024)
+        print(f"SUCCESS! Output APK: {OUTPUT_APK} ({apk_size_mb:.2f} MB)")
         print(f"SUCCESS! Also created: {OUTPUT_DEBUG_APK}")
+        print(f"SUCCESS! Tablet & Phone Unified APK: {OUTPUT_TABLET_APK}")
         print(f"SUCCESS! Updated on Desktop: {DESKTOP_APK}")
+        print(f"SUCCESS! Updated on Desktop: {DESKTOP_TABLET_APK}")
+
+        # Build Android App Bundle (.aab) for Google Play Console
+        print("\n--- Packaging Android App Bundle (.aab) for Google Play Console ---")
+        aapt2_bin = os.path.join(BUILD_TOOLS_DIR, "aapt2")
+        bundletool_jar = os.path.join(SCRIPT_DIR, "bundletool.jar")
+
+        if os.path.exists(aapt2_bin) and os.path.exists(bundletool_jar):
+            # 1. Convert APK to proto format using aapt2 convert
+            proto_apk = os.path.join(tmpdir, "proto.apk")
+            print("Converting APK resources to protobuf format with aapt2...")
+            subprocess.check_call([aapt2_bin, "convert", "--output-format", "proto", "-o", proto_apk, aligned_apk])
+
+            # 2. Extract proto.apk and arrange into bundle module layout
+            proto_extracted = os.path.join(tmpdir, "proto_extracted")
+            with zipfile.ZipFile(proto_apk, "r") as z:
+                z.extractall(proto_extracted)
+
+            module_dir = os.path.join(tmpdir, "base_module")
+            os.makedirs(os.path.join(module_dir, "manifest"), exist_ok=True)
+            os.makedirs(os.path.join(module_dir, "dex"), exist_ok=True)
+
+            # Move Manifest
+            manifest_src = os.path.join(proto_extracted, "AndroidManifest.xml")
+            if os.path.exists(manifest_src):
+                shutil.move(manifest_src, os.path.join(module_dir, "manifest", "AndroidManifest.xml"))
+
+            # Move Dex files
+            for f in os.listdir(proto_extracted):
+                if f.startswith("classes") and f.endswith(".dex"):
+                    shutil.move(os.path.join(proto_extracted, f), os.path.join(module_dir, "dex", f))
+
+            # Move res, resources.pb, assets, lib
+            for item in ["res", "resources.pb", "assets", "lib"]:
+                src_p = os.path.join(proto_extracted, item)
+                if os.path.exists(src_p):
+                    shutil.move(src_p, os.path.join(module_dir, item))
+
+            # 3. Zip base_module into base.zip
+            base_zip = os.path.join(tmpdir, "base.zip")
+            with zipfile.ZipFile(base_zip, "w", zipfile.ZIP_DEFLATED) as z_out:
+                for root, dirs, files in os.walk(module_dir):
+                    for file in files:
+                        full = os.path.join(root, file)
+                        rel = os.path.relpath(full, module_dir)
+                        z_out.write(full, rel)
+
+            # 4. Run bundletool build-bundle
+            raw_aab = os.path.join(tmpdir, "uncompressed.aab")
+            print("Building final .aab with bundletool...")
+            subprocess.check_call([
+                "java", "-jar", bundletool_jar,
+                "build-bundle",
+                f"--modules={base_zip}",
+                f"--output={raw_aab}",
+                "--overwrite"
+            ])
+
+            # 5. Sign AAB with jarsigner
+            print("Signing Android App Bundle with jarsigner...")
+            subprocess.check_call([
+                "jarsigner",
+                "-keystore", KEYSTORE,
+                "-storepass", KEY_PASS,
+                "-keypass", KEY_PASS,
+                raw_aab,
+                KEY_ALIAS
+            ])
+
+            # 6. Copy AAB to output locations
+            shutil.copy2(raw_aab, OUTPUT_AAB)
+            shutil.copy2(raw_aab, DESKTOP_AAB)
+            aab_size_mb = os.path.getsize(OUTPUT_AAB) / (1024 * 1024)
+            print(f"SUCCESS! Output Android App Bundle: {OUTPUT_AAB} ({aab_size_mb:.2f} MB)")
+            print(f"SUCCESS! Updated on Desktop: {DESKTOP_AAB}")
+        else:
+            print("Warning: aapt2 or bundletool.jar not found, skipped .aab packaging.")
 
 if __name__ == "__main__":
     build_apk()
