@@ -10,10 +10,14 @@
 <meta property="og:url" content="https://thecalverse.com/unit-converter">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://thecalverse.comassets/calverse-logo.png">
-<meta name="twitter:image" content="https://thecalverse.comassets/calverse-logo.png">
+<meta property="og:image" content="https://thecalverse.com/assets/calverse-logo.png">
+<meta name="twitter:image" content="https://thecalverse.com/assets/calverse-logo.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#e4d2bf" id="theme-color-meta">
@@ -84,6 +88,9 @@
 [data-t=light] .grp-hdr{color:#7b4e39;}
 [data-t=light] .grp-hdr.phys{color:#4b6445;}
 [data-t=light] .mc .mi{box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 10px 18px rgba(145,112,86,.12);}
+[data-t=light] .sn-brand-logo-img,
+[data-t=light] .topbar-brand-logo-img,
+[data-t=light] .brand img{content:url('assets/calverse-logo-latte.png')!important;}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{min-height:100%;height:auto!important;width:100%;max-width:100%;background-color:var(--bg)!important;background:var(--bg)!important;color-scheme:light dark;overflow-x:clip;overflow-y:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;box-sizing:border-box;}
@@ -7334,6 +7341,11 @@ html[data-device="iphone"] #app {
             </div>
             
             <div class="ipad-top-right-actions">
+              <!-- Global Undo / Redo Controls (Cmd+Z / Cmd+Shift+Z) -->
+              <div class="ipad-history-btns ipad-edit-only" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:9px;padding:1px 3px;gap:2px;">
+                <button type="button" class="ipad-step-btn" id="ipad-undo-btn" onclick="undoJournalAction()" title="Undo (Cmd+Z / Ctrl+Z)" style="width:26px;height:24px;font-size:13px;font-weight:900;">↩</button>
+                <button type="button" class="ipad-step-btn" id="ipad-redo-btn" onclick="redoJournalAction()" title="Redo (Cmd+Shift+Z / Ctrl+Y)" style="width:26px;height:24px;font-size:13px;font-weight:900;">↪</button>
+              </div>
               <div class="ipad-zoom-pill ipad-edit-only" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:1px 3px;">
                 <button type="button" class="ipad-step-btn" onclick="zoomIpad(-0.15)" title="Zoom Out" style="width:22px;height:24px;">−</button>
                 <span id="ipad-zoom-val" style="font-size:11px;font-weight:800;min-width:34px;text-align:center;user-select:none;">100%</span>
@@ -13595,6 +13607,9 @@ function loadIpadActivePage(){
   restoreIpadBinderState();
   if(ipadIsViewMode) setIpadViewMode(true);
   updateIpadSaveStatus('Saved locally to notebook');
+  journalUndoStack = [];
+  journalRedoStack = [];
+  recordJournalCanvasHistory();
 }
 
 function flipIpadPage(delta){
@@ -13756,6 +13771,7 @@ function queueIpadSave(){
   clearTimeout(ipadSaveTimer);
   ipadSaveTimer = setTimeout(() => {
     saveCurrentIpadPage(false);
+    if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   }, 350);
 }
 
@@ -14661,6 +14677,7 @@ function insertIpadTextBox(){
   const box = document.getElementById(id);
   if(box) selectCanvasItem(box);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast("Text box placed! Drag, resize, or rotate anywhere 🔤");
   const body = box?.querySelector(".canvas-text-body");
   if(body) setTimeout(() => body.focus(), 60);
@@ -14703,6 +14720,7 @@ function insertIpadWashiTape(pattern="washi-blush"){
   const box = document.getElementById(id);
   if(box) selectCanvasItem(box);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast("Washi tape placed! Click inside to type, drag to move 📌");
   const label = box?.querySelector(".washi-tape-label");
   if(label) setTimeout(() => label.focus(), 60);
@@ -14756,6 +14774,7 @@ function insertIpadPhotoFromDataUrl(dataUrl){
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast("Photo placed! Drag, resize or rotate anywhere 🎀");
 }
 
@@ -14796,6 +14815,7 @@ function insertIpadSticker(stickerEmoji){
   deselectAllCanvasItems();
   editor.insertAdjacentHTML("beforeend", html);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast(`Added sticker ${stickerEmoji} ✨ Drag, resize or rotate!`);
 }
 
@@ -14809,6 +14829,7 @@ function deleteCanvasSticky(btn, e){
     item.remove();
     queueIpadSave();
     queueNoteSave();
+    if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
     showToast("Sticky note deleted 🗑️");
   }
 }
@@ -14850,6 +14871,7 @@ function insertIpadStickyPrompt(){
   const box = document.getElementById(id);
   if(box) selectCanvasItem(box);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast("Sticky note pinned! Move, resize or rotate anywhere 📝");
   const noteEl = box?.querySelector(".journal-sticky-note");
   if(noteEl) setTimeout(() => noteEl.focus(), 60);
@@ -14942,6 +14964,7 @@ function insertIpadShape(shapeType='rounded'){
   const box = document.getElementById(id);
   if(box) selectCanvasItem(box);
   queueIpadSave();
+  if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
   showToast(`Added ${shapeType} shape! Drag, resize or rotate anywhere 📐`);
   const menu = document.getElementById("ipad-shapes-menu");
   if(menu) menu.style.display = "none";
@@ -14957,6 +14980,7 @@ function handleCanvasAction(btn, e){
   if(action === "delete"){
     item.remove();
     queueIpadSave();
+    if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
     showToast("Deleted 🗑️");
     return;
   }
@@ -15211,12 +15235,157 @@ function handleCanvasAction(btn, e){
   }
 }
 
+/* ── AUTHENTIC JOURNAL CANVAS UNDO & REDO ENGINE ── */
+let journalUndoStack = [];
+let journalRedoStack = [];
+let isJournalHistoryRestoring = false;
+
+function recordJournalCanvasHistory(){
+  if(isJournalHistoryRestoring) return;
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const snapshot = {
+    html: editor.innerHTML,
+    ink: (typeof currentInkStrokes !== 'undefined' && Array.isArray(currentInkStrokes)) ? JSON.stringify(currentInkStrokes) : '[]'
+  };
+  if(journalUndoStack.length > 0){
+    const last = journalUndoStack[journalUndoStack.length - 1];
+    if(last.html === snapshot.html && last.ink === snapshot.ink){
+      return;
+    }
+  }
+  journalUndoStack.push(snapshot);
+  if(journalUndoStack.length > 50) journalUndoStack.shift();
+  journalRedoStack = [];
+  updateUndoRedoButtons();
+}
+
+function updateUndoRedoButtons(){
+  const undoBtn = document.getElementById("ipad-undo-btn");
+  const redoBtn = document.getElementById("ipad-redo-btn");
+  if(undoBtn) undoBtn.style.opacity = journalUndoStack.length > 1 ? "1" : "0.35";
+  if(redoBtn) redoBtn.style.opacity = journalRedoStack.length > 0 ? "1" : "0.35";
+}
+
+function undoJournalAction(){
+  if(journalUndoStack.length <= 1){
+    showToast("Nothing to undo ↩️");
+    return;
+  }
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const current = journalUndoStack.pop();
+  journalRedoStack.push(current);
+  const prev = journalUndoStack[journalUndoStack.length - 1];
+  isJournalHistoryRestoring = true;
+  editor.innerHTML = prev.html;
+  if(prev.ink && typeof currentInkStrokes !== 'undefined'){
+    try {
+      currentInkStrokes = JSON.parse(prev.ink);
+      if(typeof redrawIpadInkCanvas === 'function') redrawIpadInkCanvas();
+    } catch(_){}
+  }
+  isJournalHistoryRestoring = false;
+  updateUndoRedoButtons();
+  queueIpadSave();
+  showToast("Undone ↩️");
+}
+
+function redoJournalAction(){
+  if(!journalRedoStack.length){
+    showToast("Nothing to redo ↪️");
+    return;
+  }
+  const editor = document.getElementById("ipad-page-editor");
+  if(!editor) return;
+  const next = journalRedoStack.pop();
+  journalUndoStack.push(next);
+  isJournalHistoryRestoring = true;
+  editor.innerHTML = next.html;
+  if(next.ink && typeof currentInkStrokes !== 'undefined'){
+    try {
+      currentInkStrokes = JSON.parse(next.ink);
+      if(typeof redrawIpadInkCanvas === 'function') redrawIpadInkCanvas();
+    } catch(_){}
+  }
+  isJournalHistoryRestoring = false;
+  updateUndoRedoButtons();
+  queueIpadSave();
+  showToast("Redone ↪️");
+}
+
+// Global Keyboard Shortcuts (Cmd+Z / Ctrl+Z and Cmd+Shift+Z / Ctrl+Y)
+document.addEventListener("keydown", (e) => {
+  const sJournal = document.getElementById("sJournal");
+  if(!sJournal || sJournal.style.display === "none") return;
+  if(e.target && e.target.closest(".app-dialog, #notes-search-input, .notes-top-copy")) return;
+
+  // Undo: Cmd+Z or Ctrl+Z (without shift)
+  if((e.metaKey || e.ctrlKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')){
+    e.preventDefault();
+    e.stopPropagation();
+    undoJournalAction();
+    return;
+  }
+  // Redo: Cmd+Shift+Z or Ctrl+Y
+  if((e.metaKey || e.ctrlKey) && ( (e.shiftKey && (e.key === 'z' || e.key === 'Z')) || (e.key === 'y' || e.key === 'Y') )){
+    e.preventDefault();
+    e.stopPropagation();
+    redoJournalAction();
+    return;
+  }
+});
+
 function initIpadCanvasEngine(){
   if(ipadCanvasEngineInitialized) return;
   const sheet = document.getElementById("ipad-paper-sheet");
   const editor = document.getElementById("ipad-page-editor");
   if(!sheet || !editor) return;
   ipadCanvasEngineInitialized = true;
+
+  // Intercept Backspace and Cmd+A inside editable text boxes with capture phase
+  editor.addEventListener("keydown", (e) => {
+    const editable = e.target.closest(".canvas-text-body, .washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-shape-body, .canvas-photo-caption");
+    if(!editable) return;
+
+    // 1. BACKSPACE BUG FIX:
+    // When text is empty or cursor is at offset 0, prevent backspace from bubbling to parent editor
+    // so it NEVER jumps into neighboring text boxes / washi tapes or deletes their characters!
+    if(e.key === "Backspace"){
+      const text = (editable.textContent || "").replace(/\u200B/g, "").trim();
+      const sel = window.getSelection();
+      let isAtStart = false;
+      if(!text){
+        isAtStart = true;
+      } else if(sel && sel.isCollapsed && sel.rangeCount > 0){
+        const r = sel.getRangeAt(0);
+        const preRange = document.createRange();
+        preRange.selectNodeContents(editable);
+        preRange.setEnd(r.startContainer, r.startOffset);
+        if(preRange.toString().length === 0){
+          isAtStart = true;
+        }
+      }
+      if(isAtStart){
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+    }
+
+    // 2. SELECT ALL (Cmd+A / Ctrl+A) BUG FIX:
+    // Select all text ONLY inside this active text box/editable element
+    if((e.metaKey || e.ctrlKey) && (e.key === "a" || e.key === "A")){
+      e.preventDefault();
+      e.stopPropagation();
+      const r = document.createRange();
+      r.selectNodeContents(editable);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+      return;
+    }
+  }, true);
 
   sheet.addEventListener("pointerdown", (e) => {
     const directDel = e.target.closest(".canvas-sticky-corner-del, .sticky-inline-del-btn");
@@ -15329,6 +15498,9 @@ function initIpadCanvasEngine(){
       const editable = e.target.closest(".canvas-text-body, .canvas-photo-caption, .journal-sticky-note, .canvas-sticky-body, .washi-tape-label, .canvas-shape-body");
       if(editable){
         lastActiveTextBoxId = item.id;
+        // CRITICAL FIX: DO NOT preventDefault or start dragging when clicking on text body!
+        // Allow native pointer interaction: click to place cursor, drag to select text characters, double click words!
+        return;
       }
       e.preventDefault();
       e.stopPropagation();
@@ -15554,6 +15726,7 @@ function initIpadCanvasEngine(){
             e.preventDefault();
             item.remove();
             queueIpadSave();
+            if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
             showToast("Sticky note deleted 🗑️");
             return;
           }
@@ -15568,6 +15741,7 @@ function initIpadCanvasEngine(){
         e.preventDefault();
         selectedItem.remove();
         queueIpadSave();
+        if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
         showToast("Item deleted 🗑️");
       }
     }
@@ -16239,6 +16413,7 @@ function initIpadInkEngine(){
       currentInkStrokes.push(currentStroke);
       inkRedoStack = [];
       queueIpadSave();
+      if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
       // Final smooth bezier redraw
       redrawAllInkStrokes();
     }
@@ -21205,8 +21380,11 @@ function syncThemeUI(t){
   const active=THMBTN[t];
   if(active){const e=document.getElementById(active);if(e)e.classList.add('on');}
   const thmSwitch=document.getElementById('thmSwitch');
+  const isLight=(t==='light');
+  document.querySelectorAll('.sn-brand-logo-img, .topbar-brand-logo-img').forEach(img => {
+    img.src = isLight ? 'assets/calverse-logo-latte.png' : 'assets/calverse-logo.png';
+  });
   if(thmSwitch){
-    const isLight=(t==='light');
     thmSwitch.classList.toggle('active',isLight);
     thmSwitch.setAttribute('aria-checked',isLight?'true':'false');
   }
@@ -21295,8 +21473,11 @@ function setTheme(t,showMsg=true){
   if(thmBtn)thmBtn.textContent=THMICO[thmIdx];
   if(thmBtnSide)thmBtnSide.textContent=THMICO[thmIdx];
   const thmSwitch=document.getElementById('thmSwitch');
+  const isLight=(t==='light');
+  document.querySelectorAll('.sn-brand-logo-img, .topbar-brand-logo-img').forEach(img => {
+    img.src = isLight ? 'assets/calverse-logo-latte.png' : 'assets/calverse-logo.png';
+  });
   if(thmSwitch){
-    const isLight=(t==='light');
     thmSwitch.classList.toggle('active',isLight);
     thmSwitch.setAttribute('aria-checked',isLight?'true':'false');
   }
