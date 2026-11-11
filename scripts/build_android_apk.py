@@ -97,14 +97,31 @@ def patch_binary_manifest(manifest_path, new_pkg):
     new_data += new_pool_bytes
     new_data += data[sp_offset + sp_size:]
 
+    # 2. Disable android:debuggable (set to false for Google Play release)
+    debuggable_idx = None
+    for idx, s in enumerate(new_strings):
+        if s == "debuggable":
+            debuggable_idx = idx
+            break
+
+    if debuggable_idx is not None:
+        for i in range(sp_offset + new_sp_size, len(new_data) - 20, 4):
+            ns, name, rawVal, type_info, attr_data = struct.unpack_from("<IIIII", new_data, i)
+            if name == debuggable_idx:
+                dt = (type_info >> 24) & 0xff
+                if dt == 0x12: # TYPE_INT_BOOLEAN
+                    struct.pack_into("<I", new_data, i + 16, 0)
+                    print("✓ Disabled android:debuggable (set to false for Google Play release)")
+                    break
+
     with open(manifest_path, "wb") as f:
         f.write(new_data)
     print(f"✓ Patched AndroidManifest.xml package to {new_pkg}")
 
 BUILD_TOOLS_DIR = "/Users/maddhamsolanki/Library/Android/sdk/build-tools/35.0.0"
-KEYSTORE = os.path.expanduser("~/.android/debug.keystore")
-KEY_ALIAS = "androiddebugkey"
-KEY_PASS = "android"
+KEYSTORE = os.path.join(ANDROID_APP_DIR, "calverse-release.keystore")
+KEY_ALIAS = "calverse"
+KEY_PASS = "calverse2026"
 
 def prepare_v17_html(source_path):
     with open(source_path, "r", encoding="utf-8") as f:
