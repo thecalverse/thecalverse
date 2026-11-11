@@ -69,6 +69,8 @@ def patch_binary_manifest(manifest_path, new_pkg):
             new_strings.append(f"{new_pkg}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION")
         elif s == "com.calverse.app.v17.androidx-startup":
             new_strings.append(f"{new_pkg}.androidx-startup")
+        elif s in ("1.7-v17", "1.0.0", "1.1"):
+            new_strings.append("1.1")
         else:
             new_strings.append(s)
 
@@ -99,20 +101,26 @@ def patch_binary_manifest(manifest_path, new_pkg):
 
     # 2. Disable android:debuggable (set to false for Google Play release)
     debuggable_idx = None
+    version_code_idx = None
     for idx, s in enumerate(new_strings):
         if s == "debuggable":
             debuggable_idx = idx
-            break
+        elif s == "versionCode":
+            version_code_idx = idx
 
-    if debuggable_idx is not None:
+    if debuggable_idx is not None or version_code_idx is not None:
         for i in range(sp_offset + new_sp_size, len(new_data) - 20, 4):
             ns, name, rawVal, type_info, attr_data = struct.unpack_from("<IIIII", new_data, i)
-            if name == debuggable_idx:
+            if debuggable_idx is not None and name == debuggable_idx:
                 dt = (type_info >> 24) & 0xff
                 if dt == 0x12: # TYPE_INT_BOOLEAN
                     struct.pack_into("<I", new_data, i + 16, 0)
                     print("✓ Disabled android:debuggable (set to false for Google Play release)")
-                    break
+            elif version_code_idx is not None and name == version_code_idx:
+                dt = (type_info >> 24) & 0xff
+                if dt == 0x10 and attr_data in (17, 18):
+                    struct.pack_into("<I", new_data, i + 16, 19)
+                    print("✓ Updated versionCode to 19 (Version Name: 1.1)")
 
     with open(manifest_path, "wb") as f:
         f.write(new_data)
