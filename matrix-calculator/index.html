@@ -1823,7 +1823,7 @@ canvas#gc{display:block;width:100%;height:240px;}
   display:none;
   transition:opacity .2s ease,filter .2s ease;
 }
-.ipad-paper-bg-layer.is-active{display:block;}
+.ipad-paper-bg-layer.is-active{display:block!important;}
 
 .journal-bg-tabs{display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
 .journal-bg-tabs::-webkit-scrollbar{display:none;}
@@ -12111,6 +12111,9 @@ function removeJournalCustomBackground(id, e){
 function openJournalBackgroundModal(){
   const m = document.getElementById('journal-background-modal');
   if(!m) return;
+  if(!getNoteById(currentNoteId)){
+    if(typeof loadIpadActivePage === 'function') loadIpadActivePage();
+  }
   const activeCat = journalBgActiveCategory || 'all';
   document.querySelectorAll('.journal-bg-tab').forEach(b => {
     b.classList.toggle('is-active', b.getAttribute('data-cat') === activeCat);
@@ -12195,8 +12198,9 @@ function renderJournalBackgroundGrid(category = 'all'){
       ? (bg.previewCss.startsWith('background') ? bg.previewCss : `background:${bg.previewCss};`)
       : '';
 
-    const cleanThumb = (bg.rawLocalThumb || bg.rawLocalValue || bg.thumb || bg.value).replace(/^(\.\/|\/)/, '');
-    const cloudflareFallback = 'https://thecalverse.com/' + cleanThumb;
+    const rawTarget = bg.rawLocalThumb || bg.rawLocalValue || bg.thumb || bg.value || '';
+    const cleanThumb = rawTarget ? String(rawTarget).replace(/^(\.\/|\/)/, '') : '';
+    const cloudflareFallback = cleanThumb ? ('https://thecalverse.com/' + cleanThumb) : '';
 
     const previewInner = isCssPaper
       ? `<div class="journal-bg-card-preview" style="${bgCss}"></div>`
@@ -12246,12 +12250,19 @@ function selectJournalBackgroundItem(bgId){
   const allBgs = [...JOURNAL_BACKGROUNDS, ...customs];
   const bg = allBgs.find(b => b.id === bgId);
   if(!bg) return;
+  if(!getNoteById(currentNoteId)){
+    if(typeof loadIpadActivePage === 'function') loadIpadActivePage();
+  }
   applyJournalPaperBackground(bg);
   closeJournalBackgroundModal();
 }
 
 function applyJournalPaperBackground(bg){
-  const note = getNoteById(currentNoteId);
+  let note = getNoteById(currentNoteId);
+  if(!note){
+    if(typeof loadIpadActivePage === 'function') loadIpadActivePage();
+    note = getNoteById(currentNoteId);
+  }
   if(!note) return;
 
   if(bg.styleKey){
@@ -12397,10 +12408,23 @@ function applyPageBackgroundToSheet(bgValue, dim = 100){
   const rawVal = String(bgValue);
   const val = resolveCalverseAsset(rawVal);
   if(val.startsWith('data:') || val.startsWith('http') || val.startsWith('/') || val.startsWith('assets/') || val.startsWith('url(') || val.includes('.webp') || val.includes('.jpg') || val.includes('.png')){
-    layer.style.backgroundImage = val.startsWith('url(') ? val : `url("${val}")`;
+    const targetUrl = val.startsWith('url(') ? val : `url("${val}")`;
+    layer.style.backgroundImage = targetUrl;
     layer.style.backgroundSize = '100% 100%';
     layer.style.backgroundPosition = 'center';
     layer.style.backgroundRepeat = 'no-repeat';
+
+    // If local asset fails or isn't reachable, seamlessly fallback to CDN/Cloudflare
+    if(!val.startsWith('data:') && !val.startsWith('http')){
+      const cleanVal = val.replace(/^url\(['"]?|['"]?\)$/g, '').replace(/^(\.\/|\/)/, '');
+      const testImg = new Image();
+      testImg.onerror = () => {
+        if(layer.classList.contains('is-active')){
+          layer.style.backgroundImage = `url("https://thecalverse.com/${cleanVal}")`;
+        }
+      };
+      testImg.src = val.replace(/^url\(['"]?|['"]?\)$/g, '');
+    }
   } else {
     layer.style.background = val;
     layer.style.backgroundSize = '100% 100%';
@@ -18100,13 +18124,16 @@ function insertGraphicStickerToJournal(src, name){
   if(!editor) return;
 
   const resolvedSrc = resolveCalverseAsset(src);
+  const rawCleanSrc = (src || '').replace(/^url\(['"]?|['"]?\)$/g, '').replace(/^(\.\/|\/)/, '');
+  const stickerFallback = rawCleanSrc ? ('https://thecalverse.com/' + rawCleanSrc) : '';
+
   if(editor.id === 'ipad-page-editor'){
     const id = "cgstk_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
     const w = 150;
     const h = 150;
     const contentHtml = `
       <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:move;padding:4px;box-sizing:border-box;">
-        <img src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(name || 'Sticker')}" style="max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.18));">
+        <img src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(name || 'Sticker')}" onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback=1;this.src='${stickerFallback}';}" style="max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.18));">
       </div>
     `;
 
@@ -18133,7 +18160,7 @@ function insertGraphicStickerToJournal(src, name){
   } else {
     setNoteEditMode(true, false);
     editor.focus();
-    const stickerHtml = `<img src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(name || 'Sticker')}" style="max-width:130px;max-height:130px;object-fit:contain;vertical-align:middle;display:inline-block;margin:6px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.15));" contenteditable="false">&nbsp;`;
+    const stickerHtml = `<img src="${escapeHtml(resolvedSrc)}" alt="${escapeHtml(name || 'Sticker')}" onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback=1;this.src='${stickerFallback}';}" style="max-width:130px;max-height:130px;object-fit:contain;vertical-align:middle;display:inline-block;margin:6px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.15));" contenteditable="false">&nbsp;`;
     insertHtmlAtCursor(stickerHtml, editor);
     syncNoteEditorPlaceholder();
     queueNoteSave();
@@ -18171,8 +18198,9 @@ function filterStickerTab(tab,btn){
   if(tab==='aesthetic_pack'){
     const items = GRAPHIC_STICKERS.map(s => {
       const resolved = resolveCalverseAsset(s.src);
-      const cleanPath = (s.rawLocalSrc || s.src).replace(/^(\.\/|\/)/, '');
-      const cloudflareFallback = 'https://thecalverse.com/' + cleanPath;
+      const rawSrc = s.rawLocalSrc || s.src || '';
+      const cleanPath = rawSrc ? String(rawSrc).replace(/^(\.\/|\/)/, '') : '';
+      const cloudflareFallback = cleanPath ? ('https://thecalverse.com/' + cleanPath) : '';
       return `
       <div class="graphic-sticker-card" onclick="insertGraphicStickerToJournal('${resolved}', '${escapeHtml(s.name)}')" title="${escapeHtml(s.name)} - Click to place on page">
         <img src="${resolved}" alt="${escapeHtml(s.name)}" onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback=1;this.src='${cloudflareFallback}';}">
