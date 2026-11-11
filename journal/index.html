@@ -9,10 +9,12 @@
 <meta property="og:description" content="Aesthetic digital paper notebook and daily journal with customized covers, pages, stickers, and tags.">
 <meta property="og:url" content="https://thecalverse.com/journal">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -1208,6 +1210,38 @@ canvas#gc{display:block;width:100%;height:240px;}
 .library-file-btn.del{border-color:rgba(255,80,80,.24);background:rgba(255,80,80,.08);color:var(--rdc);}
 .library-empty{display:grid;place-items:center;text-align:center;padding:26px 18px;border-radius:24px;border:1px dashed rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));color:var(--t2);gap:8px;line-height:1.7;}
 @media (max-width:640px){.library-folder-grid,.library-file-grid{grid-template-columns:1fr;}.library-folder-card{min-height:124px;}}
+
+/* Calverse Library In-App File Viewer Modal */
+.lib-viewer-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:rgba(0,0,0,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:16px;animation:dialogFadeIn .2s ease forwards;}
+.lib-viewer-card{width:min(96vw,1040px);max-height:92vh;max-height:92dvh;background:linear-gradient(180deg,rgba(22,25,34,.98),rgba(14,16,24,.98));border:1px solid rgba(255,255,255,.14);border-radius:24px;box-shadow:0 36px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);display:flex;flex-direction:column;overflow:hidden;}
+[data-t=light] .lib-viewer-card{background:linear-gradient(180deg,rgba(255,250,244,.98),rgba(242,230,216,.96));border-color:rgba(131,98,74,.22);box-shadow:0 30px 60px rgba(104,76,56,.25);}
+.lib-viewer-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--glb);flex-shrink:0;background:rgba(255,255,255,.02);}
+.lib-viewer-title-row{display:flex;align-items:center;gap:12px;min-width:0;flex:1;}
+.lib-viewer-ico{font-size:22px;flex-shrink:0;width:38px;height:38px;display:grid;place-items:center;background:rgba(255,255,255,.06);border-radius:12px;border:1px solid var(--glb);}
+[data-t=light] .lib-viewer-ico{background:rgba(131,98,74,.08);}
+.lib-viewer-info{min-width:0;flex:1;}
+.lib-viewer-filename{font-size:15px;font-weight:800;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px;}
+.lib-viewer-sub{font-size:11.5px;color:var(--t2);margin-top:2px;}
+.lib-viewer-btns{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.lib-viewer-btn{height:32px;padding:0 12px;border-radius:10px;border:1px solid var(--glb);background:rgba(255,255,255,.07);color:var(--t1);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .15s ease;}
+.lib-viewer-btn:hover{background:rgba(255,255,255,.14);transform:translateY(-1px);}
+.lib-viewer-btn.acc{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 4px 14px rgba(124,92,255,.24);}
+.lib-viewer-btn.del{color:#ff6b6b;background:rgba(255,107,107,.08);border-color:rgba(255,107,107,.25);}
+.lib-viewer-btn.close{width:32px;height:32px;padding:0;font-size:15px;display:grid;place-items:center;}
+.lib-viewer-body{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.28);min-height:300px;max-height:calc(92vh - 66px);position:relative;padding:16px;}
+[data-t=light] .lib-viewer-body{background:rgba(131,98,74,.04);}
+.lib-viewer-img-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;cursor:zoom-in;position:relative;}
+.lib-viewer-img{max-width:100%;max-height:72vh;object-fit:contain;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.45);transition:transform .2s ease;}
+.lib-viewer-img-wrap.zoomed{cursor:zoom-out;overflow:auto;}
+.lib-viewer-img-wrap.zoomed .lib-viewer-img{max-width:none;max-height:none;transform:scale(1.5);transform-origin:center center;}
+.lib-viewer-zoom-tip{margin-top:10px;font-size:11.5px;color:var(--t2);opacity:.8;}
+.lib-viewer-pdf-wrap{width:100%;height:75vh;display:flex;flex-direction:column;}
+.lib-viewer-iframe{width:100%;height:100%;border:none;border-radius:12px;background:#fff;}
+.lib-viewer-text-content{width:100%;max-height:72vh;overflow:auto;padding:18px 20px;background:rgba(0,0,0,.35);border-radius:12px;border:1px solid var(--glb);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:13px;line-height:1.65;color:var(--t1);white-space:pre-wrap;word-break:break-word;user-select:text;-webkit-user-select:text;}
+[data-t=light] .lib-viewer-text-content{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.18);color:#2e1e12;}
+.lib-viewer-media-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:24px;}
+.lib-viewer-file-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;}
+
 .note-editor-wrap{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 176px);min-height:calc(100dvh - 176px);}
 .note-editor-head{display:grid;gap:12px;position:sticky;top:74px;z-index:6;padding:2px 0 8px;background:linear-gradient(180deg,var(--bg2) 0%,transparent 100%);}
 .note-title-input{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;color:var(--t1);font-size:24px;font-weight:800;padding:4px 2px 12px;box-shadow:none!important;transform:none!important;}
@@ -7284,7 +7318,7 @@ html[data-device="iphone"] #app {
           </select>
           <button type="button" class="view-toggle-btn" id="notes-view-toggle" onclick="toggleNotesView()" aria-label="Toggle notes view"><span class="view-toggle-ico" id="notes-view-toggle-ico">▦</span><span class="view-toggle-label" id="notes-view-toggle-label">Grid</span></button>
         </div>
-        <input type="file" id="library-file-input" multiple style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;" onchange="handleLibraryFileInput(event)">
+        <input type="file" id="library-file-input" multiple style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0.001;" onchange="handleLibraryFileInput(event)">
         <div class="notes-list" id="notes-list"></div>
         <div class="notebooks-pane" id="notebooks-pane" style="display:none"></div>
         <div class="study-pane" id="study-pane" style="display:none"></div>
@@ -7909,6 +7943,34 @@ html[data-device="iphone"] #app {
       </div>
       <div class="tpl-grid" id="tpl-modal-grid"></div>
     </div>
+  </div>
+</div>
+
+<!-- CALVERSE LIBRARY IN-APP FILE VIEWER MODAL -->
+<div id="library-file-viewer-modal" class="lib-viewer-modal" style="display:none;" onclick="if(event.target===this)closeLibraryFileViewer()">
+  <div class="lib-viewer-card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div class="lib-viewer-header">
+      <div class="lib-viewer-title-row">
+        <span class="lib-viewer-ico" id="lib-viewer-ico">📁</span>
+        <div class="lib-viewer-info">
+          <div class="lib-viewer-filename" id="lib-viewer-filename">File</div>
+          <div class="lib-viewer-sub" id="lib-viewer-meta">Document</div>
+        </div>
+      </div>
+      <div class="lib-viewer-btns">
+        <button type="button" class="lib-viewer-btn acc" onclick="if(currentViewerItemId)downloadLibraryItem(currentViewerItemId)" title="Download File to Device">
+          <span style="font-size:14px;">⬇️</span> <span>Download</span>
+        </button>
+        <button type="button" class="lib-viewer-btn" onclick="if(currentViewerItemId)openLibraryItemExternal(currentViewerItemId)" title="Open in New Tab / Window">
+          <span style="font-size:14px;">↗️</span>
+        </button>
+        <button type="button" class="lib-viewer-btn del" onclick="if(currentViewerItemId)deleteLibraryItemAndCloseViewer(currentViewerItemId)" title="Delete File">
+          <span style="font-size:14px;">🗑️</span>
+        </button>
+        <button type="button" class="lib-viewer-btn close" onclick="closeLibraryFileViewer()" title="Close Viewer">✕</button>
+      </div>
+    </div>
+    <div class="lib-viewer-body" id="lib-viewer-body"></div>
   </div>
 </div>
 
@@ -9552,6 +9614,7 @@ function normalizeLibraryItem(item){
   const folderId=String(item.folderId||'').trim();
   const name=String(item.name||'').trim();
   if(!folderId||!name)return null;
+  const isBlob = !!(item.blob && (item.blob instanceof Blob || typeof item.blob.slice === 'function' || item.blob.size !== undefined));
   return{
     id:String(item.id||`libi_${Date.now()}_${Math.random().toString(36).slice(2,7)}`),
     folderId,
@@ -9559,7 +9622,7 @@ function normalizeLibraryItem(item){
     mimeType:String(item.mimeType||'application/octet-stream'),
     linkUrl:String(item.linkUrl||''),
     size:Number(item.size)||0,
-    blob:item.blob instanceof Blob?item.blob:null,
+    blob:isBlob?item.blob:null,
     dataUrl:String(item.dataUrl||''),
     createdAt:Number(item.createdAt)||Date.now(),
     updatedAt:Number(item.updatedAt)||Date.now(),
@@ -9700,11 +9763,11 @@ function canInlineThumb(item){
 async function getLibraryItemThumbUrl(item){
   try{
     if(item._thumbUrl)return item._thumbUrl;
-    if(item.blob instanceof Blob){
+    if(item.dataUrl)return item.dataUrl;
+    if(item.blob && (item.blob instanceof Blob || item.blob.size)){
       item._thumbUrl=URL.createObjectURL(item.blob);
       return item._thumbUrl;
     }
-    if(item.dataUrl)return item.dataUrl;
   }catch(e){}
   return '';
 }
@@ -9817,94 +9880,253 @@ function readFileAsDataUrl(file){
   });
 }
 async function handleLibraryFileInput(event){
-  const files=[...(event?.target?.files||[])];
-  if(event?.target)event.target.value='';
-  if(!files.length)return;
+  const inputEl = event?.target;
+  const files = [...(inputEl?.files || [])];
+  if(!files.length) return;
   if(!currentLibraryFolderId){
     showToast('Create a folder first');
+    if(inputEl) inputEl.value = '';
     return;
   }
-  let added=0;
-  const maxBytes=await getDynamicLibraryLimitBytes();
+  let added = 0;
+  const maxBytes = await getDynamicLibraryLimitBytes();
   for(const file of files){
-    if((Number(file.size)||0)>maxBytes){
+    if((Number(file.size) || 0) > maxBytes){
       showToast(`${file.name} is too large (max ${formatFileSizeMB(maxBytes)})`);
       continue;
     }
     try{
-      const supportsIdb=!!window.indexedDB;
-      const useBlob=supportsIdb;
-      const dataUrl=useBlob?'':await readFileAsDataUrl(file);
-      const parsed=parseNameAndTags(file.name||'File');
+      // Always store dataUrl for files up to 25 MB so previews and offline viewing never fail
+      const isLarge = (Number(file.size) || 0) > 25 * 1024 * 1024;
+      const dataUrl = isLarge ? '' : await readFileAsDataUrl(file);
+      const parsed = parseNameAndTags(file.name || 'File');
       libraryItems.unshift({
-        id:`libi_${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
-        folderId:currentLibraryFolderId,
-        name:String(parsed.name||'File').slice(0,180),
-        mimeType:String(file.type||'application/octet-stream'),
-        size:Number(file.size)||0,
-        blob:useBlob?file:null,
+        id: `libi_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        folderId: currentLibraryFolderId,
+        name: String(parsed.name || 'File').slice(0, 180),
+        mimeType: String(file.type || 'application/octet-stream'),
+        size: Number(file.size) || 0,
+        blob: file,
         dataUrl,
-        createdAt:Date.now(),
-        updatedAt:Date.now(),
-        tags:parsed.tags
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        tags: parsed.tags
       });
       added++;
-    }catch(e){}
-    await new Promise(res=>requestAnimationFrame(()=>res()));
+    }catch(e){
+      console.warn('Library file read error:', e);
+    }
+    await new Promise(res => requestAnimationFrame(res));
   }
-  const folder=getLibraryFolderById(currentLibraryFolderId);
-  if(folder)folder.updatedAt=Date.now();
+  if(inputEl) inputEl.value = '';
+  const folder = getLibraryFolderById(currentLibraryFolderId);
+  if(folder) folder.updatedAt = Date.now();
   saveLibraryData();
   renderLibraryPane();
-  if(added)showToast(`${added} file${added===1?'':'s'} uploaded`);
+  if(added) showToast(`${added} file${added === 1 ? '' : 's'} uploaded`);
 }
+
+let currentViewerItemId = null;
+
 async function openLibraryItem(id){
-  const item=libraryItems.find(entry=>entry.id===id);
-  if(!item)return;
-  if(item.mimeType==='text/uri-list' && item.linkUrl){
+  const item = libraryItems.find(entry => entry.id === id);
+  if(!item) return;
+
+  if(item.mimeType === 'text/uri-list' && item.linkUrl){
     try{
-      const u=String(item.linkUrl||'').trim();
+      const u = String(item.linkUrl || '').trim();
       if(/^https?:\/\//i.test(u)){
-        window.open(u,'_blank');
+        window.open(u, '_blank');
         return;
       }
     }catch(e){}
   }
-  const isAndroid=document.documentElement?.getAttribute('data-platform')==='android-app';
-  if(isAndroid && window.CalverseFiles && typeof window.CalverseFiles.openLibraryDataUrl==='function'){
-    try{
-      let dataUrl=item.dataUrl||'';
-      if(!dataUrl && item.blob instanceof Blob)dataUrl=await readFileAsDataUrl(item.blob);
-      if(dataUrl){
-        window.CalverseFiles.openLibraryDataUrl(dataUrl,item.mimeType||'',item.name||'file');
-        return;
+
+  await openLibraryFileViewer(item);
+}
+
+async function openLibraryFileViewer(item){
+  if(!item) return;
+  currentViewerItemId = item.id;
+  const modal = document.getElementById('library-file-viewer-modal');
+  const body = document.getElementById('lib-viewer-body');
+  const title = document.getElementById('lib-viewer-filename');
+  const meta = document.getElementById('lib-viewer-meta');
+  const ico = document.getElementById('lib-viewer-ico');
+  if(!modal || !body) return;
+
+  if(title) title.textContent = item.name || 'File';
+  if(meta) meta.textContent = `${formatFileSize(item.size)} · ${item.mimeType || 'Document'} · ${formatNoteStamp(item.updatedAt)}`;
+  if(ico) ico.textContent = getLibraryIcon(item);
+
+  body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;color:var(--t2);gap:12px;"><div class="sp-dots" style="display:flex;gap:6px;"><div class="sp-d"></div><div class="sp-d"></div><div class="sp-d"></div></div><div>Loading preview...</div></div>`;
+  modal.style.display = 'flex';
+
+  let viewUrl = item.dataUrl || '';
+  if(!viewUrl && item.blob && (item.blob instanceof Blob || item.blob.size)){
+    try {
+      if(!item.dataUrl && (Number(item.size) || 0) <= 25 * 1024 * 1024 && item.blob instanceof Blob){
+        item.dataUrl = await readFileAsDataUrl(item.blob);
+        viewUrl = item.dataUrl;
+      } else {
+        viewUrl = URL.createObjectURL(item.blob);
       }
-    }catch(e){}
+    } catch(e){}
   }
-  if(item.blob instanceof Blob){
-    const url=URL.createObjectURL(item.blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.target='_blank';
-    a.rel='noopener';
-    if(!(String(item.mimeType||'').startsWith('image/')||String(item.mimeType||'')==='application/pdf'))a.download=item.name||'file';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),4000);
+
+  const mime = String(item.mimeType || '').toLowerCase();
+  const name = String(item.name || '').toLowerCase();
+
+  if(mime.startsWith('image/') || /\.(png|jpe?g|webp|gif|svg|bmp|ico)$/i.test(name)){
+    body.innerHTML = `
+      <div class="lib-viewer-img-wrap" onclick="toggleLibViewerZoom(this)">
+        <img src="${escapeHtml(viewUrl)}" alt="${escapeHtml(item.name)}" class="lib-viewer-img" id="lib-viewer-active-img">
+        <div class="lib-viewer-zoom-tip">🔍 Tap to toggle zoom</div>
+      </div>
+    `;
+  } else if(mime === 'application/pdf' || name.endsWith('.pdf')){
+    body.innerHTML = `
+      <div class="lib-viewer-pdf-wrap">
+        <iframe src="${escapeHtml(viewUrl)}" class="lib-viewer-iframe" title="${escapeHtml(item.name)}"></iframe>
+      </div>
+    `;
+  } else if(mime.startsWith('text/') || /\.(txt|md|json|js|ts|py|html|css|c|cpp|java|csv|xml|sh|rb|php)$/i.test(name)){
+    let textContent = '';
+    try {
+      if(item.blob instanceof Blob){
+        textContent = await item.blob.text();
+      } else if(item.dataUrl && item.dataUrl.includes(',')){
+        const b64 = item.dataUrl.split(',')[1];
+        textContent = decodeURIComponent(escape(atob(b64)));
+      }
+    } catch(e){
+      textContent = 'Could not decode text file content.';
+    }
+    body.innerHTML = `<pre class="lib-viewer-text-content">${escapeHtml(textContent)}</pre>`;
+  } else if(mime.startsWith('audio/') || /\.(mp3|wav|m4a|aac|ogg|flac)$/i.test(name)){
+    body.innerHTML = `
+      <div class="lib-viewer-media-wrap">
+        <div style="font-size:56px;margin-bottom:14px;">🎵</div>
+        <audio controls src="${escapeHtml(viewUrl)}" style="width:100%;max-width:440px;" autoplay></audio>
+      </div>
+    `;
+  } else if(mime.startsWith('video/') || /\.(mp4|webm|mov|mkv)$/i.test(name)){
+    body.innerHTML = `
+      <div class="lib-viewer-media-wrap">
+        <video controls src="${escapeHtml(viewUrl)}" style="max-width:100%;max-height:68vh;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);" autoplay></video>
+      </div>
+    `;
+  } else {
+    body.innerHTML = `
+      <div class="lib-viewer-file-fallback">
+        <div style="font-size:64px;margin-bottom:14px;">${getLibraryIcon(item)}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--t1);margin-bottom:6px;">${escapeHtml(item.name)}</div>
+        <div style="font-size:13px;color:var(--t2);margin-bottom:24px;">${formatFileSize(item.size)} · ${escapeHtml(item.mimeType || 'Document')}</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="lib-viewer-btn acc" style="padding:10px 22px;font-size:13px;height:auto;" onclick="downloadLibraryItem('${item.id}')">⬇️ Download File</button>
+          <button type="button" class="lib-viewer-btn" style="padding:10px 18px;font-size:13px;height:auto;" onclick="openLibraryItemExternal('${item.id}')">↗️ Open Externally</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function closeLibraryFileViewer(){
+  const modal = document.getElementById('library-file-viewer-modal');
+  if(modal) modal.style.display = 'none';
+  const body = document.getElementById('lib-viewer-body');
+  if(body) body.innerHTML = '';
+  currentViewerItemId = null;
+}
+
+function toggleLibViewerZoom(wrapper){
+  if(!wrapper) return;
+  wrapper.classList.toggle('zoomed');
+}
+
+async function downloadLibraryItem(id){
+  const item = libraryItems.find(entry => entry.id === id) || libraryTrashItems.find(entry => entry.id === id);
+  if(!item) return;
+
+  let url = item.dataUrl || '';
+  let revoke = false;
+  if(!url && item.blob && (item.blob instanceof Blob || item.blob.size)){
+    try {
+      url = URL.createObjectURL(item.blob);
+      revoke = true;
+    } catch(e){}
+  }
+
+  if(!url){
+    showToast('File data not available');
     return;
   }
-  if(item.dataUrl){
-    const a=document.createElement('a');
-    a.href=item.dataUrl;
-    a.target='_blank';
-    a.rel='noopener';
-    if(!(String(item.mimeType||'').startsWith('image/')||String(item.mimeType||'')==='application/pdf'))a.download=item.name||'file';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+
+  // Native macOS WKWebView save dialog
+  if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.calverseNative){
+    try {
+      let dataUrl = item.dataUrl;
+      if(!dataUrl && item.blob instanceof Blob){
+        dataUrl = await readFileAsDataUrl(item.blob);
+      }
+      if(dataUrl){
+        window.webkit.messageHandlers.calverseNative.postMessage({
+          action: 'saveFile',
+          filename: item.name || 'study-file',
+          dataUrl: dataUrl
+        });
+        showToast('Saving to Mac...');
+        return;
+      }
+    } catch(e){}
+  }
+
+  // Web and Mobile fallback
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = item.name || 'download';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  showToast(`Downloading ${item.name || 'file'}`);
+  if(revoke){
+    setTimeout(() => { try { URL.revokeObjectURL(url); } catch(e){} }, 10000);
   }
 }
+
+async function openLibraryItemExternal(id){
+  const item = libraryItems.find(entry => entry.id === id);
+  if(!item) return;
+  let url = '';
+  if(item.blob instanceof Blob){
+    try { url = URL.createObjectURL(item.blob); } catch(e){}
+  }
+  if(!url && item.dataUrl) url = item.dataUrl;
+  if(!url){
+    showToast('Cannot open file');
+    return;
+  }
+  const w = window.open(url, '_blank');
+  if(!w){
+    downloadLibraryItem(id);
+    showToast('Popup blocked by browser. Downloading instead.');
+  }
+}
+
+function deleteLibraryItemAndCloseViewer(id){
+  closeLibraryFileViewer();
+  deleteLibraryItem(id);
+}
+
+window.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    const modal = document.getElementById('library-file-viewer-modal');
+    if(modal && modal.style.display !== 'none'){
+      closeLibraryFileViewer();
+    }
+  }
+});
+
 function deleteLibraryItem(id){
   const item=libraryItems.find(entry=>entry.id===id);
   if(!item)return;
@@ -9939,9 +10161,9 @@ function renderLibraryPane(){
   const fileCards=files.length?files.map(item=>{
     const meta=`${formatFileSize(item.size)} · ${escapeHtml(formatNoteStamp(item.updatedAt))}`;
     if(canInlineThumb(item)){
-      return `<div class="library-file-card" onclick="openLibraryItem('${item.id}')"><div class="library-file-thumb"><img alt="" src="${escapeHtml(item.dataUrl||'')}" data-libthumb="${escapeHtml(item.id)}"></div><div class="library-file-row"><div class="library-file-ico">🖼</div><div style="min-width:0"><div class="library-file-name">${escapeHtml(item.name)}</div><div class="library-file-meta">${meta}</div></div></div><div class="library-file-actions"><button class="library-file-btn del" onclick="event.stopPropagation();deleteLibraryItem('${item.id}')">Delete</button></div></div>`;
+      return `<div class="library-file-card" onclick="openLibraryItem('${item.id}')"><div class="library-file-thumb"><img alt="" src="${escapeHtml(item.dataUrl||'')}" data-libthumb="${escapeHtml(item.id)}"></div><div class="library-file-row"><div class="library-file-ico">🖼</div><div style="min-width:0"><div class="library-file-name">${escapeHtml(item.name)}</div><div class="library-file-meta">${meta}</div></div></div><div class="library-file-actions"><button class="library-file-btn acc" onclick="event.stopPropagation();downloadLibraryItem('${item.id}')">Download</button><button class="library-file-btn del" onclick="event.stopPropagation();deleteLibraryItem('${item.id}')">Delete</button></div></div>`;
     }
-    return `<div class="library-file-card" onclick="openLibraryItem('${item.id}')"><div class="library-file-row"><div class="library-file-ico">${getLibraryIcon(item)}</div><div style="min-width:0"><div class="library-file-name">${escapeHtml(item.name)}</div><div class="library-file-meta">${escapeHtml(item.mimeType||'File')} · ${meta}</div></div></div><div class="library-file-actions"><button class="library-file-btn del" onclick="event.stopPropagation();deleteLibraryItem('${item.id}')">Delete</button></div></div>`;
+    return `<div class="library-file-card" onclick="openLibraryItem('${item.id}')"><div class="library-file-row"><div class="library-file-ico">${getLibraryIcon(item)}</div><div style="min-width:0"><div class="library-file-name">${escapeHtml(item.name)}</div><div class="library-file-meta">${escapeHtml(item.mimeType||'File')} · ${meta}</div></div></div><div class="library-file-actions"><button class="library-file-btn acc" onclick="event.stopPropagation();downloadLibraryItem('${item.id}')">Download</button><button class="library-file-btn del" onclick="event.stopPropagation();deleteLibraryItem('${item.id}')">Delete</button></div></div>`;
   }).join(''):`<div class="library-empty"><div class="notes-empty-ico">📂</div><div style="font-size:15px;font-weight:700;color:var(--t1)">No files in ${escapeHtml(activeFolder?activeFolder.name:'this folder')}.</div><div style="font-size:12px">Use Upload to store photos, PDFs, notes, or study material here.</div></div>`;
   pane.innerHTML=`<div class="library-toolbar"><button class="library-back-btn" onclick="openLibraryFolders()">← Folders</button><div class="library-toolbar-copy"><div class="lib-title">${escapeHtml(activeFolder.name)}</div><div class="lib-sub">Upload limit: dynamic (up to 1 GB per file, device quota applies) · ${files.length} file${files.length===1?'':'s'}</div></div><div style="display:flex;gap:8px;align-items:center"><button class="library-file-btn acc" onclick="triggerLibraryUpload()">Upload</button><button class="library-file-btn acc" onclick="promptAddLibraryLink('${activeFolder.id}')">Add Link</button></div></div><div class="library-file-shell"><div class="library-file-grid">${fileCards}</div></div>`;
   requestAnimationFrame(()=>applyLiquidStagger(pane,'.library-file-card'));

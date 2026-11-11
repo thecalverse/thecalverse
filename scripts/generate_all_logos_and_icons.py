@@ -77,16 +77,16 @@ for filename, sz in google_favicon_sizes:
     fav.save(os.path.join(ROOT, filename), "PNG")
 print("✓ Generated Google Search favicons (48x48, 96x96, 144x144, 192x192, 512x512, apple-touch-icon)")
 
-# Multi-resolution ICO (16, 32, 48, 64, 128, 256)
-ico_sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
-ico_imgs = [dark_logo.resize(s, Image.Resampling.LANCZOS) for s in ico_sizes]
-ico_imgs[0].save(
+# Multi-resolution ICO (16, 32, 48, 64) - Required for Google Search and web browsers
+ico_sizes = [(16, 16), (32, 32), (48, 48), (64, 64)]
+dark_logo.save(
     os.path.join(ROOT, "favicon.ico"),
     format="ICO",
-    sizes=ico_sizes,
-    append_images=ico_imgs[1:]
+    sizes=ico_sizes
 )
-print("✓ Generated multi-resolution favicon.ico")
+# Also copy SVG favicon
+shutil.copyfile(os.path.join(assets_dir, "Calverse-Logo-In-The-Box.svg"), os.path.join(ROOT, "favicon.svg"))
+print("✓ Generated multi-resolution favicon.ico and favicon.svg")
 
 # 7. Generate macOS AppIcon.icns
 iconset_dir = os.path.join(ROOT, "desktop-app", "extracted_icns", "app.iconset")

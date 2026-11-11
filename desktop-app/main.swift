@@ -28,7 +28,7 @@ let DEFAULT_HEIGHT: CGFloat = 840
 let SUPPORTS_ROTATION = false
 #endif
 
-class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     var window: NSWindow!
     var webView: WKWebView!
     var isLandscape: Bool = false
@@ -70,6 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
         """
         let userScript = WKUserScript(source: scriptSource, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         config.userContentController.addUserScript(userScript)
+        config.userContentController.add(self, name: "calverseNative")
 
         webView = WKWebView(frame: window.contentView!.bounds, configuration: config)
         webView.autoresizingMask = [.width, .height]
@@ -189,6 +190,62 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
         } else {
             let response = openPanel.runModal()
             completionHandler(response == .OK ? openPanel.urls : nil)
+        }
+    }
+
+    // Handle target="_blank" and window.open popups
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if let url = navigationAction.request.url {
+            if url.scheme == "http" || url.scheme == "https" || url.scheme == "mailto" {
+                NSWorkspace.shared.open(url)
+            }
+        }
+        return nil
+    }
+
+    // MARK: - WKNavigationDelegate
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url {
+            if navigationAction.navigationType == .linkActivated && (url.scheme == "http" || url.scheme == "https") {
+                if let host = url.host, host != "thecalverse.com" && !host.contains("localhost") {
+                    NSWorkspace.shared.open(url)
+                    decisionHandler(.cancel)
+                    return
+                }
+            }
+        }
+        decisionHandler(.allow)
+    }
+
+    // MARK: - WKScriptMessageHandler (Native File Save / Download Support)
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard message.name == "calverseNative",
+              let dict = message.body as? [String: Any],
+              let action = dict["action"] as? String else { return }
+
+        if action == "saveFile", let filename = dict["filename"] as? String, let dataUrl = dict["dataUrl"] as? String {
+            saveDataUrlToDisk(filename: filename, dataUrl: dataUrl)
+        }
+    }
+
+    func saveDataUrlToDisk(filename: String, dataUrl: String) {
+        guard let commaIdx = dataUrl.firstIndex(of: ",") else { return }
+        let base64Str = String(dataUrl[dataUrl.index(after: commaIdx)...])
+        guard let data = Data(base64Encoded: base64Str, options: .ignoreUnknownCharacters) else { return }
+
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = filename
+        panel.canCreateDirectories = true
+        if let win = self.window {
+            panel.beginSheetModal(for: win) { response in
+                if response == .OK, let targetURL = panel.url {
+                    try? data.write(to: targetURL)
+                }
+            }
+        } else {
+            if panel.runModal() == .OK, let targetURL = panel.url {
+                try? data.write(to: targetURL)
+            }
         }
     }
 
