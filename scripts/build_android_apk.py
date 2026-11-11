@@ -176,6 +176,18 @@ def build_apk():
         with open(v17_target, "w", encoding="utf-8") as f:
             f.write(v17_content)
 
+        # Update Android launcher icons from extracted_icons
+        icons_source = os.path.join(ANDROID_APP_DIR, "extracted_icons")
+        if os.path.exists(icons_source):
+            for density in os.listdir(icons_source):
+                src_density = os.path.join(icons_source, density)
+                if os.path.isdir(src_density):
+                    dst_density = os.path.join(extracted_dir, "res", density)
+                    if os.path.exists(dst_density):
+                        for icon_file in os.listdir(src_density):
+                            shutil.copy2(os.path.join(src_density, icon_file), os.path.join(dst_density, icon_file))
+            print("✓ Updated Android launcher icons in APK package")
+
         # Repackage intermediate unaligned APK
         unaligned_apk = os.path.join(tmpdir, "unaligned.apk")
         print("Packaging unaligned APK...")
