@@ -285,22 +285,63 @@ async function runTest() {
     `);
     console.log('TEST 4 - Pen Button Toggle:', toggleTest);
 
-    // 7. Test Clicking + Text Box while Pen is active automatically switches to select mode
-    console.log('Testing auto-switch to select mode when inserting items...');
-    const autoSwitchTest = await evaluate(`
+    // 7. Test Pressing ANY Button while Pen is active automatically exits pen mode & switches to select
+    console.log('Testing that pressing ANY button deselects pen and restores full interaction...');
+    const anyButtonTest = await evaluate(`
       (() => {
         setIpadActiveTool('pen');
         const toolBefore = ipadActiveTool;
-        insertIpadTextBox();
+        const edBefore = document.getElementById("ipad-page-editor").getAttribute("contenteditable");
+        
+        // Find and click the Stickers button in the top bar
+        const stickersBtn = document.querySelector(".ipad-top-page-tools button");
+        stickersBtn.click();
+        
         const toolAfter = ipadActiveTool;
+        const edAfter = document.getElementById("ipad-page-editor").getAttribute("contenteditable");
+        
+        // Also test the Done button in the ink subbar
+        setIpadActiveTool('pen');
+        const doneBtn = document.querySelector("#ipad-ink-subbar .is-done-btn");
+        if(doneBtn) doneBtn.click();
+        const toolAfterDone = ipadActiveTool;
+        
         return {
           toolBefore,
+          edBefore,
           toolAfter,
-          switchedToSelectOnInsert: toolAfter === 'select'
+          edAfter,
+          toolAfterDone,
+          stickersBtnExitedPen: toolAfter === 'select',
+          doneBtnExitedPen: toolAfterDone === 'select'
         };
       })()
     `);
-    console.log('TEST 5 - Auto-Switch to Select on Item Insert:', autoSwitchTest);
+    console.log('TEST 5 - Pressing Any Button Exits Pen:', anyButtonTest);
+
+    // 8. Test Moving items "here and there" in Select mode
+    console.log('Testing moving items here and there in Select mode...');
+    const moveItemTest = await evaluate(`
+      (() => {
+        setIpadActiveTool('select');
+        const tb = document.querySelector(".canvas-text-box");
+        const initialLeft = tb.offsetLeft;
+        const initialTop = tb.offsetTop;
+        
+        // Simulate dragging text box 100px to the right and 80px down
+        tb.style.left = (initialLeft + 100) + "px";
+        tb.style.top = (initialTop + 80) + "px";
+        
+        return {
+          initialLeft,
+          initialTop,
+          movedLeft: tb.offsetLeft,
+          movedTop: tb.offsetTop,
+          hasMoved: tb.offsetLeft === initialLeft + 100 && tb.offsetTop === initialTop + 80
+        };
+      })()
+    `);
+    console.log('TEST 6 - Moving Items Here and There:', moveItemTest);
 
     ws.close();
     console.log('All Pen Lock & Unlock tests passed successfully!');

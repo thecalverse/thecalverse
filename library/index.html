@@ -1801,6 +1801,16 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 
 /* When Pen / Inking Mode is chosen: canvas items are locked and will NEVER move around */
+.ipad-paper-sheet.is-pen-active{
+  touch-action:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+.ipad-paper-sheet.is-pen-active #ipad-page-editor{
+  pointer-events:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
 .ipad-paper-sheet.is-pen-active .canvas-item{
   pointer-events:none!important;
   user-select:none!important;
@@ -1808,6 +1818,8 @@ canvas#gc{display:block;width:100%;height:240px;}
 }
 .ipad-paper-sheet.is-pen-active .canvas-item *{
   pointer-events:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
 }
 .ipad-paper-sheet.is-pen-active .canvas-item-bar,
 .ipad-paper-sheet.is-pen-active .canvas-rotate-handle,
@@ -16360,10 +16372,24 @@ function setIpadActiveTool(tool){
 
   const canvas = document.getElementById("ipad-ink-canvas");
   const sheet = document.getElementById("ipad-paper-sheet");
+  const editor = document.getElementById("ipad-page-editor");
   const isPenMode = (tool === "pen" || tool === "highlighter" || tool === "eraser");
 
   if(sheet){
     sheet.classList.toggle("is-pen-active", isPenMode);
+  }
+
+  if(editor){
+    if(isPenMode){
+      editor.setAttribute("contenteditable", "false");
+      if(document.activeElement && (editor.contains(document.activeElement) || editor === document.activeElement)){
+        try { document.activeElement.blur(); } catch(_){}
+      }
+    } else {
+      if(!ipadIsViewMode){
+        editor.setAttribute("contenteditable", "true");
+      }
+    }
   }
 
   if(canvas){
@@ -16382,9 +16408,22 @@ function setIpadActiveTool(tool){
   }
 
   renderIpadInkSubbar();
-  const toolIcons = { select: "✋ Select & Move", pen: "✏️ Pen Inking", highlighter: "🖍️ Highlighter", eraser: "🧹 Eraser" };
+  const toolIcons = { select: "✋ Select & Move", pen: "✏️ Pen Inking (Items Locked)", highlighter: "🖍️ Highlighter", eraser: "🧹 Eraser" };
   showToast(toolIcons[tool] || tool);
 }
+
+// When in Pen / inking mode: clicking ANY button or tool outside the inking controls automatically exits pen mode & restores select mode
+document.addEventListener("click", (e) => {
+  if(typeof ipadActiveTool !== "undefined" && (ipadActiveTool === "pen" || ipadActiveTool === "highlighter" || ipadActiveTool === "eraser")){
+    const btn = e.target.closest("button, .dock-tool-btn, .note-tool-btn, .ipad-step-btn, .cbar-btn, select, [role='button'], a");
+    if(btn){
+      if(btn.closest("#ipad-ink-subbar") || btn.closest(".hl-palette") || btn.id === "tool-pen" || btn.id === "tool-highlighter" || btn.id === "tool-eraser"){
+        return;
+      }
+      setIpadActiveTool("select");
+    }
+  }
+}, true);
 
 /* ── INK COLOR FAVORITES & STORAGE ── */
 const FAV_PEN_COLORS_KEY = 'calverse_fav_pen_colors';
@@ -16580,6 +16619,7 @@ function renderIpadInkSubbar(){
       <div class="ink-sub-group">
         <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Ink Stroke">↩️ Undo</button>
         <button type="button" class="ink-size-btn" onclick="redoIpadInk()" title="Redo Ink Stroke">↪️ Redo</button>
+        <button type="button" class="ink-size-btn is-done-btn" onclick="setIpadActiveTool('select')" title="Deselect pen & exit inking (Back to Select & Move)" style="background:var(--accg);color:#fff;font-weight:900;padding:0 12px;border-radius:999px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span>✓</span> <span>Done</span></button>
       </div>
     `;
   } else if(ipadActiveTool === "highlighter"){
@@ -16648,6 +16688,7 @@ function renderIpadInkSubbar(){
       <div class="dock-divider"></div>
       <div class="ink-sub-group">
         <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Highlighter">↩️ Undo</button>
+        <button type="button" class="ink-size-btn is-done-btn" onclick="setIpadActiveTool('select')" title="Deselect highlighter & exit (Back to Select & Move)" style="background:var(--accg);color:#fff;font-weight:900;padding:0 12px;border-radius:999px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span>✓</span> <span>Done</span></button>
       </div>
     `;
   } else if(ipadActiveTool === "eraser"){
@@ -16674,6 +16715,7 @@ function renderIpadInkSubbar(){
       <div class="ink-sub-group">
         <button type="button" class="ink-size-btn" style="color:var(--rdc);" onclick="clearAllIpadInk()" title="Erase All Drawings">Clear Ink ✕</button>
         <button type="button" class="ink-size-btn" onclick="undoIpadInk()" title="Undo Erase">↩️ Undo</button>
+        <button type="button" class="ink-size-btn is-done-btn" onclick="setIpadActiveTool('select')" title="Deselect eraser & exit (Back to Select & Move)" style="background:var(--accg);color:#fff;font-weight:900;padding:0 12px;border-radius:999px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span>✓</span> <span>Done</span></button>
       </div>
     `;
   }

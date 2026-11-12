@@ -118,9 +118,9 @@ def patch_binary_manifest(manifest_path, new_pkg):
                     print("✓ Disabled android:debuggable (set to false for Google Play release)")
             elif version_code_idx is not None and name == version_code_idx:
                 dt = (type_info >> 24) & 0xff
-                if dt == 0x10 and attr_data in (17, 18, 19, 20):
-                    struct.pack_into("<I", new_data, i + 16, 21)
-                    print("✓ Updated versionCode to 21 (Version Name: 1.2.1)")
+                if dt == 0x10 and attr_data in (17, 18, 19, 20, 21):
+                    struct.pack_into("<I", new_data, i + 16, 22)
+                    print("✓ Updated versionCode to 22 (Version Name: 1.2.2)")
 
     with open(manifest_path, "wb") as f:
         f.write(new_data)
