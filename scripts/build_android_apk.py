@@ -69,8 +69,8 @@ def patch_binary_manifest(manifest_path, new_pkg):
             new_strings.append(f"{new_pkg}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION")
         elif s == "com.calverse.app.v17.androidx-startup":
             new_strings.append(f"{new_pkg}.androidx-startup")
-        elif s in ("1.7-v17", "1.0.0", "1.1"):
-            new_strings.append("1.1")
+        elif s in ("1.7-v17", "1.0.0", "1.1", "1.2"):
+            new_strings.append("1.2")
         else:
             new_strings.append(s)
 
@@ -118,9 +118,9 @@ def patch_binary_manifest(manifest_path, new_pkg):
                     print("✓ Disabled android:debuggable (set to false for Google Play release)")
             elif version_code_idx is not None and name == version_code_idx:
                 dt = (type_info >> 24) & 0xff
-                if dt == 0x10 and attr_data in (17, 18):
-                    struct.pack_into("<I", new_data, i + 16, 19)
-                    print("✓ Updated versionCode to 19 (Version Name: 1.1)")
+                if dt == 0x10 and attr_data in (17, 18, 19):
+                    struct.pack_into("<I", new_data, i + 16, 20)
+                    print("✓ Updated versionCode to 20 (Version Name: 1.2)")
 
     with open(manifest_path, "wb") as f:
         f.write(new_data)
