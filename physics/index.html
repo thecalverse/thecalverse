@@ -14889,6 +14889,14 @@ function setIpadViewMode(isView){
 
 function upgradeLegacyIpadElements(editorEl){
   if(!editorEl) return;
+  let maxZ = 80;
+  editorEl.querySelectorAll(".canvas-item").forEach(item => {
+    const z = parseInt(item.style.zIndex, 10);
+    if(!isNaN(z) && z > maxZ && z < 10000){
+      maxZ = z;
+    }
+  });
+  canvasMaxZIndex = Math.max(canvasMaxZIndex, maxZ);
   editorEl.querySelectorAll(".canvas-item").forEach(item => {
     const id = item.id;
     // 1. Washi tape label
@@ -14984,7 +14992,7 @@ function upgradeLegacyIpadElements(editorEl){
     if(!wrap.style.left) wrap.style.left = (30 + (i * 40)) + "px";
     if(!wrap.style.top) wrap.style.top = (60 + (i * 60)) + "px";
     if(!wrap.style.width) wrap.style.width = "320px";
-    if(!wrap.style.zIndex) wrap.style.zIndex = "" + (++canvasMaxZIndex);
+    if(!wrap.style.zIndex) wrap.style.zIndex = "" + getNextCanvasZIndex();
     
     if(!wrap.querySelector(".canvas-item-bar")){
       wrap.insertAdjacentHTML("afterbegin", buildCanvasItemBar(id, "photo", {
@@ -15021,7 +15029,7 @@ function upgradeLegacyIpadElements(editorEl){
     wrapper.style.left = (40 + (i * 35)) + "px";
     wrapper.style.top = (80 + (i * 50)) + "px";
     wrapper.style.width = "260px";
-    wrapper.style.zIndex = "" + (++canvasMaxZIndex);
+    wrapper.style.zIndex = "" + getNextCanvasZIndex();
     wrapper.innerHTML = `
       ${buildCanvasItemBar(id, "sticky", {
         isMini: true,
@@ -15055,6 +15063,33 @@ function getNextCanvasItemPosition(width=280, height=120){
   return { left: Math.max(10, Math.round(left)), top: Math.max(55, Math.round(top)) };
 }
 
+function getNextCanvasZIndex(){
+  const editor = document.getElementById("ipad-page-editor");
+  let maxZ = 80;
+  if(editor){
+    editor.querySelectorAll(".canvas-item").forEach(el => {
+      if(el.classList.contains("is-below-ink")) return;
+      const z = parseInt(el.style.zIndex, 10);
+      if(!isNaN(z) && z > maxZ && z < 10000){
+        maxZ = z;
+      }
+    });
+  }
+  canvasMaxZIndex = Math.max(canvasMaxZIndex, maxZ) + 1;
+  return canvasMaxZIndex;
+}
+
+function bringCanvasItemToTop(item){
+  if(!item || item.classList.contains("is-below-ink")) return;
+  const editor = document.getElementById("ipad-page-editor");
+  const nextZ = getNextCanvasZIndex();
+  item.style.zIndex = "" + nextZ;
+
+  if(editor && editor.lastElementChild !== item && (!document.activeElement || !item.contains(document.activeElement))){
+    editor.appendChild(item);
+  }
+}
+
 function selectCanvasItem(item){
   deselectAllCanvasItems();
   if(!item) return;
@@ -15064,9 +15099,10 @@ function selectCanvasItem(item){
   } else {
     item.classList.remove("is-near-top");
   }
-  item.style.zIndex = item.classList.contains("is-below-ink") ? "20" : ("" + (++canvasMaxZIndex));
+  bringCanvasItemToTop(item);
   lastActiveTextBoxId = item.id;
   syncTopbarTypographyForItem(item);
+  queueIpadSave();
 }
 
 function deselectAllCanvasItems(){
@@ -15093,7 +15129,7 @@ function insertIpadTextBox(){
   });
 
   const html = `
-    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-text-box is-selected" id="${id}" data-type="textbox" data-box-style="paper" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:280px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       <div class="canvas-text-body" contenteditable="true" spellcheck="true" data-placeholder="Type anywhere here..." style="font-family:'Patrick Hand',cursive;font-size:16px;">Type notes, title, or formula...</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -15134,7 +15170,7 @@ function insertIpadWashiTape(pattern="washi-blush"){
   });
 
   const html = `
-    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-custom-font="patrick" data-custom-font-size="14" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-washi is-selected" id="${id}" data-type="washi" data-washi-pattern="${pattern}" data-custom-font="patrick" data-custom-font-size="14" data-rotation="-6" data-text-color="dark" style="left:${pos.left}px;top:${pos.top}px;width:220px;transform:rotate(-6deg);z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       <div class="washi-tape-strip ${pattern}">
         <div class="washi-tape-label" contenteditable="true" spellcheck="false" data-placeholder="Tape label / Write here..." style="font-family:'Patrick Hand',cursive;font-size:14px;">Washi Tape Label ✨</div>
@@ -15189,7 +15225,7 @@ function insertIpadPhotoFromDataUrl(dataUrl){
   });
 
   const html = `
-    <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-photo is-selected" id="${id}" data-type="photo" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:320px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       <div class="canvas-photo-card frame-washi">
         <img src="${dataUrl}" alt="Study Diagram" style="width:100%;height:auto;object-fit:contain;display:block;border-radius:inherit;pointer-events:none;">
@@ -15238,7 +15274,7 @@ function insertIpadSticker(stickerEmoji){
   });
 
   const html = `
-    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:64px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       <div class="canvas-sticker-glyph">${stickerEmoji}</div>
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -15289,7 +15325,7 @@ function insertIpadStickyPrompt(){
   });
 
   const html = `
-    <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-custom-font="patrick" data-custom-font-size="15" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-sticky is-selected" id="${id}" data-type="sticky" data-sticky-color="${picked}" data-custom-font="patrick" data-custom-font-size="15" data-rotation="-1" style="left:${pos.left}px;top:${pos.top}px;width:260px;transform:rotate(-1deg);z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       <button type="button" class="canvas-sticky-corner-del" onclick="deleteCanvasSticky(this, event)" title="Delete Sticky Note">✕</button>
       <div class="journal-sticky-note ${picked} canvas-sticky-body" contenteditable="true" spellcheck="true" style="font-family:'Patrick Hand',cursive;font-size:15px;">
@@ -15384,7 +15420,7 @@ function insertIpadShape(shapeType='rounded'){
   });
 
   const html = `
-    <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-shape is-selected" id="${id}" data-type="shape" data-shape-type="${shapeType}" data-shape-style="mint" data-border-style="solid" data-custom-font="patrick" data-custom-font-size="16" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:180px;height:100px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       ${shapeContent}
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -15432,7 +15468,7 @@ function handleCanvasAction(btn, e){
       showToast("Placed below ink ⬇️ (pen/highlighter draws over it)");
     } else {
       item.dataset.layer = "above-ink";
-      item.style.zIndex = "" + (++canvasMaxZIndex);
+      item.style.zIndex = "" + getNextCanvasZIndex();
       btn.textContent = "⬇️ Below Ink";
       btn.title = "Put item below written pen / highlighter strokes";
       showToast("Brought above ink ⬆️ (floats over written strokes)");
@@ -15824,6 +15860,13 @@ function initIpadCanvasEngine(){
     }
   }, true);
 
+  editor.addEventListener("focusin", (e) => {
+    const item = e.target.closest(".canvas-item");
+    if(item && !item.classList.contains("is-selected")){
+      selectCanvasItem(item);
+    }
+  });
+
   sheet.addEventListener("pointerdown", (e) => {
     const directDel = e.target.closest(".canvas-sticky-corner-del, .sticky-inline-del-btn");
     if(directDel){
@@ -15918,7 +15961,12 @@ function initIpadCanvasEngine(){
     let item = e.target.closest(".canvas-item");
     if(!item){
       const allItems = Array.from(editor.querySelectorAll(".canvas-item"));
-      for(let i = allItems.length - 1; i >= 0; i--){
+      allItems.sort((a, b) => {
+        const za = parseInt(a.style.zIndex, 10) || 80;
+        const zb = parseInt(b.style.zIndex, 10) || 80;
+        return zb - za;
+      });
+      for(let i = 0; i < allItems.length; i++){
         const it = allItems[i];
         const r = it.getBoundingClientRect();
         if(e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top - 46 && e.clientY <= r.bottom){
@@ -16038,15 +16086,24 @@ function initIpadCanvasEngine(){
         if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
       }
 
-      // Automatically scale written text inside washi tape, shapes, and captions (exclude sticky notes and text boxes so dragging handles expands/contracts writing area!)
-      if(s.textTarget && s.startFontSize && s.type !== "sticky" && s.type !== "textbox"){
+      // Automatically scale written text inside washi tape, shapes, captions, and text boxes:
+      if(s.textTarget && s.startFontSize && s.type !== "sticky"){
         const curW = s.item.offsetWidth || s.startWidth;
         const curH = s.item.offsetHeight || s.startHeight;
         const wRatio = curW / (s.startWidth || 1);
         const hRatio = curH / (s.startHeight || 1);
 
         let scale = 1;
-        if(s.dir === "e" || s.dir === "w"){
+        if(s.type === "textbox"){
+          if(s.dir === "se"){
+            // Corner resize: proportional scaling with text box dimensions
+            scale = (wRatio + hRatio) / 2;
+          } else if(s.dir === "e" || s.dir === "w"){
+            scale = wRatio;
+          } else if(s.dir === "s" || s.dir === "n"){
+            scale = hRatio;
+          }
+        } else if(s.dir === "e" || s.dir === "w"){
           scale = wRatio;
         } else if(s.dir === "s" || s.dir === "n"){
           scale = hRatio;
@@ -16063,8 +16120,27 @@ function initIpadCanvasEngine(){
           newFs = Math.min(newFs, maxTapeFs);
         }
 
-        newFs = Math.max(10, Math.min(84, newFs));
+        newFs = Math.max(10, Math.min(120, newFs));
         s.textTarget.style.fontSize = newFs + "px";
+        if(s.textTarget.hasAttribute("data-font-size")) s.textTarget.removeAttribute("data-font-size");
+        s.textTarget.querySelectorAll("[style*='font-size']").forEach(ch => {
+          ch.style.fontSize = newFs + "px";
+        });
+        s.item.dataset.customFontSize = "" + newFs;
+
+        const sizeSel = s.item.querySelector(".cbar-size-select");
+        if(sizeSel && sizeSel.value !== "" + newFs){
+          let opt = Array.from(sizeSel.options).find(o => Number(o.value) === newFs);
+          if(!opt) sizeSel.add(new Option("" + newFs, "" + newFs));
+          sizeSel.value = "" + newFs;
+        }
+
+        const topSizeSel = document.getElementById("ipad-font-size-select");
+        if(topSizeSel && topSizeSel.value !== "" + newFs){
+          let opt = Array.from(topSizeSel.options).find(o => Number(o.value) === newFs);
+          if(!opt) topSizeSel.add(new Option("" + newFs, "" + newFs));
+          topSizeSel.value = "" + newFs;
+        }
 
         const labelEl = s.item.querySelector(".cbar-font-num-label");
         if(labelEl) labelEl.textContent = newFs + "pt";
@@ -16112,12 +16188,14 @@ function initIpadCanvasEngine(){
       showToast("Rotated to " + deg + "° ↻");
       activeRotateState = null;
       queueIpadSave();
+      if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
     }
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       try { activeResizeState.handle.releasePointerCapture(e.pointerId); } catch(_){}
       activeResizeState.item.classList.remove("is-resizing");
       activeResizeState = null;
       queueIpadSave();
+      if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
     }
     if(activeDragState && activeDragState.pointerId === e.pointerId){
       try { activeDragState.handle.releasePointerCapture(e.pointerId); } catch(_){}
@@ -18203,7 +18281,7 @@ function insertGraphicStickerToJournal(src, name){
     });
 
     const html = `
-      <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:${w}px;height:${h}px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+      <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:${w}px;height:${h}px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
         ${barHtml}
         ${contentHtml}
         <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
@@ -18500,7 +18578,7 @@ function insertCustomStickerToJournal(stickerId){
   });
 
   const html = `
-    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:${w}px;height:${h}px;z-index:${++canvasMaxZIndex};" contenteditable="false">
+    <div class="canvas-item canvas-sticker is-selected" id="${id}" data-type="sticker" data-rotation="0" style="left:${pos.left}px;top:${pos.top}px;width:${w}px;height:${h}px;z-index:${getNextCanvasZIndex()};" contenteditable="false">
       ${barHtml}
       ${contentHtml}
       <div class="canvas-rotate-handle" title="Drag to freely rotate to any degree">↻</div>
