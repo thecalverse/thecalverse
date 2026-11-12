@@ -1774,18 +1774,41 @@ canvas#gc{display:block;width:100%;height:240px;}
   touch-action:none;
   border-radius:inherit;
 }
-.ipad-ink-canvas.is-active{
-  pointer-events:auto;
-  cursor:crosshair;
-  z-index:50;
+.ipad-ink-canvas.is-active,
+#ipad-ink-canvas.is-active{
+  pointer-events:auto!important;
+  cursor:crosshair!important;
+  z-index:500!important;
 }
-.ipad-ink-canvas.is-eraser{
-  pointer-events:auto;
-  cursor:cell;
-  z-index:50;
+.ipad-ink-canvas.is-eraser,
+#ipad-ink-canvas.is-eraser{
+  pointer-events:auto!important;
+  cursor:cell!important;
+  z-index:500!important;
+}
+.ipad-ink-canvas:not(.is-active),
+#ipad-ink-canvas:not(.is-active){
+  pointer-events:none!important;
 }
 .ipad-ink-canvas.is-highlighter{
   mix-blend-mode:multiply;
+}
+
+/* When Pen / Inking Mode is chosen: canvas items are locked and will NEVER move around */
+.ipad-paper-sheet.is-pen-active .canvas-item{
+  pointer-events:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+.ipad-paper-sheet.is-pen-active .canvas-item *{
+  pointer-events:none!important;
+}
+.ipad-paper-sheet.is-pen-active .canvas-item-bar,
+.ipad-paper-sheet.is-pen-active .canvas-rotate-handle,
+.ipad-paper-sheet.is-pen-active .canvas-resize-handle,
+.ipad-paper-sheet.is-pen-active [class*="canvas-resize-"],
+.ipad-paper-sheet.is-pen-active .canvas-drag-handle{
+  display:none!important;
 }
 
 .ipad-paper-sheet{
@@ -11004,6 +11027,7 @@ const WASHI_PATTERNS = [
 let currentWashiEditingId = null;
 
 function openWashiPatternPickerModal(washiItem = null){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   if(washiItem && washiItem.id){
     currentWashiEditingId = washiItem.id;
   } else {
@@ -12131,6 +12155,7 @@ function removeJournalCustomBackground(id, e){
 }
 
 function openJournalBackgroundModal(){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const m = document.getElementById('journal-background-modal');
   if(!m) return;
   if(!getNoteById(currentNoteId)){
@@ -15108,6 +15133,7 @@ function deselectAllCanvasItems(){
 }
 
 function insertIpadTextBox(){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "ctext_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15145,6 +15171,7 @@ function insertIpadTextBox(){
 }
 
 function insertIpadWashiTape(pattern="washi-blush"){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "cwashi_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15203,6 +15230,7 @@ function applySpecificCanvasAngle(itemId, angle){
 const applySpecificWashiAngle = applySpecificCanvasAngle;
 
 function insertIpadPhotoFromDataUrl(dataUrl){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "cphoto_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15256,6 +15284,7 @@ async function handleIpadPhotoUpload(e){
 }
 
 function insertIpadSticker(stickerEmoji){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "csticker_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15301,6 +15330,7 @@ function deleteCanvasSticky(btn, e){
 }
 
 function insertIpadStickyPrompt(){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "csticky_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15344,6 +15374,7 @@ function insertIpadStickyPrompt(){
 }
 
 function insertIpadShape(shapeType='rounded'){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const editor = document.getElementById("ipad-page-editor");
   if(!editor) return;
   const id = "cshape_" + Date.now() + "_" + Math.random().toString(36).slice(2,6);
@@ -15854,6 +15885,7 @@ function initIpadCanvasEngine(){
   }, true);
 
   editor.addEventListener("focusin", (e) => {
+    if(ipadActiveTool !== "select") return;
     const item = e.target.closest(".canvas-item");
     if(item && !item.classList.contains("is-selected")){
       selectCanvasItem(item);
@@ -15861,6 +15893,8 @@ function initIpadCanvasEngine(){
   });
 
   sheet.addEventListener("pointerdown", (e) => {
+    // When pen / highlighter / eraser is chosen, nothing can move or be selected on the sheet!
+    if(ipadActiveTool !== "select") return;
     const directDel = e.target.closest(".canvas-sticky-corner-del, .sticky-inline-del-btn");
     if(directDel){
       e.stopPropagation();
@@ -16306,12 +16340,26 @@ let currentIpadZoom = 1.0;
 let ipadBinderEnabled = false;
 
 function setIpadActiveTool(tool){
+  // Toggle: If tapping the already active inking tool, toggle back to 'select'
+  if(tool !== 'select' && ipadActiveTool === tool){
+    tool = 'select';
+  }
+  if(tool !== 'select' && typeof ipadIsViewMode !== 'undefined' && ipadIsViewMode){
+    setIpadViewMode(false);
+  }
   ipadActiveTool = tool;
   document.querySelectorAll(".dock-tool-btn").forEach(btn => {
     btn.classList.toggle("is-active", btn.id === "tool-" + tool);
   });
 
   const canvas = document.getElementById("ipad-ink-canvas");
+  const sheet = document.getElementById("ipad-paper-sheet");
+  const isPenMode = (tool === "pen" || tool === "highlighter" || tool === "eraser");
+
+  if(sheet){
+    sheet.classList.toggle("is-pen-active", isPenMode);
+  }
+
   if(canvas){
     canvas.classList.remove("is-active", "is-eraser");
     canvas.classList.toggle("is-highlighter", tool === "highlighter");
@@ -16745,122 +16793,6 @@ function initIpadInkEngine(){
         activeInkTouches.forEach(t => { sumX += t.x; sumY += t.y; });
         lastTwoFingerX = sumX / activeInkTouches.size;
         lastTwoFingerY = sumY / activeInkTouches.size;
-        return;
-      }
-    }
-
-    // Check if user clicked on a toolbar button, handle, or item
-    const elements = document.elementsFromPoint(e.clientX, e.clientY);
-    const cbarBtn = elements.find(el => el.classList && el.classList.contains("cbar-btn"));
-    if(cbarBtn){
-      e.preventDefault();
-      e.stopPropagation();
-      const item = cbarBtn.closest(".canvas-item");
-      if(item) selectCanvasItem(item);
-      handleCanvasAction(cbarBtn, e);
-      return;
-    }
-
-    const rotateHandle = elements.find(el => el.classList && el.classList.contains("canvas-rotate-handle"));
-    if(rotateHandle){
-      const item = rotateHandle.closest(".canvas-item");
-      if(item){
-        e.preventDefault();
-        e.stopPropagation();
-        selectCanvasItem(item);
-        try { rotateHandle.setPointerCapture(e.pointerId); } catch(_){}
-        const rect = item.getBoundingClientRect();
-        activeRotateState = {
-          pointerId: e.pointerId,
-          handle: rotateHandle,
-          item: item,
-          centerX: rect.left + rect.width / 2,
-          centerY: rect.top + rect.height / 2
-        };
-        item.classList.add("is-rotating");
-        return;
-      }
-    }
-
-    const resizeHandle = elements.find(el => el.classList && (el.classList.contains("canvas-resize-handle") || (typeof el.className === "string" && el.className.includes("canvas-resize-"))));
-    if(resizeHandle){
-      const item = resizeHandle.closest(".canvas-item");
-      if(item){
-        e.preventDefault();
-        e.stopPropagation();
-        selectCanvasItem(item);
-        try { resizeHandle.setPointerCapture(e.pointerId); } catch(_){}
-        const dir = resizeHandle.dataset.dir || "se";
-        const textTarget = item.querySelector(".washi-tape-label, .journal-sticky-note, .canvas-sticky-body, .canvas-text-body, .canvas-shape-body, .canvas-photo-caption");
-        let initialFs = 16;
-        if(textTarget){
-          initialFs = parseFloat(window.getComputedStyle(textTarget).fontSize) || 16;
-        }
-        activeResizeState = {
-          pointerId: e.pointerId,
-          handle: resizeHandle,
-          item: item,
-          dir: dir,
-          startX: e.clientX,
-          startY: e.clientY,
-          startLeft: item.offsetLeft,
-          startTop: item.offsetTop,
-          startWidth: item.offsetWidth,
-          startHeight: item.offsetHeight,
-          startFontSize: initialFs,
-          textTarget: textTarget,
-          type: item.dataset.type || ""
-        };
-        item.classList.add("is-resizing");
-        return;
-      }
-    }
-
-    const dragHandle = elements.find(el => el.classList && (el.classList.contains("canvas-drag-handle") || el.classList.contains("canvas-item-bar")));
-    if(dragHandle){
-      const item = dragHandle.closest(".canvas-item");
-      if(item){
-        e.preventDefault();
-        e.stopPropagation();
-        selectCanvasItem(item);
-        try { dragHandle.setPointerCapture(e.pointerId); } catch(_){}
-        activeDragState = {
-          pointerId: e.pointerId,
-          handle: dragHandle,
-          item: item,
-          startX: e.clientX,
-          startY: e.clientY,
-          startLeft: item.offsetLeft,
-          startTop: item.offsetTop
-        };
-        item.classList.add("is-dragging");
-        return;
-      }
-    }
-
-    const item = elements.find(el => el.classList && (el.classList.contains("canvas-item") || el.closest(".canvas-item")))?.closest(".canvas-item");
-    if(item){
-      // If item was intentionally placed below ink, let pen/highlighter draw over it!
-      if(item.classList.contains("is-below-ink") && (ipadActiveTool === "pen" || ipadActiveTool === "highlighter")){
-        // proceed to drawing ink over the item below
-      } else {
-        // Direct move for tape, photo, sticker, sticky note even when pen mode is ON!
-        e.preventDefault();
-        e.stopPropagation();
-        selectCanvasItem(item);
-        const dragTarget = item;
-        try { dragTarget.setPointerCapture(e.pointerId); } catch(_){}
-        activeDragState = {
-          pointerId: e.pointerId,
-          handle: dragTarget,
-          item: item,
-          startX: e.clientX,
-          startY: e.clientY,
-          startLeft: item.offsetLeft,
-          startTop: item.offsetTop,
-          hasMoved: false
-        };
-        item.classList.add("is-dragging");
         return;
       }
     }
@@ -18298,6 +18230,7 @@ function insertGraphicStickerToJournal(src, name){
 }
 
 function openStickersModal(){
+  if(typeof ipadActiveTool !== "undefined" && ipadActiveTool !== "select") setIpadActiveTool("select");
   const m=document.getElementById('journal-stickers-modal');
   if(m)m.classList.add('show');
   filterStickerTab(currentStickerTab);
