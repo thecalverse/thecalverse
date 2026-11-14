@@ -1301,6 +1301,13 @@ canvas#gc{display:block;width:100%;height:240px;}
 .note-editor u{text-decoration-thickness:1.5px;text-underline-offset:3px;}
 .note-editor-wrap.view-mode .note-editor{display:none;}
 .note-editor-wrap.edit-mode .note-view{display:none;}
+
+/* Universal text selectable and editable guarantee for Notes, Journal & inputs */
+input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-editor, .note-editor *, .note-view, .note-view *, .canvas-text-body, .canvas-text-body *, .canvas-sticky-body, .canvas-sticky-body *, .washi-tape-label, .washi-tape-label *{
+  -webkit-user-select:text!important;
+  user-select:text!important;
+  -webkit-touch-callout:default!important;
+}
 .note-editor-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
 .note-editor-hint{font-size:11px;color:var(--t3);}
 .note-surface{padding:0;overflow:visible;background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;}
@@ -4009,11 +4016,45 @@ canvas#gc{display:block;width:100%;height:240px;}
   transition:all .22s cubic-bezier(.2,.8,.2,1);
   overflow:hidden;
   border:1px solid rgba(255,255,255,.12);
+  transform-origin:left center;
+  perspective:1200px;
+  will-change:transform,opacity;
 }
 .notebook-cover-card:hover{
   transform:translateY(-6px) scale(1.03) rotate(-0.5deg);
   box-shadow:0 28px 52px rgba(0,0,0,.45),0 0 24px rgba(124,92,255,.24);
   border-color:rgba(255,255,255,.24);
+}
+.notebook-cover-card.is-opening-card{
+  pointer-events:none!important;
+  transform:perspective(1200px) rotateY(-82deg) scale(1.08) translateZ(40px)!important;
+  opacity:0!important;
+  box-shadow:0 36px 70px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.3)!important;
+  transition:transform .38s cubic-bezier(.2,.9,.3,1),opacity .32s ease,box-shadow .38s ease!important;
+}
+
+#journal-notebook-view.is-opening-stage{
+  animation:notebookStageReveal .42s cubic-bezier(.16,1,.3,1) forwards;
+}
+#journal-notebook-view.is-opening-stage .ipad-frame{
+  animation:notebookFrameOpen .44s cubic-bezier(.16,1,.3,1) forwards;
+}
+#journal-notebook-view.is-opening-stage .ipad-paper-sheet{
+  animation:notebookSheetSettle .48s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes notebookStageReveal{
+  0%{opacity:0;}
+  100%{opacity:1;}
+}
+@keyframes notebookFrameOpen{
+  0%{opacity:0;transform:perspective(1400px) scale(0.92) rotateY(16deg) translateY(14px);filter:blur(3px);}
+  70%{filter:blur(0);}
+  100%{opacity:1;transform:perspective(1400px) scale(1) rotateY(0deg) translateY(0);filter:none;}
+}
+@keyframes notebookSheetSettle{
+  0%{opacity:0;transform:translateY(20px) scale(0.96);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
 }
 .notebook-cover-card::before{
   content:'';
@@ -4106,6 +4147,40 @@ canvas#gc{display:block;width:100%;height:240px;}
 .theme-noir{background:linear-gradient(135deg,#23232b,#101015)!important;}
 .theme-plum{background:linear-gradient(135deg,#581c5a,#2a092b)!important;}
 .theme-emerald{background:linear-gradient(135deg,#135344,#082d24)!important;}
+.theme-leather{background:linear-gradient(135deg,#6d4023,#381f0d)!important;}
+.theme-sakura{background:linear-gradient(135deg,#e5829d,#a24b64)!important;}
+.theme-sunbeam{background:linear-gradient(135deg,#cc922a,#784f0b)!important;}
+.theme-burgundy{background:linear-gradient(135deg,#69172d,#330713)!important;}
+.theme-aurora{background:linear-gradient(135deg,#7928ca,#ff0080)!important;}
+.theme-forest{background:linear-gradient(135deg,#1e4d3a,#0d261c)!important;}
+.theme-marble{background:linear-gradient(135deg,#475569,#1e293b)!important;}
+
+/* Notebook Cover Finishes & Textures */
+.finish-leather{
+  box-shadow:inset 0 0 0 2px rgba(212,175,55,0.45),inset 0 0 24px rgba(0,0,0,0.55),0 18px 32px rgba(0,0,0,.32)!important;
+}
+.finish-linen{
+  background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 0)!important;
+  background-size:4px 4px!important;
+}
+.finish-celestial{
+  box-shadow:inset 0 0 0 1.5px rgba(255,223,128,0.7),inset 0 0 16px rgba(255,223,128,0.15),0 18px 32px rgba(0,0,0,.32)!important;
+}
+.finish-grid{
+  background-image:linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px)!important;
+  background-size:14px 14px!important;
+}
+
+/* Notebook Cover Spine Variations */
+.spine-spiral::before{
+  width:20px!important;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 8px,#222 8px,#ddd 11px,#222 13px,transparent 13px,transparent 20px)!important;
+  box-shadow:inset -1px 0 3px rgba(0,0,0,.6)!important;
+}
+.spine-gold::before{
+  background:linear-gradient(90deg,#5a4010,#e6b95c 45%,#ffebad 55%,#7a5416)!important;
+  box-shadow:inset -1px 0 2px rgba(0,0,0,.4),0 0 8px rgba(230,185,92,.35)!important;
+}
 
 /* Math Symbol Palette */
 .math-symbol-grid{
@@ -7832,6 +7907,9 @@ html[data-device="iphone"] #app {
           <div class="note-tool-group" title="Formatting &amp; Colors">
             <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('undo')" title="Undo">↶</button>
             <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="noteCommand('redo')" title="Redo">↷</button>
+            <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="handleClipboardAction('cut')" title="Cut selected text (Cmd+X / Ctrl+X)" style="font-size:11.5px;padding:0 7px;display:inline-flex;align-items:center;gap:3px;">✂️ Cut</button>
+            <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="handleClipboardAction('copy')" title="Copy selected text (Cmd+C / Ctrl+C)" style="font-size:11.5px;padding:0 7px;display:inline-flex;align-items:center;gap:3px;">📋 Copy</button>
+            <button class="note-tool-btn" onmousedown="event.preventDefault()" onclick="handleClipboardAction('paste')" title="Paste text (Cmd+V / Ctrl+V)" style="font-size:11.5px;padding:0 7px;display:inline-flex;align-items:center;gap:3px;">📥 Paste</button>
             <button class="note-tool-btn" id="note-bold" onmousedown="event.preventDefault()" onclick="noteCommand('bold')" title="Bold">B</button>
             <button class="note-tool-btn" id="note-italic" onmousedown="event.preventDefault()" onclick="noteCommand('italic')" title="Italic"><i>I</i></button>
             <button class="note-tool-btn" id="note-underline" onmousedown="event.preventDefault()" onclick="noteCommand('underline')" title="Underline"><u>U</u></button>
@@ -8126,55 +8204,139 @@ html[data-device="iphone"] #app {
 </div>
 
 <div id="journal-book-modal" class="app-dialog" onclick="handleBookModalBackdrop(event)">
-  <div class="app-dialog-card" style="width:min(100%,460px);" onclick="event.stopPropagation()">
-    <div class="app-dialog-title" id="book-modal-title">📚 Create New Book</div>
-    <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">Organize your pages into a stylish custom binder or journal.</div>
+  <div class="app-dialog-card" style="width:min(100%,520px);max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <div class="app-dialog-title" id="book-modal-title">📚 Design Your Book Cover</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;">Customize theme colors, leather/linen textures, binder spines &amp; aesthetic emblems.</div>
+
+    <!-- Live Book Cover Real-time Preview -->
+    <div style="display:flex;justify-content:center;margin-bottom:14px;">
+      <div id="book-modal-preview-card" class="notebook-cover-card theme-blush finish-matte spine-classic" style="width:170px;min-height:220px;pointer-events:none;transform:none!important;box-shadow:0 16px 36px rgba(0,0,0,.45);">
+        <div class="notebook-cover-body">
+          <div class="notebook-cover-emblem" id="book-preview-emblem">🌸</div>
+          <div class="notebook-cover-title" id="book-preview-title" style="font-size:15px;line-height:1.25;">Daily Mindful Journal</div>
+          <div class="notebook-cover-desc" id="book-preview-desc" style="font-size:10.5px;margin-top:6px;">Thoughts, memories &amp; daily plans</div>
+        </div>
+        <div class="notebook-cover-footer" style="padding-top:6px;justify-content:center;">
+          <span style="font-size:9.5px;letter-spacing:1px;opacity:.75;text-transform:uppercase;">Calverse</span>
+        </div>
+      </div>
+    </div>
+
     <div style="display:grid;gap:12px;">
       <div>
         <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Book Title</label>
-        <input type="text" id="book-input-title" class="app-dialog-input" placeholder="e.g. Daily Mindful Journal 🌸" maxlength="40">
+        <input type="text" id="book-input-title" class="app-dialog-input" placeholder="e.g. Daily Mindful Journal 🌸" maxlength="40" oninput="updateBookModalPreview()">
       </div>
       <div>
         <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;">Description / Subtitle</label>
-        <input type="text" id="book-input-desc" class="app-dialog-input" placeholder="e.g. Thoughts, memories & daily plans" maxlength="60">
+        <input type="text" id="book-input-desc" class="app-dialog-input" placeholder="e.g. Thoughts, memories & daily plans" maxlength="60" oninput="updateBookModalPreview()">
       </div>
+
+      <!-- Cover Color Themes -->
       <div>
-        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Cover Theme</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="book-theme-picker">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;">Cover Color Theme (18 Palettes)</label>
+          <div style="display:inline-flex;align-items:center;gap:4px;">
+            <input type="color" id="book-custom-color-native" value="#a83c65" style="display:none;" onchange="handleBookCustomColor(this.value)">
+            <button type="button" class="ipad-step-btn" onclick="document.getElementById('book-custom-color-native').click()" style="height:22px;padding:0 7px;font-size:10.5px;font-weight:800;" title="Pick Any Custom Color">🎨 Custom Hex</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;" id="book-theme-picker">
           <button type="button" class="hl-swatch on" data-theme="blush" style="background:linear-gradient(135deg,#c2527a,#7a284e);" title="Blush Rose" onclick="selectBookTheme('blush',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="sakura" style="background:linear-gradient(135deg,#e5829d,#a24b64);" title="Sakura Blossom" onclick="selectBookTheme('sakura',this)"></button>
           <button type="button" class="hl-swatch" data-theme="matcha" style="background:linear-gradient(135deg,#4e7a59,#25462f);" title="Matcha Sage" onclick="selectBookTheme('matcha',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="forest" style="background:linear-gradient(135deg,#1e4d3a,#0d261c);" title="Pine Forest" onclick="selectBookTheme('forest',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="emerald" style="background:linear-gradient(135deg,#135344,#082d24);" title="Emerald Velvet" onclick="selectBookTheme('emerald',this)"></button>
           <button type="button" class="hl-swatch" data-theme="latte" style="background:linear-gradient(135deg,#a47551,#5e3d23);" title="Warm Latte" onclick="selectBookTheme('latte',this)"></button>
-          <button type="button" class="hl-swatch" data-theme="obsidian" style="background:linear-gradient(135deg,#232938,#111520);" title="Midnight Obsidian" onclick="selectBookTheme('obsidian',this)"></button>
-          <button type="button" class="hl-swatch" data-theme="lavender" style="background:linear-gradient(135deg,#7252a4,#41286c);" title="Lavender Mist" onclick="selectBookTheme('lavender',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="leather" style="background:linear-gradient(135deg,#6d4023,#381f0d);" title="Saddle Leather" onclick="selectBookTheme('leather',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="terracotta" style="background:linear-gradient(135deg,#a64b2a,#5e240f);" title="Terracotta Clay" onclick="selectBookTheme('terracotta',this)"></button>
           <button type="button" class="hl-swatch" data-theme="honey" style="background:linear-gradient(135deg,#b37d2e,#6b450f);" title="Honey Amber" onclick="selectBookTheme('honey',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="sunbeam" style="background:linear-gradient(135deg,#cc922a,#784f0b);" title="Sunbeam Gold" onclick="selectBookTheme('sunbeam',this)"></button>
           <button type="button" class="hl-swatch" data-theme="ocean" style="background:linear-gradient(135deg,#2f6f9f,#143a57);" title="Ocean Breeze" onclick="selectBookTheme('ocean',this)"></button>
-          <button type="button" class="hl-swatch" data-theme="noir" style="background:linear-gradient(135deg,#23232b,#101015);" title="Midnight Noir" onclick="selectBookTheme('noir',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="navy" style="background:linear-gradient(135deg,#1c2d52,#0b152b);" title="Midnight Navy" onclick="selectBookTheme('navy',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="lavender" style="background:linear-gradient(135deg,#7252a4,#41286c);" title="Lavender Mist" onclick="selectBookTheme('lavender',this)"></button>
           <button type="button" class="hl-swatch" data-theme="plum" style="background:linear-gradient(135deg,#581c5a,#2a092b);" title="Royal Plum" onclick="selectBookTheme('plum',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="burgundy" style="background:linear-gradient(135deg,#69172d,#330713);" title="Deep Wine" onclick="selectBookTheme('burgundy',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="aurora" style="background:linear-gradient(135deg,#7928ca,#ff0080);" title="Neon Aurora" onclick="selectBookTheme('aurora',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="marble" style="background:linear-gradient(135deg,#475569,#1e293b);" title="Cloud Pearl" onclick="selectBookTheme('marble',this)"></button>
+          <button type="button" class="hl-swatch" data-theme="noir" style="background:linear-gradient(135deg,#23232b,#101015);" title="Midnight Noir" onclick="selectBookTheme('noir',this)"></button>
         </div>
       </div>
+
+      <!-- Cover Finish & Texture -->
       <div>
-        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Cover Emblem / Sticker</label>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:20px;" id="book-icon-picker">
-          <span class="sticker-pick-btn on" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌸',this)">🌸</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('📖',this)">📖</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🎓',this)">🎓</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('☕',this)">☕</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌿',this)">🌿</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('💡',this)">💡</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🪐',this)">🪐</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('✈️',this)">✈️</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🧸',this)">🧸</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🍓',this)">🍓</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🕯️',this)">🕯️</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🌙',this)">🌙</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🔐',this)">🔐</span>
-          <span class="sticker-pick-btn" style="width:38px;height:38px;font-size:20px;" onclick="selectBookIcon('🗝️',this)">🗝️</span>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Cover Texture / Finish</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;" id="book-finish-picker">
+          <button type="button" class="note-card-btn on" data-finish="matte" onclick="selectBookFinish('matte',this)" style="font-size:11px;padding:4px 9px;">Smooth Matte</button>
+          <button type="button" class="note-card-btn" data-finish="leather" onclick="selectBookFinish('leather',this)" style="font-size:11px;padding:4px 9px;">Stitched Leather</button>
+          <button type="button" class="note-card-btn" data-finish="linen" onclick="selectBookFinish('linen',this)" style="font-size:11px;padding:4px 9px;">Fine Linen</button>
+          <button type="button" class="note-card-btn" data-finish="celestial" onclick="selectBookFinish('celestial',this)" style="font-size:11px;padding:4px 9px;">Gold Celestial</button>
+          <button type="button" class="note-card-btn" data-finish="grid" onclick="selectBookFinish('grid',this)" style="font-size:11px;padding:4px 9px;">Minimalist Grid</button>
+        </div>
+      </div>
+
+      <!-- Spine Style -->
+      <div>
+        <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;">Spine &amp; Binding Style</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;" id="book-spine-picker">
+          <button type="button" class="note-card-btn on" data-spine="classic" onclick="selectBookSpine('classic',this)" style="font-size:11px;padding:4px 9px;">Classic Hardcover</button>
+          <button type="button" class="note-card-btn" data-spine="spiral" onclick="selectBookSpine('spiral',this)" style="font-size:11px;padding:4px 9px;">Spiral Ring Wire</button>
+          <button type="button" class="note-card-btn" data-spine="gold" onclick="selectBookSpine('gold',this)" style="font-size:11px;padding:4px 9px;">Gold Foil Spine</button>
+        </div>
+      </div>
+
+      <!-- Cover Emblem & Custom Stamp Input -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <label style="font-size:11px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;">Cover Emblem / Stamp</label>
+          <div style="display:inline-flex;align-items:center;gap:4px;">
+            <input type="text" id="book-custom-emblem-input" class="app-dialog-input" placeholder="Type custom emoji" maxlength="6" style="width:130px;height:24px;font-size:12px;padding:0 6px;" oninput="handleBookCustomEmblem(this.value)">
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:20px;max-height:130px;overflow-y:auto;padding:2px 0;" id="book-icon-picker">
+          <span class="sticker-pick-btn on" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🌸',this)">🌸</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('📖',this)">📖</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🎓',this)">🎓</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('☕',this)">☕</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🌿',this)">🌿</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('💡',this)">💡</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🪐',this)">🪐</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('✈️',this)">✈️</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🧸',this)">🧸</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🍓',this)">🍓</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🕯️',this)">🕯️</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🌙',this)">🌙</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🔐',this)">🔐</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🗝️',this)">🗝️</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🎀',this)">🎀</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('✨',this)">✨</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🌷',this)">🌷</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🍰',this)">🍰</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('💌',this)">💌</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🤍',this)">🤍</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('💫',this)">💫</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🕊️',this)">🕊️</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🍧',this)">🍧</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🦄',this)">🦄</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🥐',this)">🥐</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🪞',this)">🪞</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🦋',this)">🦋</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🫧',this)">🫧</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🧋',this)">🧋</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('☁️',this)">☁️</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🌻',this)">🌻</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🪻',this)">🪻</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🐾',this)">🐾</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🎨',this)">🎨</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('🧪',this)">🧪</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('📐',this)">📐</span>
+          <span class="sticker-pick-btn" style="width:36px;height:36px;font-size:20px;" onclick="selectBookIcon('📝',this)">📝</span>
         </div>
       </div>
     </div>
     <div class="app-dialog-actions" style="margin-top:16px;">
       <button type="button" class="app-dialog-btn" onclick="closeBookModal()">Cancel</button>
-      <button type="button" class="app-dialog-btn acc" onclick="submitBookModal()">Save Book</button>
+      <button type="button" class="app-dialog-btn acc" onclick="submitBookModal()">Save Book ✨</button>
     </div>
   </div>
 </div>
@@ -10690,20 +10852,20 @@ function renderNotebooksShelf(){
   }
 
   const cardsHtml = JOURNAL_BOOKS.map(book => {
-    const pages = NOTES.filter(n => n.bookId === book.id);
-    const pageCount = pages.length;
-    const themeClass = book.coverTheme || 'theme-blush';
+    const themeClass = book.coverTheme ? `theme-${book.coverTheme}` : 'theme-blush';
+    const finishClass = book.coverFinish ? `finish-${book.coverFinish}` : 'finish-matte';
+    const spineClass = book.spineStyle ? `spine-${book.spineStyle}` : 'spine-classic';
+    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;` : '';
     const emblem = book.emblem || '📖';
     return `
-      <div class="notebook-cover-card ${escapeHtml(themeClass)}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
+      <div class="notebook-cover-card ${themeClass} ${finishClass} ${spineClass}" style="${customStyle}" onclick="openNotebookInJournal('${escapeHtml(book.id)}', event)">
         <div class="notebook-cover-body">
           <div class="notebook-cover-emblem">${escapeHtml(emblem)}</div>
           <div class="notebook-cover-title">${escapeHtml(book.title)}</div>
           <div class="notebook-cover-desc">${escapeHtml(book.desc || 'Multipage notebook')}</div>
         </div>
         <div class="notebook-cover-footer">
-          <span class="notebook-pages-pill">📑 ${pageCount} page${pageCount === 1 ? '' : 's'}</span>
-          <div style="display:flex;gap:4px;" onclick="event.stopPropagation()">
+          <div style="display:flex;gap:4px;margin-left:auto;" onclick="event.stopPropagation()">
             <button type="button" class="note-card-btn" onclick="openEditBookModal('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.2);color:#fff;" title="Edit Cover">Edit</button>
             <button type="button" class="note-card-btn del" onclick="deleteJournalBook('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(255,80,80,.25);border-color:rgba(255,80,80,.4);color:#fff;" title="Delete Book">✕</button>
           </div>
@@ -10724,14 +10886,33 @@ function renderNotebooksShelf(){
   `;
 }
 
-function openNotebookInJournal(bookId){
+function openNotebookInJournal(bookId, event){
+  const clickedCard = event?.currentTarget || event?.target?.closest?.('.notebook-cover-card');
+  if(clickedCard){
+    clickedCard.classList.add('is-opening-card');
+  }
+
   currentJournalBookId = bookId;
   currentJournalPageIndex = 0;
   currentJournalMainView = 'notebook';
   openJournal({ keepView: true });
+
+  const notebookView = document.getElementById('journal-notebook-view');
+  if(notebookView){
+    notebookView.classList.remove('is-opening-stage');
+    void notebookView.offsetWidth; // Trigger reflow for restart
+    notebookView.classList.add('is-opening-stage');
+  }
+
   switchJournalMainView('notebook');
   loadIpadActivePage();
   setIpadViewMode(true);
+
+  setTimeout(() => {
+    if(clickedCard) clickedCard.classList.remove('is-opening-card');
+    if(notebookView) notebookView.classList.remove('is-opening-stage');
+  }, 500);
+
   const book = getJournalBookById(bookId);
   showToast(`Opened "${book?.title || 'Notebook'}" 📖`);
 }
@@ -10913,18 +11094,83 @@ function getJournalBookById(id){
 }
 
 let currentSelectedTheme='blush';
+let currentSelectedFinish='matte';
+let currentSelectedSpine='classic';
+let currentCustomColor='';
 let currentSelectedIcon='🌸';
+
+function updateBookModalPreview(){
+  const card = document.getElementById('book-modal-preview-card');
+  const emblemEl = document.getElementById('book-preview-emblem');
+  const titleEl = document.getElementById('book-preview-title');
+  const descEl = document.getElementById('book-preview-desc');
+  const inputTitle = document.getElementById('book-input-title');
+  const inputDesc = document.getElementById('book-input-desc');
+  if(!card) return;
+
+  const title = inputTitle?.value?.trim() || 'My Notebook';
+  const desc = inputDesc?.value?.trim() || 'Thoughts, memories & daily plans';
+  const icon = currentSelectedIcon || '🌸';
+  const theme = currentSelectedTheme || 'blush';
+  const finish = currentSelectedFinish || 'matte';
+  const spine = currentSelectedSpine || 'classic';
+
+  if(emblemEl) emblemEl.textContent = icon;
+  if(titleEl) titleEl.textContent = title;
+  if(descEl) descEl.textContent = desc;
+
+  card.className = `notebook-cover-card theme-${theme} finish-${finish} spine-${spine}`;
+  if(currentCustomColor){
+    card.style.background = currentCustomColor + ' !important';
+  } else {
+    card.style.background = '';
+  }
+}
 
 function selectBookTheme(theme,el){
   currentSelectedTheme=theme;
+  currentCustomColor='';
   document.querySelectorAll('#book-theme-picker .hl-swatch').forEach(b=>b.classList.remove('on'));
   if(el)el.classList.add('on');
+  updateBookModalPreview();
+}
+
+function handleBookCustomColor(hex){
+  if(!hex) return;
+  currentCustomColor=hex;
+  document.querySelectorAll('#book-theme-picker .hl-swatch').forEach(b=>b.classList.remove('on'));
+  updateBookModalPreview();
+}
+
+function selectBookFinish(finish,el){
+  currentSelectedFinish=finish;
+  document.querySelectorAll('#book-finish-picker .note-card-btn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  updateBookModalPreview();
+}
+
+function selectBookSpine(spine,el){
+  currentSelectedSpine=spine;
+  document.querySelectorAll('#book-spine-picker .note-card-btn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  updateBookModalPreview();
 }
 
 function selectBookIcon(icon,el){
   currentSelectedIcon=icon;
+  const customInput = document.getElementById('book-custom-emblem-input');
+  if(customInput) customInput.value = '';
   document.querySelectorAll('#book-icon-picker .sticker-pick-btn').forEach(b=>b.classList.remove('on'));
   if(el)el.classList.add('on');
+  updateBookModalPreview();
+}
+
+function handleBookCustomEmblem(val){
+  const clean = (val || '').trim();
+  if(!clean) return;
+  currentSelectedIcon=clean;
+  document.querySelectorAll('#book-icon-picker .sticker-pick-btn').forEach(b=>b.classList.remove('on'));
+  updateBookModalPreview();
 }
 
 /* ── 36 WASHI TAPE PATTERNS CATALOG & GRID CONTROLLER ── */
@@ -12918,8 +13164,9 @@ function openCreateBookModal(isVault = false){
   bookModalEditingId='';
   const titleEl=document.getElementById('book-input-title');
   const descEl=document.getElementById('book-input-desc');
+  const customEmblemEl=document.getElementById('book-custom-emblem-input');
   const modalTitle=document.getElementById('book-modal-title');
-  if(modalTitle)modalTitle.textContent = isCreatingVaultBook ? '🔒 Create Secret Diary Book' : '📚 Create New Book';
+  if(modalTitle)modalTitle.textContent = isCreatingVaultBook ? '🔒 Create Secret Diary Book' : '📚 Design Your Book Cover';
   if(titleEl){
     titleEl.value='';
     titleEl.placeholder = isCreatingVaultBook ? 'e.g. Midnight Whispers & Confessions 🔐' : 'e.g. Daily Mindful Journal 🌸';
@@ -12928,10 +13175,25 @@ function openCreateBookModal(isVault = false){
     descEl.value='';
     descEl.placeholder = isCreatingVaultBook ? 'e.g. Private thoughts, secret memories & unsent letters' : 'e.g. Thoughts, memories & daily plans';
   }
+  if(customEmblemEl)customEmblemEl.value='';
+
   const defaultTheme = isCreatingVaultBook ? 'noir' : 'blush';
   const defaultIcon = isCreatingVaultBook ? '🔐' : '🌸';
+  currentSelectedTheme = defaultTheme;
+  currentSelectedFinish = 'matte';
+  currentSelectedSpine = 'classic';
+  currentCustomColor = '';
+  currentSelectedIcon = defaultIcon;
+
   const themeBtn=document.querySelector(`#book-theme-picker .hl-swatch[data-theme="${defaultTheme}"]`) || document.querySelector('#book-theme-picker .hl-swatch');
-  if(themeBtn)selectBookTheme(themeBtn.dataset.theme||defaultTheme,themeBtn);
+  selectBookTheme(defaultTheme,themeBtn);
+
+  const finishBtn=document.querySelector('#book-finish-picker .note-card-btn[data-finish="matte"]');
+  selectBookFinish('matte',finishBtn);
+
+  const spineBtn=document.querySelector('#book-spine-picker .note-card-btn[data-spine="classic"]');
+  selectBookSpine('classic',spineBtn);
+
   const iconBtns=document.querySelectorAll('#book-icon-picker .sticker-pick-btn');
   let matchedIcon=false;
   iconBtns.forEach(btn=>{
@@ -12941,6 +13203,8 @@ function openCreateBookModal(isVault = false){
     }
   });
   if(!matchedIcon && iconBtns[0]) selectBookIcon(iconBtns[0].textContent.trim(), iconBtns[0]);
+  updateBookModalPreview();
+
   const m=document.getElementById('journal-book-modal');
   if(m)m.classList.add('show');
 }
@@ -12952,17 +13216,46 @@ function openEditBookModal(bookId){
   isCreatingVaultBook = !!(book.isVault || (book.id && book.id.startsWith('vault_')));
   const titleEl=document.getElementById('book-input-title');
   const descEl=document.getElementById('book-input-desc');
+  const customEmblemEl=document.getElementById('book-custom-emblem-input');
   const modalTitle=document.getElementById('book-modal-title');
-  if(modalTitle)modalTitle.textContent = isCreatingVaultBook ? '🔒 Edit Secret Book' : '✏️ Edit Book';
+  if(modalTitle)modalTitle.textContent = isCreatingVaultBook ? '🔒 Edit Secret Book' : '✏️ Edit Book Cover';
   if(titleEl)titleEl.value=book.title||'';
   if(descEl)descEl.value=book.desc||'';
+  if(customEmblemEl)customEmblemEl.value='';
+
   const themeClean=(book.coverTheme||'theme-blush').replace('theme-','');
+  currentSelectedTheme = themeClean;
+  currentSelectedFinish = book.coverFinish || 'matte';
+  currentSelectedSpine = book.spineStyle || 'classic';
+  currentCustomColor = book.customColor || '';
+  currentSelectedIcon = book.emblem || '📖';
+
   const themeBtn=document.querySelector(`#book-theme-picker .hl-swatch[data-theme="${themeClean}"]`);
-  if(themeBtn)selectBookTheme(themeClean,themeBtn);
+  selectBookTheme(themeClean,themeBtn);
+  if(currentCustomColor){
+    currentCustomColor = book.customColor;
+  }
+
+  const finishBtn=document.querySelector(`#book-finish-picker .note-card-btn[data-finish="${currentSelectedFinish}"]`);
+  selectBookFinish(currentSelectedFinish,finishBtn);
+
+  const spineBtn=document.querySelector(`#book-spine-picker .note-card-btn[data-spine="${currentSelectedSpine}"]`);
+  selectBookSpine(currentSelectedSpine,spineBtn);
+
+  let matched=false;
   const iconBtns=document.querySelectorAll('#book-icon-picker .sticker-pick-btn');
   iconBtns.forEach(btn=>{
-    if(btn.textContent.trim()===book.emblem)selectBookIcon(book.emblem,btn);
+    if(btn.textContent.trim()===book.emblem){
+      selectBookIcon(book.emblem,btn);
+      matched=true;
+    }
   });
+  if(!matched && customEmblemEl){
+    customEmblemEl.value=book.emblem||'';
+    handleBookCustomEmblem(book.emblem||'');
+  }
+
+  updateBookModalPreview();
   const m=document.getElementById('journal-book-modal');
   if(m)m.classList.add('show');
 }
@@ -12987,6 +13280,9 @@ function submitBookModal(){
     return;
   }
   const coverTheme='theme-'+(currentSelectedTheme||(isCreatingVaultBook ? 'noir' : 'blush'));
+  const coverFinish=currentSelectedFinish||'matte';
+  const spineStyle=currentSelectedSpine||'classic';
+  const customColor=currentCustomColor||'';
   const emblem=currentSelectedIcon||(isCreatingVaultBook ? '🔐' : '🌸');
   const now=Date.now();
   const isVault = isCreatingVaultBook || isJournalVaultActive;
@@ -12997,6 +13293,9 @@ function submitBookModal(){
       book.title=title;
       book.desc=desc;
       book.coverTheme=coverTheme;
+      book.coverFinish=coverFinish;
+      book.spineStyle=spineStyle;
+      book.customColor=customColor;
       book.emblem=emblem;
       book.updatedAt=now;
       if(book.isVault || (book.id && book.id.startsWith('vault_'))){
@@ -13012,6 +13311,9 @@ function submitBookModal(){
       title,
       desc,
       coverTheme,
+      coverFinish,
+      spineStyle,
+      customColor,
       emblem,
       paperStyle: 'cream',
       isVault: isVault,
@@ -13031,6 +13333,7 @@ function submitBookModal(){
     currentJournalPageIndex = 0;
   }
   closeBookModal();
+  renderJournalBookshelf();
   syncIpadNotebookSelect();
   renderJournalBookshelf();
   if(notesPane==='books') renderNotebooksShelf();
@@ -13388,20 +13691,20 @@ function renderJournalBookshelf(){
   }
 
   const cardsHtml = books.map(book => {
-    const pages = sourceNotes.filter(n => n.bookId === book.id);
-    const pageCount = pages.length;
-    const themeClass = book.coverTheme || (isVault ? 'theme-noir' : 'theme-blush');
+    const themeClass = book.coverTheme ? `theme-${book.coverTheme}` : (isVault ? 'theme-noir' : 'theme-blush');
+    const finishClass = book.coverFinish ? `finish-${book.coverFinish}` : 'finish-matte';
+    const spineClass = book.spineStyle ? `spine-${book.spineStyle}` : 'spine-classic';
+    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;` : '';
     const emblem = book.emblem || (isVault ? '🔐' : '📖');
     return `
-      <div class="notebook-cover-card ${escapeHtml(themeClass)}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
+      <div class="notebook-cover-card ${themeClass} ${finishClass} ${spineClass}" style="${customStyle}" onclick="openNotebookInJournal('${escapeHtml(book.id)}', event)">
         <div class="notebook-cover-body">
           <div class="notebook-cover-emblem">${escapeHtml(emblem)}</div>
           <div class="notebook-cover-title">${escapeHtml(book.title)}</div>
           <div class="notebook-cover-desc">${escapeHtml(book.desc || (isVault ? 'Confidential diary' : 'Multipage notebook'))}</div>
         </div>
         <div class="notebook-cover-footer">
-          <span class="notebook-pages-pill">📑 ${pageCount} page${pageCount === 1 ? '' : 's'}</span>
-          <div style="display:flex;gap:4px;" onclick="event.stopPropagation()">
+          <div style="display:flex;gap:4px;margin-left:auto;" onclick="event.stopPropagation()">
             <button type="button" class="note-card-btn" onclick="openEditBookModal('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.2);color:#fff;" title="Edit Cover">Edit</button>
             <button type="button" class="note-card-btn del" onclick="deleteBookPrompt('${escapeHtml(book.id)}')" style="padding:3px 7px;font-size:10px;background:rgba(255,80,80,.25);border-color:rgba(255,80,80,.4);color:#fff;" title="Delete Book">✕</button>
           </div>
@@ -13907,13 +14210,144 @@ function copyCurrentNoteText(){
   }
 }
 
+async function handleClipboardAction(action){
+  const activeEl = document.activeElement;
+  const sel = window.getSelection();
+  const selText = sel ? sel.toString() : '';
+
+  if(action === 'copy'){
+    if(selText){
+      try {
+        await navigator.clipboard.writeText(selText);
+        showToast('Copied to clipboard 📋');
+        return;
+      } catch(_) {}
+    }
+    try {
+      document.execCommand('copy');
+      showToast('Copied 📋');
+    } catch(e){
+      showToast('Select text to copy 📋');
+    }
+  } else if(action === 'cut'){
+    if(selText){
+      try {
+        await navigator.clipboard.writeText(selText);
+      } catch(_) {}
+    }
+    if(activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')){
+      const start = activeEl.selectionStart || 0;
+      const end = activeEl.selectionEnd || 0;
+      activeEl.value = activeEl.value.slice(0, start) + activeEl.value.slice(end);
+      activeEl.selectionStart = activeEl.selectionEnd = start;
+      activeEl.dispatchEvent(new Event('input', { bubbles: true }));
+      showToast('Cut to clipboard ✂️');
+    } else {
+      let cutSuccess = false;
+      try {
+        cutSuccess = document.execCommand('cut');
+      } catch(_) {}
+      if(!cutSuccess){
+        try {
+          cutSuccess = document.execCommand('delete');
+        } catch(__){}
+      }
+      showToast('Cut ✂️');
+      if(activeEl && typeof queueNoteSave === 'function') queueNoteSave();
+      if(activeEl && typeof queueIpadSave === 'function') queueIpadSave();
+    }
+  } else if(action === 'paste'){
+    let pasted = false;
+    try {
+      const text = await navigator.clipboard.readText();
+      if(text){
+        if(activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')){
+          const start = activeEl.selectionStart || 0;
+          const end = activeEl.selectionEnd || 0;
+          activeEl.value = activeEl.value.slice(0, start) + text + activeEl.value.slice(end);
+          activeEl.selectionStart = activeEl.selectionEnd = start + text.length;
+          activeEl.dispatchEvent(new Event('input', { bubbles: true }));
+          pasted = true;
+        } else {
+          pasted = document.execCommand('insertText', false, text);
+          if(!pasted && activeEl && activeEl.isContentEditable){
+            const range = sel && sel.rangeCount ? sel.getRangeAt(0) : null;
+            if(range){
+              range.deleteContents();
+              range.insertNode(document.createTextNode(text));
+              pasted = true;
+            }
+          }
+        }
+      }
+    } catch(err){}
+
+    if(!pasted){
+      try {
+        pasted = document.execCommand('paste');
+      } catch(_){}
+    }
+
+    if(pasted){
+      showToast('Pasted 📋');
+      if(activeEl && typeof queueNoteSave === 'function') queueNoteSave();
+      if(activeEl && typeof queueIpadSave === 'function') queueIpadSave();
+    } else {
+      showToast('Tip: Use Cmd+V / Ctrl+V to paste 📋');
+    }
+  }
+}
+
 /* ── GLOBAL KEYBOARD SHORTCUTS ── */
-window.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', async (e) => {
   const isMod = (e.metaKey || e.ctrlKey);
   if(!isMod) return;
 
   const key = e.key.toLowerCase();
-  if(key === 's'){
+
+  // Universal Copy, Cut, Paste keyboard listeners (Guarantees Cmd+C, Cmd+X, Cmd+V works even in macOS WKWebView without Edit menu)
+  if(key === 'c' && !e.shiftKey && !e.altKey){
+    const sel = window.getSelection();
+    if(sel && sel.toString()){
+      try {
+        await navigator.clipboard.writeText(sel.toString());
+        showToast('Copied to clipboard 📋');
+      } catch(_) {
+        try { document.execCommand('copy'); showToast('Copied 📋'); } catch(__){}
+      }
+    }
+  } else if(key === 'x' && !e.shiftKey && !e.altKey){
+    const activeEl = document.activeElement;
+    const sel = window.getSelection();
+    if(sel && sel.toString() && (activeEl?.isContentEditable || activeEl?.tagName === 'INPUT' || activeEl?.tagName === 'TEXTAREA')){
+      try {
+        await navigator.clipboard.writeText(sel.toString());
+      } catch(_) {}
+      try { document.execCommand('delete'); } catch(__){}
+      activeEl.dispatchEvent(new Event('input', { bubbles: true }));
+      showToast('Cut to clipboard ✂️');
+    }
+  } else if(key === 'v' && !e.shiftKey && !e.altKey){
+    const activeEl = document.activeElement;
+    if(activeEl && (activeEl.isContentEditable || activeEl?.tagName === 'INPUT' || activeEl?.tagName === 'TEXTAREA')){
+      try {
+        const text = await navigator.clipboard.readText();
+        if(text){
+          e.preventDefault();
+          if(activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA'){
+            const start = activeEl.selectionStart || 0;
+            const end = activeEl.selectionEnd || 0;
+            activeEl.value = activeEl.value.slice(0, start) + text + activeEl.value.slice(end);
+            activeEl.selectionStart = activeEl.selectionEnd = start + text.length;
+          } else {
+            document.execCommand('insertText', false, text);
+          }
+          activeEl.dispatchEvent(new Event('input', { bubbles: true }));
+          showToast('Pasted 📋');
+        }
+      } catch(_) {}
+    }
+  } else if(key === 's'){
     // Save note or iPad page
     if(curScr === 'NoteEdit' || document.getElementById('sNoteEdit')?.classList.contains('active')){
       e.preventDefault();
@@ -21431,7 +21865,10 @@ function loadTrackerData(){
 function shiftTrackerMonth(delta){
   trackerMonthOffset+=delta;
   if(trackerMonthOffset>0)trackerMonthOffset=0;
+  trackerViewCacheKey='';
+  trackerViewCacheHtml='';
   renderTracker();
+  renderTrackerProgress();
 }
 function trackerMonthInputValue(offset=0){
   const d=trackerMonthDate(offset);
@@ -21448,7 +21885,10 @@ function setTrackerMonthFromInput(val){
   const diff=(sel.getFullYear()-now.getFullYear())*12+(sel.getMonth()-now.getMonth());
   if(diff>0){showToast('Future months are locked');trackerMonthOffset=0;}
   else trackerMonthOffset=diff;
+  trackerViewCacheKey='';
+  trackerViewCacheHtml='';
   renderTracker();
+  renderTrackerProgress();
   // If month report is open, refresh it.
   if(document.getElementById('app-dialog')?.classList?.contains('show') && document.getElementById('tracker-cal-grid'))renderTrackerMonthReportIntoDialog();
 }
@@ -21625,7 +22065,7 @@ function renderTrackerChunked(){
   const nextBtn=document.getElementById('tracker-next');
   if(!listEl)return;
   const monthDate=trackerMonthDate(trackerMonthOffset);
-  const weekKeys=getWeekKeys();
+  const weekKeys=(trackerMonthOffset === 0) ? getWeekKeys(Date.now()) : getWeekKeys(monthDate.getTime());
   const todayKey=getTrackerDayKey();
   const monthKeys=getMonthKeys(monthDate.getTime());
   if(monthLabel)monthLabel.textContent=formatTrackerMonth(monthDate);
@@ -21697,7 +22137,7 @@ renderTracker=function(){
   const nextBtn=document.getElementById('tracker-next');
   if(!listEl)return __renderTrackerBase();
   const monthDate=trackerMonthDate(trackerMonthOffset);
-  const weekKeys=getWeekKeys();
+  const weekKeys=(trackerMonthOffset === 0) ? getWeekKeys(Date.now()) : getWeekKeys(monthDate.getTime());
   const todayKey=getTrackerDayKey();
   const monthKeys=getMonthKeys(monthDate.getTime());
   if(monthLabel)monthLabel.textContent=formatTrackerMonth(monthDate);
@@ -21836,22 +22276,36 @@ function setTrackerPie(id,valId,pct){
   if(pie)pie.style.setProperty('--p',String(Math.max(0,Math.min(100,pct||0))));
   if(label)label.textContent=`${fmt(Math.max(0,Math.min(100,pct||0)),1)}%`;
 }
-function getTrackerProgressStats(){
+function getTrackerProgressStats(offset = (typeof trackerMonthOffset !== 'undefined' ? trackerMonthOffset : 0)){
   const habits=TRACKER.length;
-  const weekKeys=getWeekKeys();
-  const monthKeys=getMonthKeys();
+  const monthDate=trackerMonthDate(offset);
+  const monthKeys=getMonthKeys(monthDate.getTime());
+  const weekKeys=(offset === 0) ? getWeekKeys(Date.now()) : getWeekKeys(monthDate.getTime());
   const weeklyTotal=habits*weekKeys.length;
   const monthlyTotal=habits*monthKeys.length;
   let weeklyCompleted=0,monthlyCompleted=0;
   TRACKER.forEach(habit=>{
-    weekKeys.forEach(k=>{if(habit.checks[k])weeklyCompleted++;});
-    monthKeys.forEach(k=>{if(habit.checks[k])monthlyCompleted++;});
+    const checks = habit.checks || {};
+    weekKeys.forEach(k=>{if(checks[k])weeklyCompleted++;});
+    monthKeys.forEach(k=>{if(checks[k])monthlyCompleted++;});
   });
   const weeklyNot=Math.max(0,weeklyTotal-weeklyCompleted);
   const monthlyNot=Math.max(0,monthlyTotal-monthlyCompleted);
   const weeklyPct=weeklyTotal?weeklyCompleted*100/weeklyTotal:0;
   const monthlyPct=monthlyTotal?monthlyCompleted*100/monthlyTotal:0;
-  return{habits,weeklyTotal,weeklyCompleted,weeklyNot,weeklyPct,monthlyTotal,monthlyCompleted,monthlyNot,monthlyPct};
+  return{
+    monthDate,
+    monthLabel:formatTrackerMonth(monthDate),
+    habits,
+    weeklyTotal,
+    weeklyCompleted,
+    weeklyNot,
+    weeklyPct,
+    monthlyTotal,
+    monthlyCompleted,
+    monthlyNot,
+    monthlyPct
+  };
 }
 function renderTrackerProgress(){
   const wrap=document.getElementById('tracker-progress-wrap');
@@ -21860,9 +22314,19 @@ function renderTrackerProgress(){
   if(!wrap||!weekLines||!monthLines)return;
   wrap.classList.toggle('show',trackerProgressOpen);
   if(!trackerProgressOpen)return;
-  const s=getTrackerProgressStats();
-  weekLines.innerHTML=`<div>Total weekly progress: <b>${fmt(s.weeklyPct,1)}%</b></div><div>Weekly habits completed: <b>${s.weeklyCompleted}</b></div><div>Weekly habits not completed: <b>${s.weeklyNot}</b></div>`;
-  monthLines.innerHTML=`<div>Total monthly progress: <b>${fmt(s.monthlyPct,1)}%</b></div><div>Monthly habits completed: <b>${s.monthlyCompleted}</b></div><div>Monthly habits not completed: <b>${s.monthlyNot}</b></div>`;
+  const s=getTrackerProgressStats(trackerMonthOffset);
+
+  const monthTitleEl = wrap.querySelector('.tracker-progress-card:nth-child(2) h4');
+  if(monthTitleEl){
+    monthTitleEl.textContent = `Monthly Progress (${s.monthLabel})`;
+  }
+  const weekTitleEl = wrap.querySelector('.tracker-progress-card:nth-child(1) h4');
+  if(weekTitleEl){
+    weekTitleEl.textContent = (trackerMonthOffset === 0) ? 'Weekly Progress' : `Weekly Progress (${s.monthLabel})`;
+  }
+
+  weekLines.innerHTML=`<div>Total weekly progress: <b>${fmt(s.weeklyPct,1)}%</b></div><div>Weekly habits completed: <b>${s.weeklyCompleted}</b> / <b>${s.weeklyTotal}</b></div><div>Weekly habits not completed: <b>${s.weeklyNot}</b></div>`;
+  monthLines.innerHTML=`<div>Total monthly progress: <b>${fmt(s.monthlyPct,1)}%</b></div><div>Monthly habits completed: <b>${s.monthlyCompleted}</b> / <b>${s.monthlyTotal}</b></div><div>Monthly habits not completed: <b>${s.monthlyNot}</b></div>`;
   setTrackerPie('tracker-week-pie','tracker-week-pie-val',s.weeklyPct);
   setTrackerPie('tracker-month-pie','tracker-month-pie-val',s.monthlyPct);
 }
