@@ -4011,6 +4011,7 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   justify-content:space-between;
   align-items:center;
   text-align:center;
+  background:linear-gradient(135deg,#a83c65,#681f3e);
   box-shadow:0 18px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);
   cursor:pointer;
   transition:all .22s cubic-bezier(.2,.8,.2,1);
@@ -4031,6 +4032,7 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   width:16px;
   background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.1) 50%,rgba(0,0,0,.3));
   box-shadow:inset -1px 0 2px rgba(0,0,0,.4);
+  z-index:2;
 }
 .notebook-cover-card::after{
   content:'';
@@ -4040,6 +4042,7 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   bottom:0;
   width:2px;
   background:rgba(255,255,255,.15);
+  z-index:2;
 }
 .notebook-cover-body{
   width:100%;
@@ -4049,6 +4052,8 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   justify-content:center;
   text-align:center;
   margin:auto 0;
+  position:relative;
+  z-index:1;
 }
 .notebook-cover-emblem{
   font-size:42px;
@@ -4091,6 +4096,8 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   font-weight:800;
   padding-top:10px;
   border-top:1px solid rgba(255,255,255,.15);
+  position:relative;
+  z-index:3;
 }
 .notebook-pages-pill{
   background:rgba(0,0,0,.25);
@@ -4099,42 +4106,60 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   border:1px solid rgba(255,255,255,.15);
 }
 
-/* Notebook Cover Color Themes */
-.theme-blush{background:linear-gradient(135deg,#a83c65,#681f3e)!important;}
-.theme-matcha{background:linear-gradient(135deg,#3f6b4a,#1e3b26)!important;}
-.theme-latte{background:linear-gradient(135deg,#8c5d3b,#4e2f18)!important;}
-.theme-obsidian{background:linear-gradient(135deg,#1f2536,#0f131c)!important;}
-.theme-lavender{background:linear-gradient(135deg,#654499,#361f5c)!important;}
-.theme-honey{background:linear-gradient(135deg,#9e6a1f,#583508)!important;}
-.theme-ocean{background:linear-gradient(135deg,#245d88,#0f2d45)!important;}
-.theme-sage{background:linear-gradient(135deg,#547565,#2c4237)!important;}
-.theme-terracotta{background:linear-gradient(135deg,#a64b2a,#5e240f)!important;}
-.theme-navy{background:linear-gradient(135deg,#1c2d52,#0b152b)!important;}
-.theme-noir{background:linear-gradient(135deg,#23232b,#101015)!important;}
-.theme-plum{background:linear-gradient(135deg,#581c5a,#2a092b)!important;}
-.theme-emerald{background:linear-gradient(135deg,#135344,#082d24)!important;}
-.theme-leather{background:linear-gradient(135deg,#6d4023,#381f0d)!important;}
-.theme-sakura{background:linear-gradient(135deg,#e5829d,#a24b64)!important;}
-.theme-sunbeam{background:linear-gradient(135deg,#cc922a,#784f0b)!important;}
-.theme-burgundy{background:linear-gradient(135deg,#69172d,#330713)!important;}
-.theme-aurora{background:linear-gradient(135deg,#7928ca,#ff0080)!important;}
-.theme-forest{background:linear-gradient(135deg,#1e4d3a,#0d261c)!important;}
-.theme-marble{background:linear-gradient(135deg,#475569,#1e293b)!important;}
+/* Notebook Cover Color Themes (Guaranteed to match both theme-X and theme-theme-X) */
+.theme-blush, .theme-theme-blush{background:linear-gradient(135deg,#a83c65,#681f3e)!important;}
+.theme-matcha, .theme-theme-matcha{background:linear-gradient(135deg,#3f6b4a,#1e3b26)!important;}
+.theme-latte, .theme-theme-latte{background:linear-gradient(135deg,#8c5d3b,#4e2f18)!important;}
+.theme-obsidian, .theme-theme-obsidian{background:linear-gradient(135deg,#1f2536,#0f131c)!important;}
+.theme-lavender, .theme-theme-lavender{background:linear-gradient(135deg,#654499,#361f5c)!important;}
+.theme-honey, .theme-theme-honey{background:linear-gradient(135deg,#9e6a1f,#583508)!important;}
+.theme-ocean, .theme-theme-ocean{background:linear-gradient(135deg,#245d88,#0f2d45)!important;}
+.theme-sage, .theme-theme-sage{background:linear-gradient(135deg,#547565,#2c4237)!important;}
+.theme-terracotta, .theme-theme-terracotta{background:linear-gradient(135deg,#a64b2a,#5e240f)!important;}
+.theme-navy, .theme-theme-navy{background:linear-gradient(135deg,#1c2d52,#0b152b)!important;}
+.theme-noir, .theme-theme-noir{background:linear-gradient(135deg,#23232b,#101015)!important;}
+.theme-plum, .theme-theme-plum{background:linear-gradient(135deg,#581c5a,#2a092b)!important;}
+.theme-emerald, .theme-theme-emerald{background:linear-gradient(135deg,#135344,#082d24)!important;}
+.theme-leather, .theme-theme-leather{background:linear-gradient(135deg,#6d4023,#381f0d)!important;}
+.theme-sakura, .theme-theme-sakura{background:linear-gradient(135deg,#e5829d,#a24b64)!important;}
+.theme-sunbeam, .theme-theme-sunbeam{background:linear-gradient(135deg,#cc922a,#784f0b)!important;}
+.theme-burgundy, .theme-theme-burgundy{background:linear-gradient(135deg,#69172d,#330713)!important;}
+.theme-aurora, .theme-theme-aurora{background:linear-gradient(135deg,#7928ca,#ff0080)!important;}
+.theme-forest, .theme-theme-forest{background:linear-gradient(135deg,#1e4d3a,#0d261c)!important;}
+.theme-marble, .theme-theme-marble{background:linear-gradient(135deg,#475569,#1e293b)!important;}
 
-/* Notebook Cover Finishes & Textures */
+/* Notebook Cover Finishes & Textures - layered without overriding background colors */
 .finish-leather{
   box-shadow:inset 0 0 0 2px rgba(212,175,55,0.45),inset 0 0 24px rgba(0,0,0,0.55),0 18px 32px rgba(0,0,0,.32)!important;
 }
 .finish-linen{
-  background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 0)!important;
-  background-size:4px 4px!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18),0 18px 32px rgba(0,0,0,.32)!important;
+}
+.finish-linen .notebook-cover-body::before{
+  content:'';
+  position:absolute;
+  inset:-24px -18px -14px -28px;
+  pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.15) 1px,transparent 0);
+  background-size:4px 4px;
+  border-radius:18px;
+  opacity:0.7;
 }
 .finish-celestial{
   box-shadow:inset 0 0 0 1.5px rgba(255,223,128,0.7),inset 0 0 16px rgba(255,223,128,0.15),0 18px 32px rgba(0,0,0,.32)!important;
 }
 .finish-grid{
-  background-image:linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px)!important;
-  background-size:14px 14px!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18),0 18px 32px rgba(0,0,0,.32)!important;
+}
+.finish-grid .notebook-cover-body::before{
+  content:'';
+  position:absolute;
+  inset:-24px -18px -14px -28px;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.12) 1px,transparent 1px);
+  background-size:14px 14px;
+  border-radius:18px;
+  opacity:0.75;
 }
 
 /* Notebook Cover Spine Variations */
@@ -10818,10 +10843,13 @@ function renderNotebooksShelf(){
   }
 
   const cardsHtml = JOURNAL_BOOKS.map(book => {
-    const themeClass = book.coverTheme ? `theme-${book.coverTheme}` : 'theme-blush';
-    const finishClass = book.coverFinish ? `finish-${book.coverFinish}` : 'finish-matte';
-    const spineClass = book.spineStyle ? `spine-${book.spineStyle}` : 'spine-classic';
-    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;` : '';
+    const rawTheme = (book.coverTheme || 'blush').replace(/^theme-/, '');
+    const themeClass = book.customColor ? '' : `theme-${rawTheme}`;
+    const rawFinish = (book.coverFinish || 'matte').replace(/^finish-/, '');
+    const finishClass = `finish-${rawFinish}`;
+    const rawSpine = (book.spineStyle || 'classic').replace(/^spine-/, '');
+    const spineClass = `spine-${rawSpine}`;
+    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;background-image:none!important;` : '';
     const emblem = book.emblem || '📖';
     return `
       <div class="notebook-cover-card ${themeClass} ${finishClass} ${spineClass}" style="${customStyle}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
@@ -11066,11 +11094,17 @@ function updateBookModalPreview(){
   if(titleEl) titleEl.textContent = title;
   if(descEl) descEl.textContent = desc;
 
-  card.className = `notebook-cover-card theme-${theme} finish-${finish} spine-${spine}`;
+  const cleanTheme = (theme || 'blush').replace(/^theme-/, '');
+  const cleanFinish = (finish || 'matte').replace(/^finish-/, '');
+  const cleanSpine = (spine || 'classic').replace(/^spine-/, '');
   if(currentCustomColor){
-    card.style.background = currentCustomColor + ' !important';
+    card.className = `notebook-cover-card finish-${cleanFinish} spine-${cleanSpine}`;
+    card.style.setProperty('background', currentCustomColor, 'important');
+    card.style.setProperty('background-image', 'none', 'important');
   } else {
-    card.style.background = '';
+    card.className = `notebook-cover-card theme-${cleanTheme} finish-${cleanFinish} spine-${cleanSpine}`;
+    card.style.removeProperty('background');
+    card.style.removeProperty('background-image');
   }
 }
 
@@ -13638,10 +13672,14 @@ function renderJournalBookshelf(){
   }
 
   const cardsHtml = books.map(book => {
-    const themeClass = book.coverTheme ? `theme-${book.coverTheme}` : (isVault ? 'theme-noir' : 'theme-blush');
-    const finishClass = book.coverFinish ? `finish-${book.coverFinish}` : 'finish-matte';
-    const spineClass = book.spineStyle ? `spine-${book.spineStyle}` : 'spine-classic';
-    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;` : '';
+    const defaultTheme = isVault ? 'noir' : 'blush';
+    const rawTheme = (book.coverTheme || defaultTheme).replace(/^theme-/, '');
+    const themeClass = book.customColor ? '' : `theme-${rawTheme}`;
+    const rawFinish = (book.coverFinish || 'matte').replace(/^finish-/, '');
+    const finishClass = `finish-${rawFinish}`;
+    const rawSpine = (book.spineStyle || 'classic').replace(/^spine-/, '');
+    const spineClass = `spine-${rawSpine}`;
+    const customStyle = book.customColor ? `background:${escapeHtml(book.customColor)}!important;background-image:none!important;` : '';
     const emblem = book.emblem || (isVault ? '🔐' : '📖');
     return `
       <div class="notebook-cover-card ${themeClass} ${finishClass} ${spineClass}" style="${customStyle}" onclick="openNotebookInJournal('${escapeHtml(book.id)}')">
