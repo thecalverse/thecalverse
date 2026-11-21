@@ -8603,6 +8603,7 @@ let H=[],hFilt='all',sndOn=true,hapticOn=false,animOn=true,thmIdx=0,currentTab='
 let bBuf='',bRawBuf='',scBuf='',scDR='deg',trDR='deg',bmiUnit='metric',pctMode='pof',ucCat='len';
 let mem=0,mxSz=2,mxOp='add',primeMode='check',siMode='si',timeMode='add',curScr='Home',currentFolderKey='';
 let timerTotal=300,timerLeft=300,timerRun=false,timerInt=null,timerLast='0500',timerScreenHeld=false;
+let timerWakeLockSentinel=null,timerKeepAwakeVideo=null,isScreenKeepAwakeActive=false;
 let timerOrientationForced='portrait';
 let timerWheelDrag=null;
 let fracIdCtr=0,fracData=[];
@@ -9450,14 +9451,121 @@ function setTimerPreset(sec){
   renderTimer();
   playClick('toggle');vib('toggle');
 }
+async function setScreenKeepAwake(enable){
+  if(enable){
+    isScreenKeepAwakeActive=true;
+
+    // 1. Primary: Native Screen Wake Lock API (Chrome, Edge, Safari 16.4+, Android WebView)
+    if('wakeLock' in navigator && typeof navigator.wakeLock.request === 'function'){
+      try{
+        if(!timerWakeLockSentinel){
+          const lock = await navigator.wakeLock.request('screen');
+          timerWakeLockSentinel = lock;
+          lock.addEventListener('release', () => {
+            if(timerWakeLockSentinel === lock) timerWakeLockSentinel = null;
+            if(isScreenKeepAwakeActive && timerRun && document.visibilityState === 'visible'){
+              setTimeout(() => { if(isScreenKeepAwakeActive && timerRun) setScreenKeepAwake(true); }, 200);
+            }
+          });
+        }
+      }catch(err){
+        console.warn('Screen WakeLock notice:', err);
+      }
+    }
+
+    // 2. Secondary: Fallback silent looping video/canvas stream for WebViews & older browsers
+    try{
+      if(!timerKeepAwakeVideo){
+        const vid = document.createElement('video');
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('webkit-playsinline', '');
+        vid.setAttribute('muted', '');
+        vid.setAttribute('loop', '');
+        vid.setAttribute('aria-hidden', 'true');
+        vid.muted = true;
+        vid.loop = true;
+        vid.style.cssText = 'position:fixed;width:1px;height:1px;top:-50px;left:-50px;opacity:0.001;pointer-events:none;z-index:-1;';
+        try{
+          const cvs = document.createElement('canvas');
+          cvs.width = 1; cvs.height = 1;
+          const ctx = cvs.getContext('2d');
+          if(ctx){ ctx.fillStyle = '#000'; ctx.fillRect(0,0,1,1); }
+          if(typeof cvs.captureStream === 'function'){
+            vid.srcObject = cvs.captureStream(1);
+          }
+        }catch(_){}
+        if(!vid.srcObject){
+          vid.src = 'data:video/mp4;base64,AAAAHGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAAhmZGF0AAAACQA=';
+        }
+        document.body.appendChild(vid);
+        timerKeepAwakeVideo = vid;
+      }
+      if(timerKeepAwakeVideo && timerKeepAwakeVideo.paused){
+        const p = timerKeepAwakeVideo.play();
+        if(p && typeof p.catch === 'function') p.catch(() => {});
+      }
+    }catch(_){}
+
+    // 3. macOS Native Desktop App Bridge
+    try{
+      if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.calverseNative){
+        window.webkit.messageHandlers.calverseNative.postMessage({ action: 'keepScreenAwake' });
+      }
+    }catch(_){}
+
+    // 4. Android Bridge (if present)
+    try{
+      if(window.CalverseBridge){
+        if(typeof window.CalverseBridge.keepScreenAwake === 'function') window.CalverseBridge.keepScreenAwake(true);
+        else if(typeof window.CalverseBridge.setKeepScreenOn === 'function') window.CalverseBridge.setKeepScreenOn(true);
+      }
+    }catch(_){}
+
+  }else{
+    isScreenKeepAwakeActive=false;
+
+    // 1. Release Screen Wake Lock
+    if(timerWakeLockSentinel){
+      try{
+        const lock = timerWakeLockSentinel;
+        timerWakeLockSentinel = null;
+        await lock.release();
+      }catch(_){}
+    }
+
+    // 2. Pause Fallback Video
+    try{
+      if(timerKeepAwakeVideo && !timerKeepAwakeVideo.paused){
+        timerKeepAwakeVideo.pause();
+      }
+    }catch(_){}
+
+    // 3. macOS Native Desktop App Bridge
+    try{
+      if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.calverseNative){
+        window.webkit.messageHandlers.calverseNative.postMessage({ action: 'allowScreenSleep' });
+      }
+    }catch(_){}
+
+    // 4. Android Bridge (if present)
+    try{
+      if(window.CalverseBridge){
+        if(typeof window.CalverseBridge.keepScreenAwake === 'function') window.CalverseBridge.keepScreenAwake(false);
+        else if(typeof window.CalverseBridge.setKeepScreenOn === 'function') window.CalverseBridge.setKeepScreenOn(false);
+      }
+    }catch(_){}
+  }
+}
 function pauseTimer(feedback=true){
   timerRun=false;
+  setScreenKeepAwake(false);
   if(timerInt){clearInterval(timerInt);timerInt=null;}
   if(feedback){playClick('toggle');vib('toggle');}
   renderTimer(true);
 }
 function finishTimer(){
   pauseTimer(false);
+  setScreenKeepAwake(false);
   timerLeft=0;
   renderTimer();
   showToast('Timer finished');
@@ -9478,6 +9586,7 @@ function startTimer(){
   }
   if(timerLeft<=0){showToast('Set a timer first');return;}
   timerRun=true;
+  setScreenKeepAwake(true);
   openTimerFocus();
   renderTimer(true);
   playClick('nav');vib('nav');
@@ -9504,6 +9613,7 @@ function toggleTimer(){
 }
 function resetTimer(){
   pauseTimer(false);
+  setScreenKeepAwake(false);
   timerTotal=0;
   timerLeft=timerTotal;
   setTimerInputs(timerTotal);
@@ -9523,6 +9633,7 @@ function exitTimerFocus(){
 }
 function stopTimerAndExit(){
   pauseTimer(false);
+  setScreenKeepAwake(false);
   exitTimerFocus();
   renderTimer(true);
 }
@@ -9583,6 +9694,7 @@ async function holdTimerScreen(){
   if(timerScreenHeld)return;
   timerScreenHeld=true;
   syncTimerOrientationButton();
+  if(timerRun) setScreenKeepAwake(true);
   await ensureTimerScreenMode();
 }
 async function ensureTimerScreenMode(){
@@ -9597,6 +9709,7 @@ async function ensureTimerScreenMode(){
 async function releaseTimerScreen(){
   if(!timerScreenHeld)return;
   timerScreenHeld=false;
+  if(!timerRun) setScreenKeepAwake(false);
   try{
     if(screen.orientation && screen.orientation.unlock)screen.orientation.unlock();
   }catch(e){}
@@ -9643,7 +9756,21 @@ function openTimer(opts={}){
 
 window.addEventListener('orientationchange',()=>{setTimeout(()=>{ensureTimerScreenMode();},120);});
 document.addEventListener('fullscreenchange',()=>{setTimeout(()=>{ensureTimerScreenMode();},120);});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>{ensureTimerScreenMode();},120);});
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+    setTimeout(()=>{ensureTimerScreenMode();},120);
+    if(timerRun) setScreenKeepAwake(true);
+  }
+});
+window.addEventListener('focus',()=>{
+  if(timerRun) setScreenKeepAwake(true);
+});
+window.addEventListener('pagehide',()=>{
+  setScreenKeepAwake(false);
+});
+window.addEventListener('beforeunload',()=>{
+  setScreenKeepAwake(false);
+});
 
 /* â”€â”€ NOTES â”€â”€ */
 function getNoteDisplayTitle(note){

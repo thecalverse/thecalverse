@@ -28,10 +28,11 @@ let DEFAULT_HEIGHT: CGFloat = 840
 let SUPPORTS_ROTATION = false
 #endif
 
-class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     var window: NSWindow!
     var webView: WKWebView!
     var isLandscape: Bool = false
+    var screenSleepActivity: NSObjectProtocol? = nil
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
@@ -51,6 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
         window.title = "Calverse"
         window.minSize = NSSize(width: 360, height: 480)
         window.isReleasedWhenClosed = false
+        window.delegate = self
 
         // WKWebView Configuration
         let config = WKWebViewConfiguration()
@@ -242,6 +244,37 @@ class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDe
             saveDataUrlToDisk(filename: filename, dataUrl: dataUrl)
         } else if action == "openFile", let filename = dict["filename"] as? String, let dataUrl = dict["dataUrl"] as? String {
             openDataUrlWithDefaultApp(filename: filename, dataUrl: dataUrl)
+        } else if action == "keepScreenAwake" {
+            setScreenSleepDisabled(true)
+        } else if action == "allowScreenSleep" {
+            setScreenSleepDisabled(false)
+        }
+    }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        setScreenSleepDisabled(false)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        setScreenSleepDisabled(false)
+    }
+
+    func setScreenSleepDisabled(_ disabled: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if disabled {
+                if self.screenSleepActivity == nil {
+                    self.screenSleepActivity = ProcessInfo.processInfo.beginActivity(
+                        options: [.idleDisplaySleepDisabled, .userInitiated],
+                        reason: "Calverse Focus Timer Active"
+                    )
+                }
+            } else {
+                if let activity = self.screenSleepActivity {
+                    ProcessInfo.processInfo.endActivity(activity)
+                    self.screenSleepActivity = nil
+                }
+            }
         }
     }
 
