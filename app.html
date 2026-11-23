@@ -2429,9 +2429,11 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
 .canvas-item.canvas-text-box{
   min-width:140px;
   min-height:50px;
+  box-sizing:border-box;
   border-radius:12px;
   padding:10px 14px;
   transition:background .2s,border-color .2s;
+  overflow:visible;
 }
 .canvas-item.canvas-text-box[data-box-style="paper"]{
   background:rgba(255,255,255,.07);
@@ -2487,10 +2489,12 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   min-height:28px;
   outline:none;
   word-break:break-word;
+  overflow-wrap:break-word;
   user-select:text;
   cursor:text;
   line-height:1.55;
   color:inherit;
+  box-sizing:border-box;
 }
 .canvas-text-body[data-font-size="s"]{font-size:13.5px;}
 .canvas-text-body[data-font-size="m"]{font-size:17px;}
@@ -14984,16 +14988,85 @@ document.addEventListener('focusin', (e) => {
   }
 });
 
+function adaptTextBoxDimensions(item, textBoxBody){
+  if(!item) return;
+  if(!textBoxBody) textBoxBody = item.querySelector('.canvas-text-body, .canvas-sticky-body, .journal-sticky-note');
+  if(!textBoxBody) return;
+
+  const editor = document.getElementById("ipad-page-editor") || item.parentElement;
+  const editorW = editor ? editor.clientWidth : 800;
+  const maxW = Math.max(140, editorW - item.offsetLeft - 16);
+
+  // 1. Width Adaptation:
+  // If the text is overflowing horizontally (e.g. long word or line), expand the box width so it never clips or overflows
+  if(textBoxBody.scrollWidth > textBoxBody.clientWidth){
+    const extraW = textBoxBody.scrollWidth - textBoxBody.clientWidth;
+    const curW = item.offsetWidth || parseFloat(item.style.width) || 280;
+    const newW = Math.min(maxW, curW + extraW + 28);
+    item.style.width = newW + 'px';
+  }
+
+  // 2. Height Adaptation:
+  const comp = window.getComputedStyle(item);
+  const padTop = parseFloat(comp.paddingTop) || 10;
+  const padBottom = parseFloat(comp.paddingBottom) || 14;
+  const borderTop = parseFloat(comp.borderTopWidth) || 1;
+  const borderBottom = parseFloat(comp.borderBottomWidth) || 1;
+  const padY = padTop + padBottom + borderTop + borderBottom;
+
+  const textH = textBoxBody.offsetHeight || textBoxBody.scrollHeight;
+  if(textH > 0){
+    const neededH = Math.ceil(textH + padY);
+    const currentMinH = parseFloat(item.style.minHeight) || (item.classList.contains('canvas-sticky') ? 80 : 50);
+    const finalH = Math.max(currentMinH, neededH);
+    item.style.height = finalH + 'px';
+  }
+
+  const stickyInner = item.querySelector('.journal-sticky-note');
+  if(stickyInner){
+    stickyInner.style.height = '100%';
+  }
+}
+
+function fitCanvasItemToText(item){
+  if(!item) return;
+  const body = item.querySelector('.canvas-text-body, .canvas-sticky-body, .journal-sticky-note, .washi-tape-label');
+  if(!body) return;
+
+  // Measure natural content width using a detached measuring clone with max-content
+  const clone = body.cloneNode(true);
+  clone.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:max-content;max-width:none;height:auto;white-space:pre-wrap;visibility:hidden;pointer-events:none;';
+  const comp = window.getComputedStyle(body);
+  clone.style.fontFamily = comp.fontFamily;
+  clone.style.fontSize = comp.fontSize;
+  clone.style.fontWeight = comp.fontWeight;
+  clone.style.lineHeight = comp.lineHeight;
+  clone.style.letterSpacing = comp.letterSpacing;
+  document.body.appendChild(clone);
+  const naturalW = Math.ceil(clone.offsetWidth);
+  document.body.removeChild(clone);
+
+  const itemComp = window.getComputedStyle(item);
+  const padX = (parseFloat(itemComp.paddingLeft) || 14) + (parseFloat(itemComp.paddingRight) || 14) + 8;
+  const editor = document.getElementById("ipad-page-editor") || item.parentElement;
+  const editorW = editor ? editor.clientWidth : 800;
+  const maxW = Math.max(140, editorW - item.offsetLeft - 16);
+  const minW = item.classList.contains('canvas-sticky') ? 120 : (item.classList.contains('canvas-washi') ? 60 : 140);
+  const targetW = Math.max(minW, Math.min(maxW, naturalW + padX));
+
+  item.style.width = targetW + 'px';
+  adaptTextBoxDimensions(item, body);
+  queueIpadSave();
+  showToast("Fitted box to text length & width 📐");
+}
+
 function autoResizeCanvasItemText(el){
   if(!el) return;
-  const stickyBody = el.closest('.canvas-sticky-body');
+  const stickyBody = el.closest('.canvas-sticky-body, .journal-sticky-note');
   if(stickyBody){
     const item = stickyBody.closest('.canvas-item.canvas-sticky');
     if(item){
-      if(stickyBody.scrollHeight > stickyBody.clientHeight){
-        const extraH = stickyBody.scrollHeight - stickyBody.clientHeight;
-        item.style.height = (item.offsetHeight + extraH + 12) + 'px';
-      }
+      adaptTextBoxDimensions(item, stickyBody);
       queueIpadSave();
     }
     return;
@@ -15021,19 +15094,32 @@ function autoResizeCanvasItemText(el){
   if(textBoxBody){
     const item = textBoxBody.closest('.canvas-item.canvas-text-box');
     if(item){
-      if(textBoxBody.scrollHeight > textBoxBody.clientHeight){
-        const extraH = textBoxBody.scrollHeight - textBoxBody.clientHeight;
-        item.style.height = (item.offsetHeight + extraH + 12) + 'px';
-      }
+      adaptTextBoxDimensions(item, textBoxBody);
+      queueIpadSave();
+    }
+    return;
+  }
+
+  const shapeBody = el.closest('.canvas-shape-body');
+  if(shapeBody){
+    const item = shapeBody.closest('.canvas-item.canvas-shape');
+    if(item){
+      adaptTextBoxDimensions(item, shapeBody);
       queueIpadSave();
     }
   }
 }
 
-document.addEventListener('input', (e) => {
-  if(e.target && e.target.closest('.canvas-sticky-body, .washi-tape-label, .canvas-text-body, .canvas-shape-body')){
-    autoResizeCanvasItemText(e.target);
-  }
+['input', 'keyup', 'paste', 'cut'].forEach(evt => {
+  document.addEventListener(evt, (e) => {
+    if(e.target && e.target.closest('.canvas-sticky-body, .journal-sticky-note, .washi-tape-label, .canvas-text-body, .canvas-shape-body')){
+      autoResizeCanvasItemText(e.target);
+      if(evt === 'paste' || evt === 'cut'){
+        setTimeout(() => autoResizeCanvasItemText(e.target), 20);
+        setTimeout(() => autoResizeCanvasItemText(e.target), 120);
+      }
+    }
+  });
 });
 
 function syncWholePageToggleStyle(checked){
@@ -15328,6 +15414,8 @@ function setCanvasItemFontSize(itemId, sizePt){
     if(!opt) topSizeSelect.add(new Option("" + pt, "" + pt));
     topSizeSelect.value = "" + pt;
   }
+  const body = item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note");
+  if(body) adaptTextBoxDimensions(item, body);
   queueIpadSave();
   showToast("Font size: " + pt + "pt 🔠");
 }
@@ -15357,6 +15445,8 @@ function setCanvasItemFontFamily(itemId, fontKey){
   if(topFontSelect && topFontSelect.value !== fontKey){
     topFontSelect.value = fontKey;
   }
+  const body = item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note");
+  if(body) adaptTextBoxDimensions(item, body);
   queueIpadSave();
   showToast("Font: " + (NOTE_FONT_META[fontKey]?.label || fontKey) + " ✍️");
 }
@@ -15557,6 +15647,14 @@ function upgradeLegacyIpadElements(editorEl){
         if(lBtn) lBtn.textContent = "⬆️ Over Ink";
       }
 
+      // Add fit button for textbox if missing
+      if(item.classList.contains("canvas-text-box") && barBtns && !barBtns.querySelector("[data-action='fit-text']")){
+        const delBtn = barBtns.querySelector(".del");
+        const fitBtnHtml = `<button type="button" class="cbar-btn" data-action="fit-text" title="Auto-fit box length & width to text">📐 Fit</button>`;
+        if(delBtn) delBtn.insertAdjacentHTML("beforebegin", fitBtnHtml);
+        else barBtns.insertAdjacentHTML("beforeend", fitBtnHtml);
+      }
+
       // Add combined typography pill if text item and missing
       if(hasText && barBtns && !barBtns.querySelector(".cbar-typo-pill")){
         const delBtn = barBtns.querySelector(".del");
@@ -15655,6 +15753,24 @@ function upgradeLegacyIpadElements(editorEl){
     `;
     if(parent) parent.replaceChild(wrapper, note);
   });
+
+  // Auto-adapt all text boxes and sticky notes to their text length and width
+  editorEl.querySelectorAll(".canvas-item.canvas-text-box, .canvas-item.canvas-sticky").forEach(item => {
+    const body = item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note");
+    if(body){
+      adaptTextBoxDimensions(item, body);
+    }
+  });
+  setTimeout(() => {
+    if(editorEl){
+      editorEl.querySelectorAll(".canvas-item.canvas-text-box, .canvas-item.canvas-sticky").forEach(item => {
+        const body = item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note");
+        if(body){
+          adaptTextBoxDimensions(item, body);
+        }
+      });
+    }
+  }, 100);
 }
 
 function getNextCanvasItemPosition(width=280, height=120){
@@ -15731,7 +15847,7 @@ function insertIpadTextBox(){
     initialFont: "patrick",
     initialPt: 16,
     angle: 0,
-    extraBtns: '<button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button>'
+    extraBtns: '<button type="button" class="cbar-btn" data-action="box-style" title="Style (Paper / Clear / Post-it / Dark / Mint / Lavender)">🎨 Style</button><button type="button" class="cbar-btn" data-action="fit-text" title="Auto-fit box length & width to text">📐 Fit</button>'
   });
 
   const html = `
@@ -16099,6 +16215,11 @@ function handleCanvasAction(btn, e){
     item.dataset.boxStyle = next;
     queueIpadSave();
     showToast("Style: " + next);
+    return;
+  }
+
+  if(action === "fit-text"){
+    fitCanvasItemToText(item);
     return;
   }
 
@@ -16479,6 +16600,19 @@ function initIpadCanvasEngine(){
     }
   });
 
+  sheet.addEventListener("dblclick", (e) => {
+    if(ipadActiveTool !== "select") return;
+    const handle = e.target.closest(".canvas-resize-handle, .canvas-resize-e, .canvas-resize-s, .canvas-resize-w, .canvas-resize-n");
+    if(handle){
+      const item = handle.closest(".canvas-item.canvas-text-box, .canvas-item.canvas-sticky");
+      if(item){
+        e.preventDefault();
+        e.stopPropagation();
+        fitCanvasItemToText(item);
+      }
+    }
+  });
+
   sheet.addEventListener("pointerdown", (e) => {
     // When pen / highlighter / eraser is chosen, nothing can move or be selected on the sheet!
     if(ipadActiveTool !== "select") return;
@@ -16713,9 +16847,10 @@ function initIpadCanvasEngine(){
             // Corner resize: proportional scaling with text box dimensions
             scale = (wRatio + hRatio) / 2;
           } else if(s.dir === "e" || s.dir === "w"){
-            scale = wRatio;
+            // Horizontal resize: keep font size stable, change width so text wraps
+            scale = 1;
           } else if(s.dir === "s" || s.dir === "n"){
-            scale = hRatio;
+            scale = 1;
           }
         } else if(s.dir === "e" || s.dir === "w"){
           scale = wRatio;
@@ -16758,6 +16893,10 @@ function initIpadCanvasEngine(){
 
         const labelEl = s.item.querySelector(".cbar-font-num-label");
         if(labelEl) labelEl.textContent = newFs + "pt";
+      }
+
+      if(s.type === "textbox" || s.type === "sticky"){
+        adaptTextBoxDimensions(s.item, s.textTarget || s.item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note"));
       }
       return;
     }
@@ -16807,6 +16946,9 @@ function initIpadCanvasEngine(){
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       try { activeResizeState.handle.releasePointerCapture(e.pointerId); } catch(_){}
       activeResizeState.item.classList.remove("is-resizing");
+      if(activeResizeState.type === "textbox" || activeResizeState.type === "sticky"){
+        adaptTextBoxDimensions(activeResizeState.item, activeResizeState.textTarget || activeResizeState.item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note"));
+      }
       activeResizeState = null;
       queueIpadSave();
       if(typeof recordJournalCanvasHistory === 'function') recordJournalCanvasHistory();
