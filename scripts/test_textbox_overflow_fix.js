@@ -3,8 +3,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 9339;
-const USER_DATA = '/tmp/chrome_test_textbox_' + Date.now();
+const PORT = 9345;
+const USER_DATA = '/tmp/chrome_test_textbox_full_' + Date.now();
 const ARTIFACT_DIR = '/Users/maddhamsolanki/.gemini/antigravity/brain/be6235b4-47e3-4e08-a3c9-4f2598361eed';
 
 async function sleep(ms) {
@@ -35,7 +35,7 @@ async function waitForChromeReady() {
 }
 
 async function runTest() {
-  console.log('Launching Headless Chrome for Text Box Auto-Adapt Test...');
+  console.log('Launching Headless Chrome for Full Text Box Resize & Containment Verification...');
   const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
     `--remote-debugging-port=${PORT}`,
     `--user-data-dir=${USER_DATA}`,
@@ -92,37 +92,26 @@ async function runTest() {
         document.documentElement.setAttribute('data-t', 'dark');
         setActiveScreen('sJournal', 'Journal');
         switchJournalMainView('notebook');
-        if(typeof openNotebookInJournal === 'function'){
-          openNotebookInJournal('book_study');
-        } else if(window.journalBooks && window.journalBooks.length > 0){
-          openJournalNotebook(window.journalBooks[0].id);
-        } else {
-          openJournal();
-        }
+        openNotebookInJournal('book_study');
+        setIpadActiveTool('select');
       })()
     `);
-    await sleep(1200);
+    await sleep(1000);
 
-    // Set active tool to select
-    await evaluate(`if(typeof setIpadActiveTool === 'function') setIpadActiveTool('select');`);
-    await sleep(300);
-
-    // Insert a text box
+    // Insert text box
     console.log('Inserting text box...');
     await evaluate(`insertIpadTextBox();`);
     await sleep(400);
 
-    // Populate with the EXACT text from the user's screenshot
-    const userTextHtml = `Welcome Mate.........<br>Welcome to the<br>heaven......<br>Its dijoubu if u<br>aren't able to<br>express anything to<br>anyone..... Just<br>throw everything<br>here, am there for<br>you always...`;
+    // User's multi-line text from screenshot
+    const userTextHtml = 'Welcome Mate.........<br>Welcome to the<br>heaven......<br>Its dijoubu if u<br>aren\'t able to<br>express anything to<br>anyone..... Just<br>throw everything<br>here, am there for<br>you always...';
 
-    console.log('Typing multi-line text into text box...');
-    const resultAfterType = await evaluate(`
+    console.log('Test 1: Setting 10 lines of text and verifying auto-adapt...');
+    const result1 = await evaluate(`
       (() => {
         const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
-        if(!item) return { error: "No text box found" };
         const body = item.querySelector(".canvas-text-body");
-        body.innerHTML = \`${userTextHtml}\`;
-        // Trigger auto-resize
+        body.innerHTML = ${JSON.stringify(userTextHtml)};
         autoResizeCanvasItemText(body);
 
         const comp = window.getComputedStyle(item);
@@ -131,52 +120,140 @@ async function runTest() {
           itemWidth: item.offsetWidth,
           itemHeight: item.offsetHeight,
           bodyHeight: body.offsetHeight,
-          bodyScrollHeight: body.scrollHeight,
-          padY: padY,
           isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
         };
       })()
     `);
-    console.log('Result after typing 10 lines of text:', resultAfterType);
+    console.log('Test 1 Result:', result1);
+    if (!result1.isEnclosed) throw new Error('Test 1 Failed: Text not enclosed after typing');
 
-    if (!resultAfterType.isEnclosed) {
-      throw new Error(`Text box height (${resultAfterType.itemHeight}px) does not enclose text body (${resultAfterType.bodyHeight}px + pad ${resultAfterType.padY}px)`);
-    }
-
-    // Capture screenshot of the adapted text box
-    console.log('Taking screenshot of adapted text box...');
-    const shot = await send('Page.captureScreenshot', { format: 'png' });
-    if (shot.result?.data) {
-      const shotPath = path.join(ARTIFACT_DIR, 'verify_textbox_auto_adapted_to_text.png');
-      fs.writeFileSync(shotPath, Buffer.from(shot.result.data, 'base64'));
-      console.log('Saved screenshot to:', shotPath);
-    }
-
-    // Test changing font size
-    console.log('Testing font size increase to 22pt...');
-    const resultAfterFontSize = await evaluate(`
+    // Test 2: Dragging sidewards (E handle) to extend width
+    console.log('Test 2: Dragging E handle +120px sidewards...');
+    const result2 = await evaluate(`
       (() => {
         const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
-        setCanvasItemFontSize(item.id, 22);
+        const handleE = item.querySelector(".canvas-resize-e");
+        const body = item.querySelector(".canvas-text-body");
+        const rect = handleE.getBoundingClientRect();
+
+        handleE.dispatchEvent(new PointerEvent("pointerdown", { pointerId: 2, clientX: rect.left+4, clientY: rect.top+12, bubbles: true }));
+        window.dispatchEvent(new PointerEvent("pointermove", { pointerId: 2, clientX: rect.left+4+120, clientY: rect.top+12, bubbles: true }));
+
+        const comp = window.getComputedStyle(item);
+        const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14);
+        const r = {
+          width: item.offsetWidth,
+          height: item.offsetHeight,
+          bodyHeight: body.offsetHeight,
+          fs: parseFloat(window.getComputedStyle(body).fontSize),
+          isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
+        };
+
+        window.dispatchEvent(new PointerEvent("pointerup", { pointerId: 2, bubbles: true }));
+        return r;
+      })()
+    `);
+    console.log('Test 2 Result (Sidewards Drag):', result2);
+    if (result2.width !== 400) throw new Error(`Test 2 Failed: Expected width 400, got ${result2.width}`);
+    if (result2.fs !== 16) throw new Error(`Test 2 Failed: Font size changed during sidewards drag to ${result2.fs}`);
+    if (!result2.isEnclosed) throw new Error('Test 2 Failed: Text not enclosed after sidewards drag');
+
+    // Screenshot of sidewards resize
+    const shotSideways = await send('Page.captureScreenshot', { format: 'png' });
+    if (shotSideways.result?.data) {
+      fs.writeFileSync(path.join(ARTIFACT_DIR, 'verify_sideways_resize.png'), Buffer.from(shotSideways.result.data, 'base64'));
+      console.log('Saved verify_sideways_resize.png');
+    }
+
+    // Test 3: Dragging diagonally (SE handle) to expand both width and height
+    console.log('Test 3: Dragging SE handle diagonally +100px X, +80px Y...');
+    const result3 = await evaluate(`
+      (() => {
+        const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
+        const handleSE = item.querySelector(".canvas-resize-handle");
+        const body = item.querySelector(".canvas-text-body");
+        const rect = handleSE.getBoundingClientRect();
+
+        handleSE.dispatchEvent(new PointerEvent("pointerdown", { pointerId: 3, clientX: rect.left+10, clientY: rect.top+10, bubbles: true }));
+        window.dispatchEvent(new PointerEvent("pointermove", { pointerId: 3, clientX: rect.left+10+100, clientY: rect.top+10+80, bubbles: true }));
+
+        const comp = window.getComputedStyle(item);
+        const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14);
+        const r = {
+          width: item.offsetWidth,
+          height: item.offsetHeight,
+          bodyHeight: body.offsetHeight,
+          fs: parseFloat(window.getComputedStyle(body).fontSize),
+          isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
+        };
+
+        window.dispatchEvent(new PointerEvent("pointerup", { pointerId: 3, bubbles: true }));
+        return r;
+      })()
+    `);
+    console.log('Test 3 Result (Diagonal Drag):', result3);
+    if (!result3.isEnclosed) throw new Error('Test 3 Failed: Text not enclosed after diagonal drag');
+    if (result3.width !== 500) throw new Error(`Test 3 Failed: Expected width 500, got ${result3.width}`);
+
+    // Screenshot of diagonal resize
+    const shotDiag = await send('Page.captureScreenshot', { format: 'png' });
+    if (shotDiag.result?.data) {
+      fs.writeFileSync(path.join(ARTIFACT_DIR, 'verify_diagonal_resize.png'), Buffer.from(shotDiag.result.data, 'base64'));
+      console.log('Saved verify_diagonal_resize.png');
+    }
+
+    // Test 4: Dragging narrower (-200px)
+    console.log('Test 4: Dragging E narrower (-200px) to verify line wrapping and height accommodation...');
+    const result4 = await evaluate(`
+      (() => {
+        const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
+        const handleE = item.querySelector(".canvas-resize-e");
+        const body = item.querySelector(".canvas-text-body");
+        const rect = handleE.getBoundingClientRect();
+
+        handleE.dispatchEvent(new PointerEvent("pointerdown", { pointerId: 4, clientX: rect.left+4, clientY: rect.top+12, bubbles: true }));
+        window.dispatchEvent(new PointerEvent("pointermove", { pointerId: 4, clientX: rect.left+4-200, clientY: rect.top+12, bubbles: true }));
+
+        const comp = window.getComputedStyle(item);
+        const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14);
+        const r = {
+          width: item.offsetWidth,
+          height: item.offsetHeight,
+          bodyHeight: body.offsetHeight,
+          isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
+        };
+
+        window.dispatchEvent(new PointerEvent("pointerup", { pointerId: 4, bubbles: true }));
+        return r;
+      })()
+    `);
+    console.log('Test 4 Result (Narrowing & wrapping):', result4);
+    if (!result4.isEnclosed) throw new Error('Test 4 Failed: Text not enclosed after narrowing width');
+
+    // Test 5: Font size change via toolbar
+    console.log('Test 5: Changing font size to 24pt via setCanvasItemFontSize...');
+    const result5 = await evaluate(`
+      (() => {
+        const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
+        setCanvasItemFontSize(item.id, 24);
         const body = item.querySelector(".canvas-text-body");
         const comp = window.getComputedStyle(item);
         const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14);
         return {
-          itemHeight: item.offsetHeight,
+          height: item.offsetHeight,
           bodyHeight: body.offsetHeight,
-          padY: padY,
+          fs: parseFloat(window.getComputedStyle(body).fontSize),
           isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
         };
       })()
     `);
-    console.log('Result after font size 22pt:', resultAfterFontSize);
-    if (!resultAfterFontSize.isEnclosed) {
-      throw new Error('Text box failed to adapt after font size change');
-    }
+    console.log('Test 5 Result (Font Size 24pt):', result5);
+    if (result5.fs !== 24) throw new Error(`Test 5 Failed: Font size is ${result5.fs}, expected 24`);
+    if (!result5.isEnclosed) throw new Error('Test 5 Failed: Text not enclosed after font size change');
 
-    // Test Fit Text button
-    console.log('Testing Fit Text button (fitCanvasItemToText)...');
-    const resultAfterFit = await evaluate(`
+    // Test 6: Fit text button
+    console.log('Test 6: Testing fitCanvasItemToText...');
+    const result6 = await evaluate(`
       (() => {
         const item = document.querySelector("#ipad-page-editor .canvas-item.canvas-text-box");
         fitCanvasItemToText(item);
@@ -184,27 +261,17 @@ async function runTest() {
         const comp = window.getComputedStyle(item);
         const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14);
         return {
-          itemWidth: item.offsetWidth,
-          itemHeight: item.offsetHeight,
+          width: item.offsetWidth,
+          height: item.offsetHeight,
           bodyHeight: body.offsetHeight,
           isEnclosed: item.offsetHeight >= (body.offsetHeight + padY - 2)
         };
       })()
     `);
-    console.log('Result after Fit Text:', resultAfterFit);
-    if (!resultAfterFit.isEnclosed) {
-      throw new Error('Text box failed to enclose text after Fit Text');
-    }
+    console.log('Test 6 Result (Fit Text):', result6);
+    if (!result6.isEnclosed) throw new Error('Test 6 Failed: Text not enclosed after Fit Text');
 
-    // Capture screenshot after Fit Text
-    const shot2 = await send('Page.captureScreenshot', { format: 'png' });
-    if (shot2.result?.data) {
-      const shotPath2 = path.join(ARTIFACT_DIR, 'verify_textbox_fitted_dimensions.png');
-      fs.writeFileSync(shotPath2, Buffer.from(shot2.result.data, 'base64'));
-      console.log('Saved screenshot 2 to:', shotPath2);
-    }
-
-    console.log('\n✅ ALL TEXT BOX OVERFLOW & AUTO-ADAPT TESTS PASSED PERFECTLY!');
+    console.log('\n🎉 ALL 6 COMPREHENSIVE TEXT BOX RESIZE & CONTAINMENT TESTS PASSED PERFECTLY!');
     ws.close();
   } finally {
     try {

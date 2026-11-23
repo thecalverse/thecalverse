@@ -2729,6 +2729,15 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   pointer-events:none;
   transition:opacity .15s ease,transform .15s ease;
 }
+.canvas-resize-e::after,
+.canvas-resize-w::after{
+  content:'';
+  position:absolute;
+  top:-10px;
+  bottom:-10px;
+  left:-10px;
+  right:-10px;
+}
 .canvas-resize-w{
   position:absolute;
   left:-6px;
@@ -2764,6 +2773,15 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
   opacity:0;
   pointer-events:none;
   transition:opacity .15s ease,transform .15s ease;
+}
+.canvas-resize-s::after,
+.canvas-resize-n::after{
+  content:'';
+  position:absolute;
+  top:-10px;
+  bottom:-10px;
+  left:-10px;
+  right:-10px;
 }
 .canvas-resize-n{
   position:absolute;
@@ -14996,7 +15014,10 @@ function adaptTextBoxDimensions(item, textBoxBody){
     const neededH = Math.ceil(textH + padY);
     const currentMinH = parseFloat(item.style.minHeight) || (item.classList.contains('canvas-sticky') ? 80 : 50);
     const finalH = Math.max(currentMinH, neededH);
-    item.style.height = finalH + 'px';
+    const curH = parseFloat(item.style.height) || item.offsetHeight || 0;
+    if(curH < finalH){
+      item.style.height = finalH + 'px';
+    }
   }
 
   const stickyInner = item.querySelector('.journal-sticky-note');
@@ -15032,7 +15053,12 @@ function fitCanvasItemToText(item){
   const targetW = Math.max(minW, Math.min(maxW, naturalW + padX));
 
   item.style.width = targetW + 'px';
-  adaptTextBoxDimensions(item, body);
+  const padTop = parseFloat(itemComp.paddingTop) || 10;
+  const padBottom = parseFloat(itemComp.paddingBottom) || 14;
+  const padY = padTop + padBottom + (parseFloat(itemComp.borderTopWidth) || 1) + (parseFloat(itemComp.borderBottomWidth) || 1);
+  const textH = body.offsetHeight || body.scrollHeight;
+  const currentMinH = parseFloat(item.style.minHeight) || (item.classList.contains('canvas-sticky') ? 80 : 50);
+  item.style.height = Math.max(currentMinH, Math.ceil(textH + padY)) + 'px';
   queueIpadSave();
   showToast("Fitted box to text length & width 📐");
 }
@@ -16674,7 +16700,7 @@ function initIpadCanvasEngine(){
           startHeight: item.offsetHeight,
           startFontSize: initialFs,
           textTarget: textTarget,
-          type: item.dataset.type || ""
+          type: item.dataset.type || (item.classList.contains("canvas-text-box") ? "textbox" : item.classList.contains("canvas-sticky") ? "sticky" : item.classList.contains("canvas-washi") ? "washi" : item.classList.contains("canvas-shape") ? "shape" : item.classList.contains("canvas-sticker") ? "sticker" : "")
         };
         item.classList.add("is-resizing");
       }
@@ -16777,11 +16803,15 @@ function initIpadCanvasEngine(){
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       e.preventDefault();
       const s = activeResizeState;
+      const isTextBox = s.type === "textbox" || s.item.classList.contains("canvas-text-box");
+      const isSticky = s.type === "sticky" || s.item.classList.contains("canvas-sticky");
+      const isTextContainer = isTextBox || isSticky;
+
       const deltaX = e.clientX - s.startX;
       const deltaY = e.clientY - s.startY;
       const editorWidth = editor.clientWidth || 700;
-      const minW = (s.type === "washi") ? 60 : (s.type === "sticker") ? 40 : (s.type === "shape") ? 60 : (s.type === "sticky") ? 100 : (s.type === "textbox") ? 80 : 120;
-      const minH = (s.type === "washi") ? 22 : (s.type === "shape") ? 36 : (s.type === "sticky") ? 60 : (s.type === "textbox") ? 40 : 28;
+      const minW = (s.type === "washi") ? 60 : (s.type === "sticker") ? 40 : (s.type === "shape") ? 60 : isSticky ? 100 : isTextBox ? 100 : 120;
+      const minH = (s.type === "washi") ? 22 : (s.type === "shape") ? 36 : isSticky ? 60 : isTextBox ? 40 : 28;
       const maxW = Math.max(minW, editorWidth - s.item.offsetLeft - 10);
 
       // Width resizing (Length)
@@ -16806,30 +16836,47 @@ function initIpadCanvasEngine(){
         s.item.style.top = newTop + "px";
       }
 
+      // Dynamic text containment adaptation for text containers:
+      // Guarantees text NEVER overflows out of the box boundaries during resizing!
+      if(isTextContainer){
+        const comp = window.getComputedStyle(s.item);
+        const padY = (parseFloat(comp.paddingTop) || 10) + (parseFloat(comp.paddingBottom) || 14) + (parseFloat(comp.borderTopWidth) || 1) + (parseFloat(comp.borderBottomWidth) || 1);
+        const textBody = s.textTarget || s.item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note");
+        const textH = textBody ? (textBody.offsetHeight || textBody.scrollHeight) : 0;
+        const neededH = Math.ceil(textH + padY);
+
+        if(s.dir === "e" || s.dir === "w"){
+          // Sidewards drag: height strictly adapts to the wrapped text lines!
+          // NEVER forces unwanted vertical expansion from mouse deltaY!
+          s.item.style.height = Math.max(minH, neededH) + "px";
+        } else if(s.dir === "se" || s.dir === "s"){
+          // Diagonal/bottom drag: user can drag height freely, but box will NEVER be smaller than neededH!
+          const currentH = parseFloat(s.item.style.height) || s.startHeight;
+          s.item.style.height = Math.max(currentH, neededH) + "px";
+        } else if(s.dir === "n"){
+          const currentH = parseFloat(s.item.style.height) || s.startHeight;
+          if(currentH < neededH){
+            const diff = neededH - currentH;
+            s.item.style.height = neededH + "px";
+            s.item.style.top = Math.max(0, s.item.offsetTop - diff) + "px";
+          }
+        }
+      }
+
       if(s.type === "sticker"){
         const glyph = s.item.querySelector(".canvas-sticker-glyph");
         if(glyph) glyph.style.fontSize = Math.max(20, Math.round(s.item.offsetWidth * 0.75)) + "px";
       }
 
-      // Automatically scale written text inside washi tape, shapes, captions, and text boxes:
-      if(s.textTarget && s.startFontSize && s.type !== "sticky"){
+      // Automatically scale written text inside washi tape, shapes, and captions (NOT text boxes or sticky notes):
+      if(s.textTarget && s.startFontSize && !isTextContainer){
         const curW = s.item.offsetWidth || s.startWidth;
         const curH = s.item.offsetHeight || s.startHeight;
         const wRatio = curW / (s.startWidth || 1);
         const hRatio = curH / (s.startHeight || 1);
 
         let scale = 1;
-        if(s.type === "textbox"){
-          if(s.dir === "se"){
-            // Corner resize: proportional scaling with text box dimensions
-            scale = (wRatio + hRatio) / 2;
-          } else if(s.dir === "e" || s.dir === "w"){
-            // Horizontal resize: keep font size stable, change width so text wraps
-            scale = 1;
-          } else if(s.dir === "s" || s.dir === "n"){
-            scale = 1;
-          }
-        } else if(s.dir === "e" || s.dir === "w"){
+        if(s.dir === "e" || s.dir === "w"){
           scale = wRatio;
         } else if(s.dir === "s" || s.dir === "n"){
           scale = hRatio;
@@ -16870,10 +16917,6 @@ function initIpadCanvasEngine(){
 
         const labelEl = s.item.querySelector(".cbar-font-num-label");
         if(labelEl) labelEl.textContent = newFs + "pt";
-      }
-
-      if(s.type === "textbox" || s.type === "sticky"){
-        adaptTextBoxDimensions(s.item, s.textTarget || s.item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note"));
       }
       return;
     }
@@ -16923,7 +16966,8 @@ function initIpadCanvasEngine(){
     if(activeResizeState && activeResizeState.pointerId === e.pointerId){
       try { activeResizeState.handle.releasePointerCapture(e.pointerId); } catch(_){}
       activeResizeState.item.classList.remove("is-resizing");
-      if(activeResizeState.type === "textbox" || activeResizeState.type === "sticky"){
+      const isTextContainer = activeResizeState.type === "textbox" || activeResizeState.type === "sticky" || activeResizeState.item.classList.contains("canvas-text-box") || activeResizeState.item.classList.contains("canvas-sticky");
+      if(isTextContainer){
         adaptTextBoxDimensions(activeResizeState.item, activeResizeState.textTarget || activeResizeState.item.querySelector(".canvas-text-body, .canvas-sticky-body, .journal-sticky-note"));
       }
       activeResizeState = null;
