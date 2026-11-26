@@ -20353,6 +20353,8 @@ function applyNoteTypography(){
   editor.style.color=resolvedInk;
   editor.style.fontSize=sizeCfg.font;
   editor.style.lineHeight=sizeCfg.line;
+  editor.querySelectorAll('[style]').forEach(el=>{if(el.style&&el.style.fontSize)el.style.fontSize='';});
+  editor.querySelectorAll('font[size]').forEach(el=>el.removeAttribute('size'));
   if(!hasContent){
     editor.style.fontFamily=nextFont;
   }else if(noteEditMode){
