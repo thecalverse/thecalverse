@@ -1261,6 +1261,16 @@ canvas#gc{display:block;width:100%;height:240px;}
 [data-t=light] .lib-viewer-text-content{background:rgba(255,255,255,.7);border-color:rgba(131,98,74,.18);color:#2e1e12;}
 .lib-viewer-media-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:24px;}
 .lib-viewer-file-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;}
+.lib-annot-bar{display:none;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--glb);background:rgba(255,255,255,.03);flex-wrap:wrap;flex-shrink:0;}
+.lib-annot-bar.show{display:flex;}
+.lib-annot-btn{height:30px;padding:0 10px;border-radius:9px;border:1px solid var(--glb);background:rgba(255,255,255,.06);color:var(--t1);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:all .15s ease;}
+.lib-annot-btn:hover{background:rgba(255,255,255,.12);}
+.lib-annot-btn.on{background:var(--accg);border-color:var(--acb);color:#fff;box-shadow:0 3px 10px rgba(124,92,255,.25);}
+.lib-annot-swatch{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.25);cursor:pointer;transition:transform .15s ease,border-color .15s ease;padding:0;}
+.lib-annot-swatch:hover{transform:scale(1.18);}
+.lib-annot-swatch.on{transform:scale(1.22);border-color:#fff;box-shadow:0 0 0 2px var(--acc);}
+.lib-annot-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:20;pointer-events:none;touch-action:none;}
+.lib-annot-canvas.active{pointer-events:auto;cursor:crosshair;}
 
 .note-editor-wrap{display:grid;gap:12px;align-content:start;min-height:calc(100vh - 176px);min-height:calc(100dvh - 176px);}
 .note-editor-head{display:grid;gap:12px;position:relative;z-index:6;padding:2px 0 8px;background:transparent;}
@@ -8088,6 +8098,9 @@ html[data-device="iphone"] #app {
         </div>
       </div>
       <div class="lib-viewer-btns">
+        <button type="button" class="lib-viewer-btn" id="lib-annot-toggle-btn" onclick="toggleLibAnnotMode()" title="Highlight &amp; Mark Document">
+          <span>🖍️</span> <span>Annotate</span>
+        </button>
         <button type="button" class="lib-viewer-btn acc" onclick="if(currentViewerItemId)downloadLibraryItem(currentViewerItemId)" title="Download File to Device">
           <span style="font-size:14px;">⬇️</span> <span>Download</span>
         </button>
@@ -8099,6 +8112,21 @@ html[data-device="iphone"] #app {
         </button>
         <button type="button" class="lib-viewer-btn close" onclick="closeLibraryFileViewer()" title="Close Viewer">✕</button>
       </div>
+    </div>
+    <div class="lib-annot-bar" id="lib-annot-bar">
+      <button type="button" class="lib-annot-btn on" id="lib-tool-highlighter" onclick="setLibAnnotTool('highlighter')">🖍️ Highlighter</button>
+      <button type="button" class="lib-annot-btn" id="lib-tool-pen" onclick="setLibAnnotTool('pen')">✏️ Pen</button>
+      <button type="button" class="lib-annot-btn" id="lib-tool-eraser" onclick="setLibAnnotTool('eraser')">🧽 Eraser</button>
+      <div style="width:1px;height:18px;background:var(--glb);margin:0 2px;"></div>
+      <button type="button" class="lib-annot-swatch on" style="background:#ffe066;" onclick="setLibAnnotColor('#ffe066',this)" title="Yellow"></button>
+      <button type="button" class="lib-annot-swatch" style="background:#ff85b3;" onclick="setLibAnnotColor('#ff85b3',this)" title="Pink"></button>
+      <button type="button" class="lib-annot-swatch" style="background:#66ffb0;" onclick="setLibAnnotColor('#66ffb0',this)" title="Mint"></button>
+      <button type="button" class="lib-annot-swatch" style="background:#66c2ff;" onclick="setLibAnnotColor('#66c2ff',this)" title="Sky"></button>
+      <button type="button" class="lib-annot-swatch" style="background:#ffa94d;" onclick="setLibAnnotColor('#ffa94d',this)" title="Orange"></button>
+      <div style="width:1px;height:18px;background:var(--glb);margin:0 2px;"></div>
+      <button type="button" class="lib-annot-btn" onclick="undoLibAnnot()">↩️ Undo</button>
+      <button type="button" class="lib-annot-btn" onclick="clearLibAnnot()">🗑️ Clear</button>
+      <span id="lib-annot-status" style="margin-left:auto;font-size:11px;color:var(--t2);font-weight:700;"></span>
     </div>
     <div class="lib-viewer-body" id="lib-viewer-body"></div>
   </div>
@@ -10307,6 +10335,175 @@ async function openLibraryItem(id){
   await openLibraryFileViewer(item);
 }
 
+let libAnnotActive = false;
+let libAnnotTool = 'highlighter';
+let libAnnotColor = '#ffe066';
+let libAnnotDrawing = false;
+let libAnnotCurrentStroke = null;
+
+function toggleLibAnnotMode(force){
+  libAnnotActive = (typeof force === 'boolean') ? force : !libAnnotActive;
+  const bar = document.getElementById('lib-annot-bar');
+  const btn = document.getElementById('lib-annot-toggle-btn');
+  const canvas = document.getElementById('lib-annot-canvas');
+  if(bar) bar.classList.toggle('show', libAnnotActive);
+  if(btn) btn.classList.toggle('acc', libAnnotActive);
+  if(canvas) canvas.classList.toggle('active', libAnnotActive);
+  if(libAnnotActive) resizeLibAnnotCanvas();
+}
+
+function setLibAnnotTool(tool){
+  libAnnotTool = tool;
+  ['highlighter','pen','eraser'].forEach(t => {
+    const el = document.getElementById('lib-tool-' + t);
+    if(el) el.classList.toggle('on', t === tool);
+  });
+}
+
+function setLibAnnotColor(color, btnEl){
+  libAnnotColor = color;
+  document.querySelectorAll('.lib-annot-swatch').forEach(s => s.classList.remove('on'));
+  if(btnEl) btnEl.classList.add('on');
+  if(libAnnotTool === 'eraser') setLibAnnotTool('highlighter');
+}
+
+function getLibAnnotItem(){
+  return (typeof LIBRARY !== 'undefined' && currentViewerItemId) ? LIBRARY.find(x => x.id === currentViewerItemId) : null;
+}
+
+function saveLibAnnotStrokes(){
+  const item = getLibAnnotItem();
+  if(!item) return;
+  item.updatedAt = Date.now();
+  if(typeof saveLibraryData === 'function') saveLibraryData();
+  const st = document.getElementById('lib-annot-status');
+  if(st){
+    st.textContent = 'Saved ✓';
+    setTimeout(() => { if(st.textContent === 'Saved ✓') st.textContent = ''; }, 1600);
+  }
+}
+
+function undoLibAnnot(){
+  const item = getLibAnnotItem();
+  if(!item || !Array.isArray(item.annotations) || !item.annotations.length) return;
+  item.annotations.pop();
+  renderLibAnnotStrokes();
+  saveLibAnnotStrokes();
+}
+
+function clearLibAnnot(){
+  const item = getLibAnnotItem();
+  if(!item) return;
+  item.annotations = [];
+  renderLibAnnotStrokes();
+  saveLibAnnotStrokes();
+}
+
+function resizeLibAnnotCanvas(){
+  const canvas = document.getElementById('lib-annot-canvas');
+  const body = document.getElementById('lib-viewer-body');
+  if(!canvas || !body) return;
+  const rect = body.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+  canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+  renderLibAnnotStrokes();
+}
+
+function renderLibAnnotStrokes(){
+  const canvas = document.getElementById('lib-annot-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+  const item = getLibAnnotItem();
+  const strokes = (item && Array.isArray(item.annotations)) ? item.annotations : [];
+  const dpr = window.devicePixelRatio || 1;
+  const allStrokes = libAnnotCurrentStroke ? [...strokes, libAnnotCurrentStroke] : strokes;
+  allStrokes.forEach(s => {
+    if(!s || !s.pts || s.pts.length < 1) return;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    if(s.tool === 'eraser'){
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.strokeStyle = 'rgba(0,0,0,1)';
+      ctx.lineWidth = 18 * dpr;
+    } else if(s.tool === 'highlighter'){
+      ctx.globalAlpha = 0.36;
+      ctx.strokeStyle = s.color || '#ffe066';
+      ctx.lineWidth = 18 * dpr;
+    } else {
+      ctx.globalAlpha = 0.95;
+      ctx.strokeStyle = s.color || '#ffe066';
+      ctx.lineWidth = 3 * dpr;
+    }
+    ctx.beginPath();
+    ctx.moveTo(s.pts[0].x * w, s.pts[0].y * h);
+    for(let i = 1; i < s.pts.length - 1; i++){
+      const mx = ((s.pts[i].x + s.pts[i+1].x) / 2) * w;
+      const my = ((s.pts[i].y + s.pts[i+1].y) / 2) * h;
+      ctx.quadraticCurveTo(s.pts[i].x * w, s.pts[i].y * h, mx, my);
+    }
+    const last = s.pts[s.pts.length - 1];
+    ctx.lineTo(last.x * w, last.y * h);
+    ctx.stroke();
+    ctx.restore();
+  });
+}
+
+function initLibAnnotCanvas(item){
+  const body = document.getElementById('lib-viewer-body');
+  if(!body) return;
+  let canvas = document.getElementById('lib-annot-canvas');
+  if(!canvas){
+    canvas = document.createElement('canvas');
+    canvas.id = 'lib-annot-canvas';
+    canvas.className = 'lib-annot-canvas' + (libAnnotActive ? ' active' : '');
+    body.appendChild(canvas);
+  }
+  resizeLibAnnotCanvas();
+
+  canvas.onpointerdown = (e) => {
+    if(!libAnnotActive) return;
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    libAnnotDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    libAnnotCurrentStroke = {
+      tool: libAnnotTool,
+      color: libAnnotColor,
+      pts: [{ x: (e.clientX - rect.left) / rect.width, y: (e.clientY - rect.top) / rect.height }]
+    };
+    renderLibAnnotStrokes();
+  };
+  canvas.onpointermove = (e) => {
+    if(!libAnnotDrawing || !libAnnotCurrentStroke) return;
+    const rect = canvas.getBoundingClientRect();
+    libAnnotCurrentStroke.pts.push({
+      x: (e.clientX - rect.left) / rect.width,
+      y: (e.clientY - rect.top) / rect.height
+    });
+    renderLibAnnotStrokes();
+  };
+  const endDraw = () => {
+    if(!libAnnotDrawing || !libAnnotCurrentStroke) return;
+    libAnnotDrawing = false;
+    const target = getLibAnnotItem();
+    if(target){
+      if(!Array.isArray(target.annotations)) target.annotations = [];
+      target.annotations.push(libAnnotCurrentStroke);
+      saveLibAnnotStrokes();
+    }
+    libAnnotCurrentStroke = null;
+    renderLibAnnotStrokes();
+  };
+  canvas.onpointerup = endDraw;
+  canvas.onpointercancel = endDraw;
+}
+
 async function openLibraryFileViewer(item){
   if(!item) return;
   currentViewerItemId = item.id;
@@ -10410,6 +10607,7 @@ async function openLibraryFileViewer(item){
       </div>
     `;
   }
+  initLibAnnotCanvas(item);
 }
 
 function closeLibraryFileViewer(){
