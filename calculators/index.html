@@ -386,15 +386,17 @@ html[data-search-active="1"] #sHome .search-results{
   border:1px solid var(--glb);border-radius:12px;padding:10px 12px;
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
 }
-.ac-habit-name{text-align:left;font-weight:800;color:var(--t1);}
+.ac-habit-name{text-align:left;font-weight:800;color:var(--t1);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .ac-habit-btn{
   border:none;background:transparent;color:var(--t1);
-  font-size:13px;font-weight:800;padding:0;cursor:pointer;
+  font-size:13px;font-weight:800;padding:0;cursor:pointer;white-space:nowrap;flex-shrink:0;
 }
 .ac-habit-btn.done{color:var(--ok);}
 .ac-timer{
   min-height:236px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
 }
+.ac-timer .timer-wheel{overflow:hidden;}
+.ac-timer .timer-wheel-value{font-size:clamp(22px,2.4vw,36px);letter-spacing:-1px;}
 .ac-timer-view{font-size:84px;font-weight:800;line-height:1;color:var(--t1);}
 .ac-timer-row{display:flex;gap:7px;flex-wrap:nowrap;justify-content:center;}
 .ac-timer-row .ac-btn{text-align:center;justify-content:center;}
