@@ -14468,26 +14468,6 @@ window.addEventListener('keydown', async (e) => {
       activeEl.dispatchEvent(new Event('input', { bubbles: true }));
       showToast('Cut to clipboard ✂️');
     }
-  } else if(key === 'v' && !e.shiftKey && !e.altKey){
-    const activeEl = document.activeElement;
-    if(activeEl && (activeEl.isContentEditable || activeEl?.tagName === 'INPUT' || activeEl?.tagName === 'TEXTAREA')){
-      try {
-        const text = await navigator.clipboard.readText();
-        if(text){
-          e.preventDefault();
-          if(activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA'){
-            const start = activeEl.selectionStart || 0;
-            const end = activeEl.selectionEnd || 0;
-            activeEl.value = activeEl.value.slice(0, start) + text + activeEl.value.slice(end);
-            activeEl.selectionStart = activeEl.selectionEnd = start + text.length;
-          } else {
-            document.execCommand('insertText', false, text);
-          }
-          activeEl.dispatchEvent(new Event('input', { bubbles: true }));
-          showToast('Pasted 📋');
-        }
-      } catch(_) {}
-    }
   } else if(key === 's'){
     // Save note or iPad page
     if(curScr === 'NoteEdit' || document.getElementById('sNoteEdit')?.classList.contains('active')){
