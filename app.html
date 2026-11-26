@@ -8054,7 +8054,7 @@ html[data-device="iphone"] #app {
 <div class="timer-focus" id="timer-focus">
   <div class="timer-focus-card">
     <div class="timer-focus-title" id="timer-focus-title">Focus timer</div>
-    <button class="timer-screen-exit" onclick="stopTimerAndExit();event.stopPropagation()" aria-label="Exit timer">EXIT</button>
+    <button class="timer-screen-exit" onpointerdown="startStrictExitHold(event)" onpointerup="cancelStrictExitHold()" onpointerleave="cancelStrictExitHold()" onpointercancel="cancelStrictExitHold()" onclick="event.stopPropagation()" aria-label="Hold 3s to Exit">🔒 HOLD TO EXIT</button>
     <div class="timer-focus-clock">
       <div class="timer-pair tf-hour-pair">
         <div class="flip-digit tf-hour" id="tf-d0">0</div>
@@ -8072,7 +8072,7 @@ html[data-device="iphone"] #app {
       </div>
     </div>
     <div class="timer-focus-actions">
-      <button class="go timer-exit-btn" onclick="stopTimerAndExit();event.stopPropagation()" aria-label="Exit timer">←</button>
+      <button class="go timer-exit-btn" onpointerdown="startStrictExitHold(event)" onpointerup="cancelStrictExitHold()" onpointerleave="cancelStrictExitHold()" onpointercancel="cancelStrictExitHold()" onclick="event.stopPropagation()" aria-label="Hold 3s to Exit">🔒</button>
       <button class="go timer-land-btn" id="timer-land-btn" onclick="toggleTimerOrientationMode(event)" aria-label="Switch to landscape">LAND</button>
     </div>
   </div>
@@ -9717,6 +9717,23 @@ function exitTimerFocus(){
   const focus=document.getElementById('timer-focus');
   if(focus){focus.dataset.open='0';focus.classList.remove('active');}
   releaseTimerScreen();
+}
+let strictExitTimer=null;
+function startStrictExitHold(e){
+  if(e)e.stopPropagation();
+  clearTimeout(strictExitTimer);
+  showToast('Hold 2.5s to exit Focus Lock 🔒');
+  strictExitTimer=setTimeout(()=>{
+    strictExitTimer=null;
+    if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+    stopTimerAndExit();
+  },2500);
+}
+function cancelStrictExitHold(){
+  if(strictExitTimer){
+    clearTimeout(strictExitTimer);
+    strictExitTimer=null;
+  }
 }
 function stopTimerAndExit(){
   pauseTimer(false);
