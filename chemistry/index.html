@@ -13873,7 +13873,7 @@ function jumpJournalToday(){
   const now = new Date();
   currentJournalCalendarYear = now.getFullYear();
   currentJournalCalendarMonth = now.getMonth();
-  currentSelectedJournalDate = now.toISOString().slice(0, 10);
+  currentSelectedJournalDate = typeof getTrackerDayKey === 'function' ? getTrackerDayKey(now.getTime()) : now.toISOString().slice(0, 10);
   renderJournalCalendar(currentJournalCalendarYear, currentJournalCalendarMonth);
   renderJournalEntriesTimeline();
 }
@@ -13890,6 +13890,13 @@ function filterJournalMood(mood){
 }
 
 function getJournalEntriesForDate(dateStr){
+  const toLocalKey = (ts) => typeof getTrackerDayKey === 'function' ? getTrackerDayKey(ts) : new Date(ts).toISOString().slice(0, 10);
+  if(isJournalVaultActive){
+    return VAULT_NOTES.filter(n => {
+      const d = n.journalDate || (n.createdAt ? toLocalKey(n.createdAt) : '');
+      return d === dateStr;
+    });
+  }
   return NOTES.filter(n => {
     // Exclude all secret/vault notes and pages from calendar
     if(n.isVault || (n.id && n.id.startsWith('vault_'))) return false;
@@ -13898,7 +13905,7 @@ function getJournalEntriesForDate(dateStr){
     if(curBook && (curBook.isVault || (curBook.id && curBook.id.startsWith('vault_')))) return false;
     if(Array.isArray(n.tags) && (n.tags.includes('#secret') || n.tags.includes('secret') || n.tags.includes('private'))) return false;
 
-    const d = n.journalDate || (n.createdAt ? new Date(n.createdAt).toISOString().slice(0, 10) : '');
+    const d = n.journalDate || (n.createdAt ? toLocalKey(n.createdAt) : '');
     return d === dateStr;
   });
 }
@@ -20435,7 +20442,10 @@ function chooseNoteColor(val){
   const hasSelection=!!(sel&&!sel.isCollapsed&&sel.rangeCount&&editor.contains(sel.anchorNode));
   try{document.execCommand('styleWithCSS',false,true);}catch(e){}
   try{document.execCommand('foreColor',false,val);}catch(e){}
-  if(!hasSelection && !notePlainText(editor.innerHTML)){
+  if(hasSelection){
+    const note=getNoteById(currentNoteId);
+    if(note)note.textColorMode='custom';
+  }else if(!notePlainText(editor.innerHTML)){
     editor.dataset.noteColor=val;
     editor.style.color=val;
     const note=getNoteById(currentNoteId);
@@ -20549,7 +20559,7 @@ function saveCurrentNote(showFeedback=false){
   const paperSel=document.getElementById('note-paper-style');
   let nextTitle=titleEl?titleEl.value.trim():'';
   const rawContent=editor?editor.innerHTML:'';
-  if(!nextTitle && rawContent){
+  if(!nextTitle && rawContent && document.activeElement!==titleEl && !note.title){
     const plain = notePlainText(rawContent).trim();
     if(plain){
       const firstLine = plain.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)[0] || '';
@@ -22334,6 +22344,7 @@ function buildTrackerCardHTMLFast(habit,weekKeys,monthKeys,todayKey){
   const monthlyDone=monthKeys.filter(k=>habit.checks[k]).length;
   const monthlyPct=monthKeys.length?monthlyDone*100/monthKeys.length:0;
   const streak=trackerStreak(habit);
+  const curStreak=typeof trackerCurrentStreak==='function'?trackerCurrentStreak(habit):streak;
   const weekHeader=weekKeys.map((k,idx)=>{
     const d=parseTrackerDayKey(k);
     const dayShort=TRACKER_DAY_NAMES[idx].slice(0,3);
@@ -22348,7 +22359,7 @@ function buildTrackerCardHTMLFast(habit,weekKeys,monthKeys,todayKey){
     if(!canTick)cls.push('locked');
     return `<button type="button" class="${cls.join(' ')}" ${canTick?`onclick="toggleTrackerDay('${habit.id}','${k}')"`:''} ${canTick?'':'disabled'} title="${TRACKER_DAY_NAMES[idx]}">${habit.checks[k]?'✓':''}</button>`;
   }).join('');
-  return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${streak} day streak</div></div><div class="tracker-meta"><div class="tracker-meta-line">Weekly: <b>${weeklyDone}/7</b> · <b>${fmt(weeklyPct,1)}%</b></div><div class="tracker-meta-line">Monthly: <b>${monthlyDone}/${monthKeys.length}</b> · <b>${fmt(monthlyPct,1)}%</b></div></div></div><div class="tracker-grid-head">${weekHeader}</div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><div class="tracker-actions-left"><button class="note-card-btn acc" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div><button class="note-card-btn ${habit.checks[todayKey]?'done acc':'acc'}" onclick="toggleTrackerDay('${habit.id}','${todayKey}')">${habit.checks[todayKey]?'Done Today':'Mark Today'}</button></div></div>`;
+  return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${curStreak} day streak${streak>curStreak?` · Best: ${streak}`:''}</div></div><div class="tracker-meta"><div class="tracker-meta-line">Weekly: <b>${weeklyDone}/7</b> · <b>${fmt(weeklyPct,1)}%</b></div><div class="tracker-meta-line">Monthly: <b>${monthlyDone}/${monthKeys.length}</b> · <b>${fmt(monthlyPct,1)}%</b></div></div></div><div class="tracker-grid-head">${weekHeader}</div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><div class="tracker-actions-left"><button class="note-card-btn acc" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div><button class="note-card-btn ${habit.checks[todayKey]?'done acc':'acc'}" onclick="toggleTrackerDay('${habit.id}','${todayKey}')">${habit.checks[todayKey]?'Done Today':'Mark Today'}</button></div></div>`;
 }
 function renderTrackerChunked(){
   const listEl=document.getElementById('tracker-list');
@@ -22405,6 +22416,7 @@ function buildTrackerCardHTMLFast(habit,weekKeys,monthKeys,todayKey){
   const monthlyDone=monthKeys.filter(k=>habit.checks[k]).length;
   const monthlyPct=monthKeys.length?monthlyDone*100/monthKeys.length:0;
   const streak=trackerStreak(habit);
+  const curStreak=typeof trackerCurrentStreak==='function'?trackerCurrentStreak(habit):streak;
   const weekHeader=weekKeys.map((k,idx)=>{
     const d=parseTrackerDayKey(k);
     const dayShort=TRACKER_DAY_NAMES[idx].slice(0,3);
@@ -22419,7 +22431,7 @@ function buildTrackerCardHTMLFast(habit,weekKeys,monthKeys,todayKey){
     if(!canTick)cls.push('locked');
     return `<button type="button" class="${cls.join(' ')}" ${canTick?`onclick="toggleTrackerDay('${habit.id}','${k}')"`:''} ${canTick?'':'disabled'} title="${TRACKER_DAY_NAMES[idx]}">${habit.checks[k]?'✓':''}</button>`;
   }).join('');
-  return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${streak} day streak</div></div><div class="tracker-meta"><div class="tracker-meta-line">Weekly: <b>${weeklyDone}/7</b> · <b>${fmt(weeklyPct,1)}%</b></div><div class="tracker-meta-line">Monthly: <b>${monthlyDone}/${monthKeys.length}</b> · <b>${fmt(monthlyPct,1)}%</b></div></div></div><div class="tracker-grid-head">${weekHeader}</div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><div class="tracker-actions-left"><button class="note-card-btn acc" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div><button class="note-card-btn ${habit.checks[todayKey]?'done acc':'acc'}" onclick="toggleTrackerDay('${habit.id}','${todayKey}')">${habit.checks[todayKey]?'Done Today':'Mark Today'}</button></div></div>`;
+  return `<div class="tracker-card"><div class="tracker-card-head"><div><div class="tracker-name">${escapeHtml(habit.name)}</div><div class="tracker-streak">${curStreak} day streak${streak>curStreak?` · Best: ${streak}`:''}</div></div><div class="tracker-meta"><div class="tracker-meta-line">Weekly: <b>${weeklyDone}/7</b> · <b>${fmt(weeklyPct,1)}%</b></div><div class="tracker-meta-line">Monthly: <b>${monthlyDone}/${monthKeys.length}</b> · <b>${fmt(monthlyPct,1)}%</b></div></div></div><div class="tracker-grid-head">${weekHeader}</div><div class="tracker-grid">${grid}</div><div class="tracker-actions"><div class="tracker-actions-left"><button class="note-card-btn acc" onclick="renameTrackerHabit('${habit.id}')">Rename</button><button class="note-card-btn del" onclick="deleteTrackerHabit('${habit.id}')">Delete</button></div><button class="note-card-btn ${habit.checks[todayKey]?'done acc':'acc'}" onclick="toggleTrackerDay('${habit.id}','${todayKey}')">${habit.checks[todayKey]?'Done Today':'Mark Today'}</button></div></div>`;
 }
 const __renderTrackerBase=renderTracker;
 renderTracker=function(){
@@ -22545,6 +22557,19 @@ function getMonthKeys(baseTs=Date.now()){
   const keys=[];
   for(let day=1;day<=days;day++)keys.push(getTrackerDayKey(new Date(y,m,day).getTime()));
   return keys;
+}
+function trackerCurrentStreak(habit){
+  const checks=habit?.checks||{};
+  const todayKey=getTrackerDayKey(Date.now());
+  const yestKey=getTrackerDayKey(Date.now()-86400000);
+  let cur=0;
+  let ts=checks[todayKey]?Date.now():(checks[yestKey]?Date.now()-86400000:0);
+  if(!ts)return 0;
+  while(checks[getTrackerDayKey(ts)]){
+    cur++;
+    ts-=86400000;
+  }
+  return cur;
 }
 function trackerStreak(habit){
   const dates=Object.keys(habit?.checks||{}).map(parseTrackerDayKey).filter(Boolean).sort((a,b)=>a-b);
