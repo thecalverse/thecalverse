@@ -20384,7 +20384,7 @@ function renderNoteColorPalette(selectedColor=''){
   const activeColor=(selectedColor||getNoteById(currentNoteId)?.textColor||getDefaultNoteTextColor()).toLowerCase();
   palette.innerHTML=colors.map((color,idx)=>{
     const on=color.toLowerCase()===activeColor;
-    return `<button type="button" class="note-color-swatch ${on?'on':''}" style="--swatch:${color}" title="Ink ${idx+1}" aria-label="Choose text color ${idx+1}" onclick="chooseNoteColor('${color}')"></button>`;
+    return `<button type="button" class="note-color-swatch ${on?'on':''}" style="--swatch:${color}" title="Ink ${idx+1}" aria-label="Choose text color ${idx+1}" onmousedown="event.preventDefault()" onclick="chooseNoteColor('${color}')"></button>`;
   }).join('');
 }
 function refreshNoteFormatState(){
@@ -20424,17 +20424,21 @@ function chooseNoteColor(val){
   if(!editor)return;
   if(!noteEditMode)setNoteEditMode(true,false);
   editor.focus();
+  const sel=window.getSelection?.();
+  const hasSelection=!!(sel&&!sel.isCollapsed&&sel.rangeCount&&editor.contains(sel.anchorNode));
   try{document.execCommand('styleWithCSS',false,true);}catch(e){}
   try{document.execCommand('foreColor',false,val);}catch(e){}
-  editor.dataset.noteColor=val;
-  editor.style.color=val;
-  const note=getNoteById(currentNoteId);
-  if(note){
-    note.textColor=val;
-    note.textColorMode='custom';
+  if(!hasSelection && !notePlainText(editor.innerHTML)){
+    editor.dataset.noteColor=val;
+    editor.style.color=val;
+    const note=getNoteById(currentNoteId);
+    if(note){
+      note.textColor=val;
+      note.textColorMode='custom';
+    }
+    const view=document.getElementById('note-view');
+    if(view)view.style.color=val;
   }
-  const view=document.getElementById('note-view');
-  if(view)view.style.color=val;
   renderNoteColorPalette(val);
   refreshNoteFormatState();
   queueNoteSave();
