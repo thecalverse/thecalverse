@@ -4439,7 +4439,7 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
 [data-t=light] .timer-wheel-value{color:#6a4934;}
 [data-t=light] .timer-wheel-name{color:#7c5d47;}
 [data-t=light] .timer-chip{background:linear-gradient(180deg,rgba(235,218,202,.86),rgba(216,198,180,.7));border-color:rgba(123,88,63,.15);box-shadow:0 8px 16px rgba(104,76,56,.08),inset 0 1px 0 rgba(255,255,255,.18);}
-.timer-focus{--timer-edge:clamp(16px,2.6vw,34px);--timer-pair-bg1:#17181b;--timer-pair-bg2:#0a0a0b;--timer-pair-text:#d3d3d5;--timer-pair-line:#050506;--timer-pair-line-glow:rgba(255,255,255,.03);--timer-pair-shadow:rgba(0,0,0,.22);position:fixed;inset:0;z-index:250;display:none;align-items:center;justify-content:center;padding:0;color:#111;box-sizing:border-box;overflow:hidden;}
+.timer-focus{--timer-edge:clamp(16px,2.6vw,34px);--timer-pair-bg1:#17181b;--timer-pair-bg2:#0a0a0b;--timer-pair-text:#d3d3d5;--timer-pair-line:#050506;--timer-pair-line-glow:rgba(255,255,255,.03);--timer-pair-shadow:rgba(0,0,0,.22);position:fixed;inset:0;z-index:10050!important;display:none;align-items:center;justify-content:center;padding:0;color:#111;box-sizing:border-box;overflow:hidden;}
 .timer-focus.active{display:flex;}
 .timer-focus-card{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:var(--timer-edge);box-sizing:border-box;overflow:hidden;}
 .timer-focus-clock{position:relative;display:grid;grid-template-columns:auto auto auto auto auto;align-items:center;justify-content:center;align-content:center;gap:clamp(8px,1vw,14px);width:min(1600px,calc(100vw - (var(--timer-edge) * 2)));max-width:calc(100vw - (var(--timer-edge) * 2));padding:0;margin:0 auto;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:hidden;box-sizing:border-box;}
@@ -4473,7 +4473,9 @@ input, textarea, [contenteditable="true"], [contenteditable="true"] *, .note-edi
 .timer-focus-actions .timer-pause-btn::before{content:'❚❚';}
 .timer-focus-actions .timer-pause-btn[aria-label="Resume timer"]::before{content:'▶';}
 .timer-focus-actions .timer-exit-btn{display:grid!important;}
-.timer-focus-actions .timer-exit-btn::before{content:'←';}
+.timer-focus-actions .timer-exit-btn::before{content:'🔒'!important;font-size:14px!important;}
+.timer-exit-btn.holding, .timer-screen-exit.holding{transform:scale(0.92)!important;background:rgba(220,53,69,0.85)!important;box-shadow:0 0 16px rgba(220,53,69,0.6)!important;transition:transform 0.15s ease, background 0.2s ease!important;}
+body.timer-locked .topbar, body.timer-locked .landscape-nav, body.timer-locked .bnav{pointer-events:none!important;}
 .timer-focus-actions .timer-land-btn{
   min-width:64px!important;
   width:auto!important;
@@ -9628,11 +9630,13 @@ function pauseTimer(feedback=true){
   renderTimer(true);
 }
 function finishTimer(){
+  cancelStrictExitHold();
   pauseTimer(false);
   setScreenKeepAwake(false);
   timerLeft=0;
+  exitTimerFocus();
   renderTimer();
-  showToast('Timer finished');
+  showToast('Timer finished! 🎉');
   for(let i=0;i<3;i++)setTimeout(()=>playTone(720+i*120,.12,.05,'triangle'),i*160);
   vib('toggle');
 }
@@ -9676,6 +9680,7 @@ function toggleTimer(){
   }else requestTimerStartRewarded();
 }
 function resetTimer(){
+  cancelStrictExitHold();
   pauseTimer(false);
   setScreenKeepAwake(false);
   timerTotal=0;
@@ -9685,25 +9690,46 @@ function resetTimer(){
   renderTimer();
   playClick('toggle');vib('toggle');
 }
+function isTimerFocusLocked(){
+  const focus=document.getElementById('timer-focus');
+  return !!(timerRun || (focus && focus.dataset.open==='1'));
+}
 function openTimerFocus(){
   const focus=document.getElementById('timer-focus');
   if(focus)focus.dataset.open='1';
+  document.body.classList.add('timer-locked');
+  try{history.pushState({screen:'TimerFocusLock',locked:true},'',window.location.href);}catch(_){}
   holdTimerScreen();
 }
 function exitTimerFocus(){
   const focus=document.getElementById('timer-focus');
   if(focus){focus.dataset.open='0';focus.classList.remove('active');}
+  document.body.classList.remove('timer-locked');
   releaseTimerScreen();
 }
 let strictExitTimer=null;
+let strictExitHoldInterval=null;
 function startStrictExitHold(e){
-  if(e)e.stopPropagation();
-  clearTimeout(strictExitTimer);
+  if(e){
+    try{e.preventDefault();}catch(_){}
+    try{e.stopPropagation();}catch(_){}
+  }
+  cancelStrictExitHold();
+  const btns=document.querySelectorAll('.timer-exit-btn, .timer-screen-exit');
+  btns.forEach(b=>b.classList.add('holding'));
+  let remainingMs=2500;
   showToast('Hold 2.5s to exit Focus Lock 🔒');
+  strictExitHoldInterval=setInterval(()=>{
+    remainingMs-=500;
+    if(remainingMs>0){
+      showToast('Unlocking in '+(remainingMs/1000).toFixed(1)+'s... 🔒');
+    }
+  },500);
   strictExitTimer=setTimeout(()=>{
-    strictExitTimer=null;
+    cancelStrictExitHold();
     if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
     stopTimerAndExit();
+    showToast('Focus session ended');
   },2500);
 }
 function cancelStrictExitHold(){
@@ -9711,8 +9737,14 @@ function cancelStrictExitHold(){
     clearTimeout(strictExitTimer);
     strictExitTimer=null;
   }
+  if(strictExitHoldInterval){
+    clearInterval(strictExitHoldInterval);
+    strictExitHoldInterval=null;
+  }
+  document.querySelectorAll('.timer-exit-btn, .timer-screen-exit').forEach(el=>el.classList.remove('holding'));
 }
 function stopTimerAndExit(){
+  cancelStrictExitHold();
   pauseTimer(false);
   setScreenKeepAwake(false);
   exitTimerFocus();
@@ -23920,6 +23952,10 @@ function rememberView(view,replace=false){
   }catch(e){}
 }
 function goBack(){
+  if(isTimerFocusLocked()){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
   if(history.state&&history.state.type&&history.state.type!=='home'){history.back();return;}
   goHome({direction:-1,push:false});
 }
@@ -23960,6 +23996,10 @@ function getTabForScreen(name,id){
   return 'home';
 }
 function setActiveScreen(id,name,opts={}){
+  if(isTimerFocusLocked() && id !== 'sTimer'){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return null;
+  }
   if(id!=='sNotes'&&id!=='sNoteEdit'&&isVaultActive){
     isVaultActive=false;
     notesPane='notes';
@@ -24003,6 +24043,10 @@ function setActiveScreen(id,name,opts={}){
 let currentPhysCategory='all';
 let currentChemCategory='all';
 function go(n,subcat,opts){
+  if(isTimerFocusLocked()){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
   if((!opts||Object.keys(opts).length===0)&&window.event?.currentTarget?.classList?.contains('sbk')){goBack();return;}
   if(n===5||n==='5'||n==='Tracker'||n==='tracker'){openTracker(opts);return;}
   const el=setActiveScreen(SM[n],n,opts||{});if(!el)return;
@@ -24022,6 +24066,10 @@ function go(n,subcat,opts){
   if(opts?.push!==false)rememberView({type:'screen',name:n,subcat:subcat||null},!!opts?.replace);
 }
 function goHome(opts){
+  if(isTimerFocusLocked()){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
   if((!opts||Object.keys(opts).length===0)&&window.event?.currentTarget?.classList?.contains('sbk')){goBack();return;}
   setActiveScreen('sHome','Home',opts||{});
   closeHomeFolders();
@@ -24065,6 +24113,10 @@ function renderCalculatorsPage(){
   applyCardFavoriteStars(host);
 }
 function openCalculatorsPanel(){
+  if(isTimerFocusLocked()){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
   document.documentElement.removeAttribute('data-search-active');
   const search=document.getElementById('calc-search');
   if(search)search.value='';
@@ -24151,6 +24203,10 @@ function renderDashboardGreeting(){
   }
 }
 function bnav(t){
+  if(isTimerFocusLocked()){
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
   const order={home:0,fav:1,hist:2,tracker:3,library:4,timer:5,notes:6,journal:7,sett:8};
   const prev=currentTab;
   const isTargetScreenActive = document.querySelector('.screen.active')?.id === SM[t.charAt(0).toUpperCase() + t.slice(1)];
@@ -24196,7 +24252,33 @@ function restoreView(view,dir=-1){
     navLock=false;
   }
 }
-window.addEventListener('popstate',e=>restoreView(e.state||{type:'home'},-1));
+window.addEventListener('popstate',e=>{
+  if(isTimerFocusLocked()){
+    try{
+      history.pushState({ screen: 'TimerFocusLock', locked: true }, '', window.location.href);
+    }catch(_){}
+    showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+    return;
+  }
+  restoreView(e.state||{type:'home'},-1);
+});
+window.addEventListener('keydown', e => {
+  if (isTimerFocusLocked()) {
+    if (e.key === 'Escape' || e.key === 'Backspace' || (e.altKey && e.key === 'ArrowLeft') || ((e.metaKey || e.ctrlKey) && e.key === '[') || e.key === 'BrowserBack') {
+      e.preventDefault();
+      e.stopPropagation();
+      showToast('Focus Lock active! Hold 🔒 2.5s to exit');
+      return false;
+    }
+  }
+}, true);
+window.addEventListener('beforeunload', e => {
+  if (isTimerFocusLocked()) {
+    e.preventDefault();
+    e.returnValue = 'Focus Lock active';
+    return 'Focus Lock active';
+  }
+});
 document.addEventListener('DOMContentLoaded',()=>{
     loadCalcFavs();
     document.querySelectorAll('.sbk:not(#note-edit-back)').forEach(el=>el.setAttribute('onclick','goBack()'));
